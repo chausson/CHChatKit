@@ -10,12 +10,13 @@
 #import "CHChatViewModel.h"
 #import "CHChatBusinessCommnd.h"
 #import "CHChatConfiguration.h"
+
 #define FACE_NAME_HEAD  @"/s"
 // 表情转义字符的长度（ /s占2个长度，xxx占3个长度，共5个长度 ）
 #define FACE_NAME_LEN   5
 
 
-NSString * swiftDateToStr(NSDate *date){
+NSString * SwiftDateToString(NSDate *date){
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"HH:mm";
@@ -65,36 +66,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     return self;
 }
 
-- (void)postMessageWithText:(NSString *)text{
-    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
-    model.content = text;
-    model.icon = _userIcon;
-    model.type = CHMessageText;
-    model.time = swiftDateToStr([NSDate date]);
-    CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
-    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-    [cellTempArray addObject:cellViewModel];
-    self.cellViewModels = [cellTempArray copy];
-    
-    //如果有网络
-   // if ([CHChatBusinessCommnd standardChatDefaults].isSendGet) {
-        
-//        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//        [dic setObject:[text stringByReplacingEmojiUnicodeWithCheatCodes] forKey:@"msgContent"];
-    
-        //判断是发单聊消息还是群聊消息给服务器
-        if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
-            
-            
-            [[CHChatBusinessCommnd standardChatDefaults] postMessage:text];
-        }else{
-            
-        //    [[CHChatBusinessCommnd standardChatDefaults] postGroupMessageWithDic:dic];
-        }
-  // }
 
-}
 #pragma mark - KVO
 
 - (void)registerForKVO {
@@ -137,7 +109,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
         model.name = messageModel.name;
     }
     model.type = CHMessageText;
-    model.time = swiftDateToStr([NSDate date]);
+    model.time = SwiftDateToString([NSDate date]);
     model.others = @(YES);
     CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
     [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
@@ -145,9 +117,40 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
 }
-- (void)sendSoundWithVoice:(NSString *)path{
+- (void)postMessage:(NSString *)text{
     CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
-    model.time = swiftDateToStr([NSDate date]);
+    model.content = text;
+    model.icon = _userIcon;
+    model.type = CHMessageText;
+    model.time = SwiftDateToString([NSDate date]);
+    CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+    [cellTempArray addObject:cellViewModel];
+    self.cellViewModels = [cellTempArray copy];
+    
+    //如果有网络
+    // if ([CHChatBusinessCommnd standardChatDefaults].isSendGet) {
+    
+    //        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    //        [dic setObject:[text stringByReplacingEmojiUnicodeWithCheatCodes] forKey:@"msgContent"];
+    
+    //判断是发单聊消息还是群聊消息给服务器
+    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
+        
+        
+        [[CHChatBusinessCommnd standardChatDefaults] postMessage:text];
+    }else{
+        
+        //    [[CHChatBusinessCommnd standardChatDefaults] postGroupMessageWithDic:dic];
+    }
+    // }
+    
+}
+- (void)postVoice:(NSString *)path{
+   
+    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
+    model.time = SwiftDateToString([NSDate date]);
     model.icon = self.userIcon;
     model.voicePath = path;
     model.content = @"FollowingLength";
@@ -159,7 +162,18 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
     [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
 }
-
+- (void)postImage:(UIImage *)image{
+    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
+    model.time = SwiftDateToString([NSDate date]);
+    model.icon = self.userIcon;
+    model.type = CHMessageImage;
+    CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
+    cellViewModel.imageResource = image;
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+    [cellTempArray addObject:cellViewModel];
+    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
+}
 -(void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock{
     
     if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {

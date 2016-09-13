@@ -14,6 +14,7 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CHAssistanceHandler.h"
 #import "CHChatToolView.h"
 #import "ChatAssistanceView.h"
 #import "CHChatConfiguration.h"
@@ -31,7 +32,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     CHChatSelectedVoice,
     CHChatSelectedAssistance
 };
-@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate>
+@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,ChatAssistanceViewDelegate>
 @property (strong ,nonatomic) ChatAssistanceView *assistanceView;
 @property (strong ,nonatomic) FaceBoard *faceBoard;
 @property (strong ,nonatomic) UIImageView *backgroundView;
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @property (strong ,nonatomic) UIView *contentView;
 @property (strong ,nonatomic) UIView *chatWindowView;
 @property (strong ,nonatomic) CHChatTextView *contentTextView;
+@property (strong ,nonatomic) CHAssistanceHandler *handler;
 @property (strong ,nonatomic) UIImageView *contentBackground;
 @property (weak   ,nonatomic) NSObject<CHChatToolViewKeyboardProtcol> *observer;
 @property (assign ,nonatomic) CGRect hiddenKeyboardRect;
@@ -131,6 +133,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _faceBoard.FaceDelegate = self;
     _faceBoard.backgroundColor = self.backgroundColor;
     _assistanceView = [[ChatAssistanceView alloc] init];
+    _assistanceView.delegate = self;
     _assistanceView.backgroundColor = self.backgroundColor;
     
 
@@ -451,6 +454,40 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         self.frame = rect;
         
     }];
+}
+#pragma mark AssistanceDelegate
+- (void)didSelectedItem:(NSInteger)index{
+
+    
+    //__weak typeof(self) weakSelf = self;
+    
+    switch (index) {
+        case 0:{
+            [self.handler pickPhotoWihtLibraryPicker:_observer completion:^(UIImage *image) {
+                if ([_observer respondsToSelector:@selector(sendImage:)]) {
+                    [_observer sendImage:image];
+                }
+            }];
+            
+        } break;
+        case 1:{
+            [self.handler pickPhotoWihtCameraPicker:_observer completion:^(UIImage *image){
+                if ([_observer respondsToSelector:@selector(sendImage:)]) {
+                    [_observer sendImage:image];
+                }
+            }];
+            
+        } break;
+            
+        default:
+            break;
+    }
+}
+- (CHAssistanceHandler *)handler{
+    if (!_handler) {
+        _handler = [[CHAssistanceHandler alloc]init];
+    }
+    return _handler;
 }
 #pragma mark 开始录音
 - (void)beginRecordVioce:(UIButton *)button{

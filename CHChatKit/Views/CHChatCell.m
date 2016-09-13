@@ -145,6 +145,8 @@ static  CGFloat unreadWH = 10;
     [self layoutContainer];
     _picture = [[UIImageView alloc]init];
     _picture.backgroundColor = [UIColor clearColor];
+    _picture.contentMode = UIViewContentModeScaleAspectFill;
+    [_picture setClipsToBounds:YES];
     _imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
     [_picture addGestureRecognizer:_imageTap];
     [_content addSubview:_picture];
@@ -176,10 +178,18 @@ static  CGFloat unreadWH = 10;
     //在 cell上输出文字并显示 Emoji 表情
     self.message.text = [viewModel.content stringByReplacingEmojiCheatCodesWithUnicode];
     [_bubbleBtn setBackgroundImage:[self avaiableBackgroundImageWithDirection:self.viewModel.isVisableLeftDirection] forState:UIControlStateNormal];
-    [_picture sd_setImageWithURL:[NSURL URLWithString:viewModel.image] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        __strong typeof(self )strongSelf = weakSelf;
-        strongSelf.picture.layer.mask = [self maskLayer];
-    }];
+    if(viewModel.image || viewModel.imageResource){
+        if (viewModel.image.length > 0) {
+            [_picture sd_setImageWithURL:[NSURL URLWithString:viewModel.image] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                //__strong typeof(self )strongSelf = weakSelf;
+                
+            }];
+        }else if(viewModel.imageResource && [viewModel.imageResource isKindOfClass:[UIImage class]]){
+            [_picture setImage:viewModel.imageResource];
+        }
+ 
+    }
+
     // 显示时间
     [self makeDateConstraint];
     [self makeContainerConstraint];
@@ -284,6 +294,7 @@ static  CGFloat unreadWH = 10;
 }
 - (void)makeImageConstraint{
     if (_viewModel.type == CHMessageImage) {
+         self.picture.layer.mask = [self maskLayer];
         CGFloat gap = 0;
         UIEdgeInsets padding  = UIEdgeInsetsMake(gap, gap, gap, gap);
         [_picture mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -456,33 +467,36 @@ static  CGFloat unreadWH = 10;
    
 }
 + (CGFloat)getHeightWithViewModel:(CHChatCellViewModel *)viewModel{
-    CGFloat normalHeight = 115;
-    if(!viewModel.isVisableTime){
-        normalHeight = 115-KDATE_HEIGHT-2*KGAP;
-    }
+   // CGFloat normalHeight = 115;
+    CGFloat height = 115;
+ 
     switch (viewModel.type) {
         case CHMessageText:{
             CGSize size = [CHChatCell boundingRectWithSize:CGSizeMake(KCONTENT_WIDTH-3*KGAP, MAXFLOAT) text:viewModel.content font:KMESSAGE_FONT];
             CGFloat h = size.height +KICON_SIZE*2+KGAP;
 
-            if (!viewModel.visableTime) {
-                normalHeight -= (KICON_SIZE+KGAP);
-                h -= (KICON_SIZE+KGAP);
-            }
+//            if (!viewModel.visableTime) {
+//                normalHeight -= (KICON_SIZE+KGAP);
+//                h -= (KICON_SIZE+KGAP);
+//            }
             
-            return  (MAX(h, normalHeight));
+           height =  (MAX(h, height));
         }break;
         case CHMessageVoice:
-            return normalHeight;
+            
             break;
         case CHMessageImage:
-            return KICON_SIZE*2+KGAP +(contentWidth);
+            height = KICON_SIZE*2+KGAP +(contentWidth);
             break;
         default:
-            return normalHeight;
+            
             break;
     }
-
     
+    if(!viewModel.isVisableTime){
+        height = height-(KICON_SIZE+KGAP);
+    }
+
+    return height;
 }
 @end

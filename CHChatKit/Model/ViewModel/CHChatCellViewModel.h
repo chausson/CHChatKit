@@ -7,7 +7,7 @@
 //
 #import "CHChatModel.h"
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@class UIImage;
 typedef NS_ENUM(NSUInteger, CHChatMessageType) {
     CHMessageText,
     CHMessageImage,
@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
 @property (nonatomic ,copy) NSString *time;
 @property (nonatomic ,copy) NSString *name;
 @property (nonatomic ,copy) NSString *image;
+@property (nonatomic ,strong) UIImage <Optional>*imageResource;
 @property (nonatomic ,assign , getter= isVisableTime) BOOL visableTime;
 @property (nonatomic ,assign , getter= isProcessing) BOOL processing;
 @property (nonatomic ,assign , getter= isVisableLeftDirection) BOOL visableLeftDirection;

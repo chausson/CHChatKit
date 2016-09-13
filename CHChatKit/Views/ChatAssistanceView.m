@@ -8,6 +8,8 @@
 
 #import "ChatAssistanceView.h"
 #import "CHChatConfiguration.h"
+#import "CHAssistanceHandler.h"
+#import "GrayPageControl.h"
 #define CHATASSISTANCE_COUNT_ROW 2 // 行数
 
 #define CHATASSISTANCE_COUNT_CLU 4 // 每行个数
@@ -101,19 +103,11 @@
 }
 
 - (void)itemButton:(UIButton *)sender {
-    [self assistanceActionWithIndex:sender.tag andBlock:^{
-       
-        
-    }];
+    if ([self.delegate respondsToSelector:@selector(didSelectedItem:)]) {
+        [self.delegate didSelectedItem:sender.tag];
+    }
 }
 
-- (void)assistanceActionWithIndex:(NSInteger )index
-                         andBlock:(void (^)())block{
-    progressing = YES;
-    if (!progressing) {
-        
-    }
-   // NSLog(@"index inde x %ld", index);
-}
+
 
 @end

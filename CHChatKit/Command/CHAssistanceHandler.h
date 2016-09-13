@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef void (^CHPickerHandler)(UIImage* image);
 
 @interface CHAssistanceHandler : NSObject
 
-- (void)pickPhotoWihtCamera:((UI))
+- (void)pickPhotoWihtCameraPicker:(NSObject *)controller
+                       completion:(CHPickerHandler )handler;
+- (void)pickPhotoWihtLibraryPicker:(NSObject *)controller
+                       completion:(CHPickerHandler )handler;
 @end

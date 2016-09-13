@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+@class UIImage;
 @class CHChatViewItemModel;
 @protocol CHChatViewItemModel <NSObject>
 @end
@@ -21,8 +22,9 @@
 @property (nonatomic ,copy) NSString <Optional>*name;
 @property (nonatomic ,copy) NSString <Optional>*fromUser;   //发送者
 @property (nonatomic ,copy) NSString <Optional>*image;
+
 @property (nonatomic ,assign) NSInteger type;
-@property (nonatomic ,assign) NSNumber *others;
+@property (nonatomic ,strong) NSNumber *others;
 
 @end
 @interface CHChatModel : JSONModel

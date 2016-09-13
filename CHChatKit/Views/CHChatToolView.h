@@ -18,8 +18,10 @@
 
 - (void)sendMessage:(NSString *)text;
 - (void)sendSound:(NSString *)path;
-- (void)sendImage:(NSData *)data;
+- (void)sendImage:(UIImage *)image;
 @end
+//@protocol CHChatToolDataProtcol <NSObject>
+//@end
 @interface CHChatToolView : UIView
 
 - (instancetype)init __unavailable;

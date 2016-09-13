@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GrayPageControl.h"
+@class ChatAssistanceView;
+@protocol ChatAssistanceViewDelegate <NSObject>
+
+- (void)didSelectedItem:(NSInteger )index;
+
+@end
 @interface ChatAssistanceView : UIView
+
+@property (nonatomic ,weak) id <ChatAssistanceViewDelegate>delegate;
 
 @end

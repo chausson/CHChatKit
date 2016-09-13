@@ -8,6 +8,7 @@
 #import "CHChatCellViewModel.h"
 #import <Foundation/Foundation.h>
 #import "CHChatModel.h"
+@class UIImage;
 
 typedef void(^chatBlock)(CHChatModel* list);
 typedef void(^refreshBlock)();
@@ -27,8 +28,9 @@ typedef void(^refreshBlock)();
 
 @property (nonatomic ,readonly ) NSString *refreshName;
 
-- (void)postMessageWithText:(NSString *)text;
-- (void)sendSoundWithVoice:(NSString *)path;
+- (void)postMessage:(NSString *)text;
+- (void)postVoice:(NSString *)path;
+- (void)postImage:(UIImage *)image;
 - (void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock;
 
 @end

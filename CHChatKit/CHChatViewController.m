@@ -171,15 +171,13 @@
 #pragma mark - 发送消息到服务器
 
 - (void)sendMessage:(NSString *)text{
-
-    [self.viewModel postMessageWithText:text];
+    [self.viewModel postMessage:text];
 }
-
 - (void)sendSound:(NSString *)path{
-    [self.viewModel sendSoundWithVoice:path];
+    [self.viewModel postVoice:path];
 }
-- (void)sendImage:(NSData *)data{
-    
+- (void)sendImage:(UIImage *)image{
+    [self.viewModel postImage:image];
 }
 - (void)chatInputView{
     [self autoRollToLastRow];

@@ -37,8 +37,9 @@
     CHAssistanceItem *pickPhoto = [self avaiableItemWithType:CHAssistancePhoto];
     CHAssistanceItem *photo =  [self avaiableItemWithType:CHAssistanceCarema];
     CHAssistanceItem *location =  [self avaiableItemWithType:CHAssistanceLocation];
-    [items addObject:photo];
+
     [items addObject:pickPhoto];
+    [items addObject:photo];
     [items addObject:location];
 
     return [items copy];
@@ -47,12 +48,12 @@
     CHAssistanceItem *item = [[CHAssistanceItem alloc]init];
     switch (type) {
         case CHAssistancePhoto:
-            item.iconTitle = @"拍照";
+            item.iconTitle = @"照片";
             item.iconImageName = @"sharemore_pic";
             item.itemType = CHAssistanceCarema;
             break;
         case CHAssistanceCarema:
-            item.iconTitle = @"照片";
+            item.iconTitle = @"拍照";
             item.iconImageName = @"sharemore_video";
             item.itemType = CHAssistancePhoto;
             break;
