@@ -77,6 +77,9 @@ static  CGFloat unreadWH = 10;
             case CHMessageImage:
                 [self layoutImageCell];
                 break;
+            case CHMessageLocation:
+                [self layoutImageCell];
+                break;
                 
             default:
                 break;
@@ -155,7 +158,7 @@ static  CGFloat unreadWH = 10;
     [self layoutContainer];
     [self initUnreadView];
     _voice = [[UIImageView alloc]init];
-    _voice.image = [UIImage imageNamed:@"chat_voice_press"];
+
     _bubbleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_bubbleBtn addTarget:self action:@selector(contentTap:) forControlEvents:UIControlEventTouchUpInside];
     [_content addSubview:_bubbleBtn];
@@ -193,9 +196,28 @@ static  CGFloat unreadWH = 10;
     // 显示时间
     [self makeDateConstraint];
     [self makeContainerConstraint];
-    [self makeTextConstraint];
-    [self makeImageConstraint];
-    [self makeVoiceConstraint];
+    switch (_viewModel.type) {
+        case CHMessageText:
+            [self makeTextConstraint];
+            break;
+        case CHMessageImage:
+            [self makeImageConstraint];
+            break;
+        case CHMessageVideo:
+            break;
+        case CHMessageVoice:{
+            _voice.image = [self avaiableVoiceImageWithDirection:_viewModel.visableLeftDirection];
+            [self makeVoiceConstraint];
+        }
+            break;
+        case CHMessageLocation:
+            [self makeLocationConstraint];
+            break;
+            
+        default:
+            break;
+    }
+
 }
 - (void)makeDateConstraint{
     CGSize dateSize = [_viewModel.time sizeWithString:_viewModel.time font:[UIFont systemFontOfSize:12]];
@@ -274,63 +296,31 @@ static  CGFloat unreadWH = 10;
     }];
 }
 - (void)makeTextConstraint{
-    if (_chatType == CHMessageText) {
         [_nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(nameLabelMargin);
             make.left.equalTo(self.contentView.mas_left).offset(KGAP*7);
             make.right.equalTo(self.contentView.mas_right).offset(-KGAP*7);
             make.top.equalTo(_content);
         }];
-        
-        [_message mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_content).offset(KGAP/2 + nameLabelMargin+5);
-            make.left.equalTo(_content).offset(KGAP*1.5);
-            make.right.equalTo(_content).offset(-KGAP*1.5);
-            make.bottom.equalTo(_content).offset(-KGAP/2);
-        }];
-    }
-
-
-}
-- (void)makeImageConstraint{
-    if (_viewModel.type == CHMessageImage) {
-         self.picture.layer.mask = [self maskLayer];
-        CGFloat gap = 0;
-        UIEdgeInsets padding  = UIEdgeInsetsMake(gap, gap, gap, gap);
-        [_picture mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.edges.equalTo(_picture.superview).with.insets(padding);
-        }];
-
         if (_viewModel.visableLeftDirection){
-            [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_icon.mas_top);
-                make.left.equalTo(_icon.mas_right).offset(KGAP/2);
-                make.width.equalTo(@(contentWidth+KGAP*2));
-                make.height.equalTo(@(contentWidth+KGAP*2));
+            [_message mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_content).offset(KGAP/2 + nameLabelMargin+5);
+                make.left.equalTo(_content).offset(KGAP*2);
+                make.right.equalTo(_content).offset(-KGAP*1.5);
+                make.bottom.equalTo(_content).offset(-KGAP/2);
             }];
-     
         }else{
-            [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(_icon.mas_top);
-                make.right.equalTo(_icon.mas_left).offset(-KGAP/2);
-                make.width.equalTo(@(contentWidth+KGAP*2));
-                //          make.bottom.equalTo(self.contentView).offset(-KGAP*2.5);
-                make.height.equalTo(@(contentWidth+KGAP*2));
+            [_message mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_content).offset(KGAP/2 + nameLabelMargin+5);
+                make.left.equalTo(_content).offset(KGAP*1.5);
+                make.right.equalTo(_content).offset(-KGAP*2);
+                make.bottom.equalTo(_content).offset(-KGAP/2);
             }];
-
         }
-
-        
-    }
 }
 - (void)makeVoiceConstraint{
-    if (_viewModel.type == CHMessageVoice) {
         CGFloat width = [UIScreen mainScreen].bounds.size.width-KICON_SIZE-KGAP*10;
-
-        
         if (_viewModel.visableLeftDirection){
-
             [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_icon.mas_top);
                 make.left.equalTo(_icon.mas_right).offset(KGAP/2);
@@ -348,7 +338,6 @@ static  CGFloat unreadWH = 10;
                 make.width.height.equalTo(@(15));
             }];
         }else{
-            _voice.image = [UIImage imageWithCGImage:_voice.image.CGImage scale:1 orientation:UIImageOrientationUpMirrored];
             [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_icon.mas_top);
                 make.right.equalTo(_icon.mas_left).offset(-KGAP/2);
@@ -368,7 +357,53 @@ static  CGFloat unreadWH = 10;
 
         [_unreadLayer setNeedsDisplay];
        // _unreadContainer.hidden = NO;
-    }
+}
+- (void)makeImageConstraint{
+
+    self.picture.layer.mask = [self maskLayer:CGSizeMake(contentWidth+KGAP*2, contentWidth+KGAP*2)];
+        CGFloat gap = 0;
+        UIEdgeInsets padding  = UIEdgeInsetsMake(gap, gap, gap, gap);
+        [_picture mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(_picture.superview).with.insets(padding);
+        }];
+        
+        if (_viewModel.visableLeftDirection){
+            [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_icon.mas_top);
+                make.left.equalTo(_icon.mas_right).offset(KGAP/2);
+                make.width.equalTo(@(contentWidth));
+                make.height.equalTo(@(contentWidth));
+            }];
+            
+        }else{
+            [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_icon.mas_top);
+                make.right.equalTo(_icon.mas_left).offset(-KGAP/2);
+                make.width.equalTo(@(contentWidth+KGAP*2));
+                //          make.bottom.equalTo(self.contentView).offset(-KGAP*2.5);
+                make.height.equalTo(@(contentWidth+KGAP*2));
+            }];
+            
+        }
+
+}
+- (void)makeLocationConstraint{
+        self.picture.layer.mask =  [self maskLayer:CGSizeMake(250, 150)];
+        CGFloat gap = 0;
+        UIEdgeInsets padding  = UIEdgeInsetsMake(gap, gap, gap, gap);
+        [_picture mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(_picture.superview).with.insets(padding);
+        }];
+
+        [_content mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_icon.mas_top);
+            make.left.equalTo(_icon.mas_right).offset(KGAP/2);
+            make.width.equalTo(@(250));
+            make.height.equalTo(@(150));
+        }];
+   
 }
 - (UIImage *)avaiableBackgroundImageWithDirection:(BOOL)left{
     UIImage *normal ;
@@ -378,6 +413,16 @@ static  CGFloat unreadWH = 10;
         normal = [UIImage imageNamed:@"chatfrom_bg_normal"];
     }
         normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
+    return normal;
+}
+- (UIImage *)avaiableVoiceImageWithDirection:(BOOL)left{
+    UIImage *normal ;
+    if (left) {
+        normal = [UIImage imageNamed:@"chat_left_voice"];
+    }else{
+        normal = [UIImage imageNamed:@"chat_right_voice"];
+    }
+
     return normal;
 }
 // 播放声音
@@ -391,14 +436,14 @@ static  CGFloat unreadWH = 10;
 - (void)imageTap:(UITapGestureRecognizer *)sender{
     [self.viewModel respondsUserTap];
 }
-- (CAShapeLayer *)maskLayer{
+- (CAShapeLayer *)maskLayer:(CGSize )size{
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     UIBezierPath *path = [UIBezierPath bezierPath];
     CGFloat orginY = 20;
     CGFloat length = 3*1.5;
     CGFloat gapH = 5;
-    CGFloat width = contentWidth+KGAP*2;
-    CGFloat height = contentWidth+KGAP*2;
+    CGFloat width = size.width;
+    CGFloat height = size.height;
     // Create a path with the rectangle in it.
     if (self.viewModel.isVisableLeftDirection) {
 
@@ -449,7 +494,7 @@ static  CGFloat unreadWH = 10;
     
     return retSize;
 }
-+ (NSString *)chatIdentifierWithType:(CHChatMessageType )type;{
++ (NSString *)chatIdentifierWithType:(CHChatMessageType )type{
     switch (type) {
         case CHMessageText:
             return @"text";
@@ -459,6 +504,9 @@ static  CGFloat unreadWH = 10;
             break;
         case CHMessageImage:
             return @"image";
+            break;
+        case CHMessageLocation:
+            return @"location";
             break;
         default:
             return @"chat";
@@ -474,16 +522,14 @@ static  CGFloat unreadWH = 10;
         case CHMessageText:{
             CGSize size = [CHChatCell boundingRectWithSize:CGSizeMake(KCONTENT_WIDTH-3*KGAP, MAXFLOAT) text:viewModel.content font:KMESSAGE_FONT];
             CGFloat h = size.height +KICON_SIZE*2+KGAP;
-
-//            if (!viewModel.visableTime) {
-//                normalHeight -= (KICON_SIZE+KGAP);
-//                h -= (KICON_SIZE+KGAP);
-//            }
             
-           height =  (MAX(h, height));
+            height =  (MAX(h, height));
         }break;
         case CHMessageVoice:
             
+            break;
+        case CHMessageLocation:
+            height = 220;
             break;
         case CHMessageImage:
             height = KICON_SIZE*2+KGAP +(contentWidth);

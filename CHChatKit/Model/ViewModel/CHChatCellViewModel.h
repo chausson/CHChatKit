@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
 @property (nonatomic ,copy) NSString *time;
 @property (nonatomic ,copy) NSString *name;
 @property (nonatomic ,copy) NSString *image;
-@property (nonatomic ,strong) UIImage <Optional>*imageResource;
+@property (nonatomic ,copy) NSString *location;
+@property (nonatomic ,weak) UIImage *imageResource;
 @property (nonatomic ,assign , getter= isVisableTime) BOOL visableTime;
 @property (nonatomic ,assign , getter= isProcessing) BOOL processing;
 @property (nonatomic ,assign , getter= isVisableLeftDirection) BOOL visableLeftDirection;

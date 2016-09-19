@@ -32,6 +32,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     CHChatSelectedVoice,
     CHChatSelectedAssistance
 };
+
+NSString *const recordFileName = @"ChaussonRecord.caf";
+
 @interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,ChatAssistanceViewDelegate>
 @property (strong ,nonatomic) ChatAssistanceView *assistanceView;
 @property (strong ,nonatomic) FaceBoard *faceBoard;
@@ -491,6 +494,10 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 }
 #pragma mark 开始录音
 - (void)beginRecordVioce:(UIButton *)button{
+//    // 1.获取沙盒地址
+//    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//    NSString *filePath = [path stringByAppendingPathComponent:recordFileName];
+//    [NSString stringWithFormat:@"%@%f",filePath,[[NSDate date]timeIntervalSinceNow]];
     
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *sessionError;
@@ -501,21 +508,20 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         [session setActive:YES error:nil];
     }
     // 录音设置
-    NSMutableDictionary *recordSetting = [NSMutableDictionary dictionary];
-    // 设置录音格式
-    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey:AVFormatIDKey];
-    // 设置采样率
-    [recordSetting setValue:[NSNumber numberWithFloat:8000] forKey:AVSampleRateKey];
-    // 录音通道
-    [recordSetting setValue:[NSNumber numberWithInt:1] forKey:AVNumberOfChannelsKey];
-    // 线性采样率
-    [recordSetting setValue:[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-    // 录音质量
-    [recordSetting setValue:[NSNumber numberWithInt:AVAudioQualityHigh] forKey:AVEncoderAudioQualityKey];
-    UInt32 doChangeDefaultRoute = 1;
-    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryDefaultToSpeaker,sizeof(doChangeDefaultRoute), &doChangeDefaultRoute);
+    NSMutableDictionary *setting = [NSMutableDictionary dictionary];
+    
+    setting[AVFormatIDKey] = @(kAudioFormatAppleIMA4);
+    // 录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）
+    setting[AVSampleRateKey] = @(44100);
+    // 音频通道数 1 或 2
+    setting[AVNumberOfChannelsKey] = @(1);
+    // 线性音频的位深度  8、16、24、32
+    setting[AVLinearPCMBitDepthKey] = @(8);
+    //录音的质量
+    setting[AVEncoderAudioQualityKey] = [NSNumber numberWithInt:AVAudioQualityHigh];
+    
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/arm.wav"];
-    self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:path] settings:recordSetting error:nil];
+    self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:path] settings:setting error:nil];
     self.recorder.delegate = self;
     [self.recorder prepareToRecord];
     [self.recorder record];

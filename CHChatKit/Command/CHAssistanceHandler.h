@@ -11,8 +11,13 @@ typedef void (^CHPickerHandler)(UIImage* image);
 
 @interface CHAssistanceHandler : NSObject
 
+@property (readonly ,nonatomic) NSString *recordPath;
+
 - (void)pickPhotoWihtCameraPicker:(NSObject *)controller
                        completion:(CHPickerHandler )handler;
 - (void)pickPhotoWihtLibraryPicker:(NSObject *)controller
                        completion:(CHPickerHandler )handler;
+
+- (void)recordWithPath:(NSString *)path;
+
 @end

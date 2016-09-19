@@ -134,6 +134,8 @@
 		0692791D1D77E6D800CAB0A5 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692790C1D77E6D800CAB0A5 /* UIImageView+WebCache.m */; };
 		0692791E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692790E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m */; };
 		06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E4BE341D79652900C78DBA /* CHChatTextView.m */; };
+		06EB80D61D8903DD0002EC5E /* UIImageView+LoadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */; };
+		06EB80D91D8919FF0002EC5E /* CHRecordHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06EB80D81D8919FF0002EC5E /* CHRecordHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -365,6 +367,10 @@
 		0692790E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		06E4BE331D79652900C78DBA /* CHChatTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatTextView.h; sourceTree = "<group>"; };
 		06E4BE341D79652900C78DBA /* CHChatTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatTextView.m; sourceTree = "<group>"; };
+		06EB80D41D8903DD0002EC5E /* UIImageView+LoadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LoadImage.h"; sourceTree = "<group>"; };
+		06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LoadImage.m"; sourceTree = "<group>"; };
+		06EB80D71D8919FF0002EC5E /* CHRecordHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRecordHandler.h; sourceTree = "<group>"; };
+		06EB80D81D8919FF0002EC5E /* CHRecordHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRecordHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,6 +451,8 @@
 				0692758D1D77DDFF00CAB0A5 /* CHChatBusinessCommnd.m */,
 				06651B1C1D8693DD00C71FBC /* CHAssistanceHandler.h */,
 				06651B1D1D8693DD00C71FBC /* CHAssistanceHandler.m */,
+				06EB80D71D8919FF0002EC5E /* CHRecordHandler.h */,
+				06EB80D81D8919FF0002EC5E /* CHRecordHandler.m */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -460,6 +468,8 @@
 				069275AB1D77DDFF00CAB0A5 /* NSString+Emoji.m */,
 				069275AC1D77DDFF00CAB0A5 /* UIDevice+IdentifierAddition.h */,
 				069275AD1D77DDFF00CAB0A5 /* UIDevice+IdentifierAddition.m */,
+				06EB80D41D8903DD0002EC5E /* UIImageView+LoadImage.h */,
+				06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -933,7 +943,6 @@
 				TargetAttributes = {
 					069275381D77DA7900CAB0A5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 4539V58G9H;
 					};
 				};
 			};
@@ -1009,6 +1018,7 @@
 			files = (
 				069278731D77E39300CAB0A5 /* wav.mm in Sources */,
 				069279171D77E6D800CAB0A5 /* SDWebImageManager.m in Sources */,
+				06EB80D61D8903DD0002EC5E /* UIImageView+LoadImage.m in Sources */,
 				0692786A1D77E39300CAB0A5 /* MASViewConstraint.m in Sources */,
 				0692785E1D77E39300CAB0A5 /* JSONHTTPClient.m in Sources */,
 				069278691D77E39300CAB0A5 /* MASViewAttribute.m in Sources */,
@@ -1094,6 +1104,7 @@
 				069278831D77E39300CAB0A5 /* EMAudioPlayerUtil.m in Sources */,
 				0692791C1D77E6D800CAB0A5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				069276BE1D77DF7400CAB0A5 /* CHChatCell.m in Sources */,
+				06EB80D91D8919FF0002EC5E /* CHRecordHandler.m in Sources */,
 				0692787E1D77E39300CAB0A5 /* MJRefreshBackStateFooter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1207,6 +1218,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Bootstrap/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1215,8 +1228,9 @@
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudao.weizhen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chausson.vacances;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1225,6 +1239,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Bootstrap/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1233,8 +1249,9 @@
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sudao.weizhen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chausson.vacances;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [CHChatConfiguration standardChatDefaults].allowRecordVoice = false;
+  //  [CHChatConfiguration standardChatDefaults].allowRecordVoice = false;
     [CHChatConfiguration standardChatDefaults].allowEmoji = false;
     [CHChatConfiguration standardChatDefaults].allowAssistance = true;
     [CHChatConfiguration standardChatDefaults].toolContentBackground = [UIColor blackColor];
@@ -33,9 +33,8 @@
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageList:listModel];
     vm.userIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
     CHChatViewController *vc = [[CHChatViewController alloc]initWithViewModel:vm];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    nav.navigationBar.translucent = NO;
-    [self presentViewController:nav animated:true completion:nil];
+
+    [self.navigationController pushViewController:vc animated:YES];
 
 }
 

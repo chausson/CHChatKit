@@ -123,6 +123,22 @@
 			<integer>2</integer>
 		</dict>
 		<dict>
+			<key>image</key>
+			<string>http://v1.qzone.cc/avatar/201308/22/10/36/521579394f4bb419.jpg!200x200.jpg</string>
+			<key>others</key>
+			<integer>1</integer>
+			<key>voice</key>
+			<string></string>
+			<key>content</key>
+			<string></string>
+			<key>icon</key>
+			<string>http://v1.qzone.cc/avatar/201308/22/10/36/521579394f4bb419.jpg!200x200.jpg</string>
+			<key>time</key>
+			<string>2015年10月15日 18:43</string>
+			<key>type</key>
+			<integer>4</integer>
+		</dict>
+		<dict>
 			<key>others</key>
 			<integer>0</integer>
 			<key>voice</key>

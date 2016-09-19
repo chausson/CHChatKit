@@ -132,16 +132,16 @@
         //下拉刷新
         self.chatTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 
-                NSInteger count = 0;
-                if (self.viewModel.cellViewModels.count%10 != 0) {
-                    count = self.viewModel.cellViewModels.count%10;
-                }else{
-                    count = 10;
-                }
-                    [self.chatTableView scrollToRowAtIndexPath:
-                     [NSIndexPath indexPathForRow:count inSection:0]
-                                              atScrollPosition: UITableViewScrollPositionBottom
-                                                      animated:NO];
+//                NSInteger count = 0;
+//                if (self.viewModel.cellViewModels.count%10 != 0) {
+//                    count = self.viewModel.cellViewModels.count%10;
+//                }else{
+//                    count = 10;
+//                }
+//                    [self.chatTableView scrollToRowAtIndexPath:
+//                     [NSIndexPath indexPathForRow:count inSection:0]
+//                                              atScrollPosition: UITableViewScrollPositionBottom
+//                                                      animated:NO];
         }];
         
     }
