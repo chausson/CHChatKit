@@ -23,11 +23,7 @@
 // 表情转义字符的长度（ /s占2个长度，xxx占3个长度，共5个长度 ）
 #define FACE_NAME_LEN   5
 #import "CHChatCellViewModel.h"
-
-#import <AVFoundation/AVFoundation.h>
-@interface CHChatCellViewModel ()<AVAudioPlayerDelegate>
-@property (strong ,nonatomic)AVAudioPlayer *audioPlayer;
-@end
+#import "CHRecordHandler.h"
 
 @implementation CHChatCellViewModel
 - (instancetype)initWithModel:(CHChatViewItemModel *)model{
@@ -36,12 +32,12 @@
         _icon = model.icon;
         _content = model.content;
         _type = model.type;
-        _time = model.time;
-        _name = model.name;
+        _date = model.time;
+        _nickName = model.name;
         _image = model.image;
         _visableTime = YES;
         _visableLeftDirection = [model.others boolValue];
-        _voicePath = model.voicePath;
+        _voice = model.voicePath;
        
     }
     return self;
@@ -49,7 +45,7 @@
 
 - (void)sortOutWithTime:(NSString *)time{
     if (time && time.length != 0) {
-        if ([time isEqualToString:_time]){
+        if ([time isEqualToString:_date]){
             self.visableTime = NO;
         }
     }
@@ -80,48 +76,15 @@
     
 }
 - (void)playVoice{
-    if (self.voicePath.length != 0) {
+    if (self.voice.length != 0) {
 
         dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(dispatchQueue, ^(void) {
-        
-           NSData *voictData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.voicePath]];
-            NSError *error = nil;
-            // 初始化音频控制器
-            self.audioPlayer.volume = 0.8f;
-            self.audioPlayer.numberOfLoops = 0;
-            if (!self.audioPlayer) {
-                self.audioPlayer = [[AVAudioPlayer alloc] initWithData:voictData error:&error];
-            }
-            
-            if (self.audioPlayer != nil){
-                
-                self.audioPlayer.delegate = self;// 设置 delegate
-                if ([self.audioPlayer prepareToPlay] && [self.audioPlayer play]){
-                    // 播放成功
-                }
-                else {
-                    // 播放失败
-                }
-            }
-            else {
-                // 初始化 AVAudioPlayer 失败 
-            }
+            [[CHRecordHandler standardDefault] playRecordWithKey:@""];
         });
 
     }
   
 }
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-    if (flag) {
-           self.audioPlayer = nil;
-    }
- 
-    // 播放结束
-}
 
-/* if an error occurs while decoding it will be reported to the delegate. */
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error{
-    // 播放失败
-}
 @end

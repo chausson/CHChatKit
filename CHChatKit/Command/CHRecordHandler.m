@@ -8,7 +8,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CHRecordHandler.h"
 
-
+NSString *const recordFileName = @"CHRecord.caf";
 
 @interface  CHRecordHandler()<AVAudioRecorderDelegate>
 
@@ -27,63 +27,6 @@
 
 
 @implementation CHRecordHandler
-
-- (void)startRecording {
-    // 录音时停止播放 删除曾经生成的文件
-    [self stopPlaying];
-    [self destory];
-    
-    // 真机环境下需要的代码
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *sessionError;
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
-    
-    if(session == nil)
-        NSLog(@"Error creating session: %@", [sessionError description]);
-    else
-        [session setActive:YES error:nil];
-    
-    self.session = session;
-    
-    [self.recorder record];
-    
-//    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(updateImage) userInfo:nil repeats:YES];
-//    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-//    [timer fire];
-//    self.timer = timer;
-}
-- (void)startRecording:(NSString *)file{
-    // 录音时停止播放 删除曾经生成的文件
-    [self stopPlaying];
-    [self destory];
-    [self initRecord];
-
-    self.recordFileUrl = [NSURL fileURLWithPath:file];
-}
-
-- (void)stopRecording {
-    if ([_recorder isRecording]) {
-        [_recorder stop];
-        [self.timer invalidate];
-    }
-}
-
-- (void)playRecordingFile {
-    // 播放时停止录音
-    [_recorder stop];
-    
-    // 正在播放就返回
-    if ([self.player isPlaying]) return;
-    
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:NULL];
-    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [self.player play];
-}
-
-- (void)stopPlaying {
-    [self.player stop];
-}
-
 static id instance;
 #pragma mark - 单例
 + (instancetype)standardDefault {
@@ -105,26 +48,88 @@ static id instance;
     });
     return instance;
 }
-- (void)initRecord{
-    _recorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:[self recorderSetting] error:NULL];
-    _recorder.delegate = self;
-    _recorder.meteringEnabled = YES;
-    [_recorder prepareToRecord];
-}
-#pragma mark - 懒加载
-- (AVAudioRecorder *)recorder {
-    if (!_recorder) {
-        
-
-//        NSLog(@"%@", filePath);
-        _recorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:[self recorderSetting] error:NULL];
-        _recorder.delegate = self;
-        _recorder.meteringEnabled = YES;
-        
-        [_recorder prepareToRecord];
++ (void)initialize{
+    [super initialize];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *createPath = [NSString stringWithFormat:@"%@/Voice", pathDocuments];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:createPath]){
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    return _recorder;
+
 }
+- (void)startRecording {
+    // 录音时停止播放 删除曾经生成的文件
+    [self stopPlaying];
+    [self destory];
+    
+    // 真机环境下需要的代码
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    NSError *sessionError;
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
+    
+    if(session == nil)
+        NSLog(@"Error creating session: %@", [sessionError description]);
+    else
+        [session setActive:YES error:nil];
+    
+    self.session = session;
+    self.recordFileUrl =  [NSURL URLWithString:[self saveVoicePath]];
+    [self initRecord];
+    [self.recorder record];
+    
+
+}
+- (NSString *)stopRecording{
+
+    if ([_recorder isRecording]) {
+        double cTime = _recorder.currentTime;
+        [_recorder stop];
+        [self.timer invalidate];
+        if (cTime > 1) {
+            // 录制返回路径
+            return self.recordFileUrl.absoluteString;
+ 
+        } else {
+            // 录制失败
+            [_recorder deleteRecording];
+         
+        }
+
+    }
+    return nil;
+}
+/** 播放录音文件 */
+- (void)playRecordWithKey:(NSString *)key{
+    // 播放时停止录音
+    [_recorder stop];
+    
+    // 正在播放就返回
+    if ([self.player isPlaying]) return;
+    self.recordFileUrl = [NSURL URLWithString:key];
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:NULL];
+    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [self.player play];
+}
+
+- (void)stopPlaying {
+    [self.player stop];
+}
+
+- (void)destory {
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (self.recordFileUrl) {
+        [fileManager removeItemAtURL:self.recordFileUrl error:&error];
+        error?NSLog(@"Destory File=%@",error):@"";
+        
+    }
+}
+
+
+#pragma mark - 懒加载
 - (NSDictionary *)recorderSetting{
     // 3.设置录音的一些参数
     NSMutableDictionary *setting = [NSMutableDictionary dictionary];
@@ -141,12 +146,31 @@ static id instance;
     
     return [NSDictionary dictionaryWithDictionary:setting];
 }
-- (void)destory {
+
+#pragma mark Private
+- (void)initRecord{
+    _recorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:[self recorderSetting] error:NULL];
+    _recorder.delegate = self;
+    _recorder.meteringEnabled = YES;
+    [_recorder prepareToRecord];
+}
+- (NSString *)saveVoicePath{
+    NSString *key = [NSString stringWithFormat:@"%f",[[NSDate date]timeIntervalSince1970]];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *createPath = [NSString stringWithFormat:@"%@/Voice", pathDocuments];
+    NSString *createDir = [NSString stringWithFormat:@"%@/CHVoice_%@_%@", pathDocuments,key,recordFileName];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (self.recordFileUrl) {
-        [fileManager removeItemAtURL:self.recordFileUrl error:NULL];
+    // 判断文件夹是否存在，如果不存在，则创建
+    if (![fileManager fileExistsAtPath:createPath]){
+        [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
+    } else {
+        NSLog(@"FileDir is exists.");
     }
+    return createDir;
+}
+- (void)clear{
+    
 }
 
 @end

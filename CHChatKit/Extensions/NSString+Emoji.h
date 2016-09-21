@@ -43,4 +43,5 @@
  */
 - (NSString *)stringByReplacingEmojiUnicodeWithCheatCodes;
 
+- (NSString *)ch_MD5;
 @end

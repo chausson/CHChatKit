@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CHChatCellViewModel.h"
 
-//typedef NS_ENUM(NSUInteger, CHChatCellChatType) {
-//    CHChatCellChatTypeChat,         //单聊
-//    CHChatCellChatTypeGroupChat     //群聊
-//} ;
+
 
 
 @interface CHChatCell : UITableViewCell

@@ -18,6 +18,5 @@ typedef void (^CHPickerHandler)(UIImage* image);
 - (void)pickPhotoWihtLibraryPicker:(NSObject *)controller
                        completion:(CHPickerHandler )handler;
 
-- (void)recordWithPath:(NSString *)path;
 
 @end

@@ -10,7 +10,7 @@
 #import "CHChatViewModel.h"
 #import "CHChatBusinessCommnd.h"
 #import "CHChatConfiguration.h"
-
+#import "NSObject+KVOExtension.h"
 #define FACE_NAME_HEAD  @"/s"
 // 表情转义字符的长度（ /s占2个长度，xxx占3个长度，共5个长度 ）
 #define FACE_NAME_LEN   5
@@ -69,17 +69,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
 
 #pragma mark - KVO
 
-- (void)registerForKVO {
-    for (NSString *keyPath in [self observableKeypaths]) {
-        [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
-    }
-}
-- (void)unregisterFromKVO {
-    for (NSString *keyPath in [self observableKeypaths]) {
-        [self removeObserver:self forKeyPath:keyPath];
-    }
-}
-- (NSArray *)observableKeypaths {
+- (NSArray *)registerKeypaths {
     return [NSArray arrayWithObjects:@"cellViewModels", nil];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -112,7 +102,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     model.time = SwiftDateToString([NSDate date]);
     model.others = @(YES);
     CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
@@ -124,7 +114,7 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     model.type = CHMessageText;
     model.time = SwiftDateToString([NSDate date]);
     CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [cellTempArray copy];
@@ -153,10 +143,9 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     model.time = SwiftDateToString([NSDate date]);
     model.icon = self.userIcon;
     model.voicePath = path;
-    model.content = @"FollowingLength";
     model.type = CHMessageVoice;
     CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
@@ -169,45 +158,45 @@ static const CGFloat kDefaultPlaySoundInterval = 3.0;
     model.type = CHMessageImage;
     CHChatCellViewModel *cellViewModel = [[CHChatCellViewModel alloc]initWithModel:model];
     cellViewModel.imageResource = image;
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].time:nil];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
 }
--(void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock{
-    
-    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
-
-            
-            NSMutableArray* array = [NSMutableArray array];
-
-            for (CHChatCellViewModel* cellViewModel in self.cellViewModels) {
-                
-                [array addObject:cellViewModel];
-            }
-            
-            for (int i =1; i<array.count; i++) {
-                CHChatCellViewModel* oldCellViewModel = array[i-1];
-                CHChatCellViewModel* nowCellViewModel = array[i];
-                
-                if ([nowCellViewModel.time isEqualToString:oldCellViewModel.time]) {
-                    
-                    nowCellViewModel.visableTime = NO;
-                }
-            }
-            
-            self.cellViewModels = array.copy;
-            refreshBlock();
-            
-     //   }];
-    }else{
-
-    }
-    
-    
-
-    
-}
+//-(void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock{
+//    
+//    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
+//
+//            
+//            NSMutableArray* array = [NSMutableArray array];
+//
+//            for (CHChatCellViewModel* cellViewModel in self.cellViewModels) {
+//                
+//                [array addObject:cellViewModel];
+//            }
+//            
+//            for (int i =1; i<array.count; i++) {
+//                CHChatCellViewModel* oldCellViewModel = array[i-1];
+//                CHChatCellViewModel* nowCellViewModel = array[i];
+//                
+//                if ([nowCellViewModel.time isEqualToString:oldCellViewModel.date]) {
+//                    
+//                    nowCellViewModel.visableTime = NO;
+//                }
+//            }
+//            
+//            self.cellViewModels = array.copy;
+//            refreshBlock();
+//            
+//     //   }];
+//    }else{
+//
+//    }
+//    
+//    
+//
+//    
+//}
 
 - (void)dealloc{
      [self unregisterFromKVO];

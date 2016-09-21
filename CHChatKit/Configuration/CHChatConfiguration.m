@@ -26,6 +26,8 @@
         instance.allowEmoji = YES;
         instance.allowAssistance = YES;
         instance.allowRecordVoice = YES;
+        instance.cellDateBackgroundColor = [UIColor colorWithRed:192.0/ 255.0 green:192.0/255.0 blue:192.0 / 255.0 alpha:1];
+
         instance.toolInputViewBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
         instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
         instance->_assistanceItems = [instance asstemblyDefultItems];

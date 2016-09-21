@@ -31,6 +31,6 @@ typedef void(^refreshBlock)();
 - (void)postMessage:(NSString *)text;
 - (void)postVoice:(NSString *)path;
 - (void)postImage:(UIImage *)image;
-- (void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock;
+//- (void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock;
 
 @end

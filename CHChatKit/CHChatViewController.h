@@ -11,7 +11,7 @@
 #import "CHChatToolView.h"
 #import "CHChatTableView.h"
 #import "CHChatConfiguration.h"
-@interface CHChatViewController : UIViewController<CHChatToolViewKeyboardProtcol, UITableViewDataSource, UITableViewDelegate>
+@interface CHChatViewController : UIViewController<CHKeyboardEvent, CHKeyboardActivity, UITableViewDelegate,UITableViewDataSource>
 - (instancetype)init __unavailable;
 - (instancetype)initWithViewModel:(CHChatViewModel *)viewModel;
 - (instancetype)initWithViewModel:(CHChatViewModel *)viewModel

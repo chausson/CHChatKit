@@ -7,16 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, CHChatType) {
-    CHChatSingle,         //单聊
-    CHChatGrounp     //群聊
-} ;
-typedef NS_ENUM(NSUInteger, CHAssistanceType) {
-    CHAssistancePhoto,  // 图片
-    CHAssistanceCarema, // 照片机
-    CHAssistanceLocation// 位置
-} ;
+#import "CHChatDefinition.h"
 
 @interface CHAssistanceItem : NSObject
 
@@ -32,6 +23,7 @@ typedef NS_ENUM(NSUInteger, CHAssistanceType) {
 @property (nonatomic ,strong) UIColor *mainBackground;
 @property (nonatomic ,strong) UIColor *toolContentBackground;
 @property (nonatomic ,strong) UIColor *toolInputViewBackground;
+@property (nonatomic ,strong) UIColor *cellDateBackgroundColor;
 @property (nonatomic ,readonly) NSArray <CHAssistanceItem *>* assistanceItems;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
 @property (nonatomic ,assign) CGFloat iconCornerRadius; // default is zero
@@ -39,7 +31,7 @@ typedef NS_ENUM(NSUInteger, CHAssistanceType) {
 @property (nonatomic ,assign) BOOL allowEmoji;
 @property (nonatomic ,assign) BOOL allowAssistance;
 @property (nonatomic ,assign) BOOL fitToNaviation; // 适配导航栏
-@property (nonatomic ,assign) CHChatType type;
+@property (nonatomic ,assign) CHChatConversationType type;
 
 - (void)addAssistanceItem:(CHAssistanceType )type;
 - (void)removeAssistanceItem:(CHAssistanceType )type;

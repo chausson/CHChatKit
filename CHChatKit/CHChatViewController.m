@@ -20,11 +20,7 @@
 
 @end
 
-@implementation CHChatViewController{
-    NSMutableArray *messageList;
-    NSMutableDictionary *sizeList;
-}
-
+@implementation CHChatViewController
 
 - (instancetype)initWithViewModel:(CHChatViewModel *)viewModel{
     self = [super init];
@@ -34,6 +30,18 @@
         self.view.backgroundColor = [UIColor whiteColor];
         [self layOutsubviews];
 
+    }
+    return self;
+}
+- (instancetype)initWithViewModel:(CHChatViewModel *)viewModel
+                    configuration:(CHChatConfiguration *)info{
+    self = [super init];
+    if (self) {
+        _viewModel = viewModel;
+        self.title = viewModel.chatControllerTitle;
+        self.view.backgroundColor = [UIColor whiteColor];
+        [self layOutsubviews];
+        
     }
     return self;
 }
@@ -53,7 +61,7 @@
     }
     return _chatTableView;
 }
-#pragma mark activity
+#pragma mark Activity
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerNotificationCenter];
@@ -168,6 +176,7 @@
     [self autoRollToLastRow];
 
 }
+
 #pragma mark - 发送消息到服务器
 
 - (void)sendMessage:(NSString *)text{

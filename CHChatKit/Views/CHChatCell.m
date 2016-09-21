@@ -18,6 +18,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #import "NSString+AutoSize.h"
 #import "CHChatBusinessCommnd.h"
 #import "CHChatConfiguration.h"
+#import "CHRecordHandler.h"
+#import "CHChatDefinition.h"
 
 #define KGAP 10 //间距
 #define KDATE_HEIGHT 25 //
@@ -42,7 +44,7 @@ static  CGFloat unreadWH = 10;
 @property (strong ,nonatomic ) CAShapeLayer *unreadLayer;
 @property (strong ,nonatomic ) UIView *unreadContainer;
 @property (strong ,nonatomic ) UITapGestureRecognizer *imageTap;
-@property (assign ,nonatomic ) CHChatType chatType;
+@property (assign ,nonatomic ) CHChatConversationType chatType;
 @property (assign ,nonatomic ) CHChatMessageType messageType;
 @end
 @implementation CHChatCell
@@ -134,8 +136,6 @@ static  CGFloat unreadWH = 10;
     [_content addSubview:_message];
     [_content addSubview:_nameLabel];
 
-
-    [_bubbleBtn addTarget:self action:@selector(contentTap:) forControlEvents:UIControlEventTouchUpInside];
     _message.numberOfLines = 0;
     _message.font = KMESSAGE_FONT;
     _message.textColor = [UIColor blackColor];
@@ -160,7 +160,7 @@ static  CGFloat unreadWH = 10;
     _voice = [[UIImageView alloc]init];
 
     _bubbleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_bubbleBtn addTarget:self action:@selector(contentTap:) forControlEvents:UIControlEventTouchUpInside];
+    [_bubbleBtn addTarget:self action:@selector(playVoice:) forControlEvents:UIControlEventTouchUpInside];
     [_content addSubview:_bubbleBtn];
     [_bubbleBtn addSubview:_voice];
 }
@@ -170,7 +170,7 @@ static  CGFloat unreadWH = 10;
 - (void)loadViewModel:(CHChatCellViewModel *)viewModel{
  
     _viewModel = viewModel;
-    _date.text = viewModel.time;
+    _date.text = viewModel.date;
     //计算文本的尺寸
     __weak typeof(self) weakSelf = self;
     [_icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -220,7 +220,7 @@ static  CGFloat unreadWH = 10;
 
 }
 - (void)makeDateConstraint{
-    CGSize dateSize = [_viewModel.time sizeWithString:_viewModel.time font:[UIFont systemFontOfSize:12]];
+    CGSize dateSize = [_viewModel.date sizeWithString:_viewModel.date font:[UIFont systemFontOfSize:12]];
     if (_viewModel.visableTime) {
         _date.hidden = NO;
         [_date mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -425,14 +425,13 @@ static  CGFloat unreadWH = 10;
 
     return normal;
 }
-// 播放声音
-- (void)contentTap:(UIButton *)sender
-{
+- (void)playVoice:(UIButton *)sender{
     _unreadContainer.hidden = YES;
     
+    [[CHRecordHandler standardDefault] playRecordWithKey:_viewModel.voice];
     [self.viewModel respondsUserTap];
-
 }
+
 - (void)imageTap:(UITapGestureRecognizer *)sender{
     [self.viewModel respondsUserTap];
 }

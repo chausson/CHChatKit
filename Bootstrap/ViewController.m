@@ -7,13 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "CHChatBusinessCommnd.h"
 #import "CHChatModel.h"
 #import "CHChatViewController.h"
 #import "CHChatConfiguration.h"
-@interface ViewController ()
-
-@end
 
 @implementation ViewController
 

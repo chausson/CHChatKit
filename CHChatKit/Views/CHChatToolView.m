@@ -20,6 +20,7 @@
 #import "CHChatConfiguration.h"
 #import "CHChatBusinessCommnd.h"
 #import "CHChatTextView.h"
+#import "CHRecordHandler.h"
 #import "UUProgressHUD.h"
 #import "FaceBoard.h"
 #import "NSString+AutoSize.h"
@@ -33,7 +34,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     CHChatSelectedAssistance
 };
 
-NSString *const recordFileName = @"ChaussonRecord.caf";
+
 
 @interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,ChatAssistanceViewDelegate>
 @property (strong ,nonatomic) ChatAssistanceView *assistanceView;
@@ -48,10 +49,9 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
 @property (strong ,nonatomic) CHChatTextView *contentTextView;
 @property (strong ,nonatomic) CHAssistanceHandler *handler;
 @property (strong ,nonatomic) UIImageView *contentBackground;
-@property (weak   ,nonatomic) NSObject<CHChatToolViewKeyboardProtcol> *observer;
+@property (weak   ,nonatomic) NSObject<CHKeyboardActivity,CHKeyboardEvent> *observer;
 @property (assign ,nonatomic) CGRect hiddenKeyboardRect;
 @property (assign ,nonatomic) CGRect showkeyboardRect;
-@property (strong ,nonatomic) AVAudioRecorder *recorder;
 @property (strong ,nonatomic) NSTimer *recordTimer;// 定时器
 @property (assign ,nonatomic) CGFloat recordTime;// 录音时间
 @property (assign ,nonatomic) CHChatToolSate currentState;// 聊天工具当前选择的按钮
@@ -62,7 +62,7 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
 @end
 @implementation CHChatToolView
 
-- (instancetype)initWithObserver:(NSObject<CHChatToolViewKeyboardProtcol>*)object{
+- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity,CHKeyboardEvent>*)object{
     self = [super init];
     if (self) {
 
@@ -74,6 +74,7 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
         if (![CHChatConfiguration standardChatDefaults].fitToNaviation) {
             self.currentScreenHeight -= 64;
         }
+        
        // self.hidden = YES;
         self.frame = CGRectMake(0,self.currentScreenHeight-KINPUTVIEW_HEIGHT, [UIScreen mainScreen].bounds.size.width, (KINPUTVIEW_HEIGHT+KASSIGANTVIEW_HEIGHT));
             
@@ -147,7 +148,8 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
     [_talkBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     _talkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
     [_talkBtn setBackgroundColor:[UIColor clearColor]];
-    [_talkBtn addTarget:self action:@selector(beginRecordVioce:) forControlEvents:UIControlEventTouchDown];
+    
+    [_talkBtn addTarget:self action:@selector(startRecord:) forControlEvents:UIControlEventTouchDown];
     [_talkBtn addTarget:self action:@selector(endRecordVoice:) forControlEvents:UIControlEventTouchUpInside];
     [_talkBtn addTarget:self action:@selector(cancelRecordVoice:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchCancel];
     [_talkBtn addTarget:self action:@selector(remindDragExit:) forControlEvents:UIControlEventTouchDragExit];
@@ -492,55 +494,27 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
     }
     return _handler;
 }
-#pragma mark 开始录音
-- (void)beginRecordVioce:(UIButton *)button{
-//    // 1.获取沙盒地址
-//    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-//    NSString *filePath = [path stringByAppendingPathComponent:recordFileName];
-//    [NSString stringWithFormat:@"%@%f",filePath,[[NSDate date]timeIntervalSinceNow]];
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *sessionError;
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
-    if (session == nil) {
-        NSLog(@"Error creating session: %@",[sessionError description]);
-    }else{
-        [session setActive:YES error:nil];
-    }
-    // 录音设置
-    NSMutableDictionary *setting = [NSMutableDictionary dictionary];
-    
-    setting[AVFormatIDKey] = @(kAudioFormatAppleIMA4);
-    // 录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）
-    setting[AVSampleRateKey] = @(44100);
-    // 音频通道数 1 或 2
-    setting[AVNumberOfChannelsKey] = @(1);
-    // 线性音频的位深度  8、16、24、32
-    setting[AVLinearPCMBitDepthKey] = @(8);
-    //录音的质量
-    setting[AVEncoderAudioQualityKey] = [NSNumber numberWithInt:AVAudioQualityHigh];
-    
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/arm.wav"];
-    self.recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL fileURLWithPath:path] settings:setting error:nil];
-    self.recorder.delegate = self;
-    [self.recorder prepareToRecord];
-    [self.recorder record];
+
+#pragma mark 声音处理
+- (void)startRecord:(UIButton *)button{
+    [UUProgressHUD show];
+    // 1.获取沙盒地址
+    [[CHRecordHandler standardDefault] startRecording];
     
     self.recordTime = 0;
     self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(countVoiceTime) userInfo:nil repeats:YES];
-    [UUProgressHUD show];
+
 }
 
 - (void)endRecordVoice:(UIButton *)button
 {
+    [[CHRecordHandler standardDefault] stopRecording];
     [UUProgressHUD dismissWithSuccess:nil];
-    [self.recorder stop];
 }
 
 - (void)cancelRecordVoice:(UIButton *)button
 {
-    [self.recorder stop];
-    [self.recorder deleteRecording];
+    [[CHRecordHandler standardDefault] destory];
     [UUProgressHUD dismissWithError:@"取消"];
 }
 
@@ -553,7 +527,7 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
 {
     self.recordTime += 0.5;
     if (self.recordTime >= 60) {
-        [self.recorder stop];
+        [[CHRecordHandler standardDefault] stopRecording];
     }
 }
 
@@ -563,29 +537,23 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
 }
 
 #pragma AVAudioRecordDeleagte
--(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
-{
- 
+- (void)failRecord{
     if (self.recordTime < 0.5) {
         [UUProgressHUD dismissWithError:@"时间太短"];
-        [self.recordTimer invalidate];
-        self.recordTimer = nil;
+        [[CHRecordHandler standardDefault] destory];
         return;
     }
-
-    if (flag) {
-        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/arm.wav"];
-        if (_observer && [_observer respondsToSelector:@selector(sendSound:)]) {
-            [_observer sendSound:path];
-        }
-        
-    }else{
-        [UUProgressHUD dismissWithSuccess:@"录音失败"];
-    }
-    [self.recordTimer invalidate];
-    self.recordTimer = nil;
 }
-
+- (void)finishRecord:(NSString *)fileName{
+    if (self.recordTime < 0.5) {
+        [UUProgressHUD dismissWithError:@"时间太短"];
+        [[CHRecordHandler standardDefault] destory];
+        return;
+    }
+    if ([self.observer respondsToSelector:@selector(sendSound:)]) {
+        [self.observer sendSound:fileName];
+    }
+}
 
 #pragma mark Public
 - (void)setKeyboardHidden:(BOOL)hidden{
@@ -648,14 +616,7 @@ NSString *const recordFileName = @"ChaussonRecord.caf";
     _talkBtn.hidden = TRUE;
     return YES;
 }
-#pragma mark 释放对象
-- (void)dealloc{
-    _observer = nil;
 
-    
- 
- 
-}
 
 
 @end
