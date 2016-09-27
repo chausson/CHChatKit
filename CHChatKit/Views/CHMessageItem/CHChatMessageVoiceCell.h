@@ -9,6 +9,8 @@
 #import "CHChatMessageCell.h"
 
 @interface CHChatMessageVoiceCell : CHChatMessageCell<CHChatMessageCellCategory>
-@property (strong ,nonatomic ) UILabel  *time;
+@property (strong ,nonatomic ) UILabel  *secondsLabel;
 @property (strong ,nonatomic ) UIButton *bubbleBtn;
+@property (strong ,nonatomic ) UIImageView *voiceImageView;
+@property (strong ,nonatomic ) UIActivityIndicatorView *stateIndicatorView; // TO DO
 @end
