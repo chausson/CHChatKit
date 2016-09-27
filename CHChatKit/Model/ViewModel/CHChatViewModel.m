@@ -141,20 +141,16 @@ NSString * SwiftDateToString(NSDate *date){
 
     
 }
-//- (void)postVoice:(NSString *)path{
-//   
-//    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
-//    model.time = SwiftDateToString([NSDate date]);
-//    model.icon = self.userIcon;
-//    model.voicePath = path;
-//    model.type = CHMessageVoice;
-//    CHChatMessageViewModel *cellViewModel = [[CHChatMessageViewModel alloc]initWithModel:model];
-//    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-//    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-//    [cellTempArray addObject:cellViewModel];
-//    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
-//    [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
-//}
+- (void)postVoice:(NSString *)path
+           second:(NSInteger )sec{
+        CHChatMessageVoiceVM  *cellViewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path voiceLength:sec isOwner:YES];
+        [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
+        NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+        [cellTempArray addObject:cellViewModel];
+        self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
+//        [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
+}
+
 //- (void)postImage:(UIImage *)image{
 //    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
 //    model.time = SwiftDateToString([NSDate date]);

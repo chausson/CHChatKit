@@ -513,8 +513,17 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 - (void)endRecordVoice:(UIButton *)button
 {
-    [[CHRecordHandler standardDefault] stopRecording];
+   NSString *fileName = [[CHRecordHandler standardDefault] stopRecording];
     [UUProgressHUD dismissWithSuccess:nil];
+    if (self.recordTime < 0.5) {
+        [UUProgressHUD dismissWithError:@"时间太短"];
+        [[CHRecordHandler standardDefault] destory];
+        return;
+    }
+    if ([self.observer respondsToSelector:@selector(sendSound:second:)]) {
+        [self.observer sendSound:fileName second:self.recordTime];
+    }
+
 }
 
 - (void)cancelRecordVoice:(UIButton *)button
@@ -539,25 +548,6 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 - (void)remindDragEnter:(UIButton *)button
 {
     [UUProgressHUD changeSubTitle:@"向上滑动取消"];
-}
-
-#pragma AVAudioRecordDeleagte
-- (void)failRecord{
-    if (self.recordTime < 0.5) {
-        [UUProgressHUD dismissWithError:@"时间太短"];
-        [[CHRecordHandler standardDefault] destory];
-        return;
-    }
-}
-- (void)finishRecord:(NSString *)fileName{
-    if (self.recordTime < 0.5) {
-        [UUProgressHUD dismissWithError:@"时间太短"];
-        [[CHRecordHandler standardDefault] destory];
-        return;
-    }
-    if ([self.observer respondsToSelector:@selector(sendSound:second:)]) {
-        [self.observer sendSound:fileName second:self.recordTime];
-    }
 }
 
 #pragma mark Public
