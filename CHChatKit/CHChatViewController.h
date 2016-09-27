@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CHChatVIewModel.h"
+#import "CHChatViewModel.h"
 #import "CHChatToolView.h"
 #import "CHChatTableView.h"
 #import "CHChatConfiguration.h"

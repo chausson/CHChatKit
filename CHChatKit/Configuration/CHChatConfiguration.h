@@ -21,6 +21,7 @@
 + (instancetype)standardChatDefaults;
 
 @property (nonatomic ,strong) UIColor *mainBackground;
+@property (nonatomic ,strong) UIColor *cellContainerColor;
 @property (nonatomic ,strong) UIColor *toolContentBackground;
 @property (nonatomic ,strong) UIColor *toolInputViewBackground;
 @property (nonatomic ,strong) UIColor *cellDateBackgroundColor;

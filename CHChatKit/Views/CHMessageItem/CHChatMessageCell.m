@@ -8,34 +8,33 @@
 
 #import "CHChatMessageCell.h"
 #import "CHChatConfiguration.h"
-#import "CHMessageViewModel.h"
-@interface CHChatMessageCell()
-
-@property (strong ,nonatomic ) UILabel *date;
-@property (strong ,nonatomic ) UIImageView *icon;
-@property (strong ,nonatomic ) UIImageView *picture;
-@property (strong ,nonatomic ) UIImageView *voice;
-@property (strong ,nonatomic ) UIButton *bubbleBtn;
-
-@property (strong ,nonatomic ) UILabel *name;
-@property (strong ,nonatomic ) UITapGestureRecognizer *imageTap;
-
-@end
+#import "CHChatMessageViewModel.h"
+#import "CHChatDefinition.h"
+#import "Masonry.h"
+#import "UIImageView+WebCache.h"
+NSMutableDictionary <NSString *,Class>const * ChatCellMessageCatagory = nil;
+static CGFloat const cellMessageDateHeight = 25.0f;
+static CGFloat const cellIconWidth = 40.0f;
+static CGFloat const cellContentGap = 10.0f; // 每个控件的间隔
+static CGFloat const cellIconHeight = cellIconWidth;
+static CGFloat const cellContentBottom = 16.0f;
 
 @implementation CHChatMessageCell
++ (void)registerSubclass{
+    if ([self conformsToProtocol:@protocol(CHChatMessageCellCategory)]) {
 
-+ (void)load{
-    [self registerMessageType];
-}
-+ (CHChatMessageType )registerMessageType{
-    @synchronized (self) {
-        if (!chatCellMessageCatagory) {
-            chatCellMessageCatagory = [NSMutableDictionary dictionary];
-        }
-       
-        [chatCellMessageCatagory setObject:[self class] forKey:NSStringFromClass([self class])];
+        CHChatMessageType type = [self messageCategory];
+        Class<CHChatMessageCellCategory> aClass = self;
+            if (!ChatCellMessageCatagory) {
+                ChatCellMessageCatagory = [NSMutableDictionary dictionary];
+            }
+            [ChatCellMessageCatagory setObject:aClass forKey:@(type)];
+    }else{
+        NSAssert(NO, @"没有注册子类CHCHatMessageCell的协议");
     }
- 
+}
++ (CHChatMessageType )messageCategory{
+
     return CHMessageNone;
 }
 
@@ -55,6 +54,7 @@
     //默认的聊天模式
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.nickName.hidden = ![CHChatConfiguration standardChatDefaults].type;
     [self layoutContainer];
 
 }
@@ -63,45 +63,146 @@
     [self.contentView addSubview:self.icon];
     [self.contentView addSubview:self.date];
     [self.contentView addSubview:self.messageContainer];
-    [self.contentView addSubview:self.name];
+    [self.contentView addSubview:self.nickName];
 
+}
+#pragma mark - Override
+- (void)updateConstraints{
+    [super updateConstraints];
+    //过滤表情超过的长度
+    
+    CGSize dateSize = [self boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width, 8000) text:self.viewModel.date font:[UIFont systemFontOfSize:12]];
+    if (self.viewModel.visableTime) {
+        [self.date mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.top.equalTo(self.contentView).offset(cellContentGap/2);
+            make.height.equalTo(@(cellMessageDateHeight));
+            make.width.mas_equalTo(dateSize.width+10);
+        }];
+    }else {
+        [self.date mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        
+    }
+    
+    CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
+    CGFloat widthMax = width - (cellIconWidth +cellContentGap*2)*2;
+    CGFloat nickNameHeight = [CHChatConfiguration standardChatDefaults].type?20:0;
+    CGSize nickNameSize = [self boundingRectWithSize:CGSizeMake(widthMax, nickNameHeight) text:self.viewModel.nickName font:_nickName.font];
+    if (self.viewModel.isOwner){
+        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+            if (self.viewModel.visableTime) {
+                make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
+            }else{
+                make.top.offset(cellContentGap);
+            }
+            make.right.offset(-cellContentGap);
+            make.height.equalTo(@(cellIconHeight));
+            make.width.equalTo(@(cellIconWidth));
+        }];
+        [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_icon.mas_top);
+            make.height.equalTo(@(nickNameHeight));
+            make.width.equalTo(@(nickNameSize.width));
+            make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
+        }];
+        [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_nickName.mas_bottom);
+            make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
+            make.bottom.equalTo(self.contentView).offset(-cellContentBottom);
+            make.width.lessThanOrEqualTo(@(widthMax)).priorityHigh();
+        //    make.width.equalTo(@(widthMax));
+        }];
+        
+        
+    }else{
+        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+            if (self.viewModel.visableTime) {
+                make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
+            }else{
+                make.top.offset(cellContentGap);
+            }
+
+            make.left.offset(cellContentGap);
+            make.height.equalTo(@(cellIconHeight));
+            make.width.equalTo(@(cellIconWidth));
+        }];
+        [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_icon.mas_top);
+            make.height.equalTo(@(nickNameHeight));
+            make.width.equalTo(@(nickNameSize.width));
+            make.left.equalTo(_icon.mas_right).offset(cellContentGap);
+        }];
+        [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_nickName.mas_bottom);
+            make.left.equalTo(_icon.mas_right).offset(cellContentGap);
+            make.bottom.equalTo(self.contentView).offset(-cellContentBottom);
+            make.width.lessThanOrEqualTo(@(widthMax)).priorityHigh();
+           // make.width.equalTo(@(widthMax));
+        }];
+    }
+}
+- (CGSize)boundingRectWithSize:(CGSize)size
+                          text:(NSString *)text
+                          font:(UIFont *)font
+{
+    NSDictionary *attribute = @{NSFontAttributeName:font};
+    
+    CGSize retSize = [text boundingRectWithSize:size
+                                        options:\
+                      NSStringDrawingTruncatesLastVisibleLine |
+                      NSStringDrawingUsesLineFragmentOrigin |
+                      NSStringDrawingUsesFontLeading
+                                     attributes:attribute
+                                        context:nil].size;
+    
+    return retSize;
 }
 #pragma mark 懒加载
 - (UIImageView *)icon{
     if (!_icon) {
         _icon = [[UIImageView alloc]init];
+        _icon.layer.cornerRadius = [CHChatConfiguration standardChatDefaults].iconCornerRadius;
+        _icon.layer.masksToBounds = YES;
     }
     return _icon;
 }
 - (UIView *)messageContainer{
     if (!_messageContainer) {
         _messageContainer = [[CHMessageContentView alloc]init];
-        _messageContainer.backgroundColor = [UIColor clearColor];
+        _messageContainer.backgroundColor = [CHChatConfiguration standardChatDefaults].cellContainerColor;
     }
     return _messageContainer;
 }
-- (UILabel *)_date{
+- (UILabel *)date{
     if (!_date) {
         _date = [[UILabel alloc]init];
         _date.layer.cornerRadius = 5;
         _date.layer.masksToBounds  =  YES ;
-        //    _date.font = KDATE_FONT;
+        _date.font = [UIFont systemFontOfSize:11] ;//时间字体
         _date.backgroundColor = [CHChatConfiguration standardChatDefaults].cellDateBackgroundColor;
         _date.textAlignment = NSTextAlignmentCenter;
         _date.textColor = [UIColor whiteColor];
     }
     return _date;
 }
-- (UILabel *)name{
-    if (!_name) {
-        _name = [UILabel new];
-        _name.font = [UIFont systemFontOfSize:12];
-        _name.textColor = [UIColor grayColor];
+- (UILabel *)nickName{
+    if (!_nickName) {
+        _nickName = [UILabel new];
+        _nickName.font = [UIFont systemFontOfSize:12];
+        _nickName.textColor = [UIColor grayColor];
+
     }
-    return _name;
+    return _nickName;
 }
 
-- (void)loadViewModel:(CHMessageViewModel *)viewModel{
-        self.viewModel = viewModel;
+- (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
+    self.nickName.text = viewModel.nickName;
+    self.date.text = viewModel.date;
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
+    self.viewModel = viewModel;
+    [self updateConstraints];
 }
+
 @end

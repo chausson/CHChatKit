@@ -11,17 +11,25 @@
 @implementation NSObject (KVOExtension)
 #pragma mark - KVO
 
-- (void)registerForKVO {
-    for (NSString *keyPath in [self registerKeypaths]) {
+- (void)ch_registerForKVO {
+    for (NSString *keyPath in [self ch_registerKeypaths]) {
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
-- (void)unregisterFromKVO {
-    for (NSString *keyPath in [self registerKeypaths]) {
+- (void)ch_unregisterFromKVO {
+    for (NSString *keyPath in [self ch_registerKeypaths]) {
         [self removeObserver:self forKeyPath:keyPath];
     }
 }
-- (NSArray *)registerKeypaths {
+- (NSArray *)ch_registerKeypaths {
     return nil;
+}
+- (void)ch_ObserveValueForKey:(NSString *)key
+                     ofObject:(id )obj
+                       change:(NSDictionary *)change{
+    
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [self ch_ObserveValueForKey:keyPath ofObject:object change:change];
 }
 @end

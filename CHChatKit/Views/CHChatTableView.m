@@ -7,7 +7,6 @@
 //
 
 #import "CHChatTableView.h"
-
 @implementation CHChatTableView
 - (instancetype)init{
     self = [super init];

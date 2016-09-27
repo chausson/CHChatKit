@@ -24,7 +24,7 @@
 @property (nonatomic ,copy) NSString <Optional>*image;
 
 @property (nonatomic ,assign) NSInteger type;
-@property (nonatomic ,strong) NSNumber *others;
+@property (nonatomic ,strong) NSNumber *owner;
 
 @end
 @interface CHChatModel : JSONModel

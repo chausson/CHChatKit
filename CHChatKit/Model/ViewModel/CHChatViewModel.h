@@ -5,7 +5,7 @@
 //  Created by Chasusson on 15/11/14.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
-#import "CHChatCellViewModel.h"
+#import "CHChatMessageViewModel.h"
 #import <Foundation/Foundation.h>
 #import "CHChatModel.h"
 @class UIImage;
@@ -18,7 +18,7 @@ typedef void(^refreshBlock)();
 - (instancetype)init __unavailable;
 - (instancetype)initWithMessageList:(CHChatModel *)list;
 /** 聊天列表VM*/
-@property (nonatomic ,strong ) NSArray <CHChatCellViewModel *>*cellViewModels;
+@property (nonatomic ,strong ) NSArray <CHChatMessageViewModel *>*cellViewModels;
 /** 自己用户图标*/
 @property (nonatomic ,copy ) NSString *userIcon;
 /** 接收图标*/

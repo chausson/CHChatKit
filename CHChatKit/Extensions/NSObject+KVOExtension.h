@@ -10,8 +10,10 @@
 
 @interface NSObject (KVOExtension)
 
-- (void)registerForKVO;
-- (void)unregisterFromKVO;
-- (NSArray *)registerKeypaths;
-
+- (void)ch_registerForKVO;
+- (void)ch_unregisterFromKVO;
+- (NSArray *)ch_registerKeypaths;
+- (void)ch_ObserveValueForKey:(NSString *)key
+                     ofObject:(id )obj
+                       change:(NSDictionary *)change;
 @end

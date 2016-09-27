@@ -8,10 +8,11 @@
 
 
 #import "CHChatViewController.h"
+#import "CHChatMessageHelper.h"
+#import "CHChatMessageCell.h"
 #import "Masonry.h"
-#import "CHChatCell.h"
 #import "MJRefresh.h"
-
+#import "UITableView+FDTemplateLayoutCell.h"
 
 @interface CHChatViewController()
 
@@ -64,6 +65,7 @@
 #pragma mark Activity
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [CHChatMessageHelper registerCellForTableView:self.chatTableView];
     [self registerNotificationCenter];
     [self autoRollToLastRow];
 }
@@ -72,6 +74,9 @@
 }
 - (void)registerNotificationCenter{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:_viewModel.refreshName object:nil];
+}
+- (void)removeNotification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:_viewModel.refreshName object:nil];
 }
 - (void)updateUI{
         [self.chatTableView reloadData];
@@ -94,6 +99,7 @@
     [_chatTableView addGestureRecognizer:keyBoardTap];
     [self.view addSubview:self.chatTableView];
     [self.view addSubview:self.chatView];
+
 //    [_chatView autoLayoutView];
     [_chatTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(0);
@@ -102,7 +108,7 @@
     }];
 
 }
-#pragma mark UITableViewDelagate
+#pragma mark TableView Delagate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.viewModel.cellViewModels.count;
@@ -110,11 +116,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHChatCellViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
-    CHChatCell *cell = [tableView dequeueReusableCellWithIdentifier:[CHChatCell chatIdentifierWithType:cellViewModel.type]];
-    if (cell == nil) {
-        cell = [[CHChatCell alloc] initWithType:cellViewModel.type];
-    }
+    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
+    CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:cellViewModel atIndexPath:indexPath];
 
     [cell loadViewModel:cellViewModel];
 
@@ -122,46 +125,26 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [CHChatCell getHeightWithViewModel:self.viewModel.cellViewModels[indexPath.row]];
+    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
+    return [tableView fd_heightForCellWithIdentifier:[CHChatMessageHelper fetchMessageIdentifier:(CHChatTableView *)tableView cellViewModel:cellViewModel] cacheByIndexPath:indexPath configuration:^(CHChatMessageCell *cell) {
+            [cell loadViewModel:cellViewModel];
+    }];
 }
 
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (self.viewModel.cellViewModels.count < 10) {
-
-        return;
-    }
+#pragma mark CHChatToolView_Delegate
+- (void)chatKeyboardWillShow{
     
-    //当第一个 cell 出现的时候实现下拉刷新
-    if (indexPath.row == 0) {
-        
-        //下拉刷新
-        self.chatTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-
-//                NSInteger count = 0;
-//                if (self.viewModel.cellViewModels.count%10 != 0) {
-//                    count = self.viewModel.cellViewModels.count%10;
-//                }else{
-//                    count = 10;
-//                }
-//                    [self.chatTableView scrollToRowAtIndexPath:
-//                     [NSIndexPath indexPathForRow:count inSection:0]
-//                                              atScrollPosition: UITableViewScrollPositionBottom
-//                                                      animated:NO];
-        }];
-        
-    }
+    [self autoRollToLastRow];
     
 }
+
 #pragma mark Private
 // list滚动至最后一行
 - (void)autoRollToLastRow
 {
      [self.view layoutIfNeeded];
     
-    if (self.viewModel.cellViewModels.count > 5) {
+    if (self.viewModel.cellViewModels.count >= 5) {
         
         [self.chatTableView scrollToRowAtIndexPath:
          [NSIndexPath indexPathForRow:[self.viewModel.cellViewModels count]-1 inSection:0]
@@ -170,13 +153,11 @@
     }
     
 }
-#pragma mark CHChatToolView_Delegate
-- (void)chatKeyboardWillShow{
-
-    [self autoRollToLastRow];
-
+- (void)registerKeyBoardTap:(UITapGestureRecognizer *)tap
+{
+    [_chatView setKeyboardHidden:YES];
+    
 }
-
 #pragma mark - 发送消息到服务器
 
 - (void)sendMessage:(NSString *)text{
@@ -197,30 +178,9 @@
     [_chatView setKeyboardHidden:YES];
    
 }
-#pragma mark private click tableview
-- (void)registerKeyBoardTap:(UITapGestureRecognizer *)tap
-{
-    [_chatView setKeyboardHidden:YES];
-   
-}
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    
-////    [self.chatTableView ];
-//    
-//    //滑动到最顶端的时候
-//    if (scrollView.contentOffset.y == 0) {
-//        
-//       
-//    }
-//   
-//    
-//}
-
 -(void)dealloc{
-   
+    [self removeNotification];
     NSLog(@"聊天界面被销毁了");
-    
 }
 
 

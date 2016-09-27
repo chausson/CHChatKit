@@ -13,8 +13,10 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+#import <Foundation/Foundation.h>
+
 #pragma mark ENUM
-static NSMutableDictionary const *chatCellMessageCatagory = nil;
+
 /**
  *  消息类型
  */
@@ -61,3 +63,4 @@ typedef NS_ENUM(NSUInteger, CHVoicePlayState){
     CHVoicePlayCancel,// 取消
 };
 
+FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* ChatCellMessageCatagory ;
