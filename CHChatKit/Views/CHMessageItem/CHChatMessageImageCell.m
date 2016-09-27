@@ -39,7 +39,7 @@
         [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@250);
             make.height.equalTo(@250);
-            make.left.equalTo(self.messageContainer).offset();
+            make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
