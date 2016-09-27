@@ -72,8 +72,6 @@
     }else{
         NSAssert(NO, @"[CHChatMessageVoiceVM class] loadViewModel的类型有问题");
     }
-  
-    
 }
 - (UILabel *)time{
     if (!_time) {

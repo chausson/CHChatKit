@@ -19,7 +19,8 @@
 @end
 @protocol CHKeyboardEvent <NSObject>
 - (void)sendMessage:(NSString *)text;
-- (void)sendSound:(NSString *)path;
+- (void)sendSound:(NSString *)path
+           second:(NSInteger )sec;
 - (void)sendImage:(UIImage *)image;
 @end
 

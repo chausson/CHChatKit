@@ -555,8 +555,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         [[CHRecordHandler standardDefault] destory];
         return;
     }
-    if ([self.observer respondsToSelector:@selector(sendSound:)]) {
-        [self.observer sendSound:fileName];
+    if ([self.observer respondsToSelector:@selector(sendSound:second:)]) {
+        [self.observer sendSound:fileName second:self.recordTime];
     }
 }
 

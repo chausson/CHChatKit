@@ -32,7 +32,8 @@ typedef void(^refreshBlock)();
 @property (nonatomic ,readonly ) NSString *refreshName;
 
 - (void)postMessage:(NSString *)text;
-- (void)postVoice:(NSString *)path;
+- (void)postVoice:(NSString *)path
+           second:(NSInteger )sec;
 - (void)postImage:(UIImage *)image;
 //- (void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock;
 

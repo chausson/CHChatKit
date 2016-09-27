@@ -7,8 +7,9 @@
 //
 #import <AVFoundation/AVFoundation.h>
 #import "CHRecordHandler.h"
-
+#import "CommonCrypto/CommonDigest.h"
 NSString *const recordFileName = @"CHRecord.caf";
+NSString *const pathKey = @"CHRecordHandler_VOICE_PATH";
 
 @interface  CHRecordHandler()<AVAudioRecorderDelegate>
 
@@ -23,7 +24,10 @@ NSString *const recordFileName = @"CHRecord.caf";
 
 @property (nonatomic, strong) AVAudioSession *session;
 
+@property (nonatomic, strong) NSMutableDictionary *paths;
+
 @end
+
 
 
 @implementation CHRecordHandler
@@ -58,13 +62,16 @@ static id instance;
     if (![fileManager fileExistsAtPath:createPath]){
         [fileManager createDirectoryAtPath:createPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:pathKey]) {
+        [CHRecordHandler standardDefault].paths = [[NSUserDefaults standardUserDefaults] objectForKey:pathKey];
+    }else{
+        [CHRecordHandler standardDefault].paths = [NSMutableDictionary dictionary];
+    }
+    
 }
 - (void)startRecording {
     // 录音时停止播放 删除曾经生成的文件
     [self stopPlaying];
-    [self destory];
-    
     // 真机环境下需要的代码
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *sessionError;
@@ -80,35 +87,39 @@ static id instance;
     [self initRecord];
     [self.recorder record];
     
-
+    
 }
 - (NSString *)stopRecording{
-
+    
     if ([_recorder isRecording]) {
         double cTime = _recorder.currentTime;
         [_recorder stop];
         [self.timer invalidate];
         if (cTime > 1) {
             // 录制返回路径
+            //            NSString *md5Str = [self md5:self.recordFileUrl.absoluteString];
+            //            [[CHRecordHandler standardDefault].paths setValue:self.recordFileUrl.absoluteString forKey:md5Str];
+            //            [[NSUserDefaults standardUserDefaults] setObject:[CHRecordHandler standardDefault].paths forKey:pathKey];
+            //            [[NSUserDefaults standardUserDefaults] synchronize];
             return self.recordFileUrl.absoluteString;
- 
+            
         } else {
             // 录制失败
             [_recorder deleteRecording];
-         
+            
         }
-
+        
     }
     return nil;
 }
 /** 播放录音文件 */
-- (void)playRecordWithKey:(NSString *)key{
+- (void)playRecordWithPath:(NSString *)filePath{
     // 播放时停止录音
     [_recorder stop];
-    
+    // key = [[CHRecordHandler standardDefault].paths objectForKey:key];
     // 正在播放就返回
     if ([self.player isPlaying]) return;
-    self.recordFileUrl = [NSURL URLWithString:key];
+    self.recordFileUrl = [NSURL URLWithString:filePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:NULL];
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [self.player play];
@@ -158,8 +169,7 @@ static id instance;
     NSString *key = [NSString stringWithFormat:@"%f",[[NSDate date]timeIntervalSince1970]];
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     NSString *createPath = [NSString stringWithFormat:@"%@/Voice", pathDocuments];
-    NSString *createDir = [NSString stringWithFormat:@"%@/CHVoice_%@_%@", pathDocuments,key,recordFileName];
-    
+    NSString *createDir = [NSString stringWithFormat:@"%@/CHVoice_%@_%@", createPath,key,recordFileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     // 判断文件夹是否存在，如果不存在，则创建
     if (![fileManager fileExistsAtPath:createPath]){
@@ -169,8 +179,34 @@ static id instance;
     }
     return createDir;
 }
+//- (NSString *)md5:(NSString *)inPutText
+//{
+//    const char *cStr = [inPutText UTF8String];
+//    unsigned char result[CC_MD5_DIGEST_LENGTH];
+//    CC_MD5(cStr, strlen(cStr), result);
+//    return [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+//             result[0], result[1], result[2], result[3],
+//             result[4], result[5], result[6], result[7],
+//             result[8], result[9], result[10], result[11],
+//             result[12], result[13], result[14], result[15]
+//             ] lowercaseString];
+//}
+
 - (void)clear{
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *createPath = [NSString stringWithFormat:@"%@/Voice", pathDocuments];
+    [fileManager removeItemAtPath:createPath error:&error];
+    error?NSLog(@"Destory File=%@",error):@"";
     
 }
-
+- (void)deleteWithPath:(NSString *)filePath{
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (filePath) {
+        [fileManager removeItemAtPath:filePath error:&error];
+        error?NSLog(@"Destory File=%@",error):@"";
+    }
+}
 @end
