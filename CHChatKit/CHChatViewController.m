@@ -49,7 +49,7 @@
 #pragma mark Lazy Init
 - (CHChatToolView *)chatView{
     if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self];
+        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:self.viewModel.configuration];
 
     }
     return _chatView;
@@ -116,9 +116,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
-    CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:cellViewModel atIndexPath:indexPath];
 
+    CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:self.viewModel atIndexPath:indexPath];
+    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
     [cell loadViewModel:cellViewModel];
 
     return cell;

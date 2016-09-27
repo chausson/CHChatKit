@@ -49,9 +49,6 @@
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
-
-    //if already cached, return immediately
-
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
         if (viewModel.isOwner) {
@@ -83,10 +80,9 @@
                 }else{
                     image = [UIImage imageWithContentsOfFile:vm.filePath];
                 }
-                
                UIImage *fitImage = [image ch_fitToSize:CGSizeMake(200, 200)];
                 //set image for correct image view
-                dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
+                dispatch_async(dispatch_get_main_queue(), ^{
                     //display the image
                     self.imageContainer.image = fitImage;
                 });

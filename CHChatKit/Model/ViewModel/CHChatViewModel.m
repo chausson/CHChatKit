@@ -31,14 +31,14 @@ NSString * SwiftDateToString(NSDate *date){
     
     NSDate *_lastPlaySoundDate;
 }
-- (instancetype)initWithMessageList:(CHChatModel *)list{
+- (instancetype)initWithMessageList:(CHChatModel *)list
+                      configuration:(CHChatConfiguration *)config{
     
     self = [super init];
     if (self) {
-            _refreshName = @"REFRESH_CHAT_UI";
-            [self ch_registerForKVO];
-
-  
+        _refreshName = @"REFRESH_CHAT_UI";
+        _configuration = config;
+        [self ch_registerForKVO];
         NSMutableArray *cellTempArray = [[NSMutableArray alloc ]initWithCapacity:list.chatContent.count];
         [list.chatContent enumerateObjectsUsingBlock:^(CHChatViewItemModel  *item, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -128,7 +128,7 @@ NSString * SwiftDateToString(NSDate *date){
     self.cellViewModels = [cellTempArray copy];
 
     //判断是发单聊消息还是群聊消息给服务器
-    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
+    if (self.configuration.type == CHChatSingle) {
         
         
         [[CHChatBusinessCommnd standardChatDefaults] postMessage:text];

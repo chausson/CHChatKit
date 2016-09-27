@@ -10,6 +10,7 @@
 #import "CHChatTableView.h"
 #import "CHChatDefinition.h"
 #import "CHChatMessageCell.h"
+#import "CHChatViewModel.h"
 #import "CHChatMessageViewModel.h"
 #import "CHChatMessageTextCell.h"
 @implementation CHChatMessageHelper
@@ -20,16 +21,17 @@
 
 }
 + (CHChatMessageCell *)fetchMessageCell:(__kindof CHChatTableView *)tableView
-                          cellViewModel:(CHChatMessageViewModel *)vm
+                          cellViewModel:(CHChatViewModel *)viewModel
                             atIndexPath:(NSIndexPath *)indexPath{
+    CHChatMessageViewModel *cellViewModel = viewModel.cellViewModels[indexPath.row];
     __block CHChatMessageCell *cell;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([aClass messageCategory] == vm.category) {
+        if ([aClass messageCategory] == cellViewModel.category) {
             cell =  [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(aClass) forIndexPath:indexPath];
             *stop = YES;
         }
     }];
-
+    cell.iconCornerRadius = viewModel.configuration.iconCornerRadius;
     NSAssert(cell, @"没有注册和实现相应的CHChatMessageCell类型");
  
     return cell;

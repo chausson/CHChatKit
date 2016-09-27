@@ -30,7 +30,7 @@
 @property (strong ,nonatomic ) UIImageView *icon;
 
 @property (strong ,nonatomic ) UILabel *date;
-
+@property (assign ,nonatomic ) CGFloat iconCornerRadius;
 @property (strong ,nonatomic ) UILabel *nickName;
 
 + (void)registerSubclass;

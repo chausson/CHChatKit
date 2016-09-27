@@ -16,8 +16,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CHAssistanceHandler.h"
 #import "CHChatToolView.h"
-#import "ChatAssistanceView.h"
-#import "CHChatConfiguration.h"
+#import "CHChatAssistanceView.h"
+
 #import "CHChatBusinessCommnd.h"
 #import "CHChatTextView.h"
 #import "CHRecordHandler.h"
@@ -36,8 +36,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 
 
-@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,ChatAssistanceViewDelegate>
-@property (strong ,nonatomic) ChatAssistanceView *assistanceView;
+@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,CHChatAssistanceViewDelegate>
+@property (strong ,nonatomic) CHChatAssistanceView *assistanceView;
 @property (strong ,nonatomic) FaceBoard *faceBoard;
 @property (strong ,nonatomic) UIImageView *backgroundView;
 @property (strong ,nonatomic) UIButton *messageBtn;
@@ -62,23 +62,27 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @end
 @implementation CHChatToolView
 
-- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity,CHKeyboardEvent>*)object{
+- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity,CHKeyboardEvent>*)object
+                   configuration:(CHChatConfiguration *)config{
     self = [super init];
     if (self) {
 
          self.currentScreenHeight = [UIScreen mainScreen].bounds.size.height;
     
         if (object) {
-              _observer = object;
+            _observer = object;
         }
-        if (![CHChatConfiguration standardChatDefaults].fitToNaviation) {
+        if (config) {
+            _config = config;
+        }
+        if (!config.fitToNaviation) {
             self.currentScreenHeight -= 64;
         }
         
        // self.hidden = YES;
         self.frame = CGRectMake(0,self.currentScreenHeight-KINPUTVIEW_HEIGHT, [UIScreen mainScreen].bounds.size.width, (KINPUTVIEW_HEIGHT+KASSIGANTVIEW_HEIGHT));
             
-        self.backgroundColor = [CHChatConfiguration standardChatDefaults].toolContentBackground;
+        self.backgroundColor = config.toolContentBackground;
         [self initInputView];
         [self addSubviewsAndAutoLayout];
         [self maekConstaints];
@@ -118,7 +122,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentView = [[UIView alloc]init];
     _contentView.backgroundColor = [UIColor clearColor];
     _contentTextView = [[CHChatTextView alloc]init];
-    _contentTextView.keyboardAppearance = [CHChatConfiguration standardChatDefaults].keyboardAppearance;
+    _contentTextView.keyboardAppearance = _config.keyboardAppearance;
     _contentBackground = [[UIImageView alloc]init];
     UIImage* img= [UIImage imageNamed:@"Action_Sheet_Normal_New"];//原图
     _contentBackground.image = img;
@@ -130,14 +134,15 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentBackground.backgroundColor = self.backgroundColor;
     _contentTextView.font = [UIFont systemFontOfSize:KCONTENT_FONT];
     _contentTextView.delegate = self;
-    _contentTextView.backgroundColor = [CHChatConfiguration standardChatDefaults].toolInputViewBackground;
+    _contentTextView.backgroundColor = _config.toolInputViewBackground;
     _contentTextView.returnKeyType = UIReturnKeySend;
     
     _faceBoard = [[FaceBoard alloc] init];
     _faceBoard.FaceDelegate = self;
     _faceBoard.backgroundColor = self.backgroundColor;
-    _assistanceView = [[ChatAssistanceView alloc] init];
+    _assistanceView = [[CHChatAssistanceView alloc] init];
     _assistanceView.delegate = self;
+    _assistanceView.config = _config;
     _assistanceView.backgroundColor = self.backgroundColor;
     
 
@@ -179,9 +184,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 }
 - (void)maekConstaints{
-    CGFloat messageWH = [CHChatConfiguration standardChatDefaults].allowRecordVoice?KBUTTON_SIZE:0;
-    CGFloat emojiWH = [CHChatConfiguration standardChatDefaults].allowEmoji?KBUTTON_SIZE:0;
-    CGFloat assisatanceWH = [CHChatConfiguration standardChatDefaults].allowAssistance?KBUTTON_SIZE:0;
+    CGFloat messageWH = _config.allowRecordVoice?KBUTTON_SIZE:0;
+    CGFloat emojiWH = _config.allowEmoji?KBUTTON_SIZE:0;
+    CGFloat assisatanceWH = _config.allowAssistance?KBUTTON_SIZE:0;
 
     UIEdgeInsets talkPadding = UIEdgeInsetsMake(KGAP, KGAP, KGAP, KGAP);
     [_talkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -207,14 +212,14 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         make.right.equalTo(_moreItemBtn.mas_left).offset(-KGAP);
     }];
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(KGAP);
-        make.bottom.offset(-KGAP);
+        make.top.offset(KGAP*1.3);
+        make.bottom.offset(-KGAP*1.3);
         //        make.height.equalTo(@(KINPUTVIEW_HEIGHT-KGAP*2));
         make.left.equalTo(_messageBtn.mas_right).offset(KGAP*2);
         make.right.equalTo(_emojiBtn.mas_left).offset(-KGAP*2);
     }];
     
-    UIEdgeInsets padding = UIEdgeInsetsMake(3, KGAP, 3, KGAP);
+    UIEdgeInsets padding = UIEdgeInsetsMake(0, KGAP, 0, KGAP);
     [_contentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.with.insets(padding);
         

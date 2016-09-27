@@ -54,7 +54,7 @@ static CGFloat const cellContentBottom = 16.0f;
     //默认的聊天模式
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.nickName.hidden = ![CHChatConfiguration standardChatDefaults].type;
+
     [self layoutContainer];
 
 }
@@ -88,7 +88,7 @@ static CGFloat const cellContentBottom = 16.0f;
     
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
     CGFloat widthMax = width - (cellIconWidth +cellContentGap*2)*2;
-    CGFloat nickNameHeight = [CHChatConfiguration standardChatDefaults].type?20:0;
+    CGFloat nickNameHeight = self.viewModel.isVisableNickName?20:0;
     CGSize nickNameSize = [self boundingRectWithSize:CGSizeMake(widthMax, nickNameHeight) text:self.viewModel.nickName font:_nickName.font];
     if (self.viewModel.isOwner){
         [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -159,19 +159,32 @@ static CGFloat const cellContentBottom = 16.0f;
     
     return retSize;
 }
+- (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
+    self.nickName.text = viewModel.nickName;
+    self.date.text = viewModel.date;
+    self.nickName.hidden = !viewModel.visableNickName;
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
+    self.viewModel = viewModel;
+    [self updateConstraints];
+}
 #pragma mark 懒加载
+- (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
+    _iconCornerRadius = iconCornerRadius;
+    if(iconCornerRadius > 0){
+        _icon.layer.cornerRadius = iconCornerRadius;
+        _icon.layer.masksToBounds = YES;
+    }
+}
 - (UIImageView *)icon{
     if (!_icon) {
         _icon = [[UIImageView alloc]init];
-        _icon.layer.cornerRadius = [CHChatConfiguration standardChatDefaults].iconCornerRadius;
-        _icon.layer.masksToBounds = YES;
     }
     return _icon;
 }
 - (UIView *)messageContainer{
     if (!_messageContainer) {
         _messageContainer = [[CHMessageContentView alloc]init];
-        _messageContainer.backgroundColor = [CHChatConfiguration standardChatDefaults].cellContainerColor;
+        _messageContainer.backgroundColor = self.superview.backgroundColor;
     }
     return _messageContainer;
 }
@@ -181,7 +194,7 @@ static CGFloat const cellContentBottom = 16.0f;
         _date.layer.cornerRadius = 5;
         _date.layer.masksToBounds  =  YES ;
         _date.font = [UIFont systemFontOfSize:11] ;//时间字体
-        _date.backgroundColor = [CHChatConfiguration standardChatDefaults].cellDateBackgroundColor;
+        _date.backgroundColor = [UIColor colorWithRed:192.0/ 255.0 green:192.0/255.0 blue:192.0 / 255.0 alpha:1];
         _date.textAlignment = NSTextAlignmentCenter;
         _date.textColor = [UIColor whiteColor];
     }
@@ -197,12 +210,6 @@ static CGFloat const cellContentBottom = 16.0f;
     return _nickName;
 }
 
-- (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
-    self.nickName.text = viewModel.nickName;
-    self.date.text = viewModel.date;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
-    self.viewModel = viewModel;
-    [self updateConstraints];
-}
+
 
 @end

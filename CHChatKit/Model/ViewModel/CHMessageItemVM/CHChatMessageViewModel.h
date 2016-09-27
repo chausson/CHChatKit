@@ -25,10 +25,10 @@
 @property (nonatomic ,readonly) NSString *date;
 @property (nonatomic ,readonly) NSString *nickName;
 @property (nonatomic ,readonly) CHChatMessageType category;
-
 @property (nonatomic ,readonly , getter= isVisableTime) BOOL visableTime;
 @property (nonatomic ,readonly , getter= isRetry) BOOL retry;
 @property (nonatomic ,readonly , getter= isOwner) BOOL owner;
+@property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
 
 - (void)sortOutWithTime:(NSString *)time;
 @end
