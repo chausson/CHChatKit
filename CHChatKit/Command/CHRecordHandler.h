@@ -22,7 +22,7 @@
 - (NSString *)stopRecording;
 
 /** 播放录音文件 */
-- (void)playRecordWithKey:(NSString *)key;
+- (void)playRecordWithPath:(NSString *)filePath;
 
 /** 停止播放录音文件 */
 - (void)stopPlaying;
@@ -31,4 +31,8 @@
 - (void)destory;
 /** 清除所有录音文件 */
 - (void)clear;
+/** 加密 */
+//- (NSString *)md5:(NSString *)inPutText;
+/** 根据录音路径删除文件 */
+- (void)deleteWithPath:(NSString *)filePath;
 @end

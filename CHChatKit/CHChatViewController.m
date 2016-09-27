@@ -153,8 +153,8 @@
 - (void)sendMessage:(NSString *)text{
     [self.viewModel postMessage:text];
 }
-- (void)sendSound:(NSString *)path{
-    [self.viewModel postVoice:path];
+- (void)sendSound:(NSString *)path second:(NSInteger)sec{
+    [self.viewModel postVoice:path second:sec];
 }
 - (void)sendImage:(UIImage *)image{
     [self.viewModel postImage:image];
