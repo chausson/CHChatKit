@@ -15,16 +15,18 @@
 
 @interface CHChatViewItemModel : JSONModel
 
-@property (nonatomic ,copy) NSString <Optional>*voicePath;
-@property (nonatomic ,copy) NSString *content;
+@property (nonatomic ,copy) NSString <Optional>*content;
 @property (nonatomic ,copy) NSString *icon;
 @property (nonatomic ,copy) NSString *time;
 @property (nonatomic ,copy) NSString <Optional>*name;
-@property (nonatomic ,copy) NSString <Optional>*fromUser;   //发送者
 @property (nonatomic ,copy) NSString <Optional>*image;
-
+@property (nonatomic ,copy) NSString <Optional>*title;
+@property (nonatomic ,copy) NSString <Optional>*detail;
+@property (nonatomic ,copy) NSString <Optional>*path;
 @property (nonatomic ,assign) NSInteger type;
 @property (nonatomic ,strong) NSNumber *owner;
+@property (nonatomic ,strong) NSNumber <Optional>*lat;
+@property (nonatomic ,strong) NSNumber <Optional>*lon;
 
 @end
 @interface CHChatModel : JSONModel

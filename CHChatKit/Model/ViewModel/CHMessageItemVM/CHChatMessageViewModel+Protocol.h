@@ -9,6 +9,8 @@
 #import "CHChatMessageViewModel.h"
 #import "CHChatMessageFileVM.h"
 #import "CHChatMessageTextVM.h"
+#import "CHChatMessageLocationVM.h"
+#import "CHChatMessageImageVM.h"
 @interface CHChatMessageViewModel ()
 @property (nonatomic ,copy) NSString *voice;
 @property (nonatomic ,copy) NSString *location;
@@ -33,5 +35,19 @@
 
 @property (nonatomic ,copy) NSString *filePath;
 @property (nonatomic ,assign) CHMessageSendState state;
+
+@end
+@interface CHChatMessageLocationVM ()
+@property (nonatomic ,assign) float longitude;
+@property (nonatomic ,assign) float latitude;
+@property (nonatomic ,copy) NSString *areaDetail;
+@property (nonatomic ,copy) NSString *areaName;
+@end
+@interface CHChatMessageImageVM ()
+
+@property (nonatomic ,copy) NSString *imageName;
+@property (nonatomic ,assign) float size;
+@property (nonatomic ,assign) float width;
+@property (nonatomic ,assign) float height;
 
 @end

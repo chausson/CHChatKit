@@ -48,7 +48,10 @@ NSString * SwiftDateToString(NSDate *date){
             CHChatMessageViewModel *viewModel ;
             switch (item.type) {
                 case 1:
-                    viewModel = [CHChatMessageVMFactory factoryTextVMOfUserIcon:item.icon timeData:item.time nickName:item.name content:item.content isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:item.icon timeData:item.time nickName:item.name content:item.content isOwner:[item.owner boolValue]];
+                    break;
+                case 5:
+                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.time areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
                     break;
                     
                 default:
@@ -115,7 +118,7 @@ NSString * SwiftDateToString(NSDate *date){
 //    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
 //}
 - (void)postMessage:(NSString *)text{
-    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextVMOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil content:text isOwner:YES];
+    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil content:text isOwner:YES];
     [viewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:viewModel];

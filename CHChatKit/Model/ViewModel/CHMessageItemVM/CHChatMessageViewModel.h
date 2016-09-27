@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "CHChatDefinition.h"
 #import "CHChatModel.h"
-
+@class CHChatMessageViewModel;
+@protocol CHChatMessageViewModelProtocol <NSObject>
+@required
+- (CHChatMessageType )category;
+@end
 @interface CHChatMessageViewModel : NSObject
 ///* 如果有http代表访问远程不是的话则是本地路径.
 // */

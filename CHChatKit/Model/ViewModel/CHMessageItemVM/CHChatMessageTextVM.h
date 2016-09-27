@@ -8,7 +8,7 @@
 
 #import "CHChatMessageViewModel.h"
 
-@interface CHChatMessageTextVM : CHChatMessageViewModel
+@interface CHChatMessageTextVM : CHChatMessageViewModel<CHChatMessageViewModelProtocol>
 
 @property (nonatomic ,readonly) NSString *content;
 

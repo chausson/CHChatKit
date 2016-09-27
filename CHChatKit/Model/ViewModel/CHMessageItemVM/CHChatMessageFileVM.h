@@ -8,7 +8,7 @@
 
 #import "CHChatMessageViewModel.h"
 
-@interface CHChatMessageFileVM : CHChatMessageViewModel
+@interface CHChatMessageFileVM : CHChatMessageViewModel<CHChatMessageViewModelProtocol>
 /* 如果有http代表访问远程不是的话则是本地路径.
  */
 @property (nonatomic ,readonly) NSString *filePath;

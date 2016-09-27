@@ -9,7 +9,7 @@
 #import "CHChatMessageVMFactory.h"
 #import "CHChatMessageViewModel+Protocol.h"
 @implementation CHChatMessageVMFactory
-+ (CHChatMessageTextVM *)factoryTextVMOfUserIcon:(NSString *)icon
++ (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
                                         timeData:(NSString *)date
                                         nickName:(NSString *)name
                                          content:(NSString *)content
@@ -23,7 +23,7 @@
     return textVM;
 }
 
-+ (CHChatMessageFileVM *)factoryFileVMOfUserIcon:(NSString *)icon
++ (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)icon
                                         timeData:(NSString *)date
                                         nickName:(NSString *)name
                                         filePath:(NSString *)file
@@ -38,4 +38,45 @@
     fileVM.category = category;
     return fileVM;
 }
++ (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)icon
+                                              timeData:(NSString *)date
+                                              nickName:(NSString *)name
+                                              areaName:(NSString *)title
+                                            areaDetail:(NSString *)detail
+                                              resource:(NSString *)path
+                                             longitude:(float )lon
+                                              latitude:(float )lat
+                                               isOwner:(BOOL)owner{
+    CHChatMessageLocationVM *locationVM = [CHChatMessageLocationVM new];
+    locationVM.nickName = name;
+    locationVM.date = date;
+    locationVM.owner = owner;
+    locationVM.icon = icon;
+    locationVM.longitude = lon;
+    locationVM.latitude = lat;
+    locationVM.filePath = path;
+    locationVM.areaDetail = detail;
+    locationVM.areaName = title;
+    return locationVM;
+}
++ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
+                                         imeData:(NSString *)date
+                                        nickName:(NSString *)name
+                                        resource:(NSString *)path
+                                            size:(float )size
+                                           width:(float )aWidth
+                                          height:(BOOL)aHeight
+                                         isOwner:(BOOL)owner{
+    CHChatMessageImageVM *locationVM = [CHChatMessageImageVM new];
+    locationVM.nickName = name;
+    locationVM.date = date;
+    locationVM.owner = owner;
+    locationVM.icon = icon;
+    locationVM.size = size;
+    locationVM.width = aWidth;
+    locationVM.filePath = path;
+    locationVM.height = aHeight;
+    return locationVM;
+}
+
 @end

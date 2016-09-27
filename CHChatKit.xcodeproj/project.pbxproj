@@ -22,6 +22,8 @@
 		066432AF1D7EBEC00068AEF2 /* ChatContent.plist in Resources */ = {isa = PBXBuildFile; fileRef = 066432AB1D7EBEC00068AEF2 /* ChatContent.plist */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
 		06651B1E1D8693DD00C71FBC /* CHAssistanceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06651B1D1D8693DD00C71FBC /* CHAssistanceHandler.m */; };
+		0666DB9F1D9A215000D5EA0C /* CHChatMessageLocationVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */; };
+		0666DBA21D9A3D7800D5EA0C /* CHChatMessageImageVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA11D9A3D7800D5EA0C /* CHChatMessageImageVM.m */; };
 		06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */; };
 		06686DFE1D98C050007812B7 /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF71D98C050007812B7 /* UITableView+FDIndexPathHeightCache.m */; };
 		06686DFF1D98C050007812B7 /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF91D98C050007812B7 /* UITableView+FDKeyedHeightCache.m */; };
@@ -186,6 +188,10 @@
 		066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatConfiguration.m; sourceTree = "<group>"; };
 		06651B1C1D8693DD00C71FBC /* CHAssistanceHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAssistanceHandler.h; sourceTree = "<group>"; };
 		06651B1D1D8693DD00C71FBC /* CHAssistanceHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHAssistanceHandler.m; sourceTree = "<group>"; };
+		0666DB9D1D9A215000D5EA0C /* CHChatMessageLocationVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageLocationVM.h; sourceTree = "<group>"; };
+		0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageLocationVM.m; sourceTree = "<group>"; };
+		0666DBA01D9A3D7800D5EA0C /* CHChatMessageImageVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageImageVM.h; sourceTree = "<group>"; };
+		0666DBA11D9A3D7800D5EA0C /* CHChatMessageImageVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageImageVM.m; sourceTree = "<group>"; };
 		06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CHImage.h"; sourceTree = "<group>"; };
 		06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CHImage.m"; sourceTree = "<group>"; };
 		06686DF61D98C050007812B7 /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
@@ -505,6 +511,10 @@
 				06686E041D98FFF7007812B7 /* CHChatMessageViewModel.m */,
 				060A1B7D1D99212D00C2F0ED /* CHChatMessageViewModel+Protocol.h */,
 				060A1B7E1D99212D00C2F0ED /* CHChatMessageViewModel+Protocol.m */,
+				0666DB9D1D9A215000D5EA0C /* CHChatMessageLocationVM.h */,
+				0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */,
+				0666DBA01D9A3D7800D5EA0C /* CHChatMessageImageVM.h */,
+				0666DBA11D9A3D7800D5EA0C /* CHChatMessageImageVM.m */,
 			);
 			path = CHMessageItemVM;
 			sourceTree = "<group>";
@@ -1142,6 +1152,7 @@
 				0692785E1D77E39300CAB0A5 /* JSONHTTPClient.m in Sources */,
 				069278691D77E39300CAB0A5 /* MASViewAttribute.m in Sources */,
 				0692764B1D77DE0000CAB0A5 /* NSArray+Log.m in Sources */,
+				0666DBA21D9A3D7800D5EA0C /* CHChatMessageImageVM.m in Sources */,
 				0692791D1D77E6D800CAB0A5 /* UIImageView+WebCache.m in Sources */,
 				0692783D1D77E39300CAB0A5 /* GrayPageControl.m in Sources */,
 				069279191D77E6D800CAB0A5 /* UIButton+WebCache.m in Sources */,
@@ -1223,6 +1234,7 @@
 				0692788C1D77E39300CAB0A5 /* MJRefreshConst.m in Sources */,
 				0692785C1D77E39300CAB0A5 /* JSONModelError.m in Sources */,
 				069278811D77E39300CAB0A5 /* MJRefreshStateHeader.m in Sources */,
+				0666DB9F1D9A215000D5EA0C /* CHChatMessageLocationVM.m in Sources */,
 				069278701D77E39300CAB0A5 /* amrFileCodec.mm in Sources */,
 				069278871D77E39300CAB0A5 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				069279101D77E6D800CAB0A5 /* README.md in Sources */,
