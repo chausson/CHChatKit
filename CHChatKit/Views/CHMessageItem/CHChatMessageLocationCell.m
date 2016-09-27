@@ -23,30 +23,57 @@
 }
 - (void)layout{
     [super layout];
-    [self.messageContainer addSubview:self.locationView];
-    [self.locationView addSubview:self.locationMap];
-    [self.locationView addSubview:self.areaView];
+    [self.messageContainer addSubview:self.locationContainer];
+    [self.locationContainer addSubview:self.mapImageView];
+    [self.locationContainer addSubview:self.areaView];
     [self.areaView addSubview:self.areaName];
     [self.areaView addSubview:self.areaDetail];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMapAction)];
-    [self.locationView addGestureRecognizer:tap];
+    [self.locationContainer addGestureRecognizer:tap];
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
     if (viewModel.isOwner) {
-        [self.locationView maskRightLayer:CGSizeMake(240, 130)];
+        [self.locationContainer maskRightLayer:CGSizeMake(240, 130)];
     }else{
-        [self.locationView maskLeftLayer:CGSizeMake(240, 130)];
+        [self.locationContainer maskLeftLayer:CGSizeMake(240, 130)];
     }
     if ([viewModel isKindOfClass:[CHChatMessageLocationVM class]]) {
         CHChatMessageLocationVM *vm = (CHChatMessageLocationVM *)viewModel;
         self.areaName.text = vm.areaName;
         self.areaDetail.text = vm.areaDetail;
         if (![vm isLocalFile]) {
-            [self.locationMap sd_setImageWithURL:[NSURL URLWithString:vm.filePath] placeholderImage:[UIImage imageNamed:@""]];
+            [self.mapImageView sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
+                    //display the image
+                    self.mapImageView.image = image;
+                });
+                // TO DO 加入本地存放和缓存的逻辑
+                
+            }];
         }else{
-            self.locationMap.image = [UIImage imageWithContentsOfFile:vm.filePath];
+            static NSCache *cache = nil;
+            if (!cache) {
+                cache = [[NSCache alloc] init];
+            }
+            UIImage *imageCache = [cache objectForKey:vm.filePath];
+            //switch to background thread
+            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                UIImage *image ;
+                if (imageCache) {
+                    image = imageCache;
+                }else{
+                    image = [UIImage imageWithContentsOfFile:vm.filePath];
+                }
+                
+                //set image for correct image view
+                dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
+                    //display the image
+                    self.mapImageView.image = image;
+                });
+            });
         }
+
         
     }else{
         NSAssert(NO, @"[CHChatMessageLocationVM class] loadViewModel的类型有问题");
@@ -55,7 +82,7 @@
 - (void)updateConstraints{
     [super updateConstraints];
     if (self.viewModel.isOwner){
-        [self.locationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@240);
             make.height.equalTo(@130);
             make.right.equalTo(self.messageContainer).offset(0);
@@ -63,7 +90,7 @@
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
     }else{
-        [self.locationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@240);
             make.height.equalTo(@130);
             make.left.equalTo(self.messageContainer).offset(0);
@@ -73,17 +100,17 @@
         
     }
     [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.locationView).offset(0);
+        make.top.equalTo(self.locationContainer).offset(0);
         make.width.equalTo(@240);
         make.height.equalTo(@50);
-        make.right.equalTo(self.locationView).offset(0);
+        make.right.equalTo(self.locationContainer).offset(0);
     }];
     
-    [self.locationMap mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.locationView).offset(50);
+    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.locationContainer).offset(50);
         make.width.equalTo(@240);
         make.height.equalTo(@80);
-        make.right.equalTo(self.locationView).offset(0);
+        make.right.equalTo(self.locationContainer).offset(0);
     }];
     
     [self.areaName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,22 +148,23 @@
     }
     return _areaName;
 }
-- (UIImageView *)locationMap{
-    if (!_locationMap) {
-        _locationMap = [[UIImageView alloc] init];
+- (UIImageView *)mapImageView{
+    if (!_mapImageView) {
+        _mapImageView = [[UIImageView alloc] init];
     }
-    return _locationMap;
+    return _mapImageView;
 }
 - (UIView *)areaView{
     if (!_areaView) {
         _areaView = [[UIView alloc] init];
+        _areaView.backgroundColor = [UIColor whiteColor];
     }
     return _areaView;
 }
-- (UIView *)locationView{
-    if (!_locationView) {
-        _locationView = [[UIView alloc] init];
+- (UIView *)locationContainer{
+    if (!_locationContainer) {
+        _locationContainer = [[UIView alloc] init];
     }
-    return _locationView;
+    return _locationContainer;
 }
 @end

@@ -9,8 +9,8 @@
 #import "CHChatMessageCell.h"
 
 @interface CHChatMessageLocationCell : CHChatMessageCell<CHChatMessageCellCategory>
-@property (strong ,nonatomic ) UIView *locationView;
-@property (strong ,nonatomic ) UIImageView *locationMap;
+@property (strong ,nonatomic ) UIView *locationContainer;
+@property (strong ,nonatomic ) UIImageView *mapImageView;
 @property (strong ,nonatomic ) UILabel *areaName;
 @property (strong ,nonatomic ) UILabel *areaDetail;
 @property (strong ,nonatomic ) UIView *areaView;
