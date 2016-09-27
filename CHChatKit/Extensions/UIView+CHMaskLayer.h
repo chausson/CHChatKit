@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (CHMaskLayer)
+@interface UIView (CHMaskLayer)
 - (void)maskLeftLayer:(CGSize)size;
 - (void)maskRightLayer:(CGSize)size;
 @end

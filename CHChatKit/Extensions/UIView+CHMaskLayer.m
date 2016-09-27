@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
-#import "UIImageView+CHMaskLayer.h"
+#import "UIView+CHMaskLayer.h"
 
-@implementation UIImageView (CHMaskLayer)
+@implementation UIView (CHMaskLayer)
 - (void)maskLeftLayer:(CGSize)size{
     self.layer.mask = [self maskLayer:size left:YES];
 }

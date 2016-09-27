@@ -10,4 +10,6 @@
 
 @interface UIImage (CHImage)
 + (UIImage *)avaiableBubbleImage:(BOOL)right;
+
+- (UIImage *)ch_fitToSize:(CGSize)aSize;
 @end
