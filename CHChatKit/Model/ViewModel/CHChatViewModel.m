@@ -53,8 +53,11 @@ NSString * SwiftDateToString(NSDate *date){
                 case 2:
                     viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image size:0 width:0 height:0 isOwner:[item.owner boolValue]];
                     break;
+                case 3:
+                    viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
+                    break;
                 case 5:
-                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.time areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
                     break;
                     
                 default:

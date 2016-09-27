@@ -26,6 +26,7 @@
 @property (nonatomic ,assign) NSInteger type;
 @property (nonatomic ,strong) NSNumber *owner;
 @property (nonatomic ,strong) NSNumber <Optional>*lat;
+@property (nonatomic ,strong) NSNumber <Optional>*length;
 @property (nonatomic ,strong) NSNumber <Optional>*lon;
 
 @end

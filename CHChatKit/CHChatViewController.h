@@ -14,8 +14,6 @@
 @interface CHChatViewController : UIViewController<CHKeyboardEvent, CHKeyboardActivity, UITableViewDelegate,UITableViewDataSource>
 - (instancetype)init __unavailable;
 - (instancetype)initWithViewModel:(CHChatViewModel *)viewModel;
-- (instancetype)initWithViewModel:(CHChatViewModel *)viewModel
-                    configuration:(CHChatConfiguration *)info;
 @property (strong ,nonatomic) CHChatToolView *chatView;
 @property (strong ,nonatomic) CHChatTableView *chatTableView;
 @property (strong ,nonatomic) CHChatViewModel *viewModel;
