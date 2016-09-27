@@ -11,10 +11,7 @@
 #import "UIImage+CHImage.h"
 #import "NSString+Emoji.h"
 #import "Masonry.h"
-@interface CHChatMessageTextCell ()
-@property (strong ,nonatomic ) UILabel *message;
-@property (strong ,nonatomic ) UIButton *bubbleBtn;
-@end
+
 @implementation CHChatMessageTextCell
 #pragma mark OverRide
 + (void)load{

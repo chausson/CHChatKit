@@ -60,7 +60,7 @@
     return locationVM;
 }
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
-                                         imeData:(NSString *)date
+                                        timeData:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
                                             size:(float )size

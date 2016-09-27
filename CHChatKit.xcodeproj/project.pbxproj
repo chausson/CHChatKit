@@ -24,6 +24,7 @@
 		06651B1E1D8693DD00C71FBC /* CHAssistanceHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06651B1D1D8693DD00C71FBC /* CHAssistanceHandler.m */; };
 		0666DB9F1D9A215000D5EA0C /* CHChatMessageLocationVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */; };
 		0666DBA21D9A3D7800D5EA0C /* CHChatMessageImageVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA11D9A3D7800D5EA0C /* CHChatMessageImageVM.m */; };
+		0666DBA51D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA41D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.m */; };
 		06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */; };
 		06686DFE1D98C050007812B7 /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF71D98C050007812B7 /* UITableView+FDIndexPathHeightCache.m */; };
 		06686DFF1D98C050007812B7 /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF91D98C050007812B7 /* UITableView+FDKeyedHeightCache.m */; };
@@ -153,7 +154,6 @@
 		0692791D1D77E6D800CAB0A5 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692790C1D77E6D800CAB0A5 /* UIImageView+WebCache.m */; };
 		0692791E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692790E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m */; };
 		06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E4BE341D79652900C78DBA /* CHChatTextView.m */; };
-		06EB80D61D8903DD0002EC5E /* UIImageView+LoadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */; };
 		06EB80D91D8919FF0002EC5E /* CHRecordHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06EB80D81D8919FF0002EC5E /* CHRecordHandler.m */; };
 /* End PBXBuildFile section */
 
@@ -192,6 +192,8 @@
 		0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageLocationVM.m; sourceTree = "<group>"; };
 		0666DBA01D9A3D7800D5EA0C /* CHChatMessageImageVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageImageVM.h; sourceTree = "<group>"; };
 		0666DBA11D9A3D7800D5EA0C /* CHChatMessageImageVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageImageVM.m; sourceTree = "<group>"; };
+		0666DBA31D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CHMaskLayer.h"; sourceTree = "<group>"; };
+		0666DBA41D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CHMaskLayer.m"; sourceTree = "<group>"; };
 		06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CHImage.h"; sourceTree = "<group>"; };
 		06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CHImage.m"; sourceTree = "<group>"; };
 		06686DF61D98C050007812B7 /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
@@ -425,8 +427,6 @@
 		0692790E1D77E6D800CAB0A5 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		06E4BE331D79652900C78DBA /* CHChatTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatTextView.h; sourceTree = "<group>"; };
 		06E4BE341D79652900C78DBA /* CHChatTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatTextView.m; sourceTree = "<group>"; };
-		06EB80D41D8903DD0002EC5E /* UIImageView+LoadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LoadImage.h"; sourceTree = "<group>"; };
-		06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LoadImage.m"; sourceTree = "<group>"; };
 		06EB80D71D8919FF0002EC5E /* CHRecordHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRecordHandler.h; sourceTree = "<group>"; };
 		06EB80D81D8919FF0002EC5E /* CHRecordHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRecordHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -592,12 +592,12 @@
 				069275AB1D77DDFF00CAB0A5 /* NSString+Emoji.m */,
 				069275AC1D77DDFF00CAB0A5 /* UIDevice+IdentifierAddition.h */,
 				069275AD1D77DDFF00CAB0A5 /* UIDevice+IdentifierAddition.m */,
-				06EB80D41D8903DD0002EC5E /* UIImageView+LoadImage.h */,
-				06EB80D51D8903DD0002EC5E /* UIImageView+LoadImage.m */,
 				0633A67E1D925A2E0005D36F /* NSObject+KVOExtension.h */,
 				0633A67F1D925A2E0005D36F /* NSObject+KVOExtension.m */,
 				06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */,
 				06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */,
+				0666DBA31D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.h */,
+				0666DBA41D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1147,7 +1147,6 @@
 			files = (
 				069278731D77E39300CAB0A5 /* wav.mm in Sources */,
 				069279171D77E6D800CAB0A5 /* SDWebImageManager.m in Sources */,
-				06EB80D61D8903DD0002EC5E /* UIImageView+LoadImage.m in Sources */,
 				0692786A1D77E39300CAB0A5 /* MASViewConstraint.m in Sources */,
 				0692785E1D77E39300CAB0A5 /* JSONHTTPClient.m in Sources */,
 				069278691D77E39300CAB0A5 /* MASViewAttribute.m in Sources */,
@@ -1188,6 +1187,7 @@
 				0692764C1D77DE0000CAB0A5 /* NSString+AutoSize.m in Sources */,
 				069275721D77DAE200CAB0A5 /* ViewController.m in Sources */,
 				0692764F1D77DE0000CAB0A5 /* CHChatViewModel.m in Sources */,
+				0666DBA51D9A4F9C00D5EA0C /* UIImageView+CHMaskLayer.m in Sources */,
 				0632EA711D93BA2E00A4E37C /* CHChatMessageImageCell.m in Sources */,
 				0692791B1D77E6D800CAB0A5 /* UIImage+MultiFormat.m in Sources */,
 				0692788A1D77E39300CAB0A5 /* UIDevice+IdentifierAddition.m in Sources */,

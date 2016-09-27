@@ -9,5 +9,5 @@
 #import "CHChatMessageCell.h"
 
 @interface CHChatMessageImageCell : CHChatMessageCell<CHChatMessageCellCategory>
-
+@property (strong ,nonatomic ) UIImageView *imageContainer;
 @end

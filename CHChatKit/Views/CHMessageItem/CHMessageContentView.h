@@ -10,8 +10,5 @@
 
 @interface CHMessageContentView : UIView
 
-- (void)openLeftMask;
-
-- (void)openRightMask;
 
 @end
