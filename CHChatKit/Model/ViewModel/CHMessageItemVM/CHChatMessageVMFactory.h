@@ -11,6 +11,7 @@
 #import "CHChatMessageTextVM.h"
 #import "CHChatMessageImageVM.h"
 #import "CHChatMessageLocationVM.h"
+#import "CHChatMessageVoiceVM.h"
 #import "CHChatDefinition.h"
 @interface CHChatMessageVMFactory : NSObject
 
@@ -44,6 +45,13 @@
                                             size:(float )size
                                            width:(float )aWidth
                                           height:(BOOL)aHeight
+                                         isOwner:(BOOL)owner;
+
++ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
+                                        timeData:(NSString *)date
+                                        nickName:(NSString *)name
+                                        resource:(NSString *)path
+                                     voiceLength:(NSInteger )length
                                          isOwner:(BOOL)owner;
 
 

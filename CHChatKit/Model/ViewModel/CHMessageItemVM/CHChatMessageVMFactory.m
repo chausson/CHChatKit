@@ -78,5 +78,19 @@
     locationVM.height = aHeight;
     return locationVM;
 }
-
++ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
+                                        timeData:(NSString *)date
+                                        nickName:(NSString *)name
+                                        resource:(NSString *)path
+                                     voiceLength:(NSInteger )length
+                                         isOwner:(BOOL)owner{
+    CHChatMessageVoiceVM *voiceVM = [CHChatMessageVoiceVM new];
+    voiceVM.nickName = name;
+    voiceVM.date = date;
+    voiceVM.owner = owner;
+    voiceVM.icon = icon;
+    voiceVM.length = length;
+    voiceVM.filePath = path;
+    return voiceVM;
+}
 @end

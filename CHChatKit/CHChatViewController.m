@@ -28,28 +28,17 @@
     if (self) {
         _viewModel = viewModel;
         self.title = viewModel.chatControllerTitle;
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor colorWithRed:235.0/ 255.0 green:235.0/255.0 blue:235.0 / 255.0 alpha:1];
         [self layOutsubviews];
 
     }
     return self;
 }
-- (instancetype)initWithViewModel:(CHChatViewModel *)viewModel
-                    configuration:(CHChatConfiguration *)info{
-    self = [super init];
-    if (self) {
-        _viewModel = viewModel;
-        self.title = viewModel.chatControllerTitle;
-        self.view.backgroundColor = [UIColor whiteColor];
-        [self layOutsubviews];
-        
-    }
-    return self;
-}
+
 #pragma mark Lazy Init
 - (CHChatToolView *)chatView{
     if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self];
+        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:self.viewModel.configuration];
 
     }
     return _chatView;
@@ -59,6 +48,7 @@
         _chatTableView = [[CHChatTableView alloc] init];
         _chatTableView.delegate = self;
         _chatTableView.dataSource = self;
+        _chatTableView.backgroundColor = self.view.backgroundColor;
     }
     return _chatTableView;
 }
@@ -116,9 +106,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
-    CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:cellViewModel atIndexPath:indexPath];
 
+    CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:self.viewModel atIndexPath:indexPath];
+    CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
     [cell loadViewModel:cellViewModel];
 
     return cell;

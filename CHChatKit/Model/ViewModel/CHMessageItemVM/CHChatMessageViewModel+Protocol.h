@@ -10,6 +10,7 @@
 #import "CHChatMessageFileVM.h"
 #import "CHChatMessageTextVM.h"
 #import "CHChatMessageLocationVM.h"
+#import "CHChatMessageVoiceVM.h"
 #import "CHChatMessageImageVM.h"
 @interface CHChatMessageViewModel ()
 @property (nonatomic ,copy) NSString *voice;
@@ -50,4 +51,9 @@
 @property (nonatomic ,assign) float width;
 @property (nonatomic ,assign) float height;
 
+@end
+
+@interface CHChatMessageVoiceVM ()
+@property (nonatomic ,assign) NSInteger length;
+@property (nonatomic ,assign) BOOL hasRead;
 @end

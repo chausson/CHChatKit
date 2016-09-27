@@ -12,7 +12,9 @@
 #import "UIImage+CHImage.h"
 #import "UIImageView+WebCache.h"
 #import "UIView+CHMaskLayer.h"
-@implementation CHChatMessageLocationCell
+@implementation CHChatMessageLocationCell{
+    CGSize _mapSize;
+}
 #pragma mark OverRide
 + (void)load{
     [self registerSubclass];
@@ -23,6 +25,9 @@
 }
 - (void)layout{
     [super layout];
+    int width = self.contentView.frame.size.width/4*3;
+    int height = self.contentView.frame.size.width/4*3*(130.0/240.0);
+    _mapSize = CGSizeMake(width, height);
     [self.messageContainer addSubview:self.locationContainer];
     [self.locationContainer addSubview:self.mapImageView];
     [self.locationContainer addSubview:self.areaView];
@@ -33,10 +38,11 @@
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
+
     if (viewModel.isOwner) {
-        [self.locationContainer maskRightLayer:CGSizeMake(240, 130)];
+        [self.locationContainer maskRightLayer:_mapSize];
     }else{
-        [self.locationContainer maskLeftLayer:CGSizeMake(240, 130)];
+        [self.locationContainer maskLeftLayer:_mapSize];
     }
     if ([viewModel isKindOfClass:[CHChatMessageLocationVM class]]) {
         CHChatMessageLocationVM *vm = (CHChatMessageLocationVM *)viewModel;
@@ -83,16 +89,16 @@
     [super updateConstraints];
     if (self.viewModel.isOwner){
         [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@240);
-            make.height.equalTo(@130);
+            make.width.equalTo(@(_mapSize.width));
+            make.height.equalTo(@(_mapSize.height));
             make.right.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
     }else{
         [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(@240);
-            make.height.equalTo(@130);
+            make.width.equalTo(@(_mapSize.width));
+            make.height.equalTo(@(_mapSize.height));
             make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
@@ -101,14 +107,14 @@
     }
     [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.locationContainer).offset(0);
-        make.width.equalTo(@240);
+        make.left.equalTo(self.locationContainer).offset(0);
         make.height.equalTo(@50);
         make.right.equalTo(self.locationContainer).offset(0);
     }];
     
     [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.locationContainer).offset(50);
-        make.width.equalTo(@240);
+        make.left.equalTo(self.locationContainer).offset(0);
         make.height.equalTo(@80);
         make.right.equalTo(self.locationContainer).offset(0);
     }];
@@ -117,13 +123,13 @@
         make.top.equalTo(self.areaView).offset(10);
         make.right.equalTo(self.areaView).offset(-10);
         make.left.equalTo(self.areaView).offset(10);
-        make.height.equalTo(@20);
+        make.height.equalTo(@15);
     }];
     
     [self.areaDetail mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.areaView).offset(32);
-        make.right.equalTo(self.areaView).offset(-10);
-        make.left.equalTo(self.areaView).offset(10);
+        make.top.equalTo(self.areaName.mas_bottom).offset(5);
+        make.right.equalTo(self.areaName).offset(0);
+        make.left.equalTo(self.areaName).offset(0);
         make.height.equalTo(@15);
     }];
 }
@@ -136,7 +142,9 @@
     if (!_areaDetail) {
         _areaDetail = [[UILabel alloc] init];
         _areaDetail.font = [UIFont systemFontOfSize:12];
-        _areaDetail.textColor = [UIColor lightGrayColor];
+        _areaDetail.textColor = [UIColor colorWithRed:188.0/ 255.0 green:188.0/255.0 blue:188.0 / 255.0 alpha:1];
+      //  _areaDetail.textAlignment = NSTextAlignmentCenter;
+        _areaDetail.numberOfLines =1;
     }
     return _areaDetail;
 }
@@ -145,6 +153,8 @@
         _areaName = [[UILabel alloc] init];
         _areaName.font = [UIFont systemFontOfSize:15];
         _areaName.textColor = [UIColor blackColor];
+        _areaName.numberOfLines =1;
+       // _areaName.textAlignment = NSTextAlignmentCenter;
     }
     return _areaName;
 }

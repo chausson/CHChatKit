@@ -11,11 +11,11 @@
 @class CHChatTableView;
 @class CHChatMessageCell;
 @class CHChatMessageViewModel;
-
+@class CHChatViewModel;
 @interface CHChatMessageHelper : NSObject
 + (void)registerCellForTableView:(CHChatTableView *)tableView;
 + (CHChatMessageCell *)fetchMessageCell:(__kindof CHChatTableView *)tableView
-                          cellViewModel:(CHChatMessageViewModel *)vm
+                          cellViewModel:(CHChatViewModel *)viewModel
                             atIndexPath:(NSIndexPath *)indexPath;
 
 + (NSString *)fetchMessageIdentifier:(__kindof CHChatTableView *)tableView

@@ -18,13 +18,11 @@
 
 @interface CHChatConfiguration : NSObject
 
-+ (instancetype)standardChatDefaults;
++ (CHChatConfiguration *)defultConfigruration;
 
 @property (nonatomic ,strong) UIColor *mainBackground;
-@property (nonatomic ,strong) UIColor *cellContainerColor;
 @property (nonatomic ,strong) UIColor *toolContentBackground;
 @property (nonatomic ,strong) UIColor *toolInputViewBackground;
-@property (nonatomic ,strong) UIColor *cellDateBackgroundColor;
 @property (nonatomic ,readonly) NSArray <CHAssistanceItem *>* assistanceItems;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
 @property (nonatomic ,assign) CGFloat iconCornerRadius; // default is zero
@@ -34,6 +32,7 @@
 @property (nonatomic ,assign) BOOL fitToNaviation; // 适配导航栏
 @property (nonatomic ,assign) CHChatConversationType type;
 
-- (void)addAssistanceItem:(CHAssistanceType )type;
-- (void)removeAssistanceItem:(CHAssistanceType )type;
+- (void)addAssistanceItem:(CHAssistanceType )item;
+- (void)addAssistanceItems:(NSArray  <NSNumber *>*)items;
+- (void)removeAssistanceItem:(CHAssistanceType )item;
 @end

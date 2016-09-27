@@ -31,14 +31,14 @@ NSString * SwiftDateToString(NSDate *date){
     
     NSDate *_lastPlaySoundDate;
 }
-- (instancetype)initWithMessageList:(CHChatModel *)list{
+- (instancetype)initWithMessageList:(CHChatModel *)list
+                      configuration:(CHChatConfiguration *)config{
     
     self = [super init];
     if (self) {
-            _refreshName = @"REFRESH_CHAT_UI";
-            [self ch_registerForKVO];
-
-  
+        _refreshName = @"REFRESH_CHAT_UI";
+        _configuration = config;
+        [self ch_registerForKVO];
         NSMutableArray *cellTempArray = [[NSMutableArray alloc ]initWithCapacity:list.chatContent.count];
         [list.chatContent enumerateObjectsUsingBlock:^(CHChatViewItemModel  *item, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -53,8 +53,11 @@ NSString * SwiftDateToString(NSDate *date){
                 case 2:
                     viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image size:0 width:0 height:0 isOwner:[item.owner boolValue]];
                     break;
+                case 3:
+                    viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
+                    break;
                 case 5:
-                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.time areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
                     break;
                     
                 default:
@@ -128,7 +131,7 @@ NSString * SwiftDateToString(NSDate *date){
     self.cellViewModels = [cellTempArray copy];
 
     //判断是发单聊消息还是群聊消息给服务器
-    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
+    if (self.configuration.type == CHChatSingle) {
         
         
         [[CHChatBusinessCommnd standardChatDefaults] postMessage:text];

@@ -6,7 +6,7 @@
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "ChatAssistanceView.h"
+#import "CHChatAssistanceView.h"
 #import "CHChatConfiguration.h"
 #import "CHAssistanceHandler.h"
 #import "GrayPageControl.h"
@@ -19,13 +19,13 @@
 #define CHATASSISTANCE_COUNT_PAGE (CHATASSISTANCE_COUNT_ROW * CHATASSISTANCE_COUNT_CLU)
 
 #define ITEM_DISTANCE_SIZE 20 * [UIScreen mainScreen].bounds.size.width / 375
-@interface ChatAssistanceView ()<UIScrollViewDelegate>{
+@interface CHChatAssistanceView ()<UIScrollViewDelegate>{
 
 }
 
 @end
 
-@implementation ChatAssistanceView{
+@implementation CHChatAssistanceView{
     UIScrollView *chatAssistanceScrollView;
     GrayPageControl *assistancePageControl;
     BOOL progressing;
@@ -44,13 +44,21 @@
 #pragma mark privite layOutSubviews
 - (void) layOutSubView
 {
-    NSArray <CHAssistanceItem *>* assistanceItems = [CHChatConfiguration standardChatDefaults].assistanceItems;
+
     chatAssistanceScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 190)];
     chatAssistanceScrollView.pagingEnabled = YES;
-    chatAssistanceScrollView.contentSize = CGSizeMake((assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1) * [UIScreen mainScreen].bounds.size.width, 190);
+
     chatAssistanceScrollView.showsHorizontalScrollIndicator = NO;
     chatAssistanceScrollView.showsVerticalScrollIndicator = NO;
     chatAssistanceScrollView.delegate = self;
+
+
+    [self addSubview:chatAssistanceScrollView];
+    
+}
+- (void)setConfig:(CHChatConfiguration *)config{
+    _config = config;
+        NSArray <CHAssistanceItem *>* assistanceItems = config.assistanceItems;
     [assistanceItems enumerateObjectsUsingBlock:^(CHAssistanceItem * _Nonnull obj, NSUInteger i, BOOL * _Nonnull stop) {
         UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [itemButton addTarget:self action:@selector(itemButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -73,18 +81,13 @@
         itemTitle.textAlignment = NSTextAlignmentCenter;
         [chatAssistanceScrollView addSubview:itemTitle];
     }];
-    for (int i = 0; i < [CHChatConfiguration standardChatDefaults].assistanceItems.count; i++) {
-
-    }
+    chatAssistanceScrollView.contentSize = CGSizeMake((assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1) * [UIScreen mainScreen].bounds.size.width, 190);
     assistancePageControl = [[GrayPageControl alloc] initWithFrame:CGRectMake(assistancePageControl.frame.origin.x, 190, assistancePageControl.frame.size.width, assistancePageControl.frame.size.height)];
     [assistancePageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
     assistancePageControl.numberOfPages = assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1;
     assistancePageControl.currentPage = 0;
     [self addSubview:assistancePageControl];
-    [self addSubview:chatAssistanceScrollView];
-    
 }
-
 #pragma mark SCrollViewDelagate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
