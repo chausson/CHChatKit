@@ -64,7 +64,7 @@
 			<key>owner</key>
 			<integer>1</integer>
 			<key>voice</key>
-			<string></string>
+			<string>http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg</string>
 			<key>content</key>
 			<string>每次我都立刻回复你内容, 你总是慢半拍, 叔叔你反射弧怎么那么长呢 你好像是赵四 一天天二逼呵呵的!</string>
 			<key>icon</key>
@@ -142,9 +142,10 @@
 			<key>path</key>
 			<string>http://c.hiphotos.baidu.com/image/pic/item/810a19d8bc3eb135f9fe5e36ae1ea8d3fd1f4406.jpg</string>
 			<key>length</key>
-			<integer>6</integer>
+			<integer>60</integer>
 			<key>owner</key>
-			<integer>0</integer>
+			<integer>1</integer>
+
 			<key>icon</key>
 			<string>http://v1.qzone.cc/avatar/201308/22/10/36/521579394f4bb419.jpg!200x200.jpg</string>
 			<key>time</key>
