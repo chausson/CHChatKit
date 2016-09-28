@@ -33,8 +33,7 @@
     [self.locationContainer addSubview:self.areaView];
     [self.areaView addSubview:self.areaName];
     [self.areaView addSubview:self.areaDetail];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMapAction)];
-    [self.locationContainer addGestureRecognizer:tap];
+
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
@@ -161,6 +160,7 @@
 - (UIImageView *)mapImageView{
     if (!_mapImageView) {
         _mapImageView = [[UIImageView alloc] init];
+        _mapImageView.userInteractionEnabled = YES;
     }
     return _mapImageView;
 }
@@ -174,6 +174,8 @@
 - (UIView *)locationContainer{
     if (!_locationContainer) {
         _locationContainer = [[UIView alloc] init];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMapAction)];
+        [_locationContainer addGestureRecognizer:tap];
     }
     return _locationContainer;
 }

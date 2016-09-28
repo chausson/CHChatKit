@@ -84,7 +84,11 @@
 - (UIButton *)bubbleBtn{
     if (!_bubbleBtn) {
         _bubbleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_bubbleBtn addTarget:self action:@selector(ddd) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _bubbleBtn;
+}
+- (void)ddd{
+    NSLog(@"123123");
 }
 @end
