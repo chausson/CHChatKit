@@ -7,6 +7,7 @@
 //
 
 #import "CHChatMessageCell.h"
+#import "NSObject+KVOExtension.h"
 
 @interface CHChatMessageLocationCell : CHChatMessageCell<CHChatMessageCellCategory>
 @property (strong ,nonatomic ) UIView *locationContainer;

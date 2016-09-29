@@ -12,6 +12,8 @@
 @property (strong ,nonatomic ) UILabel  *secondsLabel;
 @property (strong ,nonatomic ) UIButton *bubbleBtn;
 @property (strong ,nonatomic ) UIImageView *voiceImageView;
+@property (strong ,nonatomic ) UIView *unreadContainer;
+@property (strong ,nonatomic ) CAShapeLayer *unreadLayer;
 @property (strong ,nonatomic ) UIImageView *unreadImageView;// TO DO
 @property (strong ,nonatomic ) UIActivityIndicatorView *stateIndicatorView; // TO DO
 @end

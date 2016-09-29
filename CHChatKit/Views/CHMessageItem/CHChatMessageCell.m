@@ -113,7 +113,8 @@ static NSString *refreshName = nil;
             make.width.equalTo(@(nickNameSize.width));
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
         }];
-        [self.messageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
             make.top.equalTo(_nickName.mas_bottom);
             make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
@@ -181,6 +182,7 @@ static NSString *refreshName = nil;
 - (BOOL)isOwner{
     return  [self.reuseIdentifier containsString:CHChatCellOwnerIdentifier];
 }
+
 #pragma mark 懒加载
 - (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
     _iconCornerRadius = iconCornerRadius;

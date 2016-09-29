@@ -33,6 +33,24 @@
     return self;
 }
 
+#pragma mark Lazy Init
+- (CHChatToolView *)chatView{
+    if (!_chatView) {
+        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
+
+    }
+    return _chatView;
+}
+- (CHChatTableView *)chatTableView{
+    if (!_chatTableView) {
+        _chatTableView = [[CHChatTableView alloc] init];
+        _chatTableView.delegate = self;
+        _chatTableView.dataSource = self;
+        _chatTableView.backgroundColor = self.view.backgroundColor;
+    }
+    return _chatTableView;
+}
+
 #pragma mark Activity
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,6 +69,19 @@
 }
 - (void)removeNotification{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:self.viewModel.refreshName object:nil];
+}
+- (void)updateUI{
+        [self.chatTableView reloadData];
+        if (self.viewModel.cellViewModels.count >5) {
+            [self.chatTableView scrollToRowAtIndexPath:
+             [NSIndexPath indexPathForRow:[self.viewModel.cellViewModels count]-1 inSection:0]
+                                      atScrollPosition: UITableViewScrollPositionBottom
+                                              animated:NO];
+    
+//            [self.chatTableView reloadData];
+            
+        }
+
 }
 
 #pragma mark  LayoutSubViews
@@ -102,10 +133,7 @@
 }
 
 #pragma mark Private
-- (void)updateUI{
-    [self.chatTableView reloadData];
-    [self autoScrolleTableView];
-}
+
 // list滚动至最后一行
 - (void)autoScrolleTableView
 {
@@ -145,22 +173,7 @@
    
 }
 #pragma mark Lazy Init
-- (CHChatToolView *)chatView{
-    if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
-        
-    }
-    return _chatView;
-}
-- (CHChatTableView *)chatTableView{
-    if (!_chatTableView) {
-        _chatTableView = [[CHChatTableView alloc] init];
-        _chatTableView.delegate = self;
-        _chatTableView.dataSource = self;
-        _chatTableView.backgroundColor = self.view.backgroundColor;
-    }
-    return _chatTableView;
-}
+
 -(void)dealloc{
     [self removeNotification];
     NSLog(@"聊天界面被销毁了");

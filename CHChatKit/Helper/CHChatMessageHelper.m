@@ -27,6 +27,7 @@
     CHChatMessageViewModel *cellViewModel = viewModel.cellViewModels[indexPath.row];
     __block CHChatMessageCell *cell;
     [CHChatMessageCell registerNotificationRefresh:viewModel.refreshName];
+
     NSString *identifier = cellViewModel.isOwner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([aClass messageCategory] == cellViewModel.category) {

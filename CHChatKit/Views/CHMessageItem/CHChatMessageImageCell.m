@@ -26,16 +26,22 @@
 - (void)layout{
     [self.messageContainer addSubview:self.imageContainer];
     [super layout];
-    if ([self isOwner]) {
-        [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+}
+- (void)updateConstraints{
+    [super updateConstraints];
+    if (self.viewModel.isOwner) {
+        [self.imageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.height.lessThanOrEqualTo(@(200)).priorityHigh();
+            make.left.equalTo(self.messageContainer).offset(0);
             make.right.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
     }else{
-        [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.imageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.height.lessThanOrEqualTo(@(200)).priorityHigh();
+            make.right.equalTo(self.messageContainer).offset(0);
             make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
@@ -43,9 +49,7 @@
     }
     
 }
-- (void)updateConstraints{
-    [super updateConstraints];
-}
+
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
@@ -100,4 +104,5 @@
     }
     return _imageContainer;
 }
+
 @end
