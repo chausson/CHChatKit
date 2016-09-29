@@ -55,5 +55,5 @@
 
 @interface CHChatMessageVoiceVM ()
 @property (nonatomic ,assign) NSInteger length;
-@property (nonatomic ,assign) BOOL hasRead;
+//@property (nonatomic ,assign) BOOL hasRead;
 @end
