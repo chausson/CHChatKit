@@ -6,8 +6,12 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @interface CHRecordHandler : NSObject
+
+@property (readonly , nonatomic) CGFloat recordSecs;
+@property (readonly , nonatomic) NSString *recordFile;
 
 
 + (instancetype)new __unavailable;
@@ -16,7 +20,6 @@
 + (instancetype)standardDefault;
 /** 开始录音 */
 - (void)startRecording;
-
 
 /** 停止录音,返回录制的Path * */
 - (NSString *)stopRecording;

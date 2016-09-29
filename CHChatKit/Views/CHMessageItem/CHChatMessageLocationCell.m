@@ -23,14 +23,7 @@
 }
 - (void)layout{
     [super layout];
-    int width = self.contentView.frame.size.width/4*3;
-    int height = self.contentView.frame.size.width/4*3*(130.0/240.0);
-    CGSize mapSize = CGSizeMake(width, height);
-    if ([self isOwner]) {
-        [self.locationContainer maskRightLayer:mapSize];
-    }else{
-        [self.locationContainer maskLeftLayer:mapSize];
-    }
+
     [self.messageContainer addSubview:self.locationContainer];
     [self.locationContainer addSubview:self.mapImageView];
     [self.locationContainer addSubview:self.areaView];
@@ -38,54 +31,66 @@
     [self.areaView addSubview:self.areaDetail];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMapAction)];
     [self.locationContainer addGestureRecognizer:tap];
+    int width = self.contentView.frame.size.width/4*3;
+    int height = width*(130.0/240.0);
+    CGSize mapSize = CGSizeMake(width, height);
+    if ([self isOwner]) {
+        [self.locationContainer maskRightLayer:mapSize];
+    }else{
+        [self.locationContainer maskLeftLayer:mapSize];
+    }
+//    int width = self.contentView.frame.size.width/4*3;
+//    int height = width*(130.0/240.0);
+//    CGSize mapSize = CGSizeMake(width, height);
+    if ([self isOwner]){
+        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.messageContainer).offset(0);
+            make.left.equalTo(self.messageContainer).offset(0);
+            make.top.equalTo(self.messageContainer).offset(0);
+            make.width.equalTo(@(mapSize.width));
+            //          make.height.lessThanOrEqualTo(@(mapSize.height)).priorityHigh();
+            make.height.equalTo(@(mapSize.height));
+            make.bottom.equalTo(self.messageContainer).offset(0);
+        }];
+    }else{
+        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@(mapSize.width));
+            //            make.height.lessThanOrEqualTo(@(mapSize.height)).priorityHigh();
+            make.height.equalTo(@(mapSize.height));
+            make.left.equalTo(self.messageContainer).offset(0);
+            make.right.equalTo(self.messageContainer).offset(0);
+            
+            make.top.equalTo(self.messageContainer).offset(0);
+            make.bottom.equalTo(self.messageContainer).offset(0);
+        }];
+        
+    }
+    [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.locationContainer).offset(0);
+        make.left.equalTo(self.locationContainer).offset(0);
+        make.height.equalTo(@50);
+        make.right.equalTo(self.locationContainer).offset(0);
+    }];
     
-//    if ([self isOwner]){
-//        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.width.equalTo(@(mapSize.width));
-//            make.height.equalTo(@(mapSize.height));
-//            make.right.equalTo(self.messageContainer).offset(0);
-//            make.left.equalTo(self.messageContainer).offset(0);
-//            make.top.equalTo(self.messageContainer).offset(0);
-//            make.bottom.equalTo(self.messageContainer).offset(0);
-//        }];
-//    }else{
-//        [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.width.equalTo(@(mapSize.width));
-//            make.height.equalTo(@(mapSize.height));
-//            make.right.equalTo(self.messageContainer).offset(0);
-//            make.left.equalTo(self.messageContainer).offset(0);
-//            make.top.equalTo(self.messageContainer).offset(0);
-//            make.bottom.equalTo(self.messageContainer).offset(0);
-//        }];
-//        
-//    }
-//    [self.areaView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.locationContainer).offset(0);
-//        make.left.equalTo(self.locationContainer).offset(0);
-//        make.height.equalTo(@50);
-//        make.right.equalTo(self.locationContainer).offset(0);
-//    }];
-//    
-//    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.locationContainer).offset(50);
-//        make.left.equalTo(self.locationContainer).offset(0);
-//        make.height.equalTo(@80);
-//        make.right.equalTo(self.locationContainer).offset(0);
-//    }];
-//    
-//    [self.areaName mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.areaView).offset(10);
-//        make.right.equalTo(self.areaView).offset(-10);
-//        make.left.equalTo(self.areaView).offset(10);
-//        make.height.equalTo(@15);
-//    }];
-//    
-//    [self.areaDetail mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.areaName.mas_bottom).offset(5);
-//        make.right.equalTo(self.areaName).offset(0);
-//        make.left.equalTo(self.areaName).offset(0);
-//        make.height.equalTo(@15);
-//    }];
+    [self.mapImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.locationContainer).offset(50);
+        make.left.equalTo(self.locationContainer).offset(0);
+        make.height.equalTo(@80);
+        make.right.equalTo(self.locationContainer).offset(0);
+    }];
+    [self.areaName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.areaView).offset(10);
+        make.right.equalTo(self.areaView).offset(-10);
+        make.left.equalTo(self.areaView).offset(10);
+        make.height.equalTo(@15);
+    }];
+    
+    [self.areaDetail mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.areaName.mas_bottom).offset(5);
+        make.right.equalTo(self.areaName).offset(0);
+        make.left.equalTo(self.areaName).offset(0);
+        make.height.equalTo(@15);
+    }];
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
@@ -113,6 +118,7 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
+
 
 }
 //进入定位详情

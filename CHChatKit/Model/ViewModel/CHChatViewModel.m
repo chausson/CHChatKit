@@ -8,10 +8,11 @@
 
 #import "NSString+Emoji.h"
 #import "CHChatViewModel.h"
-#import "CHChatBusinessCommnd.h"
 #import "CHChatConfiguration.h"
 #import "CHChatMessageViewModel.h"
 #import "CHChatMessageVMFactory.h"
+#import "CHMessageTextEvent.h"
+#import "XEBEventBus.h"
 #import "NSObject+KVOExtension.h"
 #define FACE_NAME_HEAD  @"/s"
 // 表情转义字符的长度（ /s占2个长度，xxx占3个长度，共5个长度 ）
@@ -130,9 +131,10 @@ NSString * SwiftDateToString(NSDate *date){
 
     //判断是发单聊消息还是群聊消息给服务器
     if (self.configuration.type == CHChatSingle) {
+        XEBEventBus* eventBus = [XEBEventBus defaultEventBus];
         
+        [eventBus postEvent: [CHMessageTextEvent new]];
         
-        [[CHChatBusinessCommnd standardChatDefaults] postMessage:text];
     }else{
         
     }

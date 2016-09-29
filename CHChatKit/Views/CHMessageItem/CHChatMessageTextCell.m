@@ -28,20 +28,20 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    [self.bubbleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.messageContainer).offset(5);
         make.left.right.equalTo(self.messageContainer).offset(0);
         make.bottom.equalTo(self.messageContainer).offset(0);
     }];
     if ([self isOwner]){
-        [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.message mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.messageContainer).offset(10);
             make.left.equalTo(self.messageContainer).offset(15);
             make.right.equalTo(self.messageContainer).offset(-20);
             make.bottom.equalTo(self.messageContainer).offset(-5);
         }];
     }else{
-        [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.message mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.messageContainer).offset(10);
             make.left.equalTo(self.messageContainer).offset(20);
             make.right.equalTo(self.messageContainer).offset(-15);

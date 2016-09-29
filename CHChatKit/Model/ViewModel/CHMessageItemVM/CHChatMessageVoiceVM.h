@@ -11,4 +11,6 @@
 @interface CHChatMessageVoiceVM : CHChatMessageFileVM<CHChatMessageViewModelProtocol>
 @property (nonatomic ,readonly) NSInteger length;
 @property (nonatomic ,readonly) BOOL hasRead;
+- (void)playVoice;
+- (void)stopVoice;
 @end

@@ -17,8 +17,6 @@
 #import "CHAssistanceHandler.h"
 #import "CHChatToolView.h"
 #import "CHChatAssistanceView.h"
-
-#import "CHChatBusinessCommnd.h"
 #import "CHChatTextView.h"
 #import "CHRecordHandler.h"
 #import "UUProgressHUD.h"
@@ -52,8 +50,6 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @property (weak   ,nonatomic) NSObject<CHKeyboardActivity,CHKeyboardEvent> *observer;
 @property (assign ,nonatomic) CGRect hiddenKeyboardRect;
 @property (assign ,nonatomic) CGRect showkeyboardRect;
-@property (strong ,nonatomic) NSTimer *recordTimer;// 定时器
-@property (assign ,nonatomic) CGFloat recordTime;// 录音时间
 @property (assign ,nonatomic) CHChatToolSate currentState;// 聊天工具当前选择的按钮
 @property (assign ,nonatomic) CGFloat currentScreenHeight;// 当前页面高度
 
@@ -328,11 +324,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 //点击表情返回的字符
 -(void)clickFaceBoard:(NSString *)string
 {
-       _contentTextView.text = [NSString stringWithFormat:@"%@%@",_contentTextView.text,string];
+    _contentTextView.text = [NSString stringWithFormat:@"%@%@",_contentTextView.text,string];
     
 }
-
-
 
 #pragma mark Button_Action
 - (void)messageAction:(UIButton *)sender{
@@ -506,22 +500,20 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     // 1.获取沙盒地址
     [[CHRecordHandler standardDefault] startRecording];
     
-    self.recordTime = 0;
-    self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(countVoiceTime) userInfo:nil repeats:YES];
-
 }
 
 - (void)endRecordVoice:(UIButton *)button
 {
    NSString *fileName = [[CHRecordHandler standardDefault] stopRecording];
     [UUProgressHUD dismissWithSuccess:nil];
-    if (self.recordTime < 0.5) {
+//    NSLog(@"endrecord=%g",self.recordTime);
+    if ([CHRecordHandler standardDefault].recordSecs < 0.5) {
         [UUProgressHUD dismissWithError:@"时间太短"];
         [[CHRecordHandler standardDefault] destory];
         return;
     }
     if ([self.observer respondsToSelector:@selector(sendSound:second:)]) {
-        [self.observer sendSound:fileName second:self.recordTime];
+        [self.observer sendSound:fileName second:[CHRecordHandler standardDefault].recordSecs];
     }
 
 }
@@ -535,14 +527,6 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 - (void)remindDragExit:(UIButton *)button
 {
     [UUProgressHUD changeSubTitle:@"松开手指,取消发送"];
-}
-
--(void)countVoiceTime
-{
-    self.recordTime += 0.5;
-    if (self.recordTime >= 60) {
-        [[CHRecordHandler standardDefault] stopRecording];
-    }
 }
 
 - (void)remindDragEnter:(UIButton *)button

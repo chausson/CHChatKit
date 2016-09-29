@@ -19,12 +19,11 @@ NSString *const pathKey = @"CHRecordHandler_VOICE_PATH";
 /** 录音文件地址 */
 @property (nonatomic, strong) NSURL *recordFileUrl;
 
-/** 定时器 */
-@property (nonatomic, strong) NSTimer *timer;
-
 @property (nonatomic, strong) AVAudioSession *session;
 
 @property (nonatomic, strong) NSMutableDictionary *paths;
+/** 定时器 */
+@property (nonatomic, strong) NSTimer *recordTimer;// 定时器
 
 @end
 
@@ -81,7 +80,7 @@ static id instance;
         NSLog(@"Error creating session: %@", [sessionError description]);
     else
         [session setActive:YES error:nil];
-    
+    _recordSecs = 0;
     self.session = session;
     self.recordFileUrl =  [NSURL URLWithString:[self saveVoicePath]];
     [self initRecord];
@@ -94,7 +93,8 @@ static id instance;
     if ([_recorder isRecording]) {
         double cTime = _recorder.currentTime;
         [_recorder stop];
-        [self.timer invalidate];
+        [self.recordTimer invalidate];
+        self.recordTimer = nil;
         if (cTime > 1) {
             // 录制返回路径
             //            NSString *md5Str = [self md5:self.recordFileUrl.absoluteString];
@@ -157,13 +157,16 @@ static id instance;
     
     return [NSDictionary dictionaryWithDictionary:setting];
 }
-
 #pragma mark Private
+- (void)countVoiceTime{
+    _recordSecs += 0.5;
+}
 - (void)initRecord{
     _recorder = [[AVAudioRecorder alloc] initWithURL:self.recordFileUrl settings:[self recorderSetting] error:NULL];
     _recorder.delegate = self;
     _recorder.meteringEnabled = YES;
     [_recorder prepareToRecord];
+    _recordTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(countVoiceTime) userInfo:nil repeats:YES];
 }
 - (NSString *)saveVoicePath{
     NSString *key = [NSString stringWithFormat:@"%f",[[NSDate date]timeIntervalSince1970]];
