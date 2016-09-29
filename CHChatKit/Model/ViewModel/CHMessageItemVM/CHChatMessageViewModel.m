@@ -9,6 +9,7 @@
 #import "CHChatMessageViewModel.h"
 
 @implementation CHChatMessageViewModel
+
 - (instancetype)init
 {
     self = [super init];

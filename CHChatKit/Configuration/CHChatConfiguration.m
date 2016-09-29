@@ -75,11 +75,11 @@
 }
 - (void)addAssistanceItems:(NSArray  <NSNumber *>*)items{
     @synchronized (self) {
-        NSMutableArray *items = [NSMutableArray arrayWithArray:_assistanceItems];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:_assistanceItems];
         [items enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL *  stop) {
-            [items addObject:[self avaiableItemWithType:[number integerValue]]];
+            [array addObject:[self avaiableItemWithType:[number integerValue]]];
         }];
-        _assistanceItems = [items copy];
+        _assistanceItems = [array copy];
     }
 }
 - (void)removeAssistanceItem:(CHAssistanceType )item{

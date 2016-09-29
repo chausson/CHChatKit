@@ -18,8 +18,14 @@ static CGFloat const cellIconWidth = 40.0f;
 static CGFloat const cellContentGap = 10.0f; // 每个控件的间隔
 static CGFloat const cellIconHeight = cellIconWidth;
 static CGFloat const cellContentBottom = 16.0f;
-
+static NSString *refreshName = nil;
 @implementation CHChatMessageCell
++ (void)registerNotificationRefresh:(NSString *)name{
+    if (refreshName.length > 0) {
+        return;
+    }
+    refreshName = name;
+}
 + (void)registerSubclass{
     if ([self conformsToProtocol:@protocol(CHChatMessageCellCategory)]) {
 
@@ -62,8 +68,9 @@ static CGFloat const cellContentBottom = 16.0f;
 - (void)layoutContainer{
     [self.contentView addSubview:self.icon];
     [self.contentView addSubview:self.date];
-    [self.contentView addSubview:self.messageContainer];
     [self.contentView addSubview:self.nickName];
+    [self.contentView addSubview:self.messageContainer];
+
 
 }
 #pragma mark - Override
@@ -108,11 +115,11 @@ static CGFloat const cellContentBottom = 16.0f;
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
         }];
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_nickName.mas_bottom);
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
-            make.bottom.equalTo(self.contentView).offset(-cellContentBottom);
-            make.width.lessThanOrEqualTo(@(widthMax)).priorityHigh();
-        //    make.width.equalTo(@(widthMax));
+            make.top.equalTo(_nickName.mas_bottom);
+            make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
+            make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
+      //      make.width.equalTo(@(widthMax));
         }];
         
         
@@ -137,8 +144,8 @@ static CGFloat const cellContentBottom = 16.0f;
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_nickName.mas_bottom);
             make.left.equalTo(_icon.mas_right).offset(cellContentGap);
-            make.bottom.equalTo(self.contentView).offset(-cellContentBottom);
-            make.width.lessThanOrEqualTo(@(widthMax)).priorityHigh();
+            make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
+            make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
            // make.width.equalTo(@(widthMax));
         }];
     }
@@ -167,6 +174,11 @@ static CGFloat const cellContentBottom = 16.0f;
     self.viewModel = viewModel;
     [self updateConstraints];
 }
+- (void)reloadTableView{
+    if (refreshName.length > 0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:refreshName object:nil];
+    }
+}
 #pragma mark 懒加载
 - (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
     _iconCornerRadius = iconCornerRadius;
@@ -184,7 +196,7 @@ static CGFloat const cellContentBottom = 16.0f;
 - (UIView *)messageContainer{
     if (!_messageContainer) {
         _messageContainer = [[CHMessageContentView alloc]init];
-        _messageContainer.backgroundColor = self.superview.backgroundColor;
+        _messageContainer.backgroundColor = self.contentView.backgroundColor;
     }
     return _messageContainer;
 }

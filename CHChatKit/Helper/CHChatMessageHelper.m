@@ -25,6 +25,7 @@
                             atIndexPath:(NSIndexPath *)indexPath{
     CHChatMessageViewModel *cellViewModel = viewModel.cellViewModels[indexPath.row];
     __block CHChatMessageCell *cell;
+    [CHChatMessageCell registerNotificationRefresh:viewModel.refreshName];
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([aClass messageCategory] == cellViewModel.category) {
             cell =  [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(aClass) forIndexPath:indexPath];

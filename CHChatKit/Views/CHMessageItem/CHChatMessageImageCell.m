@@ -31,15 +31,17 @@
 - (void)updateConstraints{
     [super updateConstraints];
     if (self.viewModel.isOwner) {
-        [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.lessThanOrEqualTo(@200).priorityHigh();
+        [self.imageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.lessThanOrEqualTo(@(200)).priorityHigh();
+            make.left.equalTo(self.messageContainer).offset(0);
             make.right.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
     }else{
-        [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.lessThanOrEqualTo(@200).priorityHigh();
+        [self.imageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.height.lessThanOrEqualTo(@(200)).priorityHigh();
+            make.right.equalTo(self.messageContainer).offset(0);
             make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
@@ -51,52 +53,53 @@
     [super loadViewModel:viewModel];
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
-        if (viewModel.isOwner) {
-            [self.imageContainer maskRightLayer:CGSizeMake(200, 200)];
-        }else{
-            [self.imageContainer maskLeftLayer:CGSizeMake(200, 200)];
+        UIImage *thumbnailPhoto = vm.thumbnailImage;
+        if (self.imageContainer.image == thumbnailPhoto && self.imageContainer.image) {
+            return;
         }
-        if (![vm isLocalFile]) {
+        if (thumbnailPhoto) {
+            self.imageContainer.image = thumbnailPhoto;
+            [self cropMask:self.imageContainer.image.size];
+            
+            return;
+        }
             [self.imageContainer sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                UIImage *fitImage = [image ch_fitToSize:CGSizeMake(200, 200)];
-                dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
-                    //display the image
-                    self.imageContainer.image = fitImage;
-                });
-                // TO DO 加入本地存放和缓存的逻辑
-                
-            }];
-        }else{
-            static NSCache *cache = nil;
-            if (!cache) {
-                cache = [[NSCache alloc] init];
-            }
-            UIImage *imageCache = [cache objectForKey:vm.filePath];
-            //switch to background thread
-            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                UIImage *image ;
-                if (imageCache) {
-                    image = imageCache;
-                }else{
-                    image = [UIImage imageWithContentsOfFile:vm.filePath];
-                }
-               UIImage *fitImage = [image ch_fitToSize:CGSizeMake(200, 200)];
-                //set image for correct image view
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //display the image
+                    vm.fullImage = image;
+                    UIImage *fitImage = [image ch_fitToSize:CGSizeMake(200, 200)];
+                    
+                    vm.thumbnailImage = fitImage;
                     self.imageContainer.image = fitImage;
+                    [self cropMask:self.imageContainer.image.size];
+                    [self reloadTableView];
                 });
-            });
-        }
+                
+            }];
+            return;
 
     }else{
         NSAssert(NO, @"[CHChatMessageImageVM class] loadViewModel的类型有问题");
     }
 }
+- (void)cropMask:(CGSize )size{
+    if (self.viewModel.isOwner) {
+        [self.imageContainer maskRightLayer:size];
+    }else{
+        [self.imageContainer maskLeftLayer:size];
+    }
+}
+- (void )imageTap:(UITapGestureRecognizer *)tap{
+    
+}
 #pragma mark 懒加载
 - (UIImageView *)imageContainer{
     if (!_imageContainer) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
         _imageContainer = [UIImageView new];
+        _imageContainer.userInteractionEnabled = YES;
+        [_imageContainer addGestureRecognizer:tap];
     }
     return _imageContainer;
 }

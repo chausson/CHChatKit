@@ -30,5 +30,7 @@
 @property (nonatomic ,readonly , getter= isOwner) BOOL owner;
 @property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
 
+
 - (void)sortOutWithTime:(NSString *)time;
+
 @end

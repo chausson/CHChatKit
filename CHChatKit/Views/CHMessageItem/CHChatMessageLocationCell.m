@@ -92,6 +92,7 @@
             make.width.equalTo(@(_mapSize.width));
             make.height.equalTo(@(_mapSize.height));
             make.right.equalTo(self.messageContainer).offset(0);
+            make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
@@ -99,6 +100,7 @@
         [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(_mapSize.width));
             make.height.equalTo(@(_mapSize.height));
+            make.right.equalTo(self.messageContainer).offset(0);
             make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
