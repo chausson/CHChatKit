@@ -16,7 +16,8 @@
 @implementation CHChatMessageHelper
 + (void)registerCellForTableView:(CHChatTableView *)tableView{
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
-        [tableView registerClass:aClass forCellReuseIdentifier:NSStringFromClass(aClass)];
+        [tableView registerClass:aClass forCellReuseIdentifier:[NSStringFromClass(aClass) stringByAppendingString:CHChatCellOthersIdentifier]];
+        [tableView registerClass:aClass forCellReuseIdentifier:[NSStringFromClass(aClass) stringByAppendingString:CHChatCellOwnerIdentifier]];
     }];
 
 }
@@ -26,9 +27,11 @@
     CHChatMessageViewModel *cellViewModel = viewModel.cellViewModels[indexPath.row];
     __block CHChatMessageCell *cell;
     [CHChatMessageCell registerNotificationRefresh:viewModel.refreshName];
+
+    NSString *identifier = cellViewModel.isOwner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([aClass messageCategory] == cellViewModel.category) {
-            cell =  [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(aClass) forIndexPath:indexPath];
+            cell =  [tableView dequeueReusableCellWithIdentifier:[NSStringFromClass(aClass) stringByAppendingString:identifier] forIndexPath:indexPath];
             *stop = YES;
         }
     }];
@@ -39,15 +42,16 @@
 
 }
 + (NSString *)fetchMessageIdentifier:(__kindof CHChatTableView *)tableView
-                       cellViewModel:(CHChatMessageViewModel *)vm{
-    __block NSString *identifier;
+                       cellViewModel:(CHChatMessageViewModel *)cellViewModel{
+    __block NSString *cellIdentifier ;
+     NSString *identifier = cellViewModel.isOwner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([aClass messageCategory] == vm.category) {
-            identifier = NSStringFromClass(aClass);
+        if ([aClass messageCategory] == cellViewModel.category) {
+            cellIdentifier = [NSStringFromClass(aClass) stringByAppendingString:identifier];
             
             *stop = YES;
         }
     }];
-    return identifier;
+    return cellIdentifier;
 }
 @end

@@ -81,7 +81,7 @@
         }
         pickerImage.sourceType = sourceType;
         pickerImage.delegate = self;
-        pickerImage.allowsEditing = YES;
+        pickerImage.allowsEditing = NO;
         [_controller presentViewController:pickerImage animated:YES completion:^{}];
         
     }

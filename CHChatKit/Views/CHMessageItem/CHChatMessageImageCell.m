@@ -47,8 +47,9 @@
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
     }
-
+    
 }
+
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {

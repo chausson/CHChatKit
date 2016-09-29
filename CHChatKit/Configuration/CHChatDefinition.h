@@ -16,7 +16,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #import <Foundation/Foundation.h>
 
 #pragma mark ENUM
-
+static NSString *const CHChatCellOwnerIdentifier = @"OwnerIdentifier";
+static NSString *const CHChatCellOthersIdentifier = @"OthersIdentifier";
+FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* ChatCellMessageCatagory ;
 /**
  *  消息类型
  */
@@ -63,4 +65,3 @@ typedef NS_ENUM(NSUInteger, CHVoicePlayState){
     CHVoicePlayCancel,// 取消
 };
 
-FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* ChatCellMessageCatagory ;
