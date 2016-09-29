@@ -36,13 +36,11 @@ NSString * SwiftDateToString(NSDate *date){
     
     self = [super init];
     if (self) {
-        _refreshName = @"REFRESH_CHAT_UI";
+        _refreshName = @"CHCHAT_REFRESH_TABLEVIEW";
         _configuration = config;
         [self ch_registerForKVO];
         NSMutableArray *cellTempArray = [[NSMutableArray alloc ]initWithCapacity:list.chatContent.count];
-        [list.chatContent enumerateObjectsUsingBlock:^(CHChatViewItemModel  *item, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-        }];
+
         for (int i = 0; i < list.chatContent.count; i++) {
             CHChatViewItemModel *item = list.chatContent[i];
             CHChatMessageViewModel *viewModel ;
@@ -51,7 +49,7 @@ NSString * SwiftDateToString(NSDate *date){
                     viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:item.icon timeData:item.time nickName:item.name content:item.content isOwner:[item.owner boolValue]];
                     break;
                 case 2:
-                    viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image size:0 width:0 height:0 isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image thumbnailImage:nil fullImage:nil size:0 width:0 height:0 isOwner:[item.owner boolValue]];
                     break;
                 case 3:
                     viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
@@ -151,18 +149,13 @@ NSString * SwiftDateToString(NSDate *date){
 //        [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
 }
 
-//- (void)postImage:(UIImage *)image{
-//    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
-//    model.time = SwiftDateToString([NSDate date]);
-//    model.icon = self.userIcon;
-//    model.type = CHMessageImage;
-//    CHChatMessageViewModel *cellViewModel = [[CHChatMessageViewModel alloc]initWithModel:model];
-////    cellViewModel.imageResource = image;
-//    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-//    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-//    [cellTempArray addObject:cellViewModel];
-//    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
-//}
+- (void)postImage:(NSString *)path{
+    CHChatMessageImageVM  *cellViewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path isOwner:YES];
+    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
+    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+    [cellTempArray addObject:cellViewModel];
+    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
+}
 //-(void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock{
 //    
 //    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {

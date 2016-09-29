@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef void (^CHPickerHandler)(UIImage* image);
+typedef void (^CHPickerHandler)(NSString *path);
 
 @interface CHAssistanceHandler : NSObject
 

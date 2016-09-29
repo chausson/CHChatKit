@@ -37,7 +37,7 @@
     [super updateConstraints];
     if ([self.viewModel isKindOfClass:[CHChatMessageVoiceVM class]]) {
         CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
-        CGFloat width = MAX(50, self.contentView.frame.size.width/3*2/60*vm.length);
+        CGFloat width = 50+self.contentView.frame.size.width/5*3/60*vm.length;
         
         if (vm.owner) {
             [ self.voiceImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -50,21 +50,23 @@
                 make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@(width));
+                make.left.equalTo(self.messageContainer).offset(0);
                 make.right.equalTo(self.messageContainer).offset(0);
             }];
             
             [self.secondsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.messageContainer).offset(10);
+                make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@25);
+                make.height.equalTo(@40);
                 make.right.equalTo(self.bubbleBtn.mas_left).offset(-3);
             }];
             
             [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.messageContainer).offset(10);
+                make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@25);
-                make.right.equalTo(self.secondsLabel.mas_left).offset(-3);
+                make.right.equalTo(self.bubbleBtn.mas_left).offset(-3);
             }];
         }else{
             [ self.voiceImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -78,15 +80,17 @@
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@(width));
                 make.left.equalTo(self.messageContainer).offset(0);
+                make.right.equalTo(self.messageContainer).offset(0);
+
             }];
             [self.secondsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.messageContainer).offset(10);
+                make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@25);
                 make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
             }];
             [self.unreadContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.messageContainer).offset(10);
+                make.top.equalTo(self.messageContainer).offset(5);
                 make.height.equalTo(@10);
                 make.width.equalTo(@10);
                 make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
@@ -105,7 +109,7 @@
     }else{
         NSAssert(NO, @"[CHChatMessageVoiceVM class] loadViewModel的类型有问题");
     }
-  //  [self.stateIndicatorView startAnimating];
+  
 }
 - (void)setAnimationImage{
     NSString *voiceName = ({
@@ -130,6 +134,7 @@
     //FIX ME OWNER 点击没反应  地图的一样
     CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
     vm.hasRead = YES;
+    [vm playVoice];
     NSLog(@"play");
 }
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -182,9 +187,18 @@
 }
 - (NSArray *)ch_registerKeypaths
 {
+//    CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
     return [NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead" , nil];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"viewModel.state"]) {
+        NSInteger state = [[change objectForKey:@"new"] integerValue];
+        if (state == 1) {
+            [self.stateIndicatorView startAnimating];
+        }else{
+            [self.stateIndicatorView stopAnimating];
+        }
+    }
     if ([keyPath isEqualToString:@"viewModel.isOwner"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
     }

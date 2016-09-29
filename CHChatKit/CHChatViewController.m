@@ -14,7 +14,7 @@
 #import "MJRefresh.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 
-@interface CHChatViewController()
+@interface CHChatViewController()<CHChatMessageCellDelegate>
 
 @property(nonatomic,strong)MJRefreshHeader*  header;
 
@@ -38,7 +38,7 @@
 #pragma mark Lazy Init
 - (CHChatToolView *)chatView{
     if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:self.viewModel.configuration];
+        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
 
     }
     return _chatView;
@@ -63,10 +63,10 @@
     [super viewWillAppear:YES];
 }
 - (void)registerNotificationCenter{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:_viewModel.refreshName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:self.viewModel.refreshName object:nil];
 }
 - (void)removeNotification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:_viewModel.refreshName object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:self.viewModel.refreshName object:nil];
 }
 - (void)updateUI{
         [self.chatTableView reloadData];
@@ -76,7 +76,7 @@
                                       atScrollPosition: UITableViewScrollPositionBottom
                                               animated:NO];
     
-            [self.chatTableView reloadData];
+//            [self.chatTableView reloadData];
             
         }
 }
@@ -108,6 +108,7 @@
 {
 
     CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:self.viewModel atIndexPath:indexPath];
+    cell.delegate = self;
     CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
     [cell loadViewModel:cellViewModel];
 
@@ -156,8 +157,8 @@
 - (void)sendSound:(NSString *)path second:(NSInteger)sec{
     [self.viewModel postVoice:path second:sec];
 }
-- (void)sendImage:(UIImage *)image{
-    [self.viewModel postImage:image];
+- (void)sendOriginPath:(NSString *)path{
+    [self.viewModel postImage:path];
 }
 - (void)chatInputView{
     [self autoRollToLastRow];

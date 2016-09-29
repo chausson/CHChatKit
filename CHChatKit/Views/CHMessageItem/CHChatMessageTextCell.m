@@ -75,6 +75,7 @@
 - (UIButton *)bubbleBtn{
     if (!_bubbleBtn) {
         _bubbleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
     }
     return _bubbleBtn;
 }

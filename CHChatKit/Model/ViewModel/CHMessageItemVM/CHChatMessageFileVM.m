@@ -11,7 +11,7 @@
 @implementation CHChatMessageFileVM
 - (BOOL)isLocalFile{
 
-    return ![_filePath hasPrefix:@"http"];
+    return ![_filePath hasPrefix:@"http"] && _filePath;
 
 }
 - (void)setFilePath:(NSString *)filePath{

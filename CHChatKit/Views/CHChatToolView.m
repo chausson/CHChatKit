@@ -473,17 +473,17 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     
     switch (index) {
         case 0:{
-            [self.handler pickPhotoWihtLibraryPicker:_observer completion:^(UIImage *image) {
-                if ([_observer respondsToSelector:@selector(sendImage:)]) {
-                    [_observer sendImage:image];
+            [self.handler pickPhotoWihtLibraryPicker:_observer completion:^(NSString *path) {
+                if ([_observer respondsToSelector:@selector(sendOriginPath:)]) {
+                    [_observer  sendOriginPath:path];
                 }
             }];
             
         } break;
         case 1:{
-            [self.handler pickPhotoWihtCameraPicker:_observer completion:^(UIImage *image){
-                if ([_observer respondsToSelector:@selector(sendImage:)]) {
-                    [_observer sendImage:image];
+            [self.handler pickPhotoWihtCameraPicker:_observer completion:^(NSString *path){
+                if ([_observer respondsToSelector:@selector(sendOriginPath:)]) {
+                    [_observer sendOriginPath:path];
                 }
             }];
             

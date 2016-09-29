@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CHAssistanceHandler.h"
-#import "SDImageCache.h"
+//#import "SDImageCache.h"
 
 @interface CHAssistanceHandler()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak ,nonatomic) UIViewController *controller;
@@ -93,16 +93,8 @@
 
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
-        UIImage *image ;
-        if (![[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:url.absoluteString]) {
-            image = [info objectForKey:UIImagePickerControllerOriginalImage];
-            [[SDImageCache sharedImageCache] storeImage:image forKey:url.absoluteString toDisk:YES];
-            
-        }else{
-            image = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:url.absoluteString];
-        }
         if (_handler) {
-            _handler(image);
+            _handler(url.absoluteString);
         }
     }];
 }

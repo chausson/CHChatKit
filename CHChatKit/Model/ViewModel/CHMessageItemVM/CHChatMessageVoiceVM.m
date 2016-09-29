@@ -7,7 +7,7 @@
 //
 
 #import "CHChatMessageVoiceVM.h"
-
+#import "CHRecordHandler.h"
 @implementation CHChatMessageVoiceVM
 - (CHChatMessageType )category{
     return CHMessageVoice;
@@ -17,5 +17,13 @@
 }
 - (void)setHasRead:(BOOL)hasRead{
     _hasRead = hasRead;
+}
+- (void)playVoice
+{
+    [[CHRecordHandler standardDefault] playRecordWithPath:self.filePath];
+}
+- (void)stopVoice
+{
+    [[CHRecordHandler standardDefault] stopPlaying];
 }
 @end

@@ -63,20 +63,37 @@
                                         timeData:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
+                                  thumbnailImage:(UIImage *)thumbnail
+                                       fullImage:(UIImage *)full
                                             size:(float )size
                                            width:(float )aWidth
                                           height:(BOOL)aHeight
                                          isOwner:(BOOL)owner{
-    CHChatMessageImageVM *locationVM = [CHChatMessageImageVM new];
-    locationVM.nickName = name;
-    locationVM.date = date;
-    locationVM.owner = owner;
-    locationVM.icon = icon;
-    locationVM.size = size;
-    locationVM.width = aWidth;
-    locationVM.filePath = path;
-    locationVM.height = aHeight;
-    return locationVM;
+    CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
+    imageVM.nickName = name;
+    imageVM.thumbnailImage = thumbnail;
+    imageVM.fullImage = full;
+    imageVM.date = date;
+    imageVM.owner = owner;
+    imageVM.icon = icon;
+    imageVM.size = size;
+    imageVM.width = aWidth;
+    imageVM.filePath = path;
+    imageVM.height = aHeight;
+    return imageVM;
+}
++ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
+                                        timeData:(NSString *)date
+                                        nickName:(NSString *)name
+                                        resource:(NSString *)path
+                                         isOwner:(BOOL)owner{
+    CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
+    imageVM.nickName = name;
+    imageVM.date = date;
+    imageVM.owner = owner;
+    imageVM.icon = icon;
+    imageVM.filePath = path;
+    return imageVM;
 }
 + (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
                                         timeData:(NSString *)date

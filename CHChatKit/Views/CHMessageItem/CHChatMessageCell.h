@@ -21,7 +21,9 @@
 + (CHChatMessageType )messageCategory;
 
 @end
-
+@protocol CHChatMessageCellDelegate <NSObject>
+@optional
+@end
 @interface CHChatMessageCell : UITableViewCell
 
 @property (strong ,nonatomic) CHChatMessageViewModel *viewModel;
@@ -32,9 +34,11 @@
 @property (strong ,nonatomic ) UILabel *date;
 @property (assign ,nonatomic ) CGFloat iconCornerRadius;
 @property (strong ,nonatomic ) UILabel *nickName;
-
+@property (weak ,nonatomic ) id <CHChatMessageCellDelegate> delegate;
 + (void)registerSubclass;
++ (void)registerNotificationRefresh:(NSString *)name; // 注册刷新名称
 
+- (void)reloadTableView;
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel;
 
 - (CGSize)boundingRectWithSize:(CGSize)size
