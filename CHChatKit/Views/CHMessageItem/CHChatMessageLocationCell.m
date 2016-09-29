@@ -39,7 +39,7 @@
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
 
-    if (viewModel.isOwner) {
+    if ([self isOwner]) {
         [self.locationContainer maskRightLayer:_mapSize];
     }else{
         [self.locationContainer maskLeftLayer:_mapSize];
@@ -48,7 +48,7 @@
         CHChatMessageLocationVM *vm = (CHChatMessageLocationVM *)viewModel;
         self.areaName.text = vm.areaName;
         self.areaDetail.text = vm.areaDetail;
-        if (![vm isLocalFile]) {
+
             [self.mapImageView sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
                     //display the image
@@ -57,28 +57,7 @@
                 // TO DO 加入本地存放和缓存的逻辑
                 
             }];
-        }else{
-            static NSCache *cache = nil;
-            if (!cache) {
-                cache = [[NSCache alloc] init];
-            }
-            UIImage *imageCache = [cache objectForKey:vm.filePath];
-            //switch to background thread
-            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                UIImage *image ;
-                if (imageCache) {
-                    image = imageCache;
-                }else{
-                    image = [UIImage imageWithContentsOfFile:vm.filePath];
-                }
-                
-                //set image for correct image view
-                dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
-                    //display the image
-                    self.mapImageView.image = image;
-                });
-            });
-        }
+
 
         
     }else{
@@ -87,7 +66,7 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    if (self.viewModel.isOwner){
+    if ([self isOwner]){
         [self.locationContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(@(_mapSize.width));
             make.height.equalTo(@(_mapSize.height));

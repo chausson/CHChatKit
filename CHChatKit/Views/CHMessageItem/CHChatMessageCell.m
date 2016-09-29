@@ -80,25 +80,24 @@ static NSString *refreshName = nil;
     
     CGSize dateSize = [self boundingRectWithSize:CGSizeMake(self.contentView.frame.size.width, 8000) text:self.viewModel.date font:[UIFont systemFontOfSize:12]];
     if (self.viewModel.visableTime) {
-        [self.date mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.date mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.contentView);
             make.top.equalTo(self.contentView).offset(cellContentGap/2);
             make.height.equalTo(@(cellMessageDateHeight));
             make.width.mas_equalTo(dateSize.width+10);
         }];
     }else {
-        [self.date mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.date mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
         
     }
-    
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
     CGFloat widthMax = width - (cellIconWidth +cellContentGap*2)*2;
     CGFloat nickNameHeight = self.viewModel.isVisableNickName?20:0;
     CGSize nickNameSize = [self boundingRectWithSize:CGSizeMake(widthMax, nickNameHeight) text:self.viewModel.nickName font:_nickName.font];
-    if (self.viewModel.isOwner){
-        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+    if ([self isOwner]){
+        [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
                 make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
             }else{
@@ -108,13 +107,13 @@ static NSString *refreshName = nil;
             make.height.equalTo(@(cellIconHeight));
             make.width.equalTo(@(cellIconWidth));
         }];
-        [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.nickName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_icon.mas_top);
             make.height.equalTo(@(nickNameHeight));
             make.width.equalTo(@(nickNameSize.width));
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
         }];
-        [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.messageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
             make.top.equalTo(_nickName.mas_bottom);
             make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
@@ -124,7 +123,7 @@ static NSString *refreshName = nil;
         
         
     }else{
-        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
                 make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
             }else{
@@ -135,13 +134,13 @@ static NSString *refreshName = nil;
             make.height.equalTo(@(cellIconHeight));
             make.width.equalTo(@(cellIconWidth));
         }];
-        [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.nickName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_icon.mas_top);
             make.height.equalTo(@(nickNameHeight));
             make.width.equalTo(@(nickNameSize.width));
             make.left.equalTo(_icon.mas_right).offset(cellContentGap);
         }];
-        [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.messageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_nickName.mas_bottom);
             make.left.equalTo(_icon.mas_right).offset(cellContentGap);
             make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
@@ -172,12 +171,15 @@ static NSString *refreshName = nil;
     self.nickName.hidden = !viewModel.visableNickName;
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
-    [self updateConstraints];
+    [self updateConstraintsIfNeeded];
 }
 - (void)reloadTableView{
     if (refreshName.length > 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:refreshName object:nil];
     }
+}
+- (BOOL)isOwner{
+    return  [self.reuseIdentifier containsString:CHChatCellOwnerIdentifier];
 }
 #pragma mark 懒加载
 - (void)setIconCornerRadius:(CGFloat)iconCornerRadius{

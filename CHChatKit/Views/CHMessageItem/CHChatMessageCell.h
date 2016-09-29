@@ -46,5 +46,5 @@
                           font:(UIFont *)font;
 
 - (void)layout;
-
+- (BOOL)isOwner;
 @end

@@ -32,18 +32,17 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    if ([self.viewModel isKindOfClass:[CHChatMessageVoiceVM class]]) {
         CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
         CGFloat width = MAX(50, self.contentView.frame.size.width/3*2/60*vm.length);
         
-        if (vm.owner) {
-            [ self.voiceImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if ([self isOwner]) {
+            [ self.voiceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.messageContainer);
                 make.right.equalTo(self.messageContainer).offset(-12);
                 make.width.equalTo(@(20));
                 make.height.equalTo(@(20));
             }];
-            [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.bubbleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@(width));
@@ -51,20 +50,20 @@
                 make.right.equalTo(self.messageContainer).offset(0);
             }];
             
-            [self.secondsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.secondsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.messageContainer).offset(10);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@25);
                 make.right.equalTo(self.bubbleBtn.mas_left).offset(-3);
             }];
         }else{
-            [ self.voiceImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [ self.voiceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.messageContainer);
                 make.left.equalTo(self.messageContainer).offset(12);
                 make.width.equalTo(@(20));
                 make.height.equalTo(@(20));
             }];
-            [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.bubbleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.messageContainer).offset(0);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@(width));
@@ -72,14 +71,13 @@
                 make.right.equalTo(self.messageContainer).offset(0);
 
             }];
-            [self.secondsLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            [self.secondsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.messageContainer).offset(10);
                 make.bottom.equalTo(self.messageContainer).offset(0);
                 make.width.equalTo(@25);
                 make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
             }];
         }
-    }
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];

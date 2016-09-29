@@ -29,74 +29,46 @@
         _viewModel = viewModel;
         self.title = viewModel.chatControllerTitle;
         self.view.backgroundColor = [UIColor colorWithRed:235.0/ 255.0 green:235.0/255.0 blue:235.0 / 255.0 alpha:1];
-        [self layOutsubviews];
-
     }
     return self;
 }
 
-#pragma mark Lazy Init
-- (CHChatToolView *)chatView{
-    if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
-
-    }
-    return _chatView;
-}
-- (CHChatTableView *)chatTableView{
-    if (!_chatTableView) {
-        _chatTableView = [[CHChatTableView alloc] init];
-        _chatTableView.delegate = self;
-        _chatTableView.dataSource = self;
-        _chatTableView.backgroundColor = self.view.backgroundColor;
-    }
-    return _chatTableView;
-}
 #pragma mark Activity
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [CHChatMessageHelper registerCellForTableView:self.chatTableView];
+    [self layout];
+
+
     [self registerNotificationCenter];
-    [self autoRollToLastRow];
+    [self autoScrolleTableView];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
 }
+#pragma mark Notification
 - (void)registerNotificationCenter{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:self.viewModel.refreshName object:nil];
 }
 - (void)removeNotification{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:self.viewModel.refreshName object:nil];
 }
-- (void)updateUI{
-        [self.chatTableView reloadData];
-        if (self.viewModel.cellViewModels.count >5) {
-            [self.chatTableView scrollToRowAtIndexPath:
-             [NSIndexPath indexPathForRow:[self.viewModel.cellViewModels count]-1 inSection:0]
-                                      atScrollPosition: UITableViewScrollPositionBottom
-                                              animated:NO];
-    
-//            [self.chatTableView reloadData];
-            
-        }
-}
 
 #pragma mark  LayoutSubViews
 
-- (void)layOutsubviews
+- (void)layout
 {
     UITapGestureRecognizer *keyBoardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(registerKeyBoardTap:)];
-    [_chatTableView addGestureRecognizer:keyBoardTap];
+    [self.chatTableView addGestureRecognizer:keyBoardTap];
     [self.view addSubview:self.chatTableView];
     [self.view addSubview:self.chatView];
 
 //    [_chatView autoLayoutView];
-    [_chatTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.chatTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(0);
         make.left.and.right.offset(0);
         make.bottom.equalTo(self.chatView.mas_top).with.offset(0);
     }];
-
+    [CHChatMessageHelper registerCellForTableView:self.chatTableView];
 }
 #pragma mark TableView Delagate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -125,16 +97,19 @@
 #pragma mark CHChatToolView_Delegate
 - (void)chatKeyboardWillShow{
     
-    [self autoRollToLastRow];
+    [self autoScrolleTableView];
     
 }
 
 #pragma mark Private
+- (void)updateUI{
+    [self.chatTableView reloadData];
+    [self autoScrolleTableView];
+}
 // list滚动至最后一行
-- (void)autoRollToLastRow
+- (void)autoScrolleTableView
 {
-     [self.view layoutIfNeeded];
-    
+    [self.view layoutIfNeeded];
     if (self.viewModel.cellViewModels.count >= 5) {
         
         [self.chatTableView scrollToRowAtIndexPath:
@@ -161,13 +136,30 @@
     [self.viewModel postImage:path];
 }
 - (void)chatInputView{
-    [self autoRollToLastRow];
+    [self autoScrolleTableView];
 }
 #pragma mark 给数据源增加内容
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [_chatView setKeyboardHidden:YES];
    
+}
+#pragma mark Lazy Init
+- (CHChatToolView *)chatView{
+    if (!_chatView) {
+        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
+        
+    }
+    return _chatView;
+}
+- (CHChatTableView *)chatTableView{
+    if (!_chatTableView) {
+        _chatTableView = [[CHChatTableView alloc] init];
+        _chatTableView.delegate = self;
+        _chatTableView.dataSource = self;
+        _chatTableView.backgroundColor = self.view.backgroundColor;
+    }
+    return _chatTableView;
 }
 -(void)dealloc{
     [self removeNotification];
