@@ -10,4 +10,6 @@
 
 @interface CHMessageTextEvent : CHMessageEvent
 
+@property (nonatomic ,copy) NSString *text;
+
 @end

@@ -66,7 +66,12 @@
     if (!_message) {
         _message = [UILabel new];
         _message.numberOfLines = 0;
-        _message.font = [UIFont systemFontOfSize:15];
+        if ([UIScreen mainScreen].bounds.size.width == 320) {
+            _message.font = [UIFont systemFontOfSize:13];
+        }else{
+            _message.font = [UIFont systemFontOfSize:15];
+        }
+
         _message.textColor = [UIColor blackColor];
         _message.backgroundColor = [UIColor clearColor];
     }

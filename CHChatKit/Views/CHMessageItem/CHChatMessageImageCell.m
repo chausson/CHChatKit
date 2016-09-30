@@ -50,6 +50,8 @@
     [super loadViewModel:viewModel];
     // TO DO 内存缓存和沙盒缓存
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
+
+        
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
         UIImage *thumbnailPhoto = vm.thumbnailImage;
         if (self.imageContainer.image == thumbnailPhoto && self.imageContainer.image) {
@@ -61,29 +63,32 @@
             
             return;
         }
-        if ([vm isLocalFile] && vm.fullImage && vm.thumbnailImage == nil) {
-
+        if ([vm isLocalFile] && vm.fullImage) {
+            // TO DO 内存缓存和沙盒缓存
             self.imageContainer.image = nil;
             UIImage *fitImage =[vm.fullImage ch_aspectImageCell];
             vm.thumbnailImage = fitImage;
             self.imageContainer.image = fitImage;
             [self cropMask:self.imageContainer.image.size];
             
-            [self reloadTableView];
             return;
         }
-
+        __weak typeof(self )weakSelf = self;
         [self.imageContainer sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            
+                __strong typeof(self )strongSelf = weakSelf;
             dispatch_async(dispatch_get_main_queue(), ^{
                 //display the image
-                vm.fullImage = image;
-                UIImage *fitImage = [image ch_aspectImageCell];
-                
-                vm.thumbnailImage = fitImage;
-                self.imageContainer.image = fitImage;
-                [self cropMask:self.imageContainer.image.size];
-                [self reloadTableView];
+                if (image) {
+                    vm.fullImage = image;
+                    UIImage *fitImage = [image ch_aspectImageCell];
+                    
+                    vm.thumbnailImage = fitImage;
+                    strongSelf.imageContainer.image = fitImage;
+                    [strongSelf cropMask:self.imageContainer.image.size];
+                    [strongSelf reloadTableView];
+                }
+    
+
             });
             
         }];
