@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^CHRecordBlock)(NSString *path,NSInteger duration);
+
 @interface CHRecordHandler : NSObject
 
 @property (readonly , nonatomic) CGFloat recordSecs;
 @property (readonly , nonatomic) NSString *recordFile;
-
+/** 录音文件地址 */
+@property (readonly , nonatomic) NSURL *recordFileUrl;
 
 + (instancetype)new __unavailable;
 - (instancetype)init __unavailable;
@@ -26,6 +29,9 @@
 
 /** 播放录音文件 */
 - (void)playRecordWithPath:(NSString *)filePath;
+
+- (void)playRecordWithPath:(NSString *)filePath
+                     finsh:(CHRecordBlock )compeltion;
 
 /** 停止播放录音文件 */
 - (void)stopPlaying;

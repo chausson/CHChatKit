@@ -35,7 +35,7 @@
 @interface CHChatMessageFileVM ()
 
 @property (nonatomic ,copy) NSString *filePath;
-@property (nonatomic ,assign) CHMessageSendState state;
+@property (nonatomic ,assign) CHMessageSendState sendingState;
 
 @end
 @interface CHChatMessageLocationVM ()
@@ -56,4 +56,6 @@
 @interface CHChatMessageVoiceVM ()
 @property (nonatomic ,assign) NSInteger length;
 @property (nonatomic ,assign) BOOL hasRead;
+@property (nonatomic ,assign) CHVoicePlayState voiceState;
+
 @end

@@ -86,12 +86,14 @@
                                         timeData:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
+                                       fullImage:(UIImage *)image
                                          isOwner:(BOOL)owner{
     CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
     imageVM.nickName = name;
     imageVM.date = date;
     imageVM.owner = owner;
     imageVM.icon = icon;
+    imageVM.fullImage = image;
     imageVM.filePath = path;
     return imageVM;
 }

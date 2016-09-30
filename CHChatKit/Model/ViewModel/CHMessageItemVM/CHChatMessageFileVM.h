@@ -12,7 +12,7 @@
 /* 如果有http代表访问远程不是的话则是本地路径.
  */
 @property (nonatomic ,readonly) NSString *filePath;
-@property (nonatomic ,readonly) CHMessageSendState state;
+@property (nonatomic ,readonly) CHMessageSendState sendingState;
 //@property (nonatomic ,readonly) NSPrgoress *progress;
 
 - (BOOL)isLocalFile;

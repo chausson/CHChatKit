@@ -7,7 +7,7 @@
 //
 
 #import "UIImage+CHImage.h"
-
+#import <Photos/Photos.h>
 @implementation UIImage (CHImage)
 + (UIImage *)avaiableBubbleImage:(BOOL)right{
     UIImage *normal ;
@@ -47,5 +47,60 @@
     UIImage *fitImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return fitImage;
+}
+- (UIImage *)ch_aspectImageCell{
+    return [self ch_fitToSize:CGSizeMake(200, 200)];
+}
+- (void )fullResolutionImageForAssetUrl: (NSURL*)assetUrl
+                                 finish: (void (^)(UIImage *))finish{
+    if(assetUrl == nil) {
+        return ;
+    }
+    
+    if([PHPhotoLibrary authorizationStatus] != PHAuthorizationStatusAuthorized) {
+        return ;
+    }
+    
+    PHAsset* asset = ^ {
+        PHFetchResult<PHAsset*>* result = [PHAsset fetchAssetsWithALAssetURLs: @[ assetUrl ] options: nil];
+        PHAsset* asset = [result firstObject];
+        
+        return asset;
+    } ();
+    if(asset == nil) {
+        return ;
+    }
+    
+    CGFloat imageWidth = [asset pixelWidth];
+    if(imageWidth == 0) {
+        return ;
+    }
+    assert(imageWidth > 0);
+    
+    CGFloat imageHeight = [asset pixelHeight];
+    if(imageHeight == 0) {
+        return ;
+    }
+    assert(imageHeight > 0);
+    
+    CGSize imageSize = CGSizeMake(imageWidth, imageHeight);
+    
+    PHImageRequestOptions* options = [[PHImageRequestOptions alloc] init];
+    [options setSynchronous: TRUE];
+    
+    
+    PHImageManager* manager = [PHImageManager defaultManager];
+    [
+     manager
+     requestImageForAsset: asset
+     targetSize: imageSize
+     contentMode: PHImageContentModeDefault
+     options: options
+     resultHandler: ^(UIImage* resultImage, NSDictionary* info) {
+         if (finish) {
+             finish(resultImage);
+         }
+     }
+     ];
 }
 @end

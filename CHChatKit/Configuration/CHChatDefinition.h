@@ -62,6 +62,7 @@ typedef NS_ENUM(NSUInteger, CHMessageSendState){
 typedef NS_ENUM(NSUInteger, CHVoicePlayState){
     CHVoicePlayNormal,// 正常
     CHVoicePlaying,// 正在播放
+    CHVoiceFinish,// 正在播放
     CHVoicePlayCancel,// 取消
 };
 

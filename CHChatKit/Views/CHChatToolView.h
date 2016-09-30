@@ -21,7 +21,8 @@
 - (void)sendMessage:(NSString *)text;
 - (void)sendSound:(NSString *)path
            second:(NSInteger )sec;
-- (void)sendOriginPath:(NSString *)path;
+- (void)sendOriginPath:(NSString *)path
+                 photo:(UIImage *)image;
 @end
 
 @interface CHChatToolView : UIView

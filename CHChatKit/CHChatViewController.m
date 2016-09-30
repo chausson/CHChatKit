@@ -132,8 +132,9 @@
 - (void)sendSound:(NSString *)path second:(NSInteger)sec{
     [self.viewModel postVoice:path second:sec];
 }
-- (void)sendOriginPath:(NSString *)path{
-    [self.viewModel postImage:path];
+- (void)sendOriginPath:(NSString *)path
+                 photo:(UIImage *)image{
+    [self.viewModel postImage:path fullImage:image];
 }
 - (void)chatInputView{
     [self autoScrolleTableView];

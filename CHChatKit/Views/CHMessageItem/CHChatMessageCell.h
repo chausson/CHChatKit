@@ -47,4 +47,5 @@
 
 - (void)layout;
 - (BOOL)isOwner;
+- ( __kindof CHChatMessageViewModel *)viewModel;
 @end

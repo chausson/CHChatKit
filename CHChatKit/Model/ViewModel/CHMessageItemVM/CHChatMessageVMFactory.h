@@ -48,10 +48,12 @@
                                            width:(float )aWidth
                                           height:(BOOL)aHeight
                                          isOwner:(BOOL)owner;
+
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
                                         timeData:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
+                                       fullImage:(UIImage *)image
                                          isOwner:(BOOL)owner;
 
 + (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon

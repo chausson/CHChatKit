@@ -14,12 +14,8 @@
 #import "CHMessageTextEvent.h"
 #import "XEBEventBus.h"
 #import "NSObject+KVOExtension.h"
-#define FACE_NAME_HEAD  @"/s"
-// 表情转义字符的长度（ /s占2个长度，xxx占3个长度，共5个长度 ）
-#define FACE_NAME_LEN   5
 
-
-NSString * SwiftDateToString(NSDate *date){
+static NSString *SwiftDateToString(NSDate *date){
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"HH:mm";
@@ -97,31 +93,6 @@ NSString * SwiftDateToString(NSDate *date){
 - (void)updateUIForKeypath:(NSString *)keyPath {
     [[NSNotificationCenter defaultCenter] postNotificationName:_refreshName object:nil];
 }
-//- (void)receiverMessageWithText:(NSString *)text andMessageModel:(CHMessageModel *) messageModel{
-//
-////    NSLog(@"%@",text);
-//    
-//    CHChatViewItemModel *model = [[CHChatViewItemModel alloc] init];
-//    model.content = text;
-//    
-//    //单聊时对方的头像
-//    self.receiverIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
-//    if (messageModel == nil) {
-//        
-//        model.icon = self.receiverIcon;
-//    }else{
-//        model.icon = messageModel.icon;
-//        model.name = messageModel.name;
-//    }
-//    model.type = CHMessageText;
-//    model.time = SwiftDateToString([NSDate date]);
-//    model.owner = @(NO);
-//    CHChatMessageViewModel *cellViewModel = [[CHChatMessageViewModel alloc]initWithModel:model];
-//    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-//    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-//    [cellTempArray addObject:cellViewModel];
-//    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
-//}
 - (void)postMessage:(NSString *)text{
     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil content:text isOwner:YES];
     [viewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
@@ -151,47 +122,15 @@ NSString * SwiftDateToString(NSDate *date){
 //        [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
 }
 
-- (void)postImage:(NSString *)path{
-    CHChatMessageImageVM  *cellViewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path isOwner:YES];
+- (void)postImage:(NSString *)path
+        fullImage:(UIImage *)image{
+    
+    CHChatMessageImageVM  *cellViewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path fullImage:image isOwner:YES];
     [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
     [cellTempArray addObject:cellViewModel];
     self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
 }
-//-(void)refreshMessage:(NSString*)myID :(refreshBlock)refreshBlock{
-//    
-//    if ([CHChatConfiguration standardChatDefaults].type == CHChatSingle) {
-//
-//            
-//            NSMutableArray* array = [NSMutableArray array];
-//
-//            for (CHChatCellViewModel* cellViewModel in self.cellViewModels) {
-//                
-//                [array addObject:cellViewModel];
-//            }
-//            
-//            for (int i =1; i<array.count; i++) {
-//                CHChatCellViewModel* oldCellViewModel = array[i-1];
-//                CHChatCellViewModel* nowCellViewModel = array[i];
-//                
-//                if ([nowCellViewModel.time isEqualToString:oldCellViewModel.date]) {
-//                    
-//                    nowCellViewModel.visableTime = NO;
-//                }
-//            }
-//            
-//            self.cellViewModels = array.copy;
-//            refreshBlock();
-//            
-//     //   }];
-//    }else{
-//
-//    }
-//    
-//    
-//
-//    
-//}
 
 - (void)dealloc{
      [self ch_unregisterFromKVO];

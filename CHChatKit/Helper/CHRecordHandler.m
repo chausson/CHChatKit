@@ -11,13 +11,15 @@
 NSString *const recordFileName = @"CHRecord.caf";
 NSString *const pathKey = @"CHRecordHandler_VOICE_PATH";
 
-@interface  CHRecordHandler()<AVAudioRecorderDelegate>
+
+
+@interface  CHRecordHandler()<AVAudioRecorderDelegate,AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 /** 播放器对象 */
 @property (nonatomic, strong) AVAudioPlayer *player;
-/** 录音文件地址 */
-@property (nonatomic, strong) NSURL *recordFileUrl;
+
+@property (nonatomic , strong) NSURL *recordFileUrl;
 
 @property (nonatomic, strong) AVAudioSession *session;
 
@@ -25,6 +27,7 @@ NSString *const pathKey = @"CHRecordHandler_VOICE_PATH";
 /** 定时器 */
 @property (nonatomic, strong) NSTimer *recordTimer;// 定时器
 
+@property (nonatomic, copy) CHRecordBlock finish;
 @end
 
 
@@ -89,7 +92,7 @@ static id instance;
     
 }
 - (NSString *)stopRecording{
-    
+
     if ([_recorder isRecording]) {
         double cTime = _recorder.currentTime;
         [_recorder stop];
@@ -116,16 +119,19 @@ static id instance;
 - (void)playRecordWithPath:(NSString *)filePath{
     // 播放时停止录音
     [_recorder stop];
-    // key = [[CHRecordHandler standardDefault].paths objectForKey:key];
-    // 正在播放就返回
-    if ([self.player isPlaying]) return;
     self.recordFileUrl = [NSURL URLWithString:filePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recordFileUrl error:NULL];
+    self.player.delegate = self;
     [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [self.player play];
 }
-
+- (void)playRecordWithPath:(NSString *)filePath
+                     finsh:(CHRecordBlock )compeltion{
+    [self playRecordWithPath:filePath];
+    _finish = compeltion;
+}
 - (void)stopPlaying {
+    _finish = nil;
     [self.player stop];
 }
 
@@ -182,18 +188,6 @@ static id instance;
     }
     return createDir;
 }
-//- (NSString *)md5:(NSString *)inPutText
-//{
-//    const char *cStr = [inPutText UTF8String];
-//    unsigned char result[CC_MD5_DIGEST_LENGTH];
-//    CC_MD5(cStr, strlen(cStr), result);
-//    return [[NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-//             result[0], result[1], result[2], result[3],
-//             result[4], result[5], result[6], result[7],
-//             result[8], result[9], result[10], result[11],
-//             result[12], result[13], result[14], result[15]
-//             ] lowercaseString];
-//}
 
 - (void)clear{
     NSError *error;
@@ -211,5 +205,17 @@ static id instance;
         [fileManager removeItemAtPath:filePath error:&error];
         error?NSLog(@"Destory File=%@",error):@"";
     }
+}
+#pragma mark AVAudioPlayerDelegate
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    if (_finish && flag ) {
+        _finish(self.recordFile,self.recordSecs);
+        _finish = nil;
+    }
+}
+
+/* if an error occurs while decoding it will be reported to the delegate. */
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error{
+       _finish = nil;
 }
 @end

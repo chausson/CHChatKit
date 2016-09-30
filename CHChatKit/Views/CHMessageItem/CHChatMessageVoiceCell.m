@@ -11,7 +11,6 @@
 #import "UIImage+CHImage.h"
 #import "CHChatMessageVoiceVM.h"
 #import "NSObject+KVOExtension.h"
-#define WIDTHMIN 50
 @interface CHChatMessageVoiceCell()
 @property (strong ,nonatomic ) UIView *unreadContainer;
 @property (strong ,nonatomic ) CAShapeLayer *unreadLayer;
@@ -84,8 +83,7 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
-    CGFloat width = 50+self.contentView.frame.size.width/2/60*vm.length;
+    CGFloat width = 50+self.contentView.frame.size.width/2/60*[self.viewModel length];
     if ([self isOwner]) {
 
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -112,8 +110,8 @@
     [self setAnimationImage];
     [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.isOwner] forState:UIControlStateNormal];
     if ([viewModel isKindOfClass:[CHChatMessageVoiceVM class]]) {
-        CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)viewModel;
-        self.secondsLabel.text = [NSString stringWithFormat:@"%ld''", vm.length];
+    
+        self.secondsLabel.text = [NSString stringWithFormat:@"%ld''", [self.viewModel length]];
     }else{
         NSAssert(NO, @"[CHChatMessageVoiceVM class] loadViewModel的类型有问题");
     }
@@ -138,15 +136,12 @@
     [self.voiceImageView stopAnimating];
 }
 - (void)play:(UIButton *)sender{
-    [self.voiceImageView startAnimating];
-    //FIX ME OWNER 点击没反应  地图的一样
-    CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
-    [vm playVoice];
-    NSLog(@"play");
+    [self.viewModel playVoice];
 }
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//
-//}
+
+- ( __kindof CHChatMessageVoiceVM *)viewModel{
+    return super.viewModel;
+}
 - (UIImageView *)voiceImageView{
     if (!_voiceImageView) {
         _voiceImageView = [UIImageView new];
@@ -194,23 +189,41 @@
 }
 - (NSArray *)ch_registerKeypaths
 {
-    //    CHChatMessageVoiceVM *vm = (CHChatMessageVoiceVM *)self.viewModel;
-    return [NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead" , nil];
+    return [NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead" ,@"viewModel.sendingState",@"viewModel.voiceState", nil];
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"viewModel.state"]) {
+- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+    if ([key isEqualToString:@"sendingState"]) {
         NSInteger state = [[change objectForKey:@"new"] integerValue];
-        if (state == 1) {
-            [self.stateIndicatorView startAnimating];
-        }else{
-            [self.stateIndicatorView stopAnimating];
+        switch (state) {
+            case 1:
+                    [self.stateIndicatorView startAnimating];
+                break;
+                
+            default:
+                    [self.stateIndicatorView stopAnimating];
+                break;
         }
-    }
-    if ([keyPath isEqualToString:@"viewModel.isOwner"]) {
+    
+    }else if ([key isEqualToString:@"viewModel.isOwner"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
-    }
-    if ([keyPath isEqualToString:@"viewModel.hasRead"]) {
+    }else if ([key isEqualToString:@"viewModel.hasRead"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
+    }else if ([key isEqualToString:@"viewModel.voiceState"]) {
+         NSInteger state = [[change objectForKey:@"new"] integerValue];
+        switch (state) {
+            case 1:
+                [self.voiceImageView startAnimating];
+                break;
+            case 2:
+                [self.voiceImageView stopAnimating];
+                break;
+            case 3:
+                [self.voiceImageView stopAnimating];
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 -(void)dealloc{

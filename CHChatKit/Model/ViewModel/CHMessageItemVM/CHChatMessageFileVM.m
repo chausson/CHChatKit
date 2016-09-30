@@ -11,25 +11,15 @@
 @implementation CHChatMessageFileVM
 - (BOOL)isLocalFile{
 
-    return ![_filePath hasPrefix:@"http"] && _filePath;
+    return ![_filePath hasPrefix:@"http"];
 
 }
 - (void)setFilePath:(NSString *)filePath{
     _filePath = filePath;
 }
-- (void)setState:(CHMessageSendState)state{
-    _state = state;
+- (void)setSendingState:(CHMessageSendState)sendingState{
+    _sendingState = sendingState;
 }
 
-- (void)playVoice{
-    if (_filePath.length != 0) {
-        
-        dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(dispatchQueue, ^(void) {
-          //  [[CHRecordHandler standardDefault] :@""];
-        });
-        
-    }
-    
-}
+
 @end

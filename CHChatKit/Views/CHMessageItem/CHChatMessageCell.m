@@ -181,6 +181,9 @@ static NSString *refreshName = nil;
 - (BOOL)isOwner{
     return  [self.reuseIdentifier containsString:CHChatCellOwnerIdentifier];
 }
+- ( __kindof CHChatMessageViewModel *)viewModel{
+    return _viewModel;
+}
 #pragma mark 懒加载
 - (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
     _iconCornerRadius = iconCornerRadius;

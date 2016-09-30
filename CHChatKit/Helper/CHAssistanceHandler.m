@@ -57,7 +57,7 @@
         }
         pickerImage.sourceType = sourceType;
         pickerImage.delegate = self;
-        pickerImage.allowsEditing = YES;
+        pickerImage.allowsEditing = NO;
         [_controller presentViewController:pickerImage animated:YES completion:^{}];
     }
 
@@ -93,8 +93,9 @@
 
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         if (_handler) {
-            _handler(url.absoluteString);
+            _handler(url.absoluteString,image);
         }
     }];
 }

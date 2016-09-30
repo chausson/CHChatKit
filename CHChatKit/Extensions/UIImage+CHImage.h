@@ -12,4 +12,7 @@
 + (UIImage *)avaiableBubbleImage:(BOOL)right;
 
 - (UIImage *)ch_fitToSize:(CGSize)aSize;
+- (UIImage *)ch_aspectImageCell;
+- (void )fullResolutionImageForAssetUrl: (NSURL*)assetUrl
+                                 finish: (void (^)(UIImage *))finish;
 @end
