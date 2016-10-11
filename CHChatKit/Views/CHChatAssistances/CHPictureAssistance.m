@@ -55,8 +55,6 @@
 }
 #pragma mark - Imagepicker delegte
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
-    
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];

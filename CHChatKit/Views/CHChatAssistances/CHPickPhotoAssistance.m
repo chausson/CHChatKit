@@ -57,9 +57,10 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        //    CHMessagePictureEvent *event = [CHMessagePictureEvent new];
-        //
-        //    [[XEBEventBus defaultEventBus] postEvent:event];
+        CHMessagePictureEvent *event = [CHMessagePictureEvent new];
+        event.file = url.absoluteString;
+        event.fullPicture = image;
+        [[XEBEventBus defaultEventBus] postEvent:event];
     }];
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
