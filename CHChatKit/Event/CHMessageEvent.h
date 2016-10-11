@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CHMessageEvent : NSObject
+
 @property (copy ,nonatomic ) NSString *eventName;
 @property (copy ,nonatomic ) NSString *timestamp;
+@property (copy ,nonatomic ) NSString *date;
+@property (copy ,nonatomic ) NSString *receiverId;
+@property (weak ,nonatomic ) id handler; // 作为保留字段
+
 @end

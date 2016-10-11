@@ -8,7 +8,7 @@
 
 #import "CHChatAssistanceView.h"
 #import "CHChatConfiguration.h"
-#import "CHAssistanceHandler.h"
+#import "CHChatAssistance.h"
 #import "GrayPageControl.h"
 #define CHATASSISTANCE_COUNT_ROW 2 // 行数
 
@@ -27,6 +27,7 @@
 
 @implementation CHChatAssistanceView{
     UIScrollView *chatAssistanceScrollView;
+    NSMutableArray <CHChatAssistance *>* _assistances;
     GrayPageControl *assistancePageControl;
     BOOL progressing;
 }
@@ -42,9 +43,9 @@
 }
 
 #pragma mark privite layOutSubviews
-- (void) layOutSubView
+- (void)layOutSubView
 {
-
+    _assistances = [NSMutableArray array];
     chatAssistanceScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 190)];
     chatAssistanceScrollView.pagingEnabled = YES;
 
@@ -58,9 +59,11 @@
 }
 - (void)setConfig:(CHChatConfiguration *)config{
     _config = config;
-        NSArray <CHAssistanceItem *>* assistanceItems = config.assistanceItems;
-    [assistanceItems enumerateObjectsUsingBlock:^(CHAssistanceItem * _Nonnull obj, NSUInteger i, BOOL * _Nonnull stop) {
+    NSArray <NSString *>* assistanceItems = config.assistances;
+    
+    [assistanceItems enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, NSUInteger i, BOOL * _Nonnull stop) {
         UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        CHChatAssistance *assistance = [self fetchAssistance:identifier];
         [itemButton addTarget:self action:@selector(itemButton:) forControlEvents:UIControlEventTouchUpInside];
         itemButton.tag = i;
         CGFloat x = ITEM_DISTANCE_SIZE * (i % 4 + 1) + (i % 4) * CHATASSISTANCE_ITEM_SIZE + [UIScreen mainScreen].bounds.size.width * (i / 8);
@@ -71,11 +74,11 @@
             y = CHATASSISTANCE_ITEM_SIZE + 2 * ITEM_DISTANCE_SIZE;
         }
         itemButton.frame = CGRectMake(x, y, CHATASSISTANCE_ITEM_SIZE, CHATASSISTANCE_ITEM_SIZE);
-        [itemButton setBackgroundImage:[UIImage imageNamed:obj.iconImageName] forState:UIControlStateNormal];
+        [itemButton setBackgroundImage:[UIImage imageNamed:assistance.picture] forState:UIControlStateNormal];
         [chatAssistanceScrollView addSubview:itemButton];
         
         UILabel *itemTitle = [[UILabel alloc] initWithFrame:CGRectMake(itemButton.frame.origin.x, CGRectGetMaxY(itemButton.frame), itemButton.frame.size.width, 15)];
-        itemTitle.text = obj.iconTitle;
+        itemTitle.text = assistance.title;
         itemTitle.textColor = [UIColor lightGrayColor];
         itemTitle.font = [UIFont systemFontOfSize:12];
         itemTitle.textAlignment = NSTextAlignmentCenter;
@@ -87,6 +90,24 @@
     assistancePageControl.numberOfPages = assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1;
     assistancePageControl.currentPage = 0;
     [self addSubview:assistancePageControl];
+}
+- (CHChatAssistance *)fetchAssistance:(NSString *)identifier{
+    Class prettyClass = [AssistanceDic objectForKey:identifier];
+    __block CHChatAssistance *assinstance ;
+        [_assistances enumerateObjectsUsingBlock:^(CHChatAssistance * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([prettyClass isSubclassOfClass:obj.class]  ) {
+                assinstance = obj;
+                *stop = YES;
+            }
+        }];
+    if (assinstance) {
+        return assinstance;
+    }else{
+        assinstance = [[prettyClass alloc]init];
+        [_assistances addObject:assinstance];
+        return assinstance;
+    }
+
 }
 #pragma mark SCrollViewDelagate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -106,9 +127,9 @@
 }
 
 - (void)itemButton:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(didSelectedItem:)]) {
-        [self.delegate didSelectedItem:sender.tag];
-    }
+    NSArray <NSString *>* assistanceItems = _config.assistances;
+    CHChatAssistance *assistance = [self fetchAssistance:assistanceItems[sender.tag]];
+    [assistance executeEvent:self.observer];
 }
 
 

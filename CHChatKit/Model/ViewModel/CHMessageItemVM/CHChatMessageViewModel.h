@@ -15,13 +15,8 @@
 - (CHChatMessageType )category;
 @end
 @interface CHChatMessageViewModel : NSObject
-///* 如果有http代表访问远程不是的话则是本地路径.
-// */
-//@property (nonatomic ,readonly) NSString *voice;
-//@property (nonatomic ,readonly) NSString *location;
-//@property (nonatomic ,readonly) NSString *image;
 
-@property (nonatomic ,readonly) NSString *icon;
+@property (nonatomic ,copy) NSString *icon;
 @property (nonatomic ,readonly) NSString *date;
 @property (nonatomic ,readonly) NSString *nickName;
 @property (nonatomic ,readonly) CHChatMessageType category;

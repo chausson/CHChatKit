@@ -9,13 +9,8 @@
 #import <UIKit/UIKit.h>
 @class CHChatAssistanceView;
 @class CHChatConfiguration;
-@protocol CHChatAssistanceViewDelegate <NSObject>
 
-- (void)didSelectedItem:(NSInteger )index;
-
-@end
 @interface CHChatAssistanceView : UIView
-
-@property (nonatomic ,weak) id <CHChatAssistanceViewDelegate>delegate;
+@property (nonatomic ,weak) id observer;
 @property (nonatomic ,strong) CHChatConfiguration *config;
 @end

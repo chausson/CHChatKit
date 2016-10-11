@@ -9,8 +9,8 @@
 #import "CHChatMessageFileVM.h"
 
 @interface CHChatMessageLocationVM : CHChatMessageFileVM<CHChatMessageViewModelProtocol>
-@property (nonatomic ,readonly) float longitude;
-@property (nonatomic ,readonly) float latitude;
+@property (nonatomic ,readonly) double longitude;
+@property (nonatomic ,readonly) double latitude;
 @property (nonatomic ,readonly) NSString *areaDetail;
 @property (nonatomic ,readonly) NSString *areaName;
 @end

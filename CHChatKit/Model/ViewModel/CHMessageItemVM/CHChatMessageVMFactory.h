@@ -29,7 +29,7 @@
                                         category:(CHChatMessageType )category;
 
 + (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)icon
-                                              timeData:(NSString *)date
+                                              timeDate:(NSString *)date
                                               nickName:(NSString *)name
                                               areaName:(NSString *)title
                                             areaDetail:(NSString *)detail

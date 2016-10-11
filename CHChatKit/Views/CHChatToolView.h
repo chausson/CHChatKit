@@ -17,13 +17,14 @@
 - (void)chatKeyboardDidHide;
 - (void)chatInputView;
 @end
-@protocol CHKeyboardEvent <NSObject>
-- (void)sendMessage:(NSString *)text;
-- (void)sendSound:(NSString *)path
-           second:(NSInteger )sec;
-- (void)sendOriginPath:(NSString *)path
-                 photo:(UIImage *)image;
-@end
+/* 废弃该代理方法发送内容，通过EventBus 发送 */
+//@protocol CHKeyboardEvent <NSObject>
+//- (void)sendMessage:(NSString *)text;
+//- (void)sendSound:(NSString *)path
+//           second:(NSInteger )sec;
+//- (void)sendOriginPath:(NSString *)path
+//                 photo:(UIImage *)image;
+//@end
 
 @interface CHChatToolView : UIView
 
@@ -34,7 +35,7 @@
  * @brief 初始化toolView并设计观察对象
  * @return toolview实例对象
  */
-- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity,CHKeyboardEvent>*)object
+- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity>*)object
                    configuration:(CHChatConfiguration *)config;
 /**
  * @brief 是否隐藏键盘

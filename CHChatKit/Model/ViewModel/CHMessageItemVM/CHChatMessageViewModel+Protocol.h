@@ -16,8 +16,6 @@
 @property (nonatomic ,copy) NSString *voice;
 @property (nonatomic ,copy) NSString *location;
 @property (nonatomic ,copy) NSString *image;
-
-@property (nonatomic ,copy) NSString *icon;
 @property (nonatomic ,copy) NSString *date;
 @property (nonatomic ,copy) NSString *nickName;
 @property (nonatomic ,assign) CHChatMessageType category;
@@ -39,8 +37,8 @@
 
 @end
 @interface CHChatMessageLocationVM ()
-@property (nonatomic ,assign) float longitude;
-@property (nonatomic ,assign) float latitude;
+@property (nonatomic ,assign) double longitude;
+@property (nonatomic ,assign) double latitude;
 @property (nonatomic ,copy) NSString *areaDetail;
 @property (nonatomic ,copy) NSString *areaName;
 @end

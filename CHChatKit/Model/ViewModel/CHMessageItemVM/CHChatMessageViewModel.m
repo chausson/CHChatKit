@@ -35,9 +35,6 @@
 - (void)setDate:(NSString *)date{
     _date = date;
 }
-- (void)setIcon:(NSString *)icon{
-    _icon = icon;
-}
 - (void)setOwner:(BOOL)owner{
     _owner = owner;
 }

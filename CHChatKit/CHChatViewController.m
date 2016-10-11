@@ -80,7 +80,6 @@
 {
 
     CHChatMessageCell *cell = [CHChatMessageHelper fetchMessageCell:(CHChatTableView *)tableView cellViewModel:self.viewModel atIndexPath:indexPath];
-    cell.delegate = self;
     CHChatMessageViewModel *cellViewModel = self.viewModel.cellViewModels[indexPath.row];
     [cell loadViewModel:cellViewModel];
 
@@ -126,16 +125,6 @@
 }
 #pragma mark - 发送消息到服务器
 
-- (void)sendMessage:(NSString *)text{
-    [self.viewModel postMessage:text];
-}
-- (void)sendSound:(NSString *)path second:(NSInteger)sec{
-    [self.viewModel postVoice:path second:sec];
-}
-- (void)sendOriginPath:(NSString *)path
-                 photo:(UIImage *)image{
-    [self.viewModel postImage:path fullImage:image];
-}
 - (void)chatInputView{
     [self autoScrolleTableView];
 }

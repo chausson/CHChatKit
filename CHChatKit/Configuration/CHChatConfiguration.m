@@ -7,9 +7,6 @@
 
 #import "CHChatConfiguration.h"
 
-@implementation CHAssistanceItem
-
-@end
 
 @implementation CHChatConfiguration
 
@@ -26,72 +23,35 @@
     return instance;
 }
 
-//- (NSArray <CHAssistanceItem *>*)asstemblyDefultItems{
-//    NSMutableArray *items = [NSMutableArray array];
-//    CHAssistanceItem *pickPhoto = [self avaiableItemWithType:CHAssistancePhoto];
-//    CHAssistanceItem *photo =  [self avaiableItemWithType:CHAssistanceCarema];
-//    CHAssistanceItem *location =  [self avaiableItemWithType:CHAssistanceLocation];
-//
-//    [items addObject:pickPhoto];
-//    [items addObject:photo];
-//    [items addObject:location];
-//
-//    return [items copy];
-//}
-- (CHAssistanceItem *)avaiableItemWithType:(CHAssistanceType )type{
-    CHAssistanceItem *item = [[CHAssistanceItem alloc]init];
-    switch (type) {
-        case CHAssistancePhoto:
-            item.iconTitle = @"照片";
-            item.iconImageName = @"sharemore_pic";
-            item.itemType = CHAssistanceCarema;
-            break;
-        case CHAssistanceCarema:
-            item.iconTitle = @"拍照";
-            item.iconImageName = @"sharemore_video";
-            item.itemType = CHAssistancePhoto;
-            break;
-        case CHAssistanceLocation:
-            item.iconTitle = @"位置";
-            item.iconImageName = @"sharemore_pic";
-            item.itemType = CHAssistanceLocation;
-            break;
-            
-        default:
-            NSAssert(false, @"CHAssistanceType 没有配置相应的类型");
-            break;
-    }
-    return item;
-}
-- (void)addAssistanceItem:(CHAssistanceType )item{
+- (void)addAssistance:(NSString *)identifier{
     @synchronized (self) {
-        NSMutableArray *items = [NSMutableArray arrayWithArray:_assistanceItems];
+        NSMutableArray *items = [NSMutableArray arrayWithArray:_assistances];
         
-        [items addObject:[self avaiableItemWithType:item]];
+        [items addObject:identifier];
         
-        _assistanceItems = [items copy];
+        _assistances = [items copy];
     }
-
 }
-- (void)addAssistanceItems:(NSArray  <NSNumber *>*)items{
+- (void)addAssistances:(NSArray  <NSString *>*)identifiers{
     @synchronized (self) {
-        NSMutableArray *array = [NSMutableArray arrayWithArray:_assistanceItems];
-        [items enumerateObjectsUsingBlock:^(NSNumber *number, NSUInteger idx, BOOL *  stop) {
-            [array addObject:[self avaiableItemWithType:[number integerValue]]];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:_assistances];
+        [identifiers enumerateObjectsUsingBlock:^(NSString *identifier, NSUInteger idx, BOOL *  stop) {
+            [array addObject:identifier];
         }];
-        _assistanceItems = [array copy];
+        _assistances = [array copy];
     }
 }
-- (void)removeAssistanceItem:(CHAssistanceType )item{
+- (void)removeAssistanceItem:(NSString *)identifier{
     @synchronized (self) {
-        NSMutableArray *items = [NSMutableArray arrayWithArray:_assistanceItems];
-        [items enumerateObjectsUsingBlock:^(CHAssistanceItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (obj.itemType == item) {
-                [items removeObject:obj];
+        NSMutableArray *items = [NSMutableArray arrayWithArray:_assistances];
+        [items enumerateObjectsUsingBlock:^(NSString * _Nonnull assistanceIdentifier, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([assistanceIdentifier isEqualToString:identifier]) {
+                [items removeObject:assistanceIdentifier];
                 *stop = YES;
             }
         }];
-        _assistanceItems = [items copy];
+        _assistances = [items copy];
     }
 }
+
 @end

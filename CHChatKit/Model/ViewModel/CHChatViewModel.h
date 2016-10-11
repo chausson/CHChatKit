@@ -31,12 +31,5 @@ typedef void(^refreshBlock)();
 @property (nonatomic ,readonly ) CHChatConfiguration *configuration;
 @property (nonatomic ,readonly ) NSString *refreshName;
 
-- (void)postMessage:(NSString *)text;
-
-- (void)postVoice:(NSString *)path
-           second:(NSInteger )sec;
-
-- (void)postImage:(NSString *)path
-        fullImage:(UIImage *)image;
 
 @end

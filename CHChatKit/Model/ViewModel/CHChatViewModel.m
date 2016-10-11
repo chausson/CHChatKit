@@ -12,20 +12,25 @@
 #import "CHChatMessageViewModel.h"
 #import "CHChatMessageVMFactory.h"
 #import "CHMessageTextEvent.h"
+#import "CHMessageReceiveEvent.h"
 #import "XEBEventBus.h"
+#import "XEBSubscriber.h"
 #import "NSObject+KVOExtension.h"
 
 static NSString *SwiftDateToString(NSDate *date){
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"HH:mm";
-
+    
     return   [formatter stringFromDate:date];
 }
+@interface CHChatViewModel ()<XEBSubscriber>
 
-
+@end
 @implementation CHChatViewModel{
-    
+
+    XEBEventBus* _eventBus;
+
     NSDate *_lastPlaySoundDate;
 }
 - (instancetype)initWithMessageList:(CHChatModel *)list
@@ -33,6 +38,8 @@ static NSString *SwiftDateToString(NSDate *date){
     
     self = [super init];
     if (self) {
+        _eventBus = [XEBEventBus defaultEventBus];
+        [_eventBus registerSubscriber:self];
         _refreshName = @"CHCHAT_REFRESH_TABLEVIEW";
         _configuration = config;
         [self ch_registerForKVO];
@@ -52,7 +59,7 @@ static NSString *SwiftDateToString(NSDate *date){
                     viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
                     break;
                 case 5:
-                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeData:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeDate:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
                     break;
                     
                 default:
@@ -74,8 +81,16 @@ static NSString *SwiftDateToString(NSDate *date){
 
     return self;
 }
-
-
++ (NSArray<Class>*)handleableEventClasses {
+    return @[[CHMessageReceiveEvent class]];
+}
+- (void)onEvent:(CHMessageReceiveEvent *)event{
+    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+    event.item.icon = self.userIcon;
+    [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
+    [cellTempArray addObject:event.item];
+    self.cellViewModels = [cellTempArray copy];
+}
 #pragma mark - KVO
 
 - (NSArray *)ch_registerKeypaths {
@@ -93,47 +108,10 @@ static NSString *SwiftDateToString(NSDate *date){
 - (void)updateUIForKeypath:(NSString *)keyPath {
     [[NSNotificationCenter defaultCenter] postNotificationName:_refreshName object:nil];
 }
-- (void)postMessage:(NSString *)text{
-    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil content:text isOwner:YES];
-    [viewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-    [cellTempArray addObject:viewModel];
-    self.cellViewModels = [cellTempArray copy];
-
-    //判断是发单聊消息还是群聊消息给服务器
-    if (self.configuration.type == CHChatSingle) {
-        XEBEventBus* eventBus = [XEBEventBus defaultEventBus];
-        
-        [eventBus postEvent: [CHMessageTextEvent new]];
-        
-    }else{
-        
-    }
-
-    
-}
-- (void)postVoice:(NSString *)path
-           second:(NSInteger )sec{
-        CHChatMessageVoiceVM  *cellViewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path voiceLength:sec isOwner:YES];
-        [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-        NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-        [cellTempArray addObject:cellViewModel];
-        self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
-//        [[CHChatBusinessCommnd standardChatDefaults] postSoundWithData:path];
-}
-
-- (void)postImage:(NSString *)path
-        fullImage:(UIImage *)image{
-    
-    CHChatMessageImageVM  *cellViewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:self.userIcon timeData:SwiftDateToString([NSDate date]) nickName:nil resource:path fullImage:image isOwner:YES];
-    [cellViewModel sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-    [cellTempArray addObject:cellViewModel];
-    self.cellViewModels = [NSArray arrayWithArray:cellTempArray];
-}
 
 - (void)dealloc{
-     [self ch_unregisterFromKVO];
+    [self ch_unregisterFromKVO];
+    [_eventBus unregisterSubscriber: self];
 }
 
 @end

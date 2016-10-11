@@ -12,11 +12,13 @@
 #import "CHChatDefinition.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+
 NSMutableDictionary <NSString *,Class>const * ChatCellMessageCatagory = nil;
+
 static CGFloat const cellMessageDateHeight = 25.0f;
 static CGFloat const cellIconWidth = 40.0f;
-static CGFloat const cellContentGap = 10.0f; // 每个控件的间隔
 static CGFloat const cellIconHeight = cellIconWidth;
+static CGFloat const cellContentGap = 10.0f; // 每个控件的间隔
 static CGFloat const cellContentBottom = 16.0f;
 static NSString *refreshName = nil;
 @implementation CHChatMessageCell

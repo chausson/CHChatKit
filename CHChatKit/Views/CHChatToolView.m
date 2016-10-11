@@ -14,11 +14,13 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import "CHAssistanceHandler.h"
 #import "CHChatToolView.h"
 #import "CHChatAssistanceView.h"
 #import "CHChatTextView.h"
 #import "CHRecordHandler.h"
+#import "CHMessageTextEvent.h"
+#import "CHMessageVoiceEvent.h"
+#import "XEBEventBus.h"
 #import "UUProgressHUD.h"
 #import "FaceBoard.h"
 #import "NSString+AutoSize.h"
@@ -34,7 +36,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 
 
-@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate,CHChatAssistanceViewDelegate>
+@interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate>
 @property (strong ,nonatomic) CHChatAssistanceView *assistanceView;
 @property (strong ,nonatomic) FaceBoard *faceBoard;
 @property (strong ,nonatomic) UIImageView *backgroundView;
@@ -45,9 +47,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @property (strong ,nonatomic) UIView *contentView;
 @property (strong ,nonatomic) UIView *chatWindowView;
 @property (strong ,nonatomic) CHChatTextView *contentTextView;
-@property (strong ,nonatomic) CHAssistanceHandler *handler;
 @property (strong ,nonatomic) UIImageView *contentBackground;
-@property (weak   ,nonatomic) NSObject<CHKeyboardActivity,CHKeyboardEvent> *observer;
+@property (weak   ,nonatomic) NSObject<CHKeyboardActivity> *observer;
 @property (assign ,nonatomic) CGRect hiddenKeyboardRect;
 @property (assign ,nonatomic) CGRect showkeyboardRect;
 @property (assign ,nonatomic) CHChatToolSate currentState;// 聊天工具当前选择的按钮
@@ -58,7 +59,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @end
 @implementation CHChatToolView
 
-- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity,CHKeyboardEvent>*)object
+- (instancetype)initWithObserver:(NSObject<CHKeyboardActivity>*)object
                    configuration:(CHChatConfiguration *)config{
     self = [super init];
     if (self) {
@@ -137,7 +138,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _faceBoard.FaceDelegate = self;
     _faceBoard.backgroundColor = self.backgroundColor;
     _assistanceView = [[CHChatAssistanceView alloc] init];
-    _assistanceView.delegate = self;
+    _assistanceView.observer = _observer;
     _assistanceView.config = _config;
     _assistanceView.backgroundColor = self.backgroundColor;
     
@@ -459,40 +460,6 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         
     }];
 }
-#pragma mark AssistanceDelegate
-- (void)didSelectedItem:(NSInteger)index{
-
-    
-    //__weak typeof(self) weakSelf = self;
-    
-    switch (index) {
-        case 0:{
-            [self.handler pickPhotoWihtLibraryPicker:_observer completion:^(NSString *path,UIImage *image) {
-                if ([_observer respondsToSelector:@selector(sendOriginPath:photo:)]) {
-                    [_observer  sendOriginPath:path photo:image];
-                }
-            }];
-            
-        } break;
-        case 1:{
-            [self.handler pickPhotoWihtCameraPicker:_observer completion:^(NSString *path,UIImage *image) {
-                if ([_observer respondsToSelector:@selector(sendOriginPath:photo:)]) {
-                    [_observer  sendOriginPath:path photo:image];
-                }
-            }];
-            
-        } break;
-            
-        default:
-            break;
-    }
-}
-- (CHAssistanceHandler *)handler{
-    if (!_handler) {
-        _handler = [[CHAssistanceHandler alloc]init];
-    }
-    return _handler;
-}
 
 #pragma mark 声音处理
 - (void)startRecord:(UIButton *)button{
@@ -512,10 +479,10 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         [[CHRecordHandler standardDefault] destory];
         return;
     }
-    if ([self.observer respondsToSelector:@selector(sendSound:second:)]) {
-        [self.observer sendSound:fileName second:[CHRecordHandler standardDefault].recordSecs];
-    }
-
+    CHMessageVoiceEvent *e = [CHMessageVoiceEvent new];
+    e.file = fileName;
+    e.length = [CHRecordHandler standardDefault].recordSecs;
+    [[XEBEventBus defaultEventBus] postEvent:e];
 }
 
 - (void)cancelRecordVoice:(UIButton *)button
@@ -556,14 +523,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     
     //按下send 键
     if ([text isEqualToString:@"\n"]) {
- 
-        if ([_observer respondsToSelector:@selector(sendMessage:)]) {
-            if (textView.text.length > 0) {
-                
-                [_observer sendMessage:textView.text];
-            }
-        }
-        textView.text = nil;
+        [self sendText];
+     
         return NO;
     }
 #pragma mark - 点击删除键 判断如果是表情 就删除表情字符
@@ -573,19 +534,17 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     
     return YES;
 }
-
-
-
-- (void)sendFaceMessage
-{
+- (void)sendText{
     if (_contentTextView.text.length > 0) {
-        [_observer sendMessage:_contentTextView.text];
-        
-        
-//        [self sendToHyphenate:_contentTextView.text];
-        
+        CHMessageTextEvent *e = [CHMessageTextEvent new];
+        e.text = _contentTextView.text;
+        [[XEBEventBus defaultEventBus] postEvent:e];
         _contentTextView.text = nil;
     }
+}
+- (void)sendFaceMessage
+{
+        [self sendText];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{

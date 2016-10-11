@@ -15,10 +15,17 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #import <Foundation/Foundation.h>
 
-#pragma mark ENUM
+
 static NSString *const CHChatCellOwnerIdentifier = @"OwnerIdentifier";
 static NSString *const CHChatCellOthersIdentifier = @"OthersIdentifier";
+
+static NSString *const CHLocationAssistanceIdentifer = @"CHLocationIdentifier";// 位置
+static NSString *const CHPictureAssistanceIdentifer = @"CHPictureIdentifer"; // 图片
+static NSString *const CHPickPhotoAssistanceIdentifer = @"CHPickPhotoIdentifer";// 照片机
+
 FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* ChatCellMessageCatagory ;
+FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* AssistanceDic ;
+#pragma mark ENUM
 /**
  *  消息类型
  */
@@ -38,14 +45,16 @@ typedef NS_ENUM(NSUInteger, CHChatConversationType) {
     CHChatSingle,         //单聊
     CHChatGrounp     //群聊
 } ;
+
 /**
  *  添加辅助功能的类型
  */
-typedef NS_ENUM(NSUInteger, CHAssistanceType) {
-    CHAssistancePhoto,  // 图片
-    CHAssistanceCarema, // 照片机
-    CHAssistanceLocation// 位置
-} ;
+//typedef NS_ENUM(NSUInteger, CHAssistanceType) {
+//    CHNoneAssistance,
+//    CHPhotoAssistance,  // 图片
+//    CHCaremaAssistance, // 照片机
+//    CHLocationAssistance
+//} ;
 /**
  *  消息发送的状态
  */
