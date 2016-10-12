@@ -7,7 +7,8 @@
 //
 
 #import "CHChatMessageLocationVM.h"
-
+#import "CHLocationService.h"
+#import <UIKit/UIKit.h>
 @implementation CHChatMessageLocationVM
 - (CHChatMessageType )category{
     return CHMessageLocation;
@@ -26,5 +27,12 @@
 }
 - (void)setSnapshot:(UIImage *)snapshot{
     _snapshot = snapshot;
+}
+- (void)setCoor:(CLLocationCoordinate2D)coor{
+    _coor = coor;
+}
+- (void)respondsTapAction{
+    UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [[CHLocationService new] openLocation:controller coor:_coor postionTitle:_areaName postionContent:_areaDetail];
 }
 @end

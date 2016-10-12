@@ -9,6 +9,14 @@
 #import "CHLocationAssistance.h"
 #import "CHMessageLocationEvent.h"
 #import <CoreLocation/CoreLocation.h>
+#import "CHLocationService.h"
+
+@interface CHLocationAssistance()
+
+@property(nonatomic,strong)CHLocationService*  service;
+
+@end
+
 @implementation CHLocationAssistance
 
 + (NSString *)registerAssistance{
@@ -25,9 +33,17 @@
     return @"sharemore_loc";
 }
 - (void)executeEvent:(id )responder{
-    CHMessageLocationEvent *event = [CHMessageLocationEvent new];
-    
-    [[XEBEventBus defaultEventBus] postEvent:event];
+    self.service = [[CHLocationService alloc] init];
+    self.service.finish = ^(CHLocationService *info){
+        //        NSLog(@"%@", info.postionContent);
+        CHMessageLocationEvent *event = [CHMessageLocationEvent new];
+        event.title = info.postionTitle;
+        event.map = info.snapshot;
+        event.detail = info.postionContent;
+        event.location = [[CLLocation alloc]initWithLatitude:info.coor.latitude longitude:info.coor.longitude];
+        [[XEBEventBus defaultEventBus] postEvent:event];
+    };
+    [self.service fetchLocationInfo:responder];
 }
 
 @end

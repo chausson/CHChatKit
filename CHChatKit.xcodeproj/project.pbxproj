@@ -34,6 +34,14 @@
 		0633BA611DADDC580077A845 /* AppDelegate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA601DADDC580077A845 /* AppDelegate+Extensions.m */; };
 		0633BA641DADDF4E0077A845 /* CHEMChatInstallEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */; };
 		0633BA671DADE3460077A845 /* CHEMChatAccountEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */; };
+		0633BA7A1DAE18900077A845 /* CHLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA6A1DAE18900077A845 /* CHLocationService.m */; };
+		0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA6E1DAE18900077A845 /* CHMapViewController.m */; };
+		0633BA7D1DAE18900077A845 /* CHRimMapCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA701DAE18900077A845 /* CHRimMapCellViewModel.m */; };
+		0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA721DAE18900077A845 /* CHRimMapTableViewCell.m */; };
+		0633BA7F1DAE18900077A845 /* CHRimMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA741DAE18900077A845 /* CHRimMapViewController.m */; };
+		0633BA801DAE18900077A845 /* CHRimMapViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA761DAE18900077A845 /* CHRimMapViewModel.m */; };
+		0633BA811DAE18900077A845 /* mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0633BA781DAE18900077A845 /* mark.png */; };
+		0633BA821DAE18900077A845 /* serach_Map.png in Resources */ = {isa = PBXBuildFile; fileRef = 0633BA791DAE18900077A845 /* serach_Map.png */; };
 		066432AF1D7EBEC00068AEF2 /* ChatContent.plist in Resources */ = {isa = PBXBuildFile; fileRef = 066432AB1D7EBEC00068AEF2 /* ChatContent.plist */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
 		0666DB9F1D9A215000D5EA0C /* CHChatMessageLocationVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DB9E1D9A215000D5EA0C /* CHChatMessageLocationVM.m */; };
@@ -241,6 +249,20 @@
 		0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEMChatInstallEvent.m; sourceTree = "<group>"; };
 		0633BA651DADE3460077A845 /* CHEMChatAccountEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHEMChatAccountEvent.h; sourceTree = "<group>"; };
 		0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEMChatAccountEvent.m; sourceTree = "<group>"; };
+		0633BA691DAE18900077A845 /* CHLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLocationService.h; sourceTree = "<group>"; };
+		0633BA6A1DAE18900077A845 /* CHLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLocationService.m; sourceTree = "<group>"; };
+		0633BA6D1DAE18900077A845 /* CHMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMapViewController.h; sourceTree = "<group>"; };
+		0633BA6E1DAE18900077A845 /* CHMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMapViewController.m; sourceTree = "<group>"; };
+		0633BA6F1DAE18900077A845 /* CHRimMapCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRimMapCellViewModel.h; sourceTree = "<group>"; };
+		0633BA701DAE18900077A845 /* CHRimMapCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRimMapCellViewModel.m; sourceTree = "<group>"; };
+		0633BA711DAE18900077A845 /* CHRimMapTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRimMapTableViewCell.h; sourceTree = "<group>"; };
+		0633BA721DAE18900077A845 /* CHRimMapTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRimMapTableViewCell.m; sourceTree = "<group>"; };
+		0633BA731DAE18900077A845 /* CHRimMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRimMapViewController.h; sourceTree = "<group>"; };
+		0633BA741DAE18900077A845 /* CHRimMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRimMapViewController.m; sourceTree = "<group>"; };
+		0633BA751DAE18900077A845 /* CHRimMapViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRimMapViewModel.h; sourceTree = "<group>"; };
+		0633BA761DAE18900077A845 /* CHRimMapViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRimMapViewModel.m; sourceTree = "<group>"; };
+		0633BA781DAE18900077A845 /* mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mark.png; sourceTree = "<group>"; };
+		0633BA791DAE18900077A845 /* serach_Map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = serach_Map.png; sourceTree = "<group>"; };
 		065890DB1D9138CA00531445 /* CHChatDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatDefinition.h; sourceTree = "<group>"; };
 		066432AB1D7EBEC00068AEF2 /* ChatContent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChatContent.plist; sourceTree = "<group>"; };
 		066432AD1D7EBEC00068AEF2 /* CHChatConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatConfiguration.h; sourceTree = "<group>"; };
@@ -614,6 +636,35 @@
 			path = CHMessageItem;
 			sourceTree = "<group>";
 		};
+		0633BA681DAE18900077A845 /* CHLocation */ = {
+			isa = PBXGroup;
+			children = (
+				0633BA691DAE18900077A845 /* CHLocationService.h */,
+				0633BA6A1DAE18900077A845 /* CHLocationService.m */,
+				0633BA6D1DAE18900077A845 /* CHMapViewController.h */,
+				0633BA6E1DAE18900077A845 /* CHMapViewController.m */,
+				0633BA6F1DAE18900077A845 /* CHRimMapCellViewModel.h */,
+				0633BA701DAE18900077A845 /* CHRimMapCellViewModel.m */,
+				0633BA711DAE18900077A845 /* CHRimMapTableViewCell.h */,
+				0633BA721DAE18900077A845 /* CHRimMapTableViewCell.m */,
+				0633BA731DAE18900077A845 /* CHRimMapViewController.h */,
+				0633BA741DAE18900077A845 /* CHRimMapViewController.m */,
+				0633BA751DAE18900077A845 /* CHRimMapViewModel.h */,
+				0633BA761DAE18900077A845 /* CHRimMapViewModel.m */,
+				0633BA771DAE18900077A845 /* Image */,
+			);
+			path = CHLocation;
+			sourceTree = "<group>";
+		};
+		0633BA771DAE18900077A845 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				0633BA781DAE18900077A845 /* mark.png */,
+				0633BA791DAE18900077A845 /* serach_Map.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		066432AA1D7EBE8F0068AEF2 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +817,7 @@
 		069275B31D77DDFF00CAB0A5 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				0633BA681DAE18900077A845 /* CHLocation */,
 				0612E6B81D9D495300B836E1 /* CHEventBus */,
 				06686DF51D98C050007812B7 /* UITableView+FDTemplateLayoutCell */,
 				069278EE1D77E6D800CAB0A5 /* SDWebImage */,
@@ -1286,10 +1338,12 @@
 				069278441D77E39300CAB0A5 /* emo_007@2x.png in Resources */,
 				069278431D77E39300CAB0A5 /* emo_006@2x.png in Resources */,
 				0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */,
+				0633BA811DAE18900077A845 /* mark.png in Resources */,
 				0692784C1D77E39300CAB0A5 /* emo_015@2x.png in Resources */,
 				069278461D77E39300CAB0A5 /* emo_009@2x.png in Resources */,
 				069278481D77E39300CAB0A5 /* emo_011@2x.png in Resources */,
 				069278521D77E39300CAB0A5 /* emo_021@2x.png in Resources */,
+				0633BA821DAE18900077A845 /* serach_Map.png in Resources */,
 				0692784A1D77E39300CAB0A5 /* emo_013@2x.png in Resources */,
 				069278551D77E39300CAB0A5 /* emo_024@2x.png in Resources */,
 				066432AF1D7EBEC00068AEF2 /* ChatContent.plist in Resources */,
@@ -1411,6 +1465,7 @@
 				0632EA741D93BA7A00A4E37C /* CHChatMessageVoiceCell.m in Sources */,
 				069278761D77E39300CAB0A5 /* MJRefreshComponent.m in Sources */,
 				0692791A1D77E6D800CAB0A5 /* UIImage+GIF.m in Sources */,
+				0633BA7F1DAE18900077A845 /* CHRimMapViewController.m in Sources */,
 				0692787C1D77E39300CAB0A5 /* MJRefreshBackGifFooter.m in Sources */,
 				0612E6CB1D9D495300B836E1 /* XEBEventBus.m in Sources */,
 				069278791D77E39300CAB0A5 /* MJRefreshAutoGifFooter.m in Sources */,
@@ -1436,7 +1491,9 @@
 				069278741D77E39300CAB0A5 /* MJRefreshAutoFooter.m in Sources */,
 				0692787B1D77E39300CAB0A5 /* MJRefreshAutoStateFooter.m in Sources */,
 				069276BA1D77DF7400CAB0A5 /* CHChatAssistanceView.m in Sources */,
+				0633BA7A1DAE18900077A845 /* CHLocationService.m in Sources */,
 				069279181D77E6D800CAB0A5 /* SDWebImagePrefetcher.m in Sources */,
+				0633BA801DAE18900077A845 /* CHRimMapViewModel.m in Sources */,
 				06C766C61DACF21C00DADEC0 /* CHMessageVoiceEvent.m in Sources */,
 				06686E051D98FFF7007812B7 /* CHChatMessageViewModel.m in Sources */,
 				069278841D77E39300CAB0A5 /* EMAudioRecorderUtil.m in Sources */,
@@ -1461,6 +1518,7 @@
 				069278771D77E39300CAB0A5 /* MJRefreshFooter.m in Sources */,
 				06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */,
 				06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */,
+				0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */,
 				069278861D77E39300CAB0A5 /* EMCDDeviceManager+Microphone.m in Sources */,
 				06D1EFE81D9B9C94003B7DE0 /* CHChatFileStorage.m in Sources */,
 				0633BA641DADDF4E0077A845 /* CHEMChatInstallEvent.m in Sources */,
@@ -1490,9 +1548,11 @@
 				060A1B781D991A0D00C2F0ED /* CHChatMessageFileVM.m in Sources */,
 				0692785A1D77E39300CAB0A5 /* JSONModel.m in Sources */,
 				069278851D77E39300CAB0A5 /* EMCDDeviceManager+Media.m in Sources */,
+				0633BA7D1DAE18900077A845 /* CHRimMapCellViewModel.m in Sources */,
 				066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */,
 				0632EA771D93C2F500A4E37C /* CHChatMessageLocationCell.m in Sources */,
 				069278831D77E39300CAB0A5 /* EMAudioPlayerUtil.m in Sources */,
+				0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */,
 				0692791C1D77E6D800CAB0A5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				06686E001D98C050007812B7 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				0692787E1D77E39300CAB0A5 /* MJRefreshBackStateFooter.m in Sources */,
@@ -1619,7 +1679,7 @@
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chausson.vacances;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.heiyan.DEMO829;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1641,7 +1701,7 @@
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chausson.vacances;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.heiyan.DEMO829;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

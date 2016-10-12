@@ -9,7 +9,6 @@
 #import "AppDelegate+Extensions.h"
 #import <objc/runtime.h>
 #import <EMSDK.h>
-
 @implementation AppDelegate (Extensions)
 + (void)load{
     static dispatch_once_t onceToken;
@@ -48,6 +47,7 @@
     }
     
 }
+
 - (void)ch_ApplicationDidEnterBackground:(UIApplication *)application{
     [self ch_ApplicationDidEnterBackground:application];
     [[EMClient sharedClient] applicationDidEnterBackground:application];

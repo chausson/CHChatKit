@@ -35,8 +35,7 @@
                                             areaDetail:(NSString *)detail
                                               resource:(NSString *)path
                                               snapshot:(UIImage *)map
-                                             longitude:(float )lon
-                                              latitude:(float )lat
+                                              location:(CLLocationCoordinate2D)coor
                                                isOwner:(BOOL)owner;
 
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon

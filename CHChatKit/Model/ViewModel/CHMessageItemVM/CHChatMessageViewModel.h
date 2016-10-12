@@ -27,5 +27,6 @@
 
 
 - (void)sortOutWithTime:(NSString *)time;
-
+/* 处理响应事件  */
+- (void)respondsTapAction;
 @end

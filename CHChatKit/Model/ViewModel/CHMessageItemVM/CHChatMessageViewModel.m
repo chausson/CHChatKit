@@ -18,7 +18,9 @@
     }
     return self;
 }
-
+- (void)respondsTapAction{
+    
+}
 - (void)sortOutWithTime:(NSString *)time{
     if (time && time.length != 0) {
         if ([time isEqualToString:_date]){

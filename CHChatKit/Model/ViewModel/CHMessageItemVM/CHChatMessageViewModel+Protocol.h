@@ -12,6 +12,7 @@
 #import "CHChatMessageLocationVM.h"
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatMessageImageVM.h"
+#import <CoreLocation/CoreLocation.h>
 @interface CHChatMessageViewModel ()
 @property (nonatomic ,copy) NSString *voice;
 @property (nonatomic ,copy) NSString *location;
@@ -42,6 +43,7 @@
 @property (nonatomic ,copy) NSString *areaDetail;
 @property (nonatomic ,copy) NSString *areaName;
 @property (nonatomic ,strong) UIImage *snapshot;
+@property (nonatomic ,assign) CLLocationCoordinate2D coor;
 @end
 @interface CHChatMessageImageVM ()
 

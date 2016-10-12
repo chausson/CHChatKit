@@ -45,20 +45,18 @@
                                             areaDetail:(NSString *)detail
                                               resource:(NSString *)path
                                               snapshot:(UIImage *)map
-                                             longitude:(float )lon
-                                              latitude:(float )lat
+                                              location:(CLLocationCoordinate2D)coor
                                                isOwner:(BOOL)owner{
     CHChatMessageLocationVM *locationVM = [CHChatMessageLocationVM new];
     locationVM.nickName = name;
     locationVM.date = date;
     locationVM.owner = owner;
     locationVM.icon = icon;
-    locationVM.longitude = lon;
-    locationVM.latitude = lat;
     locationVM.filePath = path;
     locationVM.areaDetail = detail;
     locationVM.areaName = title;
     locationVM.snapshot = map;
+    locationVM.coor = coor;
     return locationVM;
 }
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon

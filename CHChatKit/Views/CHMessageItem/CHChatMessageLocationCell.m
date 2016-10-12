@@ -127,7 +127,7 @@
 }
 //进入定位详情
 - (void)clickMapAction{
-    NSLog(@"进入地图定位");
+    [self.viewModel respondsTapAction];
 }
 - (UILabel *)areaDetail
 {

@@ -53,7 +53,7 @@
                     viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
                     break;
                 case 5:
-                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeDate:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path snapshot:nil longitude:[item.lon floatValue] latitude:[item.lat floatValue] isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeDate:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path snapshot:nil location:CLLocationCoordinate2DMake(0, 0) isOwner:[item.owner boolValue]];
                     break;
                     
                 default:
