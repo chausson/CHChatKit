@@ -9,7 +9,7 @@
 #import "CHChatMessageTextCell.h"
 #import "CHChatMessageTextVM.h"
 #import "UIImage+CHImage.h"
-#import "NSString+Emoji.h"
+#import "NSString+CHExtensions.h"
 #import "Masonry.h"
 
 @implementation CHChatMessageTextCell

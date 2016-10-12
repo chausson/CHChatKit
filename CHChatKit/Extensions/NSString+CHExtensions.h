@@ -1,5 +1,5 @@
 //
-//  NSString+Emoji.h
+//  NSString+CHExtensions
 //  
 //
 //  Created by Valerio Mazzeo on 24/04/13.
@@ -15,7 +15,7 @@
  Emoji Cheat Sheet <http://www.emoji-cheat-sheet.com> into unicode emoji characters
  and vice versa (useful if you need to POST a message typed by the user to a remote service).
  */
-@interface NSString (Emoji)
+@interface NSString (CHExtensions)
 
 /**
  Returns a NSString in which any occurrences that match the cheat codes
@@ -47,4 +47,5 @@
 
 // 根据文本和字体大小来确定 label 的大小
 - (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font;
+
 @end

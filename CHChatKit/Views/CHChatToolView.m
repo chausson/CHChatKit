@@ -23,7 +23,7 @@
 #import "XEBEventBus.h"
 #import "UUProgressHUD.h"
 #import "FaceBoard.h"
-#import "NSString+AutoSize.h"
+#import "NSString+CHExtensions.h"
 #import "Masonry.h"
 
 typedef NS_ENUM(NSUInteger, CHChatToolSate) {

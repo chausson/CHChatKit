@@ -44,9 +44,6 @@
                                         resource:(NSString *)path
                                   thumbnailImage:(UIImage *)thumbnail
                                        fullImage:(UIImage *)full
-                                            size:(float )size
-                                           width:(float )aWidth
-                                          height:(BOOL)aHeight
                                          isOwner:(BOOL)owner;
 
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon

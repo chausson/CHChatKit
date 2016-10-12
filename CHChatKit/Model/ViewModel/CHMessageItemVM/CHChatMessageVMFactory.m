@@ -65,9 +65,6 @@
                                         resource:(NSString *)path
                                   thumbnailImage:(UIImage *)thumbnail
                                        fullImage:(UIImage *)full
-                                            size:(float )size
-                                           width:(float )aWidth
-                                          height:(BOOL)aHeight
                                          isOwner:(BOOL)owner{
     CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
     imageVM.nickName = name;
@@ -76,10 +73,7 @@
     imageVM.date = date;
     imageVM.owner = owner;
     imageVM.icon = icon;
-    imageVM.size = size;
-    imageVM.width = aWidth;
     imageVM.filePath = path;
-    imageVM.height = aHeight;
     return imageVM;
 }
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon

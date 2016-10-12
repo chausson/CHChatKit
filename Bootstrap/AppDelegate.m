@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "XEBEventBus.h"
+#import "CHEMChatInstallEvent.h"
+#import "CHEMChatAccountEvent.h"
 @interface AppDelegate ()
 
 @end
@@ -16,12 +18,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    CHEMChatInstallEvent *install = [CHEMChatInstallEvent new];
+    CHEMChatAccountEvent *account = [CHEMChatAccountEvent new];
+    install.apnsCertName = @"vacances_dev";
+    install.appKey = @"jiazu#jiazu";
+    account.userName = @"133345";
+    account.password = @"111111";
+    [[XEBEventBus defaultEventBus] postEvent:install];
+    [[XEBEventBus defaultEventBus] postEvent:account];
 
     // Override point for customization after application launch.
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }

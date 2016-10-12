@@ -1,14 +1,14 @@
 //
-//  NSString+Emoji.m
+//  NSString+CHExtensions
 //
 //
 //  Created by Valerio Mazzeo on 24/04/13.
 //  Copyright (c) 2013 Valerio Mazzeo. All rights reserved.
 //
 
-#import "NSString+Emoji.h"
+#import "NSString+CHExtensions.h"
 #import <CommonCrypto/CommonCrypto.h>
-@implementation NSString (Emoji)
+@implementation NSString (CHExtensions)
 
 static NSDictionary * s_unicodeToCheatCodes = nil;
 static NSDictionary * s_cheatCodesToUnicode = nil;
@@ -915,5 +915,16 @@ static NSDictionary * s_cheatCodesToUnicode = nil;
     }
     return self;
 }
-
+// 根据文本和字体大小来确定 label 的大小
+- (CGSize)sizeWithString:(NSString *)string font:(UIFont *)font
+{
+    CGFloat w = [UIScreen mainScreen].bounds.size.width;
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(w, 8000)//限制最大的宽度和高度
+                                       options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading  |NSStringDrawingUsesLineFragmentOrigin//采用换行模式
+                                    attributes:@{NSFontAttributeName: font}//传人的字体字典
+                                       context:nil];
+    
+    return rect.size;
+}
 @end

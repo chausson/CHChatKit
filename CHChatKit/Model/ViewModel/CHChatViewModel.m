@@ -6,7 +6,7 @@
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "NSString+Emoji.h"
+
 #import "CHChatViewModel.h"
 #import "CHChatConfiguration.h"
 #import "CHChatMessageViewModel.h"
@@ -16,14 +16,8 @@
 #import "XEBEventBus.h"
 #import "XEBSubscriber.h"
 #import "NSObject+KVOExtension.h"
+#import "NSString+CHExtensions.h"
 
-static NSString *SwiftDateToString(NSDate *date){
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"HH:mm";
-    
-    return   [formatter stringFromDate:date];
-}
 @interface CHChatViewModel ()<XEBSubscriber>
 
 @end
@@ -53,7 +47,7 @@ static NSString *SwiftDateToString(NSDate *date){
                     viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:item.icon timeData:item.time nickName:item.name content:item.content isOwner:[item.owner boolValue]];
                     break;
                 case 2:
-                    viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image thumbnailImage:nil fullImage:nil size:0 width:0 height:0 isOwner:[item.owner boolValue]];
+                    viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image thumbnailImage:nil fullImage:nil  isOwner:[item.owner boolValue]];
                     break;
                 case 3:
                     viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];

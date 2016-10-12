@@ -177,7 +177,7 @@ static NSString *refreshName = nil;
 }
 - (void)reloadTableView{
     if (refreshName.length > 0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:refreshName object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:refreshName object:nil];
     }
 }
 - (BOOL)isOwner{
