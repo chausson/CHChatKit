@@ -8,12 +8,12 @@
 
 #import "CHMessageEvent.h"
 @class CLLocation;
+@class UIImage;
 @interface CHMessageLocationEvent : CHMessageEvent
 
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *detail;
 @property (nonatomic, copy) NSString *file;
-
-
+@property (nonatomic, strong) UIImage *map;
 @end
