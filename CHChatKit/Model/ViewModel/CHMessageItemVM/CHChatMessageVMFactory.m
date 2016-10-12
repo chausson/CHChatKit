@@ -44,6 +44,7 @@
                                               areaName:(NSString *)title
                                             areaDetail:(NSString *)detail
                                               resource:(NSString *)path
+                                              snapshot:(UIImage *)map
                                              longitude:(float )lon
                                               latitude:(float )lat
                                                isOwner:(BOOL)owner{
@@ -57,6 +58,7 @@
     locationVM.filePath = path;
     locationVM.areaDetail = detail;
     locationVM.areaName = title;
+    locationVM.snapshot = map;
     return locationVM;
 }
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon

@@ -24,4 +24,7 @@
 - (void)setAreaDetail:(NSString *)areaDetail{
     _areaDetail = areaDetail;
 }
+- (void)setSnapshot:(UIImage *)snapshot{
+    _snapshot = snapshot;
+}
 @end

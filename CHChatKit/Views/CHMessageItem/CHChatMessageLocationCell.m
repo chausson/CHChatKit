@@ -100,7 +100,9 @@
         CHChatMessageLocationVM *vm = (CHChatMessageLocationVM *)viewModel;
         self.areaName.text = vm.areaName;
         self.areaDetail.text = vm.areaDetail;
-
+        if (vm.snapshot) {
+            self.mapImageView.image = vm.snapshot;
+        }else{
             [self.mapImageView sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 dispatch_async(dispatch_get_main_queue(), ^{ //cache the image
                     //display the image
@@ -109,6 +111,8 @@
                 // TO DO 加入本地存放和缓存的逻辑
                 
             }];
+        }
+        
 
 
         
