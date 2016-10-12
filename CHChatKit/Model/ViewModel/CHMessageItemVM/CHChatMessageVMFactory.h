@@ -34,6 +34,7 @@
                                               areaName:(NSString *)title
                                             areaDetail:(NSString *)detail
                                               resource:(NSString *)path
+                                              snapshot:(UIImage *)map
                                              longitude:(float )lon
                                               latitude:(float )lat
                                                isOwner:(BOOL)owner;

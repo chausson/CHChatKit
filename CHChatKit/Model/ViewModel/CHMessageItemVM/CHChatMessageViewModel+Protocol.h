@@ -41,6 +41,7 @@
 @property (nonatomic ,assign) double latitude;
 @property (nonatomic ,copy) NSString *areaDetail;
 @property (nonatomic ,copy) NSString *areaName;
+@property (nonatomic ,strong) UIImage *snapshot;
 @end
 @interface CHChatMessageImageVM ()
 

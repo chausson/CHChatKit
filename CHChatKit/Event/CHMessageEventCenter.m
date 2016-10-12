@@ -90,7 +90,7 @@
     [self postReceiveEvent:viewModel];
 }
 - (void)executeLocationEvent:(CHMessageLocationEvent *)event{
-    CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file longitude:event.location.coordinate.longitude latitude:event.location.coordinate.latitude isOwner:YES];
+    CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file snapshot:event.map longitude:event.location.coordinate.longitude latitude:event.location.coordinate.latitude isOwner:YES];
     [self postReceiveEvent:viewModel];
 }
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
