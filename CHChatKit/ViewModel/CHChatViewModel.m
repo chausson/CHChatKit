@@ -27,8 +27,9 @@
 
     NSDate *_lastPlaySoundDate;
 }
-- (instancetype)initWithMessageList:(CHChatModel *)list
-                      configuration:(CHChatConfiguration *)config{
+
+- (instancetype)initWithMessageHistroy:(NSArray <CHChatMessageViewModel *>*)histroyMessage
+                         configuration:(CHChatConfiguration *)config{
     
     self = [super init];
     if (self) {
@@ -37,42 +38,20 @@
         _refreshName = @"CHCHAT_REFRESH_TABLEVIEW";
         _configuration = config;
         [self ch_registerForKVO];
-        NSMutableArray *cellTempArray = [[NSMutableArray alloc ]initWithCapacity:list.chatContent.count];
-
-        for (int i = 0; i < list.chatContent.count; i++) {
-            CHChatViewItemModel *item = list.chatContent[i];
-            CHChatMessageViewModel *viewModel ;
-            switch (item.type) {
-                case 1:
-                    viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:item.icon timeData:item.time nickName:item.name content:item.content isOwner:[item.owner boolValue]];
-                    break;
-                case 2:
-                    viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.image thumbnailImage:nil fullImage:nil  isOwner:[item.owner boolValue]];
-                    break;
-                case 3:
-                    viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:item.icon timeData:item.time nickName:item.name resource:item.path voiceLength:[item.length integerValue] isOwner:[item.owner boolValue]];
-                    break;
-                case 5:
-                    viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:item.icon timeDate:item.time nickName:item.name areaName:item.title areaDetail:item.detail resource:item.path snapshot:nil location:CLLocationCoordinate2DMake(0, 0) isOwner:[item.owner boolValue]];
-                    break;
-                    
-                default:
-                    break;
-            }
+        for (int i = 0; i < histroyMessage.count; i++) {
 
             if (i != 0) {
-            CHChatViewItemModel *last = list.chatContent[i-1];
-
+                CHChatMessageViewModel *last = histroyMessage[i-1];
                 
-            [viewModel sortOutWithTime:last.time];
+                
+                [histroyMessage[i] sortOutWithTime:last.date];
             }
-            [cellTempArray addObject:viewModel];
         }
         
         
-         _cellViewModels = [NSArray arrayWithArray:cellTempArray];
+        self.cellViewModels = histroyMessage;
     }
-
+    
     return self;
 }
 + (NSArray<Class>*)handleableEventClasses {

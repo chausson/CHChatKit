@@ -8,17 +8,15 @@
 #import "CHChatMessageViewModel.h"
 #import "CHChatConfiguration.h"
 #import <Foundation/Foundation.h>
-#import "CHChatModel.h"
+
 @class UIImage;
 
-typedef void(^chatBlock)(CHChatModel* list);
-typedef void(^refreshBlock)();
 
 
 @interface CHChatViewModel : NSObject
 - (instancetype)init __unavailable;
-- (instancetype)initWithMessageList:(CHChatModel *)list
-                      configuration:(CHChatConfiguration *)config;
+- (instancetype)initWithMessageHistroy:(NSArray <CHChatMessageViewModel *>*)histroyMessage
+                         configuration:(CHChatConfiguration *)config;
 /** 聊天列表VM*/
 @property (nonatomic ,strong ) NSArray <CHChatMessageViewModel *>*cellViewModels;
 /** 自己用户图标*/

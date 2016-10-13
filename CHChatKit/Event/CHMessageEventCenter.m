@@ -123,7 +123,10 @@
 - (void)postReceiveEvent:(CHChatMessageViewModel *)viewModel{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];
     r.item = viewModel;
-    [_eventBus postEvent:r];
+    if([_eventBus hasSubscriberForEventClass:[CHMessageReceiveEvent class]]){
+        [_eventBus postEvent:r];
+    }
+
 }
 - (void)messagesDidReceive:(NSArray *)aMessages{
     [aMessages enumerateObjectsUsingBlock:^(EMMessage *msg, NSUInteger idx, BOOL *  stop) {
