@@ -23,8 +23,9 @@
 @property (nonatomic ,copy ) NSString *userIcon;
 /** 接收图标*/
 @property (nonatomic ,copy ) NSString *receiverIcon;
-/** 显示标题*/
-@property (nonatomic ,copy ) NSString *chatControllerTitle;
+
+@property (nonatomic ,assign) long long receiveId;
+@property (nonatomic ,assign) long long userId;
 /** UI配置类*/
 @property (nonatomic ,readonly ) CHChatConfiguration *configuration;
 @property (nonatomic ,readonly ) NSString *refreshName;

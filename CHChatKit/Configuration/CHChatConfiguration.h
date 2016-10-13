@@ -17,8 +17,7 @@
 @property (nonatomic ,strong) UIColor *mainBackground;
 @property (nonatomic ,strong) UIColor *toolContentBackground;
 @property (nonatomic ,strong) UIColor *toolInputViewBackground;
-@property (nonatomic ,assign) long long receiveId;
-@property (nonatomic ,assign) long long userId;
+
 @property (nonatomic ,readonly) NSArray <NSString *>* assistances;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
 @property (nonatomic ,assign) CGFloat iconCornerRadius; // default is zero
@@ -27,6 +26,8 @@
 @property (nonatomic ,assign) BOOL allowAssistance;
 @property (nonatomic ,assign) BOOL fitToNaviation; // 适配导航栏
 @property (nonatomic ,assign) CHChatConversationType type;
+/** 显示标题*/
+@property (nonatomic ,copy ) NSString *title;
 
 - (void)addAssistance:(NSString *)identifier;
 - (void)addAssistances:(NSArray  <NSString *>*)identifiers;

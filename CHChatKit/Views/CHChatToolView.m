@@ -17,9 +17,11 @@
 #import "CHChatToolView.h"
 #import "CHChatAssistanceView.h"
 #import "CHChatTextView.h"
+#import "CHChatViewModel.h"
 #import "CHRecordHandler.h"
 #import "CHMessageTextEvent.h"
 #import "CHMessageVoiceEvent.h"
+#import "CHChatViewController.h"
 #import "XEBEventBus.h"
 #import "UUProgressHUD.h"
 #import "FaceBoard.h"
@@ -481,7 +483,12 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     }
     CHMessageVoiceEvent *e = [CHMessageVoiceEvent new];
     e.file = fileName;
-    e.receiverId = _config.receiveId;
+    if([_observer isKindOfClass:[CHChatViewController class]]){
+        CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
+        e.receiverId = vm?vm.receiveId:0;
+        e.userId = vm?vm.userId:0;
+    }
+
     e.length = [CHRecordHandler standardDefault].recordSecs;
     [[XEBEventBus defaultEventBus] postEvent:e];
 }
@@ -539,8 +546,11 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     if (_contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
         e.text = _contentTextView.text;
-        e.receiverId = _config.receiveId;
-        e.userId = _config.userId;
+        if([_observer isKindOfClass:[CHChatViewController class]]){
+            CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
+            e.receiverId = vm?vm.receiveId:0;
+            e.userId = vm?vm.userId:0;
+        }
         [[XEBEventBus defaultEventBus] postEvent:e];
         _contentTextView.text = nil;
     }

@@ -10,6 +10,8 @@
 #import "CHChatConfiguration.h"
 #import "CHChatAssistance.h"
 #import "GrayPageControl.h"
+#import "CHChatViewController.h"    
+#import "CHChatViewModel.h"
 #define CHATASSISTANCE_COUNT_ROW 2 // 行数
 
 #define CHATASSISTANCE_COUNT_CLU 4 // 每行个数
@@ -97,8 +99,11 @@
         [_assistances enumerateObjectsUsingBlock:^(CHChatAssistance * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([prettyClass isSubclassOfClass:obj.class]  ) {
                 assinstance = obj;
-                assinstance.receiveId = _config.receiveId;
-                assinstance.userId = _config.userId;
+                if([_observer isKindOfClass:[CHChatViewController class]]){
+                    CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
+                    assinstance.receiveId = vm?vm.receiveId:0;
+                    assinstance.userId = vm?vm.userId:0;
+                }
                 *stop = YES;
             }
         }];

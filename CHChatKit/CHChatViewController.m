@@ -27,7 +27,7 @@
     self = [super init];
     if (self) {
         _viewModel = viewModel;
-        self.title = viewModel.chatControllerTitle;
+        self.title = viewModel.configuration.title;
         self.view.backgroundColor = [UIColor colorWithRed:235.0/ 255.0 green:235.0/255.0 blue:235.0 / 255.0 alpha:1];
     }
     return self;

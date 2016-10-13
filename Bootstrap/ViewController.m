@@ -23,10 +23,11 @@
 - (IBAction)singleChat:(UIButton *)sender {
 
     CHChatConfiguration *configuration = [CHChatConfiguration defultConfigruration];
-    configuration.receiveId = 13969;
-    configuration.userId = 13996;
+    configuration.title = @"聊天";
     [configuration addAssistances:@[CHPictureAssistanceIdentifer,CHPickPhotoAssistanceIdentifer,CHLocationAssistanceIdentifer]];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:[self getHistroy] configuration:configuration];
+    vm.receiveId = 13969;
+    vm.userId = 13996;
     vm.userIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
     CHChatViewController *vc = [[CHChatViewController alloc]initWithViewModel:vm];
 
