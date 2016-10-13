@@ -97,6 +97,8 @@
         [_assistances enumerateObjectsUsingBlock:^(CHChatAssistance * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([prettyClass isSubclassOfClass:obj.class]  ) {
                 assinstance = obj;
+                assinstance.receiveId = _config.receiveId;
+                assinstance.userId = _config.userId;
                 *stop = YES;
             }
         }];

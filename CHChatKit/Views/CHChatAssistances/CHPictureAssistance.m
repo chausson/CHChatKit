@@ -55,11 +55,16 @@
 }
 #pragma mark - Imagepicker delegte
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    __weak typeof(self) weakSelf = self;
     [picker dismissViewControllerAnimated:YES completion:^{
+        __strong typeof(self) strongSelf = weakSelf;
+
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
         event.file = url.absoluteString;
+        event.receiverId = strongSelf.receiveId;
+        event.userId = strongSelf.userId;
         event.fullPicture = image;
         [[XEBEventBus defaultEventBus] postEvent:event];
     }];

@@ -481,6 +481,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     }
     CHMessageVoiceEvent *e = [CHMessageVoiceEvent new];
     e.file = fileName;
+    e.receiverId = _config.receiveId;
     e.length = [CHRecordHandler standardDefault].recordSecs;
     [[XEBEventBus defaultEventBus] postEvent:e];
 }
@@ -538,6 +539,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     if (_contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
         e.text = _contentTextView.text;
+        e.receiverId = _config.receiveId;
+        e.userId = _config.userId;
         [[XEBEventBus defaultEventBus] postEvent:e];
         _contentTextView.text = nil;
     }

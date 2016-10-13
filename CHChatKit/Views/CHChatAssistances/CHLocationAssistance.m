@@ -34,10 +34,14 @@
 }
 - (void)executeEvent:(id )responder{
     self.service = [[CHLocationService alloc] init];
+    __weak typeof(self) weakSelf = self;
     self.service.finish = ^(CHLocationService *info){
         //        NSLog(@"%@", info.postionContent);
+        __strong typeof(self) strongSelf = weakSelf;
         CHMessageLocationEvent *event = [CHMessageLocationEvent new];
         event.title = info.postionTitle;
+        event.receiverId = strongSelf.receiveId;
+        event.userId = strongSelf.userId;
         event.map = info.snapshot;
         event.detail = info.postionContent;
         event.location = [[CLLocation alloc]initWithLatitude:info.coor.latitude longitude:info.coor.longitude];

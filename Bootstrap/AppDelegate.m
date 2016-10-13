@@ -22,8 +22,9 @@
     CHEMChatAccountEvent *account = [CHEMChatAccountEvent new];
     install.apnsCertName = @"vacances_dev";
     install.appKey = @"jiazu#jiazu";
-    account.userName = @"133345";
-    account.password = @"111111";
+    install.host = @"http://vacances.sudaotech.com";
+    account.userName = @"13996";
+    account.password = @"1234abcd";
     [[XEBEventBus defaultEventBus] postEvent:install];
     [[XEBEventBus defaultEventBus] postEvent:account];
 

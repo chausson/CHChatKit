@@ -13,7 +13,8 @@
 @property (copy ,nonatomic ) NSString *eventName;
 @property (copy ,nonatomic ) NSString *timestamp;
 @property (copy ,nonatomic ) NSString *date;
-@property (copy ,nonatomic ) NSString *receiverId;
+@property (assign ,nonatomic ) long long receiverId;
+@property (assign ,nonatomic ) long long userId;
 @property (weak ,nonatomic ) id handler; // 作为保留字段
 
 @end

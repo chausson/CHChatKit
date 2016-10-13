@@ -20,8 +20,9 @@
 
 @property (nonatomic , readonly) NSString *title;
 @property (nonatomic , readonly) NSString *picture;
-@property (nonatomic , readonly) NSString *identifier;
-
+@property (nonatomic , readwrite) NSString *identifier;
+@property (nonatomic , assign) long long receiveId;
+@property (nonatomic , assign) long long userId;
 + (void)registerSubclass;
 /* 事件处理方法，参数是事件响应者 */
 - (void)executeEvent:(id )responder;

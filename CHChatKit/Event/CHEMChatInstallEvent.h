@@ -11,5 +11,5 @@
 @interface CHEMChatInstallEvent : NSObject
 @property (nonatomic ,copy) NSString *appKey;
 @property (nonatomic ,copy) NSString *apnsCertName;
-
+@property (nonatomic ,copy) NSString *host;
 @end

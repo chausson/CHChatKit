@@ -23,7 +23,8 @@
     CHChatModel* listModel = [[CHChatModel alloc]initWithDictionary:dic error:nil];
     //单聊模式
     CHChatConfiguration *configuration = [CHChatConfiguration defultConfigruration];
-
+    configuration.receiveId = 13969;
+    configuration.userId = 13996;
     [configuration addAssistances:@[CHPictureAssistanceIdentifer,CHPickPhotoAssistanceIdentifer,CHLocationAssistanceIdentifer]];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageList:listModel
                            configuration:configuration];

@@ -714,6 +714,13 @@
 			path = CHMessageItemVM;
 			sourceTree = "<group>";
 		};
+		068B4BCB1DAF5B5E00AD4652 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		069275301D77DA7900CAB0A5 = {
 			isa = PBXGroup;
 			children = (
@@ -752,11 +759,12 @@
 		069275861D77DDFF00CAB0A5 /* CHChatKit */ = {
 			isa = PBXGroup;
 			children = (
+				066432AA1D7EBE8F0068AEF2 /* Configuration */,
+				068B4BCB1DAF5B5E00AD4652 /* Service */,
 				0612E6D21D9D4A0600B836E1 /* Event */,
 				062829341D9292F000DCED17 /* Helper */,
 				069275891D77DDFF00CAB0A5 /* CHChatViewController.h */,
 				0692758A1D77DDFF00CAB0A5 /* CHChatViewController.m */,
-				066432AA1D7EBE8F0068AEF2 /* Configuration */,
 				069275A51D77DDFF00CAB0A5 /* Extensions */,
 				069275AE1D77DDFF00CAB0A5 /* Model */,
 				069275B31D77DDFF00CAB0A5 /* Vendors */,

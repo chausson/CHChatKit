@@ -21,11 +21,13 @@
 #import <EMSDK.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AFNetworking/AFNetworking.h>
 @interface CHMessageEventCenter ()<XEBSubscriber,EMChatManagerDelegate>
 
 @end
 @implementation CHMessageEventCenter{
     XEBEventBus* _eventBus;
+    NSString *_host;
 }
 + (void)load{
     [CHMessageEventCenter shareInstance] ->_eventBus = [XEBEventBus defaultEventBus];
@@ -67,6 +69,8 @@
             if (aError == nil) {
                 [[EMClient sharedClient].chatManager removeDelegate:self];
                 [[EMClient sharedClient].chatManager addDelegate:self];
+            }else{
+                NSLog(@"环信的错误信息=%@",aError.errorDescription);
             }
         }];
     }else{
@@ -76,6 +80,7 @@
 - (void)executeEMChatInstallEvent:(CHEMChatInstallEvent *)event{
     EMOptions *options = [EMOptions optionsWithAppkey:event.appKey];
     options.apnsCertName = event.apnsCertName;
+    _host = event.host;
     [[EMClient sharedClient]initializeSDKWithOptions:options];
     
 }
@@ -83,6 +88,24 @@
 
     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:event.date  nickName:nil content:event.text isOwner:YES];
     [self postReceiveEvent:viewModel];
+
+    if (_host.length > 0) {
+        NSDictionary *para = @{@"receiverId":@(event.receiverId),
+                               @"messageType":@"TEXT",
+                               @"messageContent":event.text,
+                               @"userId":@(event.userId)};
+        NSString *url = [NSString stringWithFormat:@"%@/platform/app/notice/sendMsg",_host];
+        AFHTTPSessionManager
+        *manager = [self manager];
+        [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
+    }else{
+        NSAssert(NO, @"发送的host没有配置,请在CHEMChatInstallEvent中配置host");
+    }
+ 
 }
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
   
@@ -120,6 +143,44 @@
                 break;
         }
     }];
+}
+#pragma mark - Private
+- (AFHTTPSessionManager *)manager{
+    // 开启转圈圈
+    AFHTTPSessionManager *manager = nil;
+
+    
+
+    manager = [AFHTTPSessionManager manager];
+
+    
+    manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+    
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
+                                                                              @"text/html",
+                                                                              @"text/json",
+                                                                              @"text/plain",
+                                                                              @"text/javascript",
+                                                                              @"text/xml",
+                                                                              @"image/*"]];
+    manager.requestSerializer.timeoutInterval = 300;
+    
+    
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+
+
+            manager.responseSerializer = [AFJSONResponseSerializer serializer];
+  
+    
+    manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
+    
+
+    
+    return manager;
 }
 - (void)dealloc {
     [_eventBus unregisterSubscriber: self];
