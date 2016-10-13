@@ -14,6 +14,7 @@
 #import "CHMessagePictureEvent.h"
 #import "CHMessageLocationEvent.h"
 #import "CHMessageReceiveEvent.h"
+#import "CHNoticeEvent.h"
 #import "CHChatMessageVMFactory.h"
 #import "CHMessageVoiceEvent.h"
 #import "CHEMChatAccountEvent.h"
@@ -130,21 +131,28 @@
 }
 - (void)messagesDidReceive:(NSArray *)aMessages{
     [aMessages enumerateObjectsUsingBlock:^(EMMessage *msg, NSUInteger idx, BOOL *  stop) {
-        switch (msg.body.type) {
-            case EMMessageBodyTypeText:{
-                EMTextMessageBody *body = (EMTextMessageBody *)msg.body;
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                formatter.dateFormat = @"HH:mm";
-                NSTimeInterval interval = msg.timestamp/1000.0f;
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-                CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:YES];
-                [self postReceiveEvent:viewModel];
-            }break;
-                
-            default:
-                
-                break;
+        if (msg.ext) {
+            CHNoticeEvent *notice = [CHNoticeEvent new];
+            notice.context = msg.ext;
+            [_eventBus postEvent:notice];
+        }else{
+            switch (msg.body.type) {
+                case EMMessageBodyTypeText:{
+                    EMTextMessageBody *body = (EMTextMessageBody *)msg.body;
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    formatter.dateFormat = @"HH:mm";
+                    NSTimeInterval interval = msg.timestamp/1000.0f;
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+                    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:YES];
+                    [self postReceiveEvent:viewModel];
+                }break;
+                    
+                default:
+                    
+                    break;
+            }
         }
+   
     }];
 }
 #pragma mark - Private

@@ -56,6 +56,8 @@
 		068B4BEC1DAF897B00AD4652 /* CHChatMessageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE11DAF897B00AD4652 /* CHChatMessageViewModel.m */; };
 		068B4BED1DAF897B00AD4652 /* CHChatMessageVMFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE31DAF897B00AD4652 /* CHChatMessageVMFactory.m */; };
 		068B4BEE1DAF897B00AD4652 /* CHChatMessageVoiceVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE51DAF897B00AD4652 /* CHChatMessageVoiceVM.m */; };
+		068B4BF11DAFC95C00AD4652 /* CHNoticeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */; };
+		068B4BF41DAFCB2600AD4652 /* CHNoticeEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BF31DAFCB2600AD4652 /* CHNoticeEventHandler.m */; };
 		0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 069275551D77DAE200CAB0A5 /* AppDelegate.m */; };
 		0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 069275561D77DAE200CAB0A5 /* Assets.xcassets */; };
 		0692756E1D77DAE200CAB0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 069275571D77DAE200CAB0A5 /* LaunchScreen.storyboard */; };
@@ -290,6 +292,10 @@
 		068B4BE31DAF897B00AD4652 /* CHChatMessageVMFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageVMFactory.m; sourceTree = "<group>"; };
 		068B4BE41DAF897B00AD4652 /* CHChatMessageVoiceVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageVoiceVM.h; sourceTree = "<group>"; };
 		068B4BE51DAF897B00AD4652 /* CHChatMessageVoiceVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageVoiceVM.m; sourceTree = "<group>"; };
+		068B4BEF1DAFC95C00AD4652 /* CHNoticeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNoticeEvent.h; sourceTree = "<group>"; };
+		068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNoticeEvent.m; sourceTree = "<group>"; };
+		068B4BF21DAFCB2600AD4652 /* CHNoticeEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNoticeEventHandler.h; sourceTree = "<group>"; };
+		068B4BF31DAFCB2600AD4652 /* CHNoticeEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNoticeEventHandler.m; sourceTree = "<group>"; };
 		069275391D77DA7900CAB0A5 /* CHChatKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHChatKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		069275541D77DAE200CAB0A5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		069275551D77DAE200CAB0A5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -597,6 +603,10 @@
 				0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */,
 				0633BA651DADE3460077A845 /* CHEMChatAccountEvent.h */,
 				0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */,
+				068B4BEF1DAFC95C00AD4652 /* CHNoticeEvent.h */,
+				068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */,
+				068B4BF21DAFCB2600AD4652 /* CHNoticeEventHandler.h */,
+				068B4BF31DAFCB2600AD4652 /* CHNoticeEventHandler.m */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1436,6 +1446,7 @@
 				069279141D77E6D800CAB0A5 /* SDWebImageDecoder.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				0692788E1D77E39300CAB0A5 /* UIScrollView+MJRefresh.m in Sources */,
+				068B4BF11DAFC95C00AD4652 /* CHNoticeEvent.m in Sources */,
 				0692788F1D77E39300CAB0A5 /* UIView+MJExtension.m in Sources */,
 				0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */,
 				069278651D77E39300CAB0A5 /* MASCompositeConstraint.m in Sources */,
@@ -1489,6 +1500,7 @@
 				06C766C61DACF21C00DADEC0 /* CHMessageVoiceEvent.m in Sources */,
 				068B4BE91DAF897B00AD4652 /* CHChatMessageLocationVM.m in Sources */,
 				068B4BEB1DAF897B00AD4652 /* CHChatMessageViewModel+Protocol.m in Sources */,
+				068B4BF41DAFCB2600AD4652 /* CHNoticeEventHandler.m in Sources */,
 				069278841D77E39300CAB0A5 /* EMAudioRecorderUtil.m in Sources */,
 				06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */,
 				06C766C01DACBBC900DADEC0 /* CHPickPhotoAssistance.m in Sources */,
