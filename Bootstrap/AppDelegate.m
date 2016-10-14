@@ -23,7 +23,7 @@
     install.apnsCertName = @"vacances_dev";
     install.appKey = @"jiazu#jiazu";
     install.host = @"http://vacances.sudaotech.com";
-    account.userName = @"13996";
+    account.userName = @"14128";
     account.password = @"1234abcd";
     [[XEBEventBus defaultEventBus] postEvent:install];
     [[XEBEventBus defaultEventBus] postEvent:account];

@@ -99,7 +99,7 @@
         AFHTTPSessionManager
         *manager = [self manager];
         [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
+//            NSLog(@"responseObject =%@",responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
         }];
