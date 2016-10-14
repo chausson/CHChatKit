@@ -143,7 +143,7 @@
                     formatter.dateFormat = @"HH:mm";
                     NSTimeInterval interval = msg.timestamp/1000.0f;
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-                    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:YES];
+                    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:NO];
                     [self postReceiveEvent:viewModel];
                 }break;
                     

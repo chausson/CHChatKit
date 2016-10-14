@@ -59,7 +59,7 @@
 }
 - (void)onEvent:(CHMessageReceiveEvent *)event{
     NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-    event.item.icon = self.userIcon;
+    event.item.icon = self.receiverIcon;
     [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
     [cellTempArray addObject:event.item];
     self.cellViewModels = [cellTempArray copy];
