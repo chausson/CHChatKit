@@ -30,7 +30,7 @@
     static UUProgressHUD *sharedView;
     dispatch_once(&once, ^ {
         sharedView = [[UUProgressHUD alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        sharedView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+        sharedView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0];
     });
     return sharedView;
 }
@@ -50,7 +50,7 @@
         }
         
         if (!self.subTitleLabel){
-            self.subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 20)];
+            self.subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 20)];
             self.subTitleLabel.backgroundColor = [UIColor clearColor];
         }
         if (!self.titleLabel){
@@ -58,34 +58,37 @@
             self.titleLabel.backgroundColor = [UIColor clearColor];
         }
         if (!edgeImageView)
-            edgeImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Chat_record_circle"]];
+            edgeImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"btn_sound_base"]];
         
-        self.subTitleLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2 + 30);
-        self.subTitleLabel.text = @"向上滑动取消";
+        self.subTitleLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2 + 50);
+        self.subTitleLabel.text = @"向上滑动,取消发送";
         self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
-        self.subTitleLabel.font = [UIFont boldSystemFontOfSize:14];
+        self.subTitleLabel.font = [UIFont boldSystemFontOfSize:12];
         self.subTitleLabel.textColor = [UIColor whiteColor];
         
-        self.titleLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2 - 30);
-        self.titleLabel.text = @"倒计时";
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        self.titleLabel.textColor = [UIColor whiteColor];
+//        self.titleLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2 - 30);
+//        self.titleLabel.text = @"倒计时";
+//        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+//        self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+//        self.titleLabel.textColor = [UIColor whiteColor];
+//        
+//        centerLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2);
+//        centerLabel.text = @"60";
+//        centerLabel.textAlignment = NSTextAlignmentCenter;
+//        centerLabel.font = [UIFont systemFontOfSize:30];
+//        centerLabel.textColor = [UIColor yellowColor];
+        self.microphone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 60)];
+        self.microphone.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2 - 10);
+        self.microphone.image = [UIImage imageNamed:@"btn_sound_mic"];
         
-        centerLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2);
-        centerLabel.text = @"60";
-        centerLabel.textAlignment = NSTextAlignmentCenter;
-        centerLabel.font = [UIFont systemFontOfSize:30];
-        centerLabel.textColor = [UIColor yellowColor];
-
         
-        edgeImageView.frame = CGRectMake(0, 0, 154, 154);
-        edgeImageView.center = centerLabel.center;
+        edgeImageView.frame = CGRectMake(0, 0, 140, 140);
+        edgeImageView.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2,[[UIScreen mainScreen] bounds].size.height/2);
         [self addSubview:edgeImageView];
         [self addSubview:centerLabel];
         [self addSubview:self.subTitleLabel];
         [self addSubview:self.titleLabel];
-
+        [self addSubview:self.microphone];
         if (myTimer)
             [myTimer invalidate];
         myTimer = nil;
@@ -108,19 +111,19 @@
 }
 -(void) startAnimation
 {
-    angle -= 3;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.09];
-    UIView.AnimationRepeatAutoreverses = YES;
-    edgeImageView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
-    float second = [centerLabel.text floatValue];
-    if (second <= 10.0f) {
-        centerLabel.textColor = [UIColor redColor];
-    }else{
-        centerLabel.textColor = [UIColor yellowColor];
-    }
-    centerLabel.text = [NSString stringWithFormat:@"%.1f",second-0.1];
-    [UIView commitAnimations];
+//    angle -= 3;
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.09];
+//    UIView.AnimationRepeatAutoreverses = YES;
+//   // edgeImageView.transform = CGAffineTransformMakeRotation(angle * (M_PI / 180.0f));
+//    float second = [centerLabel.text floatValue];
+//    if (second <= 10.0f) {
+//        centerLabel.textColor = [UIColor redColor];
+//    }else{
+//        centerLabel.textColor = [UIColor yellowColor];
+//    }
+//    centerLabel.text = [NSString stringWithFormat:@"%.1f",second-0.1];
+//    [UIView commitAnimations];
 }
 
 + (void)changeSubTitle:(NSString *)str
@@ -131,6 +134,14 @@
 - (void)setState:(NSString *)str
 {
     self.subTitleLabel.text = str;
+    if ([str isEqualToString:@"松开取消发送"]) {
+        self.subTitleLabel.backgroundColor = [UIColor redColor];
+        self.microphone.image = [UIImage imageNamed:@"btn_sound_return"];
+    }else{
+        self.subTitleLabel.backgroundColor = [UIColor clearColor];
+        self.microphone.image = [UIImage imageNamed:@"btn_sound_mic"];
+
+    }
 }
 
 + (void)dismissWithSuccess:(NSString *)str {
