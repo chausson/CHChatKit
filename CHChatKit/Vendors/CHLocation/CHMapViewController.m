@@ -37,7 +37,7 @@
     self.reverseGeoCodeOption = [[BMKReverseGeoCodeOption alloc] init];
     
     self.mapView = [[BMKMapView alloc] init];
-    self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64 - 80);
     self.mapView.zoomLevel = 17;
     self.mapView.mapType = 1;
     self.mapView.delegate = self;
@@ -50,15 +50,15 @@
     [self.mapView setRegion:region];
     self.reverseGeoCodeOption.reverseGeoPoint = self.service.coor;
     [self.geoCodeSearch reverseGeoCode:self.reverseGeoCodeOption];
-    self.view = self.mapView;
+    [self.view addSubview: self.mapView];
     
-    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 80, self.view.frame.size.width, 80)];
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 80 - 64, self.view.frame.size.width, 80)];
     whiteView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:whiteView];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, whiteView.frame.size.width - 20, 40)];
     nameLabel.text = self.service.postionTitle;
-    nameLabel.font = [UIFont systemFontOfSize:22];
+    nameLabel.font = [UIFont systemFontOfSize:20];
     [whiteView addSubview:nameLabel];
     
     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, whiteView.frame.size.width - 20, 20)];

@@ -494,12 +494,12 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 - (void)remindDragExit:(UIButton *)button
 {
-    [UUProgressHUD changeSubTitle:@"松开手指,取消发送"];
+    [UUProgressHUD changeSubTitle:@"松开取消发送"];
 }
 
 - (void)remindDragEnter:(UIButton *)button
 {
-    [UUProgressHUD changeSubTitle:@"向上滑动取消"];
+    [UUProgressHUD changeSubTitle:@"向上滑动,取消发送"];
 }
 
 #pragma mark Public
