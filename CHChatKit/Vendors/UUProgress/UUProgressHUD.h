@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subTitleLabel;
+@property (nonatomic, strong) UIImageView *microphone;
 
 + (void)show;
 
