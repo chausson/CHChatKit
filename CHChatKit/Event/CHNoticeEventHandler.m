@@ -12,14 +12,22 @@
 @interface CHNoticeEventHandler()<XEBSubscriber> {
     id _retainedSelf;
 }
-
+@property(nonatomic) XEBEventBus* eventBus;
 @end
 
 
 @implementation CHNoticeEventHandler
 
 + (NSArray<Class>*)handleableEventClasses {
-    return @[ [CHNoticeEvent class] ];
+    return @[ [NSObject class] ];
+}
+
+- (XEBEventBus*)eventBus {
+    return _eventBus ?: [XEBEventBus defaultEventBus];
+}
+
+- (Class)eventClass {
+    return _eventClass ?: [NSObject class];
 }
 - (void)registerHandler {
     assert(_retainedSelf == nil);
@@ -42,12 +50,12 @@
 #pragma XEBSubscriber
 
 - (void)onEvent: (id)event {
-    if([event isKindOfClass: [CHNoticeEvent class]]) {
+    Class eventClass = [self eventClass];
+    if([event isKindOfClass: eventClass]) {
         void (^handleBlock)(id event) = [self handleBlock];
         if(handleBlock != nil) {
             handleBlock(event);
         }
-        
         [self unregisterHandler];
     }
 }

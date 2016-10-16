@@ -37,8 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layout];
-
-
     [self registerNotificationCenter];
     [self autoScrolleTableView];
 }
