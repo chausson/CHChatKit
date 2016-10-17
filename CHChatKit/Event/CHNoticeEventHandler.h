@@ -13,7 +13,7 @@
 @interface CHNoticeEventHandler<EventType> : NSObject
 @property(nonatomic) Class eventClass;
 @property(nonatomic, copy) void (^handleBlock)(EventType event);
-
+@property(nonatomic, assign) BOOL autoUnregisterHandler; // defult is YES
 - (void)registerHandler;
 - (void)unregisterHandler;
 

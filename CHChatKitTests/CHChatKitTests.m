@@ -61,16 +61,16 @@
 }
 //- (void)testEMEvent{
 //    __block int count = 0;
-//    for (int i = 0; i < 1000; i++) {
+//    for (int i = 0; i < 100; i++) {
 //
 //        EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:[NSString stringWithFormat:@"test数据第%d条",i]];
 //        NSString *from = [[EMClient sharedClient] currentUsername];
-//        
+//
 //        //生成Message
 //        EMMessage *message = [[EMMessage alloc] initWithConversationID:@"14128" from:from to:@"14060" body:body ext:nil];
-//        
+//
 //        message.chatType = EMChatTypeChat;// 设置为单聊消息
-//        
+//
 //       [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
 //           if (!error) {
 //               count++;

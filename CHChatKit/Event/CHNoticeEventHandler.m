@@ -17,7 +17,14 @@
 
 
 @implementation CHNoticeEventHandler
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _autoUnregisterHandler = YES;
+    }
+    return self;
+}
 + (NSArray<Class>*)handleableEventClasses {
     return @[ [NSObject class] ];
 }
@@ -37,7 +44,6 @@
     XEBEventBus* eventBus = [XEBEventBus defaultEventBus];
     [eventBus registerSubscriber: self];
 }
-
 - (void)unregisterHandler {
     assert(_retainedSelf != nil);
     
@@ -56,7 +62,10 @@
         if(handleBlock != nil) {
             handleBlock(event);
         }
-        [self unregisterHandler];
+        if (_autoUnregisterHandler) {
+            [self unregisterHandler];
+        }
+ 
     }
 }
 @end

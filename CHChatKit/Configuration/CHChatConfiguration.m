@@ -11,15 +11,19 @@
 @implementation CHChatConfiguration
 
 + (CHChatConfiguration *)defultConfigruration{
-    CHChatConfiguration *instance = [CHChatConfiguration new];
-    instance = [CHChatConfiguration new];
-    instance.mainBackground = [UIColor blackColor];
-    instance.iconCornerRadius = 0;
-    instance.allowEmoji = YES;
-    instance.allowAssistance = YES;
-    instance.allowRecordVoice = YES;
-    instance.toolInputViewBackground = [UIColor clearColor];
-    instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
+    static dispatch_once_t onceToken;
+    static CHChatConfiguration *instance = nil;
+    dispatch_once(&onceToken, ^{
+        instance = [CHChatConfiguration new];
+        instance.mainBackground = [UIColor blackColor];
+        instance.iconCornerRadius = 0;
+        instance.allowEmoji = YES;
+        instance.allowAssistance = YES;
+        instance.allowRecordVoice = YES;
+        instance.allowAudioServices = YES;
+        instance.toolInputViewBackground = [UIColor clearColor];
+        instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
+    });
     return instance;
 }
 

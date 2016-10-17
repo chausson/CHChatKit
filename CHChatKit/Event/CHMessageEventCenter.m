@@ -19,10 +19,12 @@
 #import "CHMessageVoiceEvent.h"
 #import "CHEMChatAccountEvent.h"
 #import "CHEMChatInstallEvent.h"
+#import "CHChatConfiguration.h"
 #import <EMSDK.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AFNetworking/AFNetworking.h>
+#import <AudioToolbox/AudioToolbox.h>
 @interface CHMessageEventCenter ()<XEBSubscriber,EMChatManagerDelegate>
 
 @end
@@ -89,7 +91,9 @@
 
     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:event.date  nickName:nil content:event.text isOwner:YES];
     [self postReceiveEvent:viewModel];
-
+    [self postTextRequest:event];
+}
+- (void)postTextRequest:(CHMessageTextEvent *)event{
     if (_host.length > 0) {
         NSDictionary *para = @{@"receiverId":@(event.receiverId),
                                @"messageType":@"TEXT",
@@ -99,14 +103,13 @@
         AFHTTPSessionManager
         *manager = [self manager];
         [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            NSLog(@"responseObject =%@",responseObject);
+            //            NSLog(@"responseObject =%@",responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
         }];
     }else{
         NSAssert(NO, @"发送的host没有配置,请在CHEMChatInstallEvent中配置host");
     }
- 
 }
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
   
@@ -130,6 +133,9 @@
 
 }
 - (void)messagesDidReceive:(NSArray *)aMessages{
+    if ( [CHChatConfiguration defultConfigruration].allowAudioServices) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
     [aMessages enumerateObjectsUsingBlock:^(EMMessage *msg, NSUInteger idx, BOOL *  stop) {
         if (msg.ext) {
             CHNoticeEvent *notice = [CHNoticeEvent new];
