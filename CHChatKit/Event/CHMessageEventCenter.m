@@ -133,15 +133,19 @@
 
 }
 - (void)messagesDidReceive:(NSArray *)aMessages{
-    if ( [CHChatConfiguration defultConfigruration].allowAudioServices) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    }
+
     [aMessages enumerateObjectsUsingBlock:^(EMMessage *msg, NSUInteger idx, BOOL *  stop) {
         if (msg.ext) {
             CHNoticeEvent *notice = [CHNoticeEvent new];
             notice.context = msg.ext;
             [_eventBus postEvent:notice];
         }else{
+            if ( [CHChatConfiguration defultConfigruration].allowDeviceShock) {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            }
+            if ([CHChatConfiguration defultConfigruration].allowDeviceTone) {
+                 AudioServicesPlaySystemSound(1106);
+            }
             switch (msg.body.type) {
                 case EMMessageBodyTypeText:{
                     EMTextMessageBody *body = (EMTextMessageBody *)msg.body;

@@ -20,7 +20,8 @@
         instance.allowEmoji = YES;
         instance.allowAssistance = YES;
         instance.allowRecordVoice = YES;
-        instance.allowAudioServices = YES;
+        instance.allowDeviceShock = YES;
+        instance.allowDeviceTone = YES;
         instance.toolInputViewBackground = [UIColor clearColor];
         instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
     });

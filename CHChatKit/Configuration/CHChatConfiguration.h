@@ -20,12 +20,17 @@
 
 @property (nonatomic ,readonly) NSArray <NSString *>* assistances;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
-@property (nonatomic ,assign) CGFloat iconCornerRadius; // default is zero
+/* default is zero */
+@property (nonatomic ,assign) CGFloat iconCornerRadius;
 @property (nonatomic ,assign) BOOL allowRecordVoice;
 @property (nonatomic ,assign) BOOL allowEmoji;
 @property (nonatomic ,assign) BOOL allowAssistance;
-@property (nonatomic ,assign) BOOL allowAudioServices;
-@property (nonatomic ,assign) BOOL fitToNaviation; // 适配导航栏
+/* 开始接受消息震动*/
+@property (nonatomic ,assign) BOOL allowDeviceShock;
+/* 开始接受消息声音*/
+@property (nonatomic ,assign) BOOL allowDeviceTone;
+/* 适配导航栏*/
+@property (nonatomic ,assign) BOOL fitToNaviation;
 @property (nonatomic ,assign) CHChatConversationType type;
 /** 显示标题*/
 @property (nonatomic ,copy ) NSString *title;
