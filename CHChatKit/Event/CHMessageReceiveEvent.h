@@ -9,5 +9,5 @@
 #import "CHMessageEvent.h"
 @class CHChatMessageViewModel;
 @interface CHMessageReceiveEvent : CHMessageEvent
-@property (nonatomic ,strong) CHChatMessageViewModel *item;
+@property (nonatomic ,strong ) CHChatMessageViewModel *item;
 @end

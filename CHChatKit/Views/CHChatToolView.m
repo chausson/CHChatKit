@@ -137,7 +137,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentTextView.returnKeyType = UIReturnKeySend;
     
     _faceBoard = [[FaceBoard alloc] init];
-    _faceBoard.FaceDelegate = self;
+    _faceBoard.delegate = self;
     _faceBoard.backgroundColor = self.backgroundColor;
     _assistanceView = [[CHChatAssistanceView alloc] init];
     _assistanceView.observer = _observer;
@@ -535,7 +535,6 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
      
         return NO;
     }
-#pragma mark - 点击删除键 判断如果是表情 就删除表情字符
     if ([text length] != 0) {
     }else{
     }
@@ -557,9 +556,56 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 }
 - (void)sendFaceMessage
 {
-        [self sendText];
+    [self sendText];
 }
+#pragma mark - 点击删除键 判断如果是表情 就删除表情字符
+- (void)cancelFaceMessage{
+    [self deleteEmojiString];
+}
+/**
+ *  光标位置删除
+ */
+- (void)deleteEmojiString{
+    NSRange range = _contentTextView.selectedRange;
 
+    if (_contentTextView.text.length > 0) {
+        NSUInteger location  = _contentTextView.selectedRange.location;
+        NSString *head = [_contentTextView.text substringToIndex:location];
+        if (range.length ==0) {
+            
+        }else{
+            _contentTextView.text =@"";
+        }
+        
+        if (location > 0) {
+            //            NSUInteger location  = self.inputView.toolBar.textView.selectedRange.location;
+            NSMutableString *str = [NSMutableString stringWithFormat:@"%@",_contentTextView.text];
+            [self lastRange:head];
+            NSLog(@"%zd===%zd",[self lastRange:head].location,[self lastRange:head].length);
+            NSLog(@"%@",str);
+            
+            [str deleteCharactersInRange:[self lastRange:head]];
+            
+            NSLog(@"%@",str);
+            _contentTextView.text = str;
+            _contentTextView.selectedRange = NSMakeRange([self lastRange:head].location,0);
+            
+        } else {
+            _contentTextView.selectedRange = NSMakeRange(0,0);
+        }
+    }
+}
+/**
+ *  计算选中的最后一个是字符还是表情所占长度
+ *
+ *  @param str 要计算的字符串
+ *
+ *  @return 返回一个 NSRange
+ */
+- (NSRange)lastRange:(NSString *)str {
+    NSRange lastRange = [str rangeOfComposedCharacterSequenceAtIndex:str.length-1];
+    return lastRange;
+}
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     _emojiBtn.selected =  NO;
     _moreItemBtn.selected = NO;

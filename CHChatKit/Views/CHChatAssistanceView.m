@@ -1,16 +1,15 @@
 //
-//  ChatAssistanceView.m
-//  CSChatDemo
+//  CHChatAssistanceView.m
+//  CHChatKit
 //
-//  Created by 李赐岩 on 15/11/21.
+//  Created by Chausson on 15/11/21.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
 #import "CHChatAssistanceView.h"
 #import "CHChatConfiguration.h"
 #import "CHChatAssistance.h"
-#import "GrayPageControl.h"
-#import "CHChatViewController.h"    
+#import "CHChatViewController.h"
 #import "CHChatViewModel.h"
 #define CHATASSISTANCE_COUNT_ROW 2 // 行数
 
@@ -30,7 +29,7 @@
 @implementation CHChatAssistanceView{
     UIScrollView *chatAssistanceScrollView;
     NSMutableArray <CHChatAssistance *>* _assistances;
-    GrayPageControl *assistancePageControl;
+    UIPageControl *assistancePageControl;
     BOOL progressing;
 }
 
@@ -87,7 +86,7 @@
         [chatAssistanceScrollView addSubview:itemTitle];
     }];
     chatAssistanceScrollView.contentSize = CGSizeMake((assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1) * [UIScreen mainScreen].bounds.size.width, 190);
-    assistancePageControl = [[GrayPageControl alloc] initWithFrame:CGRectMake(assistancePageControl.frame.origin.x, 190, assistancePageControl.frame.size.width, assistancePageControl.frame.size.height)];
+    assistancePageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(assistancePageControl.frame.origin.x, 190, assistancePageControl.frame.size.width, assistancePageControl.frame.size.height)];
     [assistancePageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
     assistancePageControl.numberOfPages = assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1;
     assistancePageControl.currentPage = 0;

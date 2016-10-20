@@ -1,3 +1,4 @@
+link_with 'CHChatKitTests'
 platform:ios,'8.0'
 
 pod 'Hyphenate_CN'
@@ -8,6 +9,4 @@ pod 'SDWebImage'
 pod 'Masonry'
 pod 'MJRefresh'
 
-target 'CHChatKitTests' do
-    pod 'Hyphenate_CN'
 end

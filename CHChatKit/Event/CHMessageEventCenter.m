@@ -90,7 +90,7 @@
 - (void)executeTextEvent:(CHMessageTextEvent *)event{
 
     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:event.date  nickName:nil content:event.text isOwner:YES];
-    [self postReceiveEvent:viewModel];
+    [self postReceiveEvent:viewModel receiverID:event.receiverId];
     [self postTextRequest:event];
 }
 - (void)postTextRequest:(CHMessageTextEvent *)event{
@@ -114,19 +114,20 @@
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
   
     CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeData:event.date nickName:nil resource:event.file thumbnailImage:nil fullImage:event.fullPicture  isOwner:YES];
-    [self postReceiveEvent:viewModel];
+    [self postReceiveEvent:viewModel receiverID:0];
 }
 - (void)executeLocationEvent:(CHMessageLocationEvent *)event{
     CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file snapshot:event.map location:event.location.coordinate isOwner:YES];
-    [self postReceiveEvent:viewModel];
+    [self postReceiveEvent:viewModel receiverID:0];
 }
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
     CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeData:event.date nickName:nil resource:event.file voiceLength:event.length isOwner:YES];
-    [self postReceiveEvent:viewModel];
+    [self postReceiveEvent:viewModel receiverID:0];
 }
-- (void)postReceiveEvent:(CHChatMessageViewModel *)viewModel{
+- (void)postReceiveEvent:(CHChatMessageViewModel *)viewModel receiverID:(long long )identifier{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];
     r.item = viewModel;
+    r.receiverId = identifier;
     if([_eventBus hasSubscriberForEventClass:[CHMessageReceiveEvent class]]){
         [_eventBus postEvent:r];
     }
@@ -140,6 +141,7 @@
             notice.context = msg.ext;
             [_eventBus postEvent:notice];
         }else{
+        
             if ( [CHChatConfiguration defultConfigruration].allowDeviceShock) {
                 AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             }
@@ -154,7 +156,8 @@
                     NSTimeInterval interval = msg.timestamp/1000.0f;
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
                     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:NO];
-                    [self postReceiveEvent:viewModel];
+                    
+                    [self postReceiveEvent:viewModel receiverID:[msg.to intValue]];
                 }break;
                     
                 default:
