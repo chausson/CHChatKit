@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0612E6CA1D9D495300B836E1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0612E6B91D9D495300B836E1 /* Info.plist */; };
-		0612E6CB1D9D495300B836E1 /* XEBEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6BB1D9D495300B836E1 /* XEBEventBus.m */; };
-		0612E6CC1D9D495300B836E1 /* XEBPostingThreadState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6BD1D9D495300B836E1 /* XEBPostingThreadState.m */; };
-		0612E6CD1D9D495300B836E1 /* XEBSubscriberMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6C01D9D495300B836E1 /* XEBSubscriberMethod.m */; };
-		0612E6CE1D9D495300B836E1 /* XEBSubscriberMethodFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6C21D9D495300B836E1 /* XEBSubscriberMethodFinder.m */; };
-		0612E6CF1D9D495300B836E1 /* XEBSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6C41D9D495300B836E1 /* XEBSubscription.m */; };
-		0612E6D01D9D495300B836E1 /* XEBThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6C61D9D495300B836E1 /* XEBThreadLocal.m */; };
-		0612E6D11D9D495300B836E1 /* XEBThreadMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6C81D9D495300B836E1 /* XEBThreadMode.m */; };
 		0612E6D51D9D4A5E00B836E1 /* CHMessageEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6D41D9D4A5E00B836E1 /* CHMessageEvent.m */; };
 		0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6D71D9D4E4300B836E1 /* CHMessageTextEvent.m */; };
 		0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */; };
 		0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */; };
+		061B78D11DB8A4CD003FE9A5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 061B78C01DB8A4CD003FE9A5 /* Info.plist */; };
+		061B78D21DB8A4CD003FE9A5 /* XEBEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */; };
+		061B78D31DB8A4CD003FE9A5 /* XEBPostingThreadState.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */; };
+		061B78D41DB8A4CD003FE9A5 /* XEBSubscriberMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */; };
+		061B78D51DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */; };
+		061B78D61DB8A4CD003FE9A5 /* XEBSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */; };
+		061B78D71DB8A4CD003FE9A5 /* XEBThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */; };
+		061B78D81DB8A4CD003FE9A5 /* XEBThreadMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */; };
 		062829301D92731500DCED17 /* CHChatMessageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */; };
 		062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 062829321D927A1400DCED17 /* CHMessageContentView.m */; };
 		062B14CD1DB780F7004796F5 /* emo_029@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 062B14B71DB780F7004796F5 /* emo_029@2x.png */; };
@@ -164,23 +164,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0612E6B91D9D495300B836E1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0612E6BA1D9D495300B836E1 /* XEBEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBEventBus.h; sourceTree = "<group>"; };
-		0612E6BB1D9D495300B836E1 /* XEBEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBEventBus.m; sourceTree = "<group>"; };
-		0612E6BC1D9D495300B836E1 /* XEBPostingThreadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBPostingThreadState.h; sourceTree = "<group>"; };
-		0612E6BD1D9D495300B836E1 /* XEBPostingThreadState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBPostingThreadState.m; sourceTree = "<group>"; };
-		0612E6BE1D9D495300B836E1 /* XEBSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriber.h; sourceTree = "<group>"; };
-		0612E6BF1D9D495300B836E1 /* XEBSubscriberMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethod.h; sourceTree = "<group>"; };
-		0612E6C01D9D495300B836E1 /* XEBSubscriberMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethod.m; sourceTree = "<group>"; };
-		0612E6C11D9D495300B836E1 /* XEBSubscriberMethodFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethodFinder.h; sourceTree = "<group>"; };
-		0612E6C21D9D495300B836E1 /* XEBSubscriberMethodFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethodFinder.m; sourceTree = "<group>"; };
-		0612E6C31D9D495300B836E1 /* XEBSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscription.h; sourceTree = "<group>"; };
-		0612E6C41D9D495300B836E1 /* XEBSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscription.m; sourceTree = "<group>"; };
-		0612E6C51D9D495300B836E1 /* XEBThreadLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadLocal.h; sourceTree = "<group>"; };
-		0612E6C61D9D495300B836E1 /* XEBThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadLocal.m; sourceTree = "<group>"; };
-		0612E6C71D9D495300B836E1 /* XEBThreadMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadMode.h; sourceTree = "<group>"; };
-		0612E6C81D9D495300B836E1 /* XEBThreadMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadMode.m; sourceTree = "<group>"; };
-		0612E6C91D9D495300B836E1 /* CHEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHEventBus.h; sourceTree = "<group>"; };
 		0612E6D31D9D4A5E00B836E1 /* CHMessageEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageEvent.h; sourceTree = "<group>"; };
 		0612E6D41D9D4A5E00B836E1 /* CHMessageEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageEvent.m; sourceTree = "<group>"; };
 		0612E6D61D9D4E4300B836E1 /* CHMessageTextEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageTextEvent.h; sourceTree = "<group>"; };
@@ -189,6 +172,23 @@
 		0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageEventCenter.m; sourceTree = "<group>"; };
 		0612E6DE1D9D538900B836E1 /* CHRecordHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRecordHandler.h; sourceTree = "<group>"; };
 		0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRecordHandler.m; sourceTree = "<group>"; };
+		061B78C01DB8A4CD003FE9A5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		061B78C11DB8A4CD003FE9A5 /* XEBEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBEventBus.h; sourceTree = "<group>"; };
+		061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBEventBus.m; sourceTree = "<group>"; };
+		061B78C31DB8A4CD003FE9A5 /* XEBEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBEventInfo.h; sourceTree = "<group>"; };
+		061B78C41DB8A4CD003FE9A5 /* XEBPostingThreadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBPostingThreadState.h; sourceTree = "<group>"; };
+		061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBPostingThreadState.m; sourceTree = "<group>"; };
+		061B78C61DB8A4CD003FE9A5 /* XEBSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriber.h; sourceTree = "<group>"; };
+		061B78C71DB8A4CD003FE9A5 /* XEBSubscriberMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethod.h; sourceTree = "<group>"; };
+		061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethod.m; sourceTree = "<group>"; };
+		061B78C91DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethodFinder.h; sourceTree = "<group>"; };
+		061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethodFinder.m; sourceTree = "<group>"; };
+		061B78CB1DB8A4CD003FE9A5 /* XEBSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscription.h; sourceTree = "<group>"; };
+		061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscription.m; sourceTree = "<group>"; };
+		061B78CD1DB8A4CD003FE9A5 /* XEBThreadLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadLocal.h; sourceTree = "<group>"; };
+		061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadLocal.m; sourceTree = "<group>"; };
+		061B78CF1DB8A4CD003FE9A5 /* XEBThreadMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadMode.h; sourceTree = "<group>"; };
+		061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadMode.m; sourceTree = "<group>"; };
 		0628292E1D92731500DCED17 /* CHChatMessageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageTextCell.h; sourceTree = "<group>"; };
 		0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageTextCell.m; sourceTree = "<group>"; };
 		062829311D927A1400DCED17 /* CHMessageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageContentView.h; sourceTree = "<group>"; };
@@ -425,30 +425,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0612E6B81D9D495300B836E1 /* CHEventBus */ = {
-			isa = PBXGroup;
-			children = (
-				0612E6B91D9D495300B836E1 /* Info.plist */,
-				0612E6BA1D9D495300B836E1 /* XEBEventBus.h */,
-				0612E6BB1D9D495300B836E1 /* XEBEventBus.m */,
-				0612E6BC1D9D495300B836E1 /* XEBPostingThreadState.h */,
-				0612E6BD1D9D495300B836E1 /* XEBPostingThreadState.m */,
-				0612E6BE1D9D495300B836E1 /* XEBSubscriber.h */,
-				0612E6BF1D9D495300B836E1 /* XEBSubscriberMethod.h */,
-				0612E6C01D9D495300B836E1 /* XEBSubscriberMethod.m */,
-				0612E6C11D9D495300B836E1 /* XEBSubscriberMethodFinder.h */,
-				0612E6C21D9D495300B836E1 /* XEBSubscriberMethodFinder.m */,
-				0612E6C31D9D495300B836E1 /* XEBSubscription.h */,
-				0612E6C41D9D495300B836E1 /* XEBSubscription.m */,
-				0612E6C51D9D495300B836E1 /* XEBThreadLocal.h */,
-				0612E6C61D9D495300B836E1 /* XEBThreadLocal.m */,
-				0612E6C71D9D495300B836E1 /* XEBThreadMode.h */,
-				0612E6C81D9D495300B836E1 /* XEBThreadMode.m */,
-				0612E6C91D9D495300B836E1 /* CHEventBus.h */,
-			);
-			path = CHEventBus;
-			sourceTree = "<group>";
-		};
 		0612E6D21D9D4A0600B836E1 /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +452,30 @@
 				068B4BF31DAFCB2600AD4652 /* CHNoticeEventHandler.m */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		061B78BF1DB8A4CC003FE9A5 /* XEBEventBus */ = {
+			isa = PBXGroup;
+			children = (
+				061B78C01DB8A4CD003FE9A5 /* Info.plist */,
+				061B78C11DB8A4CD003FE9A5 /* XEBEventBus.h */,
+				061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */,
+				061B78C31DB8A4CD003FE9A5 /* XEBEventInfo.h */,
+				061B78C41DB8A4CD003FE9A5 /* XEBPostingThreadState.h */,
+				061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */,
+				061B78C61DB8A4CD003FE9A5 /* XEBSubscriber.h */,
+				061B78C71DB8A4CD003FE9A5 /* XEBSubscriberMethod.h */,
+				061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */,
+				061B78C91DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.h */,
+				061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */,
+				061B78CB1DB8A4CD003FE9A5 /* XEBSubscription.h */,
+				061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */,
+				061B78CD1DB8A4CD003FE9A5 /* XEBThreadLocal.h */,
+				061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */,
+				061B78CF1DB8A4CD003FE9A5 /* XEBThreadMode.h */,
+				061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */,
+			);
+			path = XEBEventBus;
 			sourceTree = "<group>";
 		};
 		062829341D9292F000DCED17 /* Helper */ = {
@@ -738,8 +738,8 @@
 		069275B31D77DDFF00CAB0A5 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				061B78BF1DB8A4CC003FE9A5 /* XEBEventBus */,
 				0633BA681DAE18900077A845 /* CHLocation */,
-				0612E6B81D9D495300B836E1 /* CHEventBus */,
 				069276C91D77E39200CAB0A5 /* FaceBoard */,
 				069278381D77E39300CAB0A5 /* UUProgress */,
 			);
@@ -1024,9 +1024,9 @@
 				062B14DE1DB780F7004796F5 /* emo_046@2x.png in Resources */,
 				062B14DD1DB780F7004796F5 /* emo_045@2x.png in Resources */,
 				062B14E21DB780F7004796F5 /* emo_050@2x.png in Resources */,
-				0612E6CA1D9D495300B836E1 /* Info.plist in Resources */,
 				069278491D77E39300CAB0A5 /* emo_012@2x.png in Resources */,
 				062B14DF1DB780F7004796F5 /* emo_047@2x.png in Resources */,
+				061B78D11DB8A4CD003FE9A5 /* Info.plist in Resources */,
 				0692784B1D77E39300CAB0A5 /* emo_014@2x.png in Resources */,
 				0692784D1D77E39300CAB0A5 /* emo_016@2x.png in Resources */,
 				0692784F1D77E39300CAB0A5 /* emo_018@2x.png in Resources */,
@@ -1149,9 +1149,7 @@
 			files = (
 				0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */,
 				06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */,
-				0612E6CE1D9D495300B836E1 /* XEBSubscriberMethodFinder.m in Sources */,
-				0612E6D01D9D495300B836E1 /* XEBThreadLocal.m in Sources */,
-				0612E6CD1D9D495300B836E1 /* XEBSubscriberMethod.m in Sources */,
+				061B78D51DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m in Sources */,
 				06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				063523C01DB0DD6B00A841EA /* JSONModelError.m in Sources */,
@@ -1162,11 +1160,11 @@
 				0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */,
 				0633BA671DADE3460077A845 /* CHEMChatAccountEvent.m in Sources */,
 				0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */,
+				061B78D41DB8A4CD003FE9A5 /* XEBSubscriberMethod.m in Sources */,
 				0633BA611DADDC580077A845 /* AppDelegate+Extensions.m in Sources */,
 				0632EA741D93BA7A00A4E37C /* CHChatMessageVoiceCell.m in Sources */,
 				068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */,
 				0633BA7F1DAE18900077A845 /* CHRimMapViewController.m in Sources */,
-				0612E6CB1D9D495300B836E1 /* XEBEventBus.m in Sources */,
 				068B4BED1DAF897B00AD4652 /* CHChatMessageVMFactory.m in Sources */,
 				069276BF1D77DF7400CAB0A5 /* CHChatTableView.m in Sources */,
 				0632EA6E1D93A61F00A4E37C /* CHChatMessageHelper.m in Sources */,
@@ -1175,13 +1173,13 @@
 				0632EA711D93BA2E00A4E37C /* CHChatMessageImageCell.m in Sources */,
 				063523C61DB0DD6B00A841EA /* JSONValueTransformer.m in Sources */,
 				069278ED1D77E39300CAB0A5 /* UUProgressHUD.m in Sources */,
-				0612E6CC1D9D495300B836E1 /* XEBPostingThreadState.m in Sources */,
 				068B4BEC1DAF897B00AD4652 /* CHChatMessageViewModel.m in Sources */,
 				069276411D77DE0000CAB0A5 /* CHChatViewController.m in Sources */,
 				069276BD1D77DF7400CAB0A5 /* CHChatToolView.m in Sources */,
 				0692783B1D77E39300CAB0A5 /* FaceBoard+EmojiHash.m in Sources */,
 				069276BA1D77DF7400CAB0A5 /* CHChatAssistanceView.m in Sources */,
 				0633BA7A1DAE18900077A845 /* CHLocationService.m in Sources */,
+				061B78D81DB8A4CD003FE9A5 /* XEBThreadMode.m in Sources */,
 				0633BA801DAE18900077A845 /* CHRimMapViewModel.m in Sources */,
 				06C766C61DACF21C00DADEC0 /* CHMessageVoiceEvent.m in Sources */,
 				063523C11DB0DD6B00A841EA /* NSArray+JSONModel.m in Sources */,
@@ -1195,13 +1193,15 @@
 				0692764D1D77DE0000CAB0A5 /* NSString+CHExtensions.m in Sources */,
 				069275711D77DAE200CAB0A5 /* main.m in Sources */,
 				06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */,
-				0612E6D11D9D495300B836E1 /* XEBThreadMode.m in Sources */,
 				063523C31DB0DD6B00A841EA /* JSONHTTPClient.m in Sources */,
 				0612E6D51D9D4A5E00B836E1 /* CHMessageEvent.m in Sources */,
 				0633A68B1D926CD60005D36F /* CHChatMessageCell.m in Sources */,
 				0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */,
+				061B78D71DB8A4CD003FE9A5 /* XEBThreadLocal.m in Sources */,
 				06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */,
+				061B78D21DB8A4CD003FE9A5 /* XEBEventBus.m in Sources */,
 				06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */,
+				061B78D31DB8A4CD003FE9A5 /* XEBPostingThreadState.m in Sources */,
 				0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */,
 				068B4BD11DAF896A00AD4652 /* CHChatModel.m in Sources */,
 				063523C21DB0DD6B00A841EA /* JSONAPI.m in Sources */,
@@ -1212,7 +1212,6 @@
 				062829301D92731500DCED17 /* CHChatMessageTextCell.m in Sources */,
 				0692764E1D77DE0000CAB0A5 /* UIDevice+IdentifierAddition.m in Sources */,
 				06E618271DAB67ED00E11B96 /* CHChatAssistance.m in Sources */,
-				0612E6CF1D9D495300B836E1 /* XEBSubscription.m in Sources */,
 				063523BF1DB0DD6B00A841EA /* JSONModelClassProperty.m in Sources */,
 				063523C41DB0DD6B00A841EA /* JSONModel+networking.m in Sources */,
 				06C766B71DAC86D500DADEC0 /* CHPictureAssistance.m in Sources */,
@@ -1222,6 +1221,7 @@
 				066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */,
 				0632EA771D93C2F500A4E37C /* CHChatMessageLocationCell.m in Sources */,
 				0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */,
+				061B78D61DB8A4CD003FE9A5 /* XEBSubscription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

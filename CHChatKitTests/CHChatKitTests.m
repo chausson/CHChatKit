@@ -44,51 +44,50 @@
 }
 
 - (void)testExample {
-    
-    for (int i = 0; i < 1000; i++) {
-        CHMessageTextEvent *event = [CHMessageTextEvent new];
-        event.userId = 14128;
-        event.receiverId = 14060;
-        event.text = [NSString stringWithFormat:@"test数据第%d条",i];
-        NSString *info = [NSString stringWithFormat:@"run第%d条",i];
-        NSLog(@"%@",info);
-        [[XEBEventBus defaultEventBus] postEvent:event];
-    }
-    while (YES) {
-        
-    }
-    NSAssert(_viewModel.cellViewModels.count == 1000, @"testExample not pass");
-}
-//- (void)testEMEvent{
-//    __block int count = 0;
-//    for (int i = 0; i < 100; i++) {
-//
-//        EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:[NSString stringWithFormat:@"test数据第%d条",i]];
-//        NSString *from = [[EMClient sharedClient] currentUsername];
-//
-//        //生成Message
-//        EMMessage *message = [[EMMessage alloc] initWithConversationID:@"14128" from:from to:@"14060" body:body ext:nil];
-//
-//        message.chatType = EMChatTypeChat;// 设置为单聊消息
-//
-//       [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//           if (!error) {
-//               count++;
-//           }
-//           NSLog(@"error = %@",error.description);
-//       }];
-//    }
-//    while (YES) {
-//        
-//    }
-//    NSAssert(count == 1000, @"testExample not pass");
-//
-//}
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
     [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+        for (int i = 0; i < 100; i++) {
+            CHMessageTextEvent *event = [CHMessageTextEvent new];
+            event.userId = 14128;
+            event.receiverId = 14060;
+            event.text = [NSString stringWithFormat:@"test数据第%d条",i];
+            NSString *info = [NSString stringWithFormat:@"run第%d条",i];
+            NSLog(@"%@",info);
+            [[XEBEventBus defaultEventBus] postEvent:event];
+        }
+        while (YES) {
+            
+        }
+        NSAssert(_viewModel.cellViewModels.count == 1000, @"testExample not pass");
     }];
 }
+- (void)testEMEvent{
+    [self measureBlock:^{
+        __block int count = 0;
+        for (int i = 0; i < 100; i++) {
+            
+            EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:[NSString stringWithFormat:@"test数据第%d条",i]];
+            NSString *from = [[EMClient sharedClient] currentUsername];
+            
+            //生成Message
+            EMMessage *message = [[EMMessage alloc] initWithConversationID:@"14128" from:from to:@"14060" body:body ext:nil];
+            
+            message.chatType = EMChatTypeChat;// 设置为单聊消息
+            
+            [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                if (!error) {
+                    count++;
+                }
+                NSLog(@"error = %@",error.description);
+            }];
+        }
+        while (YES) {
+            
+        }
+        NSAssert(count == 100, @"testExample not pass");
+    }];
+
+
+}
+
 
 @end

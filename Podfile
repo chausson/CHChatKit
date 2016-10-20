@@ -8,5 +8,5 @@ pod 'UITableView+FDTemplateLayoutCell'
 pod 'SDWebImage'
 pod 'Masonry'
 pod 'MJRefresh'
-
+pod 'XEBEventBus'
 end
