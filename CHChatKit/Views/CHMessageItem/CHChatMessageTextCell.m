@@ -29,7 +29,7 @@
 - (void)updateConstraints{
     [super updateConstraints];
     [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.messageContainer).offset(5);
+        make.top.equalTo(self.messageContainer).offset(0);
         make.left.right.equalTo(self.messageContainer).offset(0);
         make.bottom.equalTo(self.messageContainer).offset(0);
     }];

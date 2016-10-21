@@ -581,12 +581,10 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
             //            NSUInteger location  = self.inputView.toolBar.textView.selectedRange.location;
             NSMutableString *str = [NSMutableString stringWithFormat:@"%@",_contentTextView.text];
             [self lastRange:head];
-            NSLog(@"%zd===%zd",[self lastRange:head].location,[self lastRange:head].length);
-            NSLog(@"%@",str);
+
             
             [str deleteCharactersInRange:[self lastRange:head]];
             
-            NSLog(@"%@",str);
             _contentTextView.text = str;
             _contentTextView.selectedRange = NSMakeRange([self lastRange:head].location,0);
             

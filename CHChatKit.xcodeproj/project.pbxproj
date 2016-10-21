@@ -11,14 +11,6 @@
 		0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6D71D9D4E4300B836E1 /* CHMessageTextEvent.m */; };
 		0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */; };
 		0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */; };
-		061B78D11DB8A4CD003FE9A5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 061B78C01DB8A4CD003FE9A5 /* Info.plist */; };
-		061B78D21DB8A4CD003FE9A5 /* XEBEventBus.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */; };
-		061B78D31DB8A4CD003FE9A5 /* XEBPostingThreadState.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */; };
-		061B78D41DB8A4CD003FE9A5 /* XEBSubscriberMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */; };
-		061B78D51DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */; };
-		061B78D61DB8A4CD003FE9A5 /* XEBSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */; };
-		061B78D71DB8A4CD003FE9A5 /* XEBThreadLocal.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */; };
-		061B78D81DB8A4CD003FE9A5 /* XEBThreadMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */; };
 		062829301D92731500DCED17 /* CHChatMessageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */; };
 		062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 062829321D927A1400DCED17 /* CHMessageContentView.m */; };
 		062B14CD1DB780F7004796F5 /* emo_029@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 062B14B71DB780F7004796F5 /* emo_029@2x.png */; };
@@ -149,8 +141,10 @@
 		06E618171DAB417A00E11B96 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618161DAB417A00E11B96 /* libsqlite3.tbd */; };
 		06E618271DAB67ED00E11B96 /* CHChatAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E618261DAB67ED00E11B96 /* CHChatAssistance.m */; };
 		06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E618291DAB83EE00E11B96 /* CHLocationAssistance.m */; };
+		3A75B6C77E530E8979DFE21C /* libPods-CHChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */; };
 		797BB65615B96DAFA414FE8E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20168A8F6F5FB14116652276 /* libPods.a */; };
 		92EA53AAB290C8384B33F497 /* libPods-CHChatKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB18B39083970533DDBBC489 /* libPods-CHChatKitTests.a */; };
+		94E11D62C9785116642AB167 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20168A8F6F5FB14116652276 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,23 +166,6 @@
 		0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageEventCenter.m; sourceTree = "<group>"; };
 		0612E6DE1D9D538900B836E1 /* CHRecordHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRecordHandler.h; sourceTree = "<group>"; };
 		0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRecordHandler.m; sourceTree = "<group>"; };
-		061B78C01DB8A4CD003FE9A5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		061B78C11DB8A4CD003FE9A5 /* XEBEventBus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBEventBus.h; sourceTree = "<group>"; };
-		061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBEventBus.m; sourceTree = "<group>"; };
-		061B78C31DB8A4CD003FE9A5 /* XEBEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBEventInfo.h; sourceTree = "<group>"; };
-		061B78C41DB8A4CD003FE9A5 /* XEBPostingThreadState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBPostingThreadState.h; sourceTree = "<group>"; };
-		061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBPostingThreadState.m; sourceTree = "<group>"; };
-		061B78C61DB8A4CD003FE9A5 /* XEBSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriber.h; sourceTree = "<group>"; };
-		061B78C71DB8A4CD003FE9A5 /* XEBSubscriberMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethod.h; sourceTree = "<group>"; };
-		061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethod.m; sourceTree = "<group>"; };
-		061B78C91DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscriberMethodFinder.h; sourceTree = "<group>"; };
-		061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscriberMethodFinder.m; sourceTree = "<group>"; };
-		061B78CB1DB8A4CD003FE9A5 /* XEBSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBSubscription.h; sourceTree = "<group>"; };
-		061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBSubscription.m; sourceTree = "<group>"; };
-		061B78CD1DB8A4CD003FE9A5 /* XEBThreadLocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadLocal.h; sourceTree = "<group>"; };
-		061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadLocal.m; sourceTree = "<group>"; };
-		061B78CF1DB8A4CD003FE9A5 /* XEBThreadMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBThreadMode.h; sourceTree = "<group>"; };
-		061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBThreadMode.m; sourceTree = "<group>"; };
 		0628292E1D92731500DCED17 /* CHChatMessageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageTextCell.h; sourceTree = "<group>"; };
 		0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageTextCell.m; sourceTree = "<group>"; };
 		062829311D927A1400DCED17 /* CHMessageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageContentView.h; sourceTree = "<group>"; };
@@ -392,6 +369,9 @@
 		5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		B667F1D32CE7D3A7BF324DD8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BAC4F4633E0FBB4A30D0AAD9 /* Pods-CHChatKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit.release.xcconfig"; sourceTree = "<group>"; };
+		CACB10AA6B404B2C902BF33E /* Pods-CHChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit.debug.xcconfig"; sourceTree = "<group>"; };
+		D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CHChatKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0BC858B491375F90A940434 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		EB18B39083970533DDBBC489 /* libPods-CHChatKitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CHChatKitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -402,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92EA53AAB290C8384B33F497 /* libPods-CHChatKitTests.a in Frameworks */,
+				94E11D62C9785116642AB167 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +400,7 @@
 				06E618091DAB414E00E11B96 /* AudioToolbox.framework in Frameworks */,
 				06E618071DAB414800E11B96 /* CoreMedia.framework in Frameworks */,
 				797BB65615B96DAFA414FE8E /* libPods.a in Frameworks */,
+				3A75B6C77E530E8979DFE21C /* libPods-CHChatKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,30 +434,6 @@
 				068B4BF31DAFCB2600AD4652 /* CHNoticeEventHandler.m */,
 			);
 			path = Event;
-			sourceTree = "<group>";
-		};
-		061B78BF1DB8A4CC003FE9A5 /* XEBEventBus */ = {
-			isa = PBXGroup;
-			children = (
-				061B78C01DB8A4CD003FE9A5 /* Info.plist */,
-				061B78C11DB8A4CD003FE9A5 /* XEBEventBus.h */,
-				061B78C21DB8A4CD003FE9A5 /* XEBEventBus.m */,
-				061B78C31DB8A4CD003FE9A5 /* XEBEventInfo.h */,
-				061B78C41DB8A4CD003FE9A5 /* XEBPostingThreadState.h */,
-				061B78C51DB8A4CD003FE9A5 /* XEBPostingThreadState.m */,
-				061B78C61DB8A4CD003FE9A5 /* XEBSubscriber.h */,
-				061B78C71DB8A4CD003FE9A5 /* XEBSubscriberMethod.h */,
-				061B78C81DB8A4CD003FE9A5 /* XEBSubscriberMethod.m */,
-				061B78C91DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.h */,
-				061B78CA1DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m */,
-				061B78CB1DB8A4CD003FE9A5 /* XEBSubscription.h */,
-				061B78CC1DB8A4CD003FE9A5 /* XEBSubscription.m */,
-				061B78CD1DB8A4CD003FE9A5 /* XEBThreadLocal.h */,
-				061B78CE1DB8A4CD003FE9A5 /* XEBThreadLocal.m */,
-				061B78CF1DB8A4CD003FE9A5 /* XEBThreadMode.h */,
-				061B78D01DB8A4CD003FE9A5 /* XEBThreadMode.m */,
-			);
-			path = XEBEventBus;
 			sourceTree = "<group>";
 		};
 		062829341D9292F000DCED17 /* Helper */ = {
@@ -738,7 +696,6 @@
 		069275B31D77DDFF00CAB0A5 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				061B78BF1DB8A4CC003FE9A5 /* XEBEventBus */,
 				0633BA681DAE18900077A845 /* CHLocation */,
 				069276C91D77E39200CAB0A5 /* FaceBoard */,
 				069278381D77E39300CAB0A5 /* UUProgress */,
@@ -870,6 +827,7 @@
 				06E618061DAB414800E11B96 /* CoreMedia.framework */,
 				20168A8F6F5FB14116652276 /* libPods.a */,
 				EB18B39083970533DDBBC489 /* libPods-CHChatKitTests.a */,
+				D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -881,6 +839,8 @@
 				B667F1D32CE7D3A7BF324DD8 /* Pods.release.xcconfig */,
 				5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */,
 				93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */,
+				CACB10AA6B404B2C902BF33E /* Pods-CHChatKit.debug.xcconfig */,
+				BAC4F4633E0FBB4A30D0AAD9 /* Pods-CHChatKit.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -892,12 +852,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 063523A01DB0A51900A841EA /* Build configuration list for PBXNativeTarget "CHChatKitTests" */;
 			buildPhases = (
-				6622BABA1B6CE2824712B8B7 /* Check Pods Manifest.lock */,
+				6622BABA1B6CE2824712B8B7 /* [CP] Check Pods Manifest.lock */,
 				063523951DB0A51900A841EA /* Sources */,
 				063523961DB0A51900A841EA /* Frameworks */,
 				063523971DB0A51900A841EA /* Resources */,
-				041A9DBB0652F40A32279DD3 /* Embed Pods Frameworks */,
-				DC9DD58109051C16471EC0CA /* Copy Pods Resources */,
+				041A9DBB0652F40A32279DD3 /* [CP] Embed Pods Frameworks */,
+				DC9DD58109051C16471EC0CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -913,12 +873,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 069275501D77DA7B00CAB0A5 /* Build configuration list for PBXNativeTarget "CHChatKit" */;
 			buildPhases = (
-				B15FD586B3C289C48B655A44 /* Check Pods Manifest.lock */,
+				B15FD586B3C289C48B655A44 /* [CP] Check Pods Manifest.lock */,
 				069275351D77DA7900CAB0A5 /* Sources */,
 				069275361D77DA7900CAB0A5 /* Frameworks */,
 				069275371D77DA7900CAB0A5 /* Resources */,
-				832F8805FBCC6F7FDCDDEE2A /* Embed Pods Frameworks */,
-				2F5330B777A18E02D53F1501 /* Copy Pods Resources */,
+				832F8805FBCC6F7FDCDDEE2A /* [CP] Embed Pods Frameworks */,
+				2F5330B777A18E02D53F1501 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1026,7 +986,6 @@
 				062B14E21DB780F7004796F5 /* emo_050@2x.png in Resources */,
 				069278491D77E39300CAB0A5 /* emo_012@2x.png in Resources */,
 				062B14DF1DB780F7004796F5 /* emo_047@2x.png in Resources */,
-				061B78D11DB8A4CD003FE9A5 /* Info.plist in Resources */,
 				0692784B1D77E39300CAB0A5 /* emo_014@2x.png in Resources */,
 				0692784D1D77E39300CAB0A5 /* emo_016@2x.png in Resources */,
 				0692784F1D77E39300CAB0A5 /* emo_018@2x.png in Resources */,
@@ -1042,14 +1001,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		041A9DBB0652F40A32279DD3 /* Embed Pods Frameworks */ = {
+		041A9DBB0652F40A32279DD3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1057,74 +1016,74 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2F5330B777A18E02D53F1501 /* Copy Pods Resources */ = {
+		2F5330B777A18E02D53F1501 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6622BABA1B6CE2824712B8B7 /* Check Pods Manifest.lock */ = {
+		6622BABA1B6CE2824712B8B7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		832F8805FBCC6F7FDCDDEE2A /* Embed Pods Frameworks */ = {
+		832F8805FBCC6F7FDCDDEE2A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B15FD586B3C289C48B655A44 /* Check Pods Manifest.lock */ = {
+		B15FD586B3C289C48B655A44 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DC9DD58109051C16471EC0CA /* Copy Pods Resources */ = {
+		DC9DD58109051C16471EC0CA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1149,7 +1108,6 @@
 			files = (
 				0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */,
 				06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */,
-				061B78D51DB8A4CD003FE9A5 /* XEBSubscriberMethodFinder.m in Sources */,
 				06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				063523C01DB0DD6B00A841EA /* JSONModelError.m in Sources */,
@@ -1160,7 +1118,6 @@
 				0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */,
 				0633BA671DADE3460077A845 /* CHEMChatAccountEvent.m in Sources */,
 				0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */,
-				061B78D41DB8A4CD003FE9A5 /* XEBSubscriberMethod.m in Sources */,
 				0633BA611DADDC580077A845 /* AppDelegate+Extensions.m in Sources */,
 				0632EA741D93BA7A00A4E37C /* CHChatMessageVoiceCell.m in Sources */,
 				068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */,
@@ -1179,7 +1136,6 @@
 				0692783B1D77E39300CAB0A5 /* FaceBoard+EmojiHash.m in Sources */,
 				069276BA1D77DF7400CAB0A5 /* CHChatAssistanceView.m in Sources */,
 				0633BA7A1DAE18900077A845 /* CHLocationService.m in Sources */,
-				061B78D81DB8A4CD003FE9A5 /* XEBThreadMode.m in Sources */,
 				0633BA801DAE18900077A845 /* CHRimMapViewModel.m in Sources */,
 				06C766C61DACF21C00DADEC0 /* CHMessageVoiceEvent.m in Sources */,
 				063523C11DB0DD6B00A841EA /* NSArray+JSONModel.m in Sources */,
@@ -1197,11 +1153,8 @@
 				0612E6D51D9D4A5E00B836E1 /* CHMessageEvent.m in Sources */,
 				0633A68B1D926CD60005D36F /* CHChatMessageCell.m in Sources */,
 				0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */,
-				061B78D71DB8A4CD003FE9A5 /* XEBThreadLocal.m in Sources */,
 				06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */,
-				061B78D21DB8A4CD003FE9A5 /* XEBEventBus.m in Sources */,
 				06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */,
-				061B78D31DB8A4CD003FE9A5 /* XEBPostingThreadState.m in Sources */,
 				0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */,
 				068B4BD11DAF896A00AD4652 /* CHChatModel.m in Sources */,
 				063523C21DB0DD6B00A841EA /* JSONAPI.m in Sources */,
@@ -1221,7 +1174,6 @@
 				066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */,
 				0632EA771D93C2F500A4E37C /* CHChatMessageLocationCell.m in Sources */,
 				0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */,
-				061B78D61DB8A4CD003FE9A5 /* XEBSubscription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1367,7 +1319,7 @@
 		};
 		069275511D77DA7B00CAB0A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0BC858B491375F90A940434 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = CACB10AA6B404B2C902BF33E /* Pods-CHChatKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1389,7 +1341,7 @@
 		};
 		069275521D77DA7B00CAB0A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B667F1D32CE7D3A7BF324DD8 /* Pods.release.xcconfig */;
+			baseConfigurationReference = BAC4F4633E0FBB4A30D0AAD9 /* Pods-CHChatKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
