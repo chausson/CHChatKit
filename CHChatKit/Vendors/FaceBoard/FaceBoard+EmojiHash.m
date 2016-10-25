@@ -11,7 +11,7 @@
 @implementation FaceBoard (EmojiHash)
 - (void)configurationEmoji{
 
-    self.emojiArray = [NSArray arrayWithObjects:
+     self.emojiArray = [NSArray arrayWithObjects:
                    [self imageNamed:@"emo_001"],
                    [self imageNamed:@"emo_002"],
                    [self imageNamed:@"emo_003"],
@@ -58,10 +58,18 @@
                    [self imageNamed:@"emo_044"],
                    [self imageNamed:@"emo_045"],
                    [self imageNamed:@"emo_046"],
+
                    [self imageNamed:@"emo_047"],
                    [self imageNamed:@"emo_048"],
                    [self imageNamed:@"emo_049"],
                    [self imageNamed:@"emo_050"],
+                   [self imageNamed:@"emo_051"],
+                   [self imageNamed:@"emo_052"],
+                   [self imageNamed:@"emo_053"],
+                   [self imageNamed:@"emo_054"],
+                   [self imageNamed:@"emo_055"],
+                   [self imageNamed:@"emo_056"],
+
                    nil];
     
     self.symbolArray = [NSArray arrayWithObjects:
@@ -102,10 +110,7 @@
                     @"\u2764", //@"\ue022",
                     @"\U0001F494", //@"\ue023",
                     @"\U0001F498", //@"\ue329",
-                    @"\ue32e", //@"\ue32e",
                     @"\U0001F31F", //@"\ue32f",
-                    @"\ue337", //@"\ue337",
-                    @"\ue336", //@"\ue336",
                     @"\U0001F4A4", //@"\ue13c",
                     @"\U0001F4A6", //@"\ue331",
                     @"\U0001F385", //@"\ue03e",
@@ -114,10 +119,19 @@
                     @"\U0001F44D", //@"\ue421",
                     @"\U0001F44E", //@"\ue00e",
                     @"\U0001F44A", //@"\ue00d",
-                    @"\ue011", //@"\ue011",
+                    @"\U0001F466", //@"\ue001",
+                    @"\U0001F467", //@"\ue002",
+                    @"\U0001F469", //@"\ue005",
+                    @"\U0001F468", //@"\ue004",
+
+                    @"\u2600", //@"\ue04a",
+                    @"\u2614", //@"\ue04b",
+                    @"\u2601", //@"\ue049",
+                    @"\u26c4", //@"\ue048",
+
+                    @"\U0001F319", //@"\ue005",
+                    @"\u26A1", //@"\ue004",
                     nil];
-
-
 }
 - (UIImage *)imageNamed:(NSString *)name{
     NSString *pngName = [name stringByAppendingString:@"@2x.png"];

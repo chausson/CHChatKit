@@ -61,7 +61,9 @@
 - (void)setConfig:(CHChatConfiguration *)config{
     _config = config;
     NSArray <NSString *>* assistanceItems = config.assistances;
-    
+    [chatAssistanceScrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
     [assistanceItems enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, NSUInteger i, BOOL * _Nonnull stop) {
         UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         CHChatAssistance *assistance = [self fetchAssistance:identifier];
@@ -138,6 +140,8 @@
     [assistance executeEvent:self.observer];
 }
 
-
+- (void)dealloc{
+    
+}
 
 @end

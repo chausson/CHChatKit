@@ -7,6 +7,7 @@
 //
 
 #import "CHChatMessageVoiceCell.h"
+#import "CHChatMessageVoiceVM.h"
 #import "Masonry.h"
 #import "UIImage+CHImage.h"
 #import "CHChatMessageVoiceVM.h"
@@ -79,7 +80,8 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    CGFloat width = 50+self.contentView.frame.size.width/2/60*[self.viewModel length];
+    CHChatMessageVoiceVM *voice = (CHChatMessageVoiceVM  *)self.viewModel;
+    CGFloat width = 50+self.contentView.frame.size.width/2/60*voice.length;
     if ([self isOwner]) {
 
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -103,13 +105,13 @@
         }];
     }
 }
-- (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
+- (void)loadViewModel:(CHChatMessageVoiceVM *)viewModel{
     [super loadViewModel:viewModel];
     [self setAnimationImage];
     [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.isOwner] forState:UIControlStateNormal];
     if ([viewModel isKindOfClass:[CHChatMessageVoiceVM class]]) {
     
-        self.secondsLabel.text = [NSString stringWithFormat:@"%ld''", [self.viewModel length]];
+        self.secondsLabel.text = [NSString stringWithFormat:@"%ld''", (long)viewModel.length];
     }else{
         NSAssert(NO, @"[CHChatMessageVoiceVM class] loadViewModel的类型有问题");
     }

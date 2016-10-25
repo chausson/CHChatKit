@@ -612,6 +612,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     return YES;
 }
 
-
+- (void)dealloc{
+    
+}
 
 @end

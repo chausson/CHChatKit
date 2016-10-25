@@ -19,7 +19,6 @@
 #import "CHMessageVoiceEvent.h"
 #import "CHEMChatAccountEvent.h"
 #import "CHEMChatInstallEvent.h"
-#import "CHChatConfiguration.h"
 #import <EMSDK.h>
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -141,13 +140,11 @@
             notice.context = msg.ext;
             [_eventBus postEvent:notice];
         }else{
-        
-            if ( [CHChatConfiguration defultConfigruration].allowDeviceShock) {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            }
-            if ([CHChatConfiguration defultConfigruration].allowDeviceTone) {
-                 AudioServicesPlaySystemSound(1106);
-            }
+
+//                声音和振动
+//                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+//                 AudioServicesPlaySystemSound(1106);
+
             switch (msg.body.type) {
                 case EMMessageBodyTypeText:{
                     EMTextMessageBody *body = (EMTextMessageBody *)msg.body;
@@ -157,7 +154,7 @@
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
                     CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:[formatter stringFromDate:date]  nickName:nil content:body.text isOwner:NO];
                     
-                    [self postReceiveEvent:viewModel receiverID:[msg.to intValue]];
+                    [self postReceiveEvent:viewModel receiverID:[msg.from intValue]];
                 }break;
                     
                 default:

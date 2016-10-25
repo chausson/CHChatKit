@@ -11,10 +11,10 @@
 @implementation CHChatConfiguration
 
 + (CHChatConfiguration *)defultConfigruration{
-    static dispatch_once_t onceToken;
-    static CHChatConfiguration *instance = nil;
-    dispatch_once(&onceToken, ^{
-        instance = [CHChatConfiguration new];
+//    static dispatch_once_t onceToken;
+//    static CHChatConfiguration *instance = nil;
+//    dispatch_once(&onceToken, ^{
+      CHChatConfiguration *instance = [CHChatConfiguration new];
         instance.mainBackground = [UIColor blackColor];
         instance.iconCornerRadius = 0;
         instance.allowEmoji = YES;
@@ -24,7 +24,7 @@
         instance.allowDeviceTone = YES;
         instance.toolInputViewBackground = [UIColor clearColor];
         instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
-    });
+//    });
     return instance;
 }
 
