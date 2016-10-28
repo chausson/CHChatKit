@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (KVOExtension)
-@property (nonatomic, strong) NSSet* observers;
+@property (nonatomic, strong) NSArray<NSArray <NSString *>*>* observers;
+
 - (void)ch_unregisterFromKVO;
-- (void)ch_registerForKVO:(NSArray *)observers;
+- (void)ch_registerForKVO:(NSArray <NSString *>*)observers;
 - (void)ch_ObserveValueForKey:(NSString *)key
                      ofObject:(id )obj
                        change:(NSDictionary *)change;

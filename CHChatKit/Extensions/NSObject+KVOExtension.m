@@ -14,46 +14,46 @@ static char AddressKey;
 #pragma mark - KVO
 
 
-- (void)setObservers:(NSSet *)observers{
+- (void)setObservers:(NSArray<NSArray<NSString *> *> *)observers{
     objc_setAssociatedObject(self, &AddressKey, observers, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-- (NSSet *)observers{
-    return objc_getAssociatedObject(self, &AddressKey);
-}
 
-- (void)ch_registerForKVO:(NSArray *)observers {
+}
+- (NSArray<NSArray<NSString *> *> *)observers{
+
+    return objc_getAssociatedObject(self, &AddressKey);
+
+}
+- (void)ch_registerForKVO:(NSArray <NSString *>*)observers{
     if (!observers) {
         return;
     }
-    
-    NSLog(@"class= %@",NSStringFromClass(self.class));
+    if (!self.observers) {
+        self.observers = [NSArray array];
+    }
+    NSMutableArray *obsMutable = [NSMutableArray arrayWithArray:self.observers];
     @synchronized (self) {
-
-        NSMutableSet *registerObservers = [NSMutableSet setWithSet:self.observers];
-        [registerObservers addObjectsFromArray:observers];
-        
-        for (NSString *keyPath in registerObservers) {
+        for (NSString *keyPath in observers) {
             [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
         }
-        self.observers = registerObservers;
+        [obsMutable addObject:observers];
+        self.observers = [obsMutable copy];
     }
     
-            
-
 }
 - (void)ch_unregisterFromKVO {
-    NSMutableSet *registerObservers = [self.observers mutableCopy];
-    NSLog(@"%@",registerObservers);
-    if (!registerObservers) {
-        return;
+
+    NSLog(@"%@ ch_unregister",self.observers);
+    if (self.observers.count > 0) {
+        @synchronized (self) {
+            NSMutableArray *obsMutable = [NSMutableArray arrayWithArray:self.observers];
+            [[obsMutable lastObject] enumerateObjectsUsingBlock:^(NSString *  keyPath, NSUInteger idx, BOOL *  stop) {
+                [self removeObserver:self forKeyPath:keyPath context:NULL];
+            }];
+            [obsMutable removeLastObject];
+            self.observers = [obsMutable copy];
+        }
     }
-    @synchronized (self) {
-        [registerObservers enumerateObjectsUsingBlock:^(NSString *keyPath, BOOL * _Nonnull stop) {
-            [self removeObserver:self forKeyPath:keyPath context:NULL];
-            [registerObservers removeObject:keyPath];
-        }];
-        self.observers = [NSSet setWithSet:registerObservers];
-    }
+
 
 }
 - (void)ch_ObserveValueForKey:(NSString *)key

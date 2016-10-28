@@ -21,13 +21,15 @@
     static id instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [CHMessageEventCenter shareInstance].delegate = instance;
+
         instance = [[self alloc]init];
+        [CHMessageEventCenter shareInstance].delegate = instance;
     });
     return instance;
 }
 - (void)install:(NSString *)appkey
    apnsCertName:(NSString *)apnsCertName{
+    [EMMessageHandler shareInstance];
     EMOptions *options = [EMOptions optionsWithAppkey:appkey];
     options.apnsCertName = apnsCertName;
     [[EMClient sharedClient]initializeSDKWithOptions:options];
