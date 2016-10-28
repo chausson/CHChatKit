@@ -44,17 +44,8 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
 typedef NS_ENUM(NSUInteger, CHChatConversationType) {
     CHChatSingle,         //单聊
     CHChatGrounp     //群聊
-} ;
+};
 
-/**
- *  添加辅助功能的类型
- */
-//typedef NS_ENUM(NSUInteger, CHAssistanceType) {
-//    CHNoneAssistance,
-//    CHPhotoAssistance,  // 图片
-//    CHCaremaAssistance, // 照片机
-//    CHLocationAssistance
-//} ;
 /**
  *  消息发送的状态
  */
@@ -63,6 +54,7 @@ typedef NS_ENUM(NSUInteger, CHMessageSendState){
     CHMessageSending = 1, // 发送中
     CHMessageSendSuccess, // 发送成功
     CHMessageSendReciver, // 已送达
+    CHMessageSendHasRead, // 已阅读
     CHMessageSendFailure, // 发送失败
 };
 /**

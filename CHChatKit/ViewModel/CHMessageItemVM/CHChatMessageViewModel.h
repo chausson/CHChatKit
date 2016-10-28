@@ -20,13 +20,16 @@
 @property (nonatomic ,readonly) NSString *date;
 @property (nonatomic ,readonly) NSString *nickName;
 @property (nonatomic ,readonly) CHChatMessageType category;
+@property (nonatomic ,readonly) CHMessageSendState sendingState;
 @property (nonatomic ,readonly , getter= isVisableTime) BOOL visableTime;
-@property (nonatomic ,readonly , getter= isRetry) BOOL retry;
 @property (nonatomic ,readonly , getter= isOwner) BOOL owner;
 @property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
-
-
+@property (nonatomic ,assign) long long receiveId; /* 消息接收人的id 没有的话默认是0 */
+@property (nonatomic ,assign) long long senderId; /* 发送消息者的id 没有的话默认是0 */
 - (void)sortOutWithTime:(NSString *)time;
 /* 处理响应事件  */
 - (void)respondsTapAction;
+/* 重发消息  */
+- (void)resend;
+
 @end

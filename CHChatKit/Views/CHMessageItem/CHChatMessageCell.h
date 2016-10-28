@@ -30,10 +30,12 @@
 @property (strong ,nonatomic) CHMessageContentView *messageContainer;
 
 @property (strong ,nonatomic ) UIImageView *icon;
-
 @property (strong ,nonatomic ) UILabel *date;
-@property (assign ,nonatomic ) CGFloat iconCornerRadius;
 @property (strong ,nonatomic ) UILabel *nickName;
+@property (strong ,nonatomic ) UIActivityIndicatorView *stateIndicatorView;
+@property (strong ,nonatomic ) UIButton *resendBtn;
+
+@property (assign ,nonatomic ) CGFloat iconCornerRadius;
 @property (weak ,nonatomic ) id <CHChatMessageCellDelegate> delegate;
 + (void)registerSubclass;
 + (void)registerNotificationRefresh:(NSString *)name; // 注册刷新名称

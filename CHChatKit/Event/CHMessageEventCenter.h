@@ -7,7 +7,36 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CHMessageTextEvent.h"
+#import "CHMessageVoiceEvent.h"
+#import "CHMessagePictureEvent.h"
+#import "CHChatMessageViewModel.h"
+@class CHMessageEventCenter;
+@class CHChatMessageTextVM;
+@class CHChatMessageImageVM;
+@class CHChatMessageLocationVM;
+@class CHChatMessageVoiceVM;
+
+@protocol CHMessageInstallHandler <NSObject>
+
+- (void)install;
+- (void)login;
+
+@end
+@protocol CHMessageEventProtocl <NSObject>
+@optional
+- (void)executeText:(CHChatMessageTextVM *)viewModel;
+- (void)executePicture:(CHChatMessageImageVM *)viewModel;
+- (void)executeLocation:(CHChatMessageLocationVM *)viewModel;
+- (void)executeVoice:(CHChatMessageVoiceVM *)viewModel;
+@end
 
 @interface CHMessageEventCenter : NSObject
+/**
+    处理事件的代理对象
+ */
+@property (weak ,nonatomic) id <CHMessageEventProtocl> delegate;
 
++ (instancetype)shareInstance;
+- (void)receiveMessage:(CHChatMessageViewModel *)viewModel;// 接收消息
 @end

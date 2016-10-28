@@ -11,6 +11,7 @@
 #import "CHChatMessageViewModel.h"
 #import "CHChatDefinition.h"
 #import "Masonry.h"
+#import "NSObject+KVOExtension.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+CHImage.h"
 NSMutableDictionary <NSString *,Class>const * ChatCellMessageCatagory = nil;
@@ -60,9 +61,9 @@ static NSString *refreshName = nil;
 }
 - (void)layout {
     //默认的聊天模式
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = self.superview.backgroundColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    [self ch_registerForKVO:@[@"viewModel.sendingState"]];
     [self layoutContainer];
 
 }
@@ -72,8 +73,8 @@ static NSString *refreshName = nil;
     [self.contentView addSubview:self.date];
     [self.contentView addSubview:self.nickName];
     [self.contentView addSubview:self.messageContainer];
-
-
+    [self.contentView addSubview:self.stateIndicatorView];
+    [self.contentView addSubview:self.resendBtn];
 }
 #pragma mark - Override
 - (void)updateConstraints{
@@ -122,7 +123,18 @@ static NSString *refreshName = nil;
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
       //      make.width.equalTo(@(widthMax));
         }];
-        
+        [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.messageContainer.mas_left).offset(-cellContentGap/2);
+            make.centerY.equalTo(self.messageContainer.mas_centerY);
+            //      make.width.equalTo(@(widthMax));
+        }];
+        [self.resendBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.messageContainer.mas_left).offset(-cellContentGap/2);
+            make.centerY.equalTo(self.messageContainer.mas_centerY);
+            make.height.equalTo(@(25));
+            make.width.equalTo(@(25));
+            //      make.width.equalTo(@(widthMax));
+        }];
         
     }else{
         [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -149,6 +161,18 @@ static NSString *refreshName = nil;
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
            // make.width.equalTo(@(widthMax));
         }];
+        [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.messageContainer.mas_right).offset(cellContentGap/2);
+            make.centerY.equalTo(self.messageContainer.mas_centerY);
+            //      make.width.equalTo(@(widthMax));
+        }];
+        [self.resendBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.messageContainer.mas_right).offset(cellContentGap/2);
+            make.centerY.equalTo(self.messageContainer.mas_centerY);
+            make.height.equalTo(@(25));
+            make.width.equalTo(@(25));
+            //      make.width.equalTo(@(widthMax));
+        }];
     }
 }
 - (CGSize)boundingRectWithSize:(CGSize)size
@@ -171,6 +195,7 @@ static NSString *refreshName = nil;
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
     self.nickName.hidden = !viewModel.visableNickName;
+    [self reloadState];
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [image ch_fitToSize:self.icon.frame.size];
@@ -179,6 +204,21 @@ static NSString *refreshName = nil;
   //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
     [self updateConstraints];
+}
+- (void)resend{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"重发该消息" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:cancel];
+    __weak typeof(self) weakSelf = self;
+    UIAlertAction *resend = [UIAlertAction actionWithTitle:@"重发" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf.viewModel resend];
+        [strongSelf.stateIndicatorView startAnimating];
+    }];
+    [alert addAction:resend];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:^{
+        
+    }];
 }
 - (void)reloadTableView{
     if (refreshName.length > 0) {
@@ -191,6 +231,24 @@ static NSString *refreshName = nil;
 - ( __kindof CHChatMessageViewModel *)viewModel{
     return _viewModel;
 }
+- (void)reloadState{
+    switch (self.viewModel.sendingState) {
+        case CHMessageSending:{
+            [self.resendBtn setHidden:YES];
+            [self.stateIndicatorView startAnimating];
+            break;
+        }case CHMessageSendFailure:{
+            [self.stateIndicatorView stopAnimating];
+            [self.resendBtn setHidden:NO];
+        break;
+            
+        }default:
+            [self.resendBtn setHidden:YES];
+            [self.stateIndicatorView stopAnimating];
+            break;
+    }
+}
+
 #pragma mark 懒加载
 - (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
     _iconCornerRadius = iconCornerRadius;
@@ -234,7 +292,33 @@ static NSString *refreshName = nil;
     }
     return _nickName;
 }
+- (UIActivityIndicatorView *)stateIndicatorView{
+    if (!_stateIndicatorView) {
+        _stateIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _stateIndicatorView.backgroundColor = self.contentView.backgroundColor;
+    }
+    return _stateIndicatorView;
+}
+- (UIButton *)resendBtn{
+    if (!_resendBtn) {
+        _resendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _resendBtn.backgroundColor = self.contentView.backgroundColor;
+        _resendBtn.hidden = YES;
+        [_resendBtn setBackgroundImage:[UIImage imageNamed:@"MessageSendFail"] forState:UIControlStateNormal];
+        [_resendBtn addTarget:self action:@selector(resend) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _resendBtn;
+}
+#pragma mark KVO
+- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+    if ([key isEqualToString:@"viewModel.sendingState"]) {
+        [self reloadState];
+    }
+}
+- (void)dealloc{
+    [self ch_unregisterFromKVO];
 
+}
 
 
 @end

@@ -36,7 +36,7 @@
 
 }
 - (NSArray *)getHistroy{
-    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ChatContent" ofType:@"plist"]];
+    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"MessageTest" ofType:@"plist"]];
     CHChatModel* list = [[CHChatModel alloc]initWithDictionary:dic error:nil];
     NSMutableArray *cellTempArray = [[NSMutableArray alloc ]initWithCapacity:list.chatContent.count];
     

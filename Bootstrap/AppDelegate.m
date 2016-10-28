@@ -8,8 +8,7 @@
 
 #import "AppDelegate.h"
 #import "XEBEventBus.h"
-#import "CHEMChatInstallEvent.h"
-#import "CHEMChatAccountEvent.h"
+#import "EMMessageHandler.h"
 @interface AppDelegate ()
 
 @end
@@ -18,15 +17,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    CHEMChatInstallEvent *install = [CHEMChatInstallEvent new];
-    CHEMChatAccountEvent *account = [CHEMChatAccountEvent new];
-    install.apnsCertName = @"vacances_dev";
-    install.appKey = @"jiazu#jiazu";
-    install.host = @"http://vacances.sudaotech.com";
-    account.userName = @"14128";
-    account.password = @"1234abcd";
-    [[XEBEventBus defaultEventBus] postEvent:install];
-    [[XEBEventBus defaultEventBus] postEvent:account];
+//    [[EMMessageHandler shareInstance] install:@"jiazu#jiazu" apnsCertName: @"vacances_dev"];
+//    [[EMMessageHandler shareInstance] signInWithUserName:@"14128" password:@"1234abcd"];
 
     // Override point for customization after application launch.
     return YES;

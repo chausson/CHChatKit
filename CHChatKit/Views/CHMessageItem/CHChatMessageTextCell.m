@@ -35,14 +35,14 @@
     }];
     if ([self isOwner]){
         [self.message mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.messageContainer).offset(10);
+            make.top.equalTo(self.messageContainer).offset(5);
             make.left.equalTo(self.messageContainer).offset(15);
             make.right.equalTo(self.messageContainer).offset(-20);
             make.bottom.equalTo(self.messageContainer).offset(-5);
         }];
     }else{
         [self.message mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.messageContainer).offset(10);
+            make.top.equalTo(self.messageContainer).offset(5);
             make.left.equalTo(self.messageContainer).offset(20);
             make.right.equalTo(self.messageContainer).offset(-15);
             make.bottom.equalTo(self.messageContainer).offset(-5);
@@ -80,8 +80,10 @@
 - (UIButton *)bubbleBtn{
     if (!_bubbleBtn) {
         _bubbleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _bubbleBtn.backgroundColor = self.contentView.backgroundColor;
         
     }
     return _bubbleBtn;
 }
+
 @end

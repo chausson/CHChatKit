@@ -17,9 +17,7 @@
 - (void)setFilePath:(NSString *)filePath{
     _filePath = filePath;
 }
-- (void)setSendingState:(CHMessageSendState)sendingState{
-    _sendingState = sendingState;
-}
+
 
 
 @end

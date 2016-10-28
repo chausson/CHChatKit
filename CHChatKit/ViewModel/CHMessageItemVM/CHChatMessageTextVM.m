@@ -16,4 +16,5 @@
 - (void)setContent:(NSString *)content{
     _content = content;
 }
+
 @end

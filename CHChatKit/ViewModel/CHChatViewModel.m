@@ -37,18 +37,7 @@
         [_eventBus registerSubscriber:self];
         _refreshName = @"CHCHAT_REFRESH_TABLEVIEW";
         _configuration = config;
-        [self ch_registerForKVO];
-        for (int i = 0; i < histroyMessage.count; i++) {
-
-            if (i != 0) {
-                CHChatMessageViewModel *last = histroyMessage[i-1];
-                
-                
-                [histroyMessage[i] sortOutWithTime:last.date];
-            }
-        }
-        
-        
+        [self ch_registerForKVO:[NSArray arrayWithObjects:@"cellViewModels", nil]];
         self.cellViewModels = histroyMessage;
     }
     
@@ -58,20 +47,17 @@
     return @[[CHMessageReceiveEvent class]];
 }
 - (void)onEvent:(CHMessageReceiveEvent *)event{
-    if(event.receiverId  != self.receiveId){
-        return;
+    if(event.receiverId == self.receiveId || event.item.isOwner){
+        NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
+        event.item.owner?(event.item.icon = self.userIcon):(event.item.icon = self.receiverIcon);
+        [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
+        [cellTempArray addObject:event.item];
+        self.cellViewModels = [cellTempArray copy];
     }
-    NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
-    event.item.owner?(event.item.icon = self.userIcon):(event.item.icon = self.receiverIcon);
-    [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
-    [cellTempArray addObject:event.item];
-    self.cellViewModels = [cellTempArray copy];
+
 }
 #pragma mark - KVO
 
-- (NSArray *)ch_registerKeypaths {
-    return [NSArray arrayWithObjects:@"cellViewModels", nil];
-}
 - (void)ch_ObserveValueForKey:(NSString *)key
                      ofObject:(id )obj
                        change:(NSDictionary *)change{

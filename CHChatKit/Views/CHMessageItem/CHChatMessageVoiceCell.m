@@ -33,10 +33,10 @@
     [self.messageContainer addSubview:self.unreadContainer];
     [self.unreadContainer.layer addSublayer:self.unreadLayer];
     [self.messageContainer addSubview:self.stateIndicatorView];
-    [self ch_registerForKVO];
+    [self ch_registerForKVO:[NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead",@"viewModel.voiceState", nil]];
 
-    
     if ([self isOwner]) {
+        self.unreadContainer.hidden = YES;
         [ self.voiceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.messageContainer.mas_centerY);
             make.right.equalTo(self.messageContainer).offset(-12);
@@ -49,13 +49,7 @@
             make.width.equalTo(@25);
             make.right.equalTo(self.bubbleBtn.mas_left).offset(-3);
         }];
-        
-        [self.stateIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.messageContainer).offset(0);
-            make.bottom.equalTo(self.messageContainer).offset(0);
-            make.width.equalTo(@25);
-            make.right.equalTo(self.bubbleBtn.mas_left).offset(-3);
-        }];
+
     }else{
         [ self.voiceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.messageContainer.mas_centerY);
@@ -181,30 +175,9 @@
     }
     return _unreadLayer;
 }
-- (UIActivityIndicatorView *)stateIndicatorView{
-    if (!_stateIndicatorView) {
-        _stateIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
-    }
-    return _stateIndicatorView;
-}
-- (NSArray *)ch_registerKeypaths
-{
-    return [NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead" ,@"viewModel.sendingState",@"viewModel.voiceState", nil];
-}
+
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
-    if ([key isEqualToString:@"sendingState"]) {
-        NSInteger state = [[change objectForKey:@"new"] integerValue];
-        switch (state) {
-            case 1:
-                    [self.stateIndicatorView startAnimating];
-                break;
-                
-            default:
-                    [self.stateIndicatorView stopAnimating];
-                break;
-        }
-    
-    }else if ([key isEqualToString:@"viewModel.isOwner"]) {
+    if ([key isEqualToString:@"viewModel.isOwner"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
     }else if ([key isEqualToString:@"viewModel.hasRead"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
@@ -228,7 +201,7 @@
 }
 -(void)dealloc{
     [self ch_unregisterFromKVO];
-    
+
 }
 @end
 

@@ -15,9 +15,11 @@
     self = [super init];
     if (self) {
         _visableTime = YES;
+
     }
     return self;
 }
+
 - (void)respondsTapAction{
     
 }
@@ -28,8 +30,15 @@
         }
     }
 }
+
+- (void)resend{
+    NSLog(@"重发消息");
+}
 - (void)setNickName:(NSString *)nickName{
     _nickName = nickName;
+}
+- (void)setSendingState:(CHMessageSendState)sendingState{
+    _sendingState = sendingState;
 }
 - (void)setCategory:(CHChatMessageType)category{
     _category = category;
@@ -40,11 +49,9 @@
 - (void)setOwner:(BOOL)owner{
     _owner = owner;
 }
-- (void)setRetry:(BOOL)retry{
-    _retry = retry;
-}
 - (void)setVisableTime:(BOOL)visableTime{
     _visableTime = visableTime;
 }
+
 
 @end

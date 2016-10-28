@@ -75,9 +75,6 @@
 		0632EA771D93C2F500A4E37C /* CHChatMessageLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632EA761D93C2F500A4E37C /* CHChatMessageLocationCell.m */; };
 		0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633A67F1D925A2E0005D36F /* NSObject+KVOExtension.m */; };
 		0633A68B1D926CD60005D36F /* CHChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633A68A1D926CD60005D36F /* CHChatMessageCell.m */; };
-		0633BA611DADDC580077A845 /* AppDelegate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA601DADDC580077A845 /* AppDelegate+Extensions.m */; };
-		0633BA641DADDF4E0077A845 /* CHEMChatInstallEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */; };
-		0633BA671DADE3460077A845 /* CHEMChatAccountEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */; };
 		0633BA7A1DAE18900077A845 /* CHLocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA6A1DAE18900077A845 /* CHLocationService.m */; };
 		0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA6E1DAE18900077A845 /* CHMapViewController.m */; };
 		0633BA7D1DAE18900077A845 /* CHRimMapCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633BA701DAE18900077A845 /* CHRimMapCellViewModel.m */; };
@@ -97,10 +94,10 @@
 		063523C41DB0DD6B00A841EA /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523B71DB0DD6B00A841EA /* JSONModel+networking.m */; };
 		063523C51DB0DD6B00A841EA /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523BA1DB0DD6B00A841EA /* JSONKeyMapper.m */; };
 		063523C61DB0DD6B00A841EA /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523BC1DB0DD6B00A841EA /* JSONValueTransformer.m */; };
+		065AF02A1DC1EB49003FCD5C /* libHyphenateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 065AF0291DC1EB49003FCD5C /* libHyphenateSDK.a */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
 		0666DBA51D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */; };
 		06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */; };
-		068B4BD01DAF896A00AD4652 /* ChatContent.plist in Resources */ = {isa = PBXBuildFile; fileRef = 068B4BCD1DAF896A00AD4652 /* ChatContent.plist */; };
 		068B4BD11DAF896A00AD4652 /* CHChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BCF1DAF896A00AD4652 /* CHChatModel.m */; };
 		068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BD41DAF897B00AD4652 /* CHChatViewModel.m */; };
 		068B4BE71DAF897B00AD4652 /* CHChatMessageFileVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BD71DAF897B00AD4652 /* CHChatMessageFileVM.m */; };
@@ -111,7 +108,6 @@
 		068B4BEC1DAF897B00AD4652 /* CHChatMessageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE11DAF897B00AD4652 /* CHChatMessageViewModel.m */; };
 		068B4BED1DAF897B00AD4652 /* CHChatMessageVMFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE31DAF897B00AD4652 /* CHChatMessageVMFactory.m */; };
 		068B4BEE1DAF897B00AD4652 /* CHChatMessageVoiceVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BE51DAF897B00AD4652 /* CHChatMessageVoiceVM.m */; };
-		068B4BF11DAFC95C00AD4652 /* CHNoticeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */; };
 		0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 069275551D77DAE200CAB0A5 /* AppDelegate.m */; };
 		0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 069275561D77DAE200CAB0A5 /* Assets.xcassets */; };
 		0692756E1D77DAE200CAB0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 069275571D77DAE200CAB0A5 /* LaunchScreen.storyboard */; };
@@ -146,8 +142,11 @@
 		06E618171DAB417A00E11B96 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618161DAB417A00E11B96 /* libsqlite3.tbd */; };
 		06E618271DAB67ED00E11B96 /* CHChatAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E618261DAB67ED00E11B96 /* CHChatAssistance.m */; };
 		06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E618291DAB83EE00E11B96 /* CHLocationAssistance.m */; };
-		3A75B6C77E530E8979DFE21C /* libPods-CHChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */; };
-		797BB65615B96DAFA414FE8E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20168A8F6F5FB14116652276 /* libPods.a */; };
+		06E72F171DC1B1040054A4B9 /* MessageTest.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06E72F151DC1B1040054A4B9 /* MessageTest.plist */; };
+		06E72F181DC1B1040054A4B9 /* MessageTest2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06E72F161DC1B1040054A4B9 /* MessageTest2.plist */; };
+		06E72F1B1DC1CF100054A4B9 /* EMMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E72F1A1DC1CF100054A4B9 /* EMMessageHandler.m */; };
+		06E72F1E1DC1E3110054A4B9 /* AppDelegate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E72F1D1DC1E3110054A4B9 /* AppDelegate+Extensions.m */; };
+		86F5AB786DE6F4086C6E05E5 /* libPods-CHChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */; };
 		92EA53AAB290C8384B33F497 /* libPods-CHChatKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB18B39083970533DDBBC489 /* libPods-CHChatKitTests.a */; };
 		94E11D62C9785116642AB167 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20168A8F6F5FB14116652276 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -243,12 +242,6 @@
 		0633A67F1D925A2E0005D36F /* NSObject+KVOExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVOExtension.m"; sourceTree = "<group>"; };
 		0633A6891D926CD60005D36F /* CHChatMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageCell.h; sourceTree = "<group>"; };
 		0633A68A1D926CD60005D36F /* CHChatMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageCell.m; sourceTree = "<group>"; };
-		0633BA5F1DADDC580077A845 /* AppDelegate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Extensions.h"; sourceTree = "<group>"; };
-		0633BA601DADDC580077A845 /* AppDelegate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Extensions.m"; sourceTree = "<group>"; };
-		0633BA621DADDF4E0077A845 /* CHEMChatInstallEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHEMChatInstallEvent.h; sourceTree = "<group>"; };
-		0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEMChatInstallEvent.m; sourceTree = "<group>"; };
-		0633BA651DADE3460077A845 /* CHEMChatAccountEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHEMChatAccountEvent.h; sourceTree = "<group>"; };
-		0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHEMChatAccountEvent.m; sourceTree = "<group>"; };
 		0633BA691DAE18900077A845 /* CHLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLocationService.h; sourceTree = "<group>"; };
 		0633BA6A1DAE18900077A845 /* CHLocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLocationService.m; sourceTree = "<group>"; };
 		0633BA6D1DAE18900077A845 /* CHMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMapViewController.h; sourceTree = "<group>"; };
@@ -288,13 +281,44 @@
 		063523BB1DB0DD6B00A841EA /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		063523BC1DB0DD6B00A841EA /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		065890DB1D9138CA00531445 /* CHChatDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatDefinition.h; sourceTree = "<group>"; };
+		065AF0091DC1EB49003FCD5C /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatManagerDelegate.h; sourceTree = "<group>"; };
+		065AF00A1DC1EB49003FCD5C /* EMChatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroom.h; sourceTree = "<group>"; };
+		065AF00B1DC1EB49003FCD5C /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
+		065AF00C1DC1EB49003FCD5C /* EMClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMClient.h; sourceTree = "<group>"; };
+		065AF00D1DC1EB49003FCD5C /* EMClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMClientDelegate.h; sourceTree = "<group>"; };
+		065AF00E1DC1EB49003FCD5C /* EMCmdMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCmdMessageBody.h; sourceTree = "<group>"; };
+		065AF00F1DC1EB49003FCD5C /* EMCommonDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCommonDefs.h; sourceTree = "<group>"; };
+		065AF0101DC1EB49003FCD5C /* EMContactManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMContactManagerDelegate.h; sourceTree = "<group>"; };
+		065AF0111DC1EB49003FCD5C /* EMConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMConversation.h; sourceTree = "<group>"; };
+		065AF0121DC1EB49003FCD5C /* EMCursorResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCursorResult.h; sourceTree = "<group>"; };
+		065AF0131DC1EB49003FCD5C /* EMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMError.h; sourceTree = "<group>"; };
+		065AF0141DC1EB49003FCD5C /* EMErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMErrorCode.h; sourceTree = "<group>"; };
+		065AF0151DC1EB49003FCD5C /* EMFileMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMFileMessageBody.h; sourceTree = "<group>"; };
+		065AF0161DC1EB49003FCD5C /* EMGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMGroup.h; sourceTree = "<group>"; };
+		065AF0171DC1EB49003FCD5C /* EMGroupManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMGroupManagerDelegate.h; sourceTree = "<group>"; };
+		065AF0181DC1EB49003FCD5C /* EMGroupOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMGroupOptions.h; sourceTree = "<group>"; };
+		065AF0191DC1EB49003FCD5C /* EMImageMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMImageMessageBody.h; sourceTree = "<group>"; };
+		065AF01A1DC1EB49003FCD5C /* EMLocationMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMLocationMessageBody.h; sourceTree = "<group>"; };
+		065AF01B1DC1EB49003FCD5C /* EMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMMessage.h; sourceTree = "<group>"; };
+		065AF01C1DC1EB49003FCD5C /* EMMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMMessageBody.h; sourceTree = "<group>"; };
+		065AF01D1DC1EB49003FCD5C /* EMOptions+PrivateDeploy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMOptions+PrivateDeploy.h"; sourceTree = "<group>"; };
+		065AF01E1DC1EB49003FCD5C /* EMOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMOptions.h; sourceTree = "<group>"; };
+		065AF01F1DC1EB49003FCD5C /* EMPushOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMPushOptions.h; sourceTree = "<group>"; };
+		065AF0201DC1EB49003FCD5C /* EMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSDK.h; sourceTree = "<group>"; };
+		065AF0211DC1EB49003FCD5C /* EMTextMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTextMessageBody.h; sourceTree = "<group>"; };
+		065AF0221DC1EB49003FCD5C /* EMVideoMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMVideoMessageBody.h; sourceTree = "<group>"; };
+		065AF0231DC1EB49003FCD5C /* EMVoiceMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMVoiceMessageBody.h; sourceTree = "<group>"; };
+		065AF0241DC1EB49003FCD5C /* IEMChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEMChatManager.h; sourceTree = "<group>"; };
+		065AF0251DC1EB49003FCD5C /* IEMChatroomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEMChatroomManager.h; sourceTree = "<group>"; };
+		065AF0261DC1EB49003FCD5C /* IEMContactManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEMContactManager.h; sourceTree = "<group>"; };
+		065AF0271DC1EB49003FCD5C /* IEMGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEMGroupManager.h; sourceTree = "<group>"; };
+		065AF0291DC1EB49003FCD5C /* libHyphenateSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHyphenateSDK.a; sourceTree = "<group>"; };
 		066432AD1D7EBEC00068AEF2 /* CHChatConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatConfiguration.h; sourceTree = "<group>"; };
 		066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatConfiguration.m; sourceTree = "<group>"; };
 		0666DBA31D9A4F9C00D5EA0C /* UIView+CHMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CHMaskLayer.h"; sourceTree = "<group>"; };
 		0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CHMaskLayer.m"; sourceTree = "<group>"; };
 		06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CHImage.h"; sourceTree = "<group>"; };
 		06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CHImage.m"; sourceTree = "<group>"; };
-		068B4BCD1DAF896A00AD4652 /* ChatContent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChatContent.plist; sourceTree = "<group>"; };
 		068B4BCE1DAF896A00AD4652 /* CHChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatModel.h; sourceTree = "<group>"; };
 		068B4BCF1DAF896A00AD4652 /* CHChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatModel.m; sourceTree = "<group>"; };
 		068B4BD31DAF897B00AD4652 /* CHChatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatViewModel.h; sourceTree = "<group>"; };
@@ -315,8 +339,6 @@
 		068B4BE31DAF897B00AD4652 /* CHChatMessageVMFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageVMFactory.m; sourceTree = "<group>"; };
 		068B4BE41DAF897B00AD4652 /* CHChatMessageVoiceVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessageVoiceVM.h; sourceTree = "<group>"; };
 		068B4BE51DAF897B00AD4652 /* CHChatMessageVoiceVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageVoiceVM.m; sourceTree = "<group>"; };
-		068B4BEF1DAFC95C00AD4652 /* CHNoticeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHNoticeEvent.h; sourceTree = "<group>"; };
-		068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHNoticeEvent.m; sourceTree = "<group>"; };
 		069275391D77DA7900CAB0A5 /* CHChatKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHChatKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		069275541D77DAE200CAB0A5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		069275551D77DAE200CAB0A5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -374,6 +396,12 @@
 		06E618261DAB67ED00E11B96 /* CHChatAssistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatAssistance.m; sourceTree = "<group>"; };
 		06E618281DAB83EE00E11B96 /* CHLocationAssistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLocationAssistance.h; sourceTree = "<group>"; };
 		06E618291DAB83EE00E11B96 /* CHLocationAssistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLocationAssistance.m; sourceTree = "<group>"; };
+		06E72F151DC1B1040054A4B9 /* MessageTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MessageTest.plist; sourceTree = "<group>"; };
+		06E72F161DC1B1040054A4B9 /* MessageTest2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MessageTest2.plist; sourceTree = "<group>"; };
+		06E72F191DC1CF100054A4B9 /* EMMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMMessageHandler.h; sourceTree = "<group>"; };
+		06E72F1A1DC1CF100054A4B9 /* EMMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMMessageHandler.m; sourceTree = "<group>"; };
+		06E72F1C1DC1E3110054A4B9 /* AppDelegate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Extensions.h"; sourceTree = "<group>"; };
+		06E72F1D1DC1E3110054A4B9 /* AppDelegate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Extensions.m"; sourceTree = "<group>"; };
 		20168A8F6F5FB14116652276 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -405,26 +433,37 @@
 				06E618111DAB416200E11B96 /* libz.tbd in Frameworks */,
 				06E6180F1DAB415C00E11B96 /* ImageIO.framework in Frameworks */,
 				06E6180D1DAB415800E11B96 /* MobileCoreServices.framework in Frameworks */,
+				065AF02A1DC1EB49003FCD5C /* libHyphenateSDK.a in Frameworks */,
 				06E6180B1DAB415200E11B96 /* AVFoundation.framework in Frameworks */,
 				06E618091DAB414E00E11B96 /* AudioToolbox.framework in Frameworks */,
 				06E618071DAB414800E11B96 /* CoreMedia.framework in Frameworks */,
-				797BB65615B96DAFA414FE8E /* libPods.a in Frameworks */,
-				3A75B6C77E530E8979DFE21C /* libPods-CHChatKit.a in Frameworks */,
+				86F5AB786DE6F4086C6E05E5 /* libPods-CHChatKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0609294C1DC094E90004DE17 /* EMHandler */ = {
+			isa = PBXGroup;
+			children = (
+				06E72F1C1DC1E3110054A4B9 /* AppDelegate+Extensions.h */,
+				06E72F1D1DC1E3110054A4B9 /* AppDelegate+Extensions.m */,
+				06E72F191DC1CF100054A4B9 /* EMMessageHandler.h */,
+				06E72F1A1DC1CF100054A4B9 /* EMMessageHandler.m */,
+			);
+			path = EMHandler;
+			sourceTree = "<group>";
+		};
 		0612E6D21D9D4A0600B836E1 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				0612E6D91D9D4F3E00B836E1 /* CHMessageEventCenter.h */,
+				0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */,
 				0612E6D31D9D4A5E00B836E1 /* CHMessageEvent.h */,
 				0612E6D41D9D4A5E00B836E1 /* CHMessageEvent.m */,
 				0612E6D61D9D4E4300B836E1 /* CHMessageTextEvent.h */,
 				0612E6D71D9D4E4300B836E1 /* CHMessageTextEvent.m */,
-				0612E6D91D9D4F3E00B836E1 /* CHMessageEventCenter.h */,
-				0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */,
 				06C766B81DAC8BB100DADEC0 /* CHMessagePictureEvent.h */,
 				06C766B91DAC8BB100DADEC0 /* CHMessagePictureEvent.m */,
 				06C766BB1DACB6DB00DADEC0 /* CHMessageLocationEvent.h */,
@@ -433,12 +472,6 @@
 				06C766C21DACC76700DADEC0 /* CHMessageReceiveEvent.m */,
 				06C766C41DACF21C00DADEC0 /* CHMessageVoiceEvent.h */,
 				06C766C51DACF21C00DADEC0 /* CHMessageVoiceEvent.m */,
-				0633BA621DADDF4E0077A845 /* CHEMChatInstallEvent.h */,
-				0633BA631DADDF4E0077A845 /* CHEMChatInstallEvent.m */,
-				0633BA651DADE3460077A845 /* CHEMChatAccountEvent.h */,
-				0633BA661DADE3460077A845 /* CHEMChatAccountEvent.m */,
-				068B4BEF1DAFC95C00AD4652 /* CHNoticeEvent.h */,
-				068B4BF01DAFC95C00AD4652 /* CHNoticeEvent.m */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -636,6 +669,61 @@
 			path = JSONModelTransformations;
 			sourceTree = "<group>";
 		};
+		065AF0071DC1EB49003FCD5C /* HyphenateSDK */ = {
+			isa = PBXGroup;
+			children = (
+				065AF0081DC1EB49003FCD5C /* include */,
+				065AF0281DC1EB49003FCD5C /* lib */,
+			);
+			path = HyphenateSDK;
+			sourceTree = "<group>";
+		};
+		065AF0081DC1EB49003FCD5C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				065AF0091DC1EB49003FCD5C /* EMChatManagerDelegate.h */,
+				065AF00A1DC1EB49003FCD5C /* EMChatroom.h */,
+				065AF00B1DC1EB49003FCD5C /* EMChatroomManagerDelegate.h */,
+				065AF00C1DC1EB49003FCD5C /* EMClient.h */,
+				065AF00D1DC1EB49003FCD5C /* EMClientDelegate.h */,
+				065AF00E1DC1EB49003FCD5C /* EMCmdMessageBody.h */,
+				065AF00F1DC1EB49003FCD5C /* EMCommonDefs.h */,
+				065AF0101DC1EB49003FCD5C /* EMContactManagerDelegate.h */,
+				065AF0111DC1EB49003FCD5C /* EMConversation.h */,
+				065AF0121DC1EB49003FCD5C /* EMCursorResult.h */,
+				065AF0131DC1EB49003FCD5C /* EMError.h */,
+				065AF0141DC1EB49003FCD5C /* EMErrorCode.h */,
+				065AF0151DC1EB49003FCD5C /* EMFileMessageBody.h */,
+				065AF0161DC1EB49003FCD5C /* EMGroup.h */,
+				065AF0171DC1EB49003FCD5C /* EMGroupManagerDelegate.h */,
+				065AF0181DC1EB49003FCD5C /* EMGroupOptions.h */,
+				065AF0191DC1EB49003FCD5C /* EMImageMessageBody.h */,
+				065AF01A1DC1EB49003FCD5C /* EMLocationMessageBody.h */,
+				065AF01B1DC1EB49003FCD5C /* EMMessage.h */,
+				065AF01C1DC1EB49003FCD5C /* EMMessageBody.h */,
+				065AF01D1DC1EB49003FCD5C /* EMOptions+PrivateDeploy.h */,
+				065AF01E1DC1EB49003FCD5C /* EMOptions.h */,
+				065AF01F1DC1EB49003FCD5C /* EMPushOptions.h */,
+				065AF0201DC1EB49003FCD5C /* EMSDK.h */,
+				065AF0211DC1EB49003FCD5C /* EMTextMessageBody.h */,
+				065AF0221DC1EB49003FCD5C /* EMVideoMessageBody.h */,
+				065AF0231DC1EB49003FCD5C /* EMVoiceMessageBody.h */,
+				065AF0241DC1EB49003FCD5C /* IEMChatManager.h */,
+				065AF0251DC1EB49003FCD5C /* IEMChatroomManager.h */,
+				065AF0261DC1EB49003FCD5C /* IEMContactManager.h */,
+				065AF0271DC1EB49003FCD5C /* IEMGroupManager.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		065AF0281DC1EB49003FCD5C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				065AF0291DC1EB49003FCD5C /* libHyphenateSDK.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		066432AA1D7EBE8F0068AEF2 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,8 +737,11 @@
 		068B4BCC1DAF88FE00AD4652 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				065AF0071DC1EB49003FCD5C /* HyphenateSDK */,
+				06E72F151DC1B1040054A4B9 /* MessageTest.plist */,
+				06E72F161DC1B1040054A4B9 /* MessageTest2.plist */,
+				0609294C1DC094E90004DE17 /* EMHandler */,
 				063523A31DB0DD6B00A841EA /* JSONModel */,
-				068B4BCD1DAF896A00AD4652 /* ChatContent.plist */,
 				068B4BCE1DAF896A00AD4652 /* CHChatModel.h */,
 				068B4BCF1DAF896A00AD4652 /* CHChatModel.m */,
 			);
@@ -747,8 +838,6 @@
 		069275A51D77DDFF00CAB0A5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0633BA5F1DADDC580077A845 /* AppDelegate+Extensions.h */,
-				0633BA601DADDC580077A845 /* AppDelegate+Extensions.m */,
 				069275AA1D77DDFF00CAB0A5 /* NSString+CHExtensions.h */,
 				069275AB1D77DDFF00CAB0A5 /* NSString+CHExtensions.m */,
 				069275AC1D77DDFF00CAB0A5 /* UIDevice+IdentifierAddition.h */,
@@ -908,7 +997,7 @@
 		069275311D77DA7900CAB0A5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Chausson;
 				TargetAttributes = {
 					063523981DB0A51900A841EA = {
@@ -917,7 +1006,7 @@
 					};
 					069275381D77DA7900CAB0A5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = WEN57R44ST;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -955,6 +1044,7 @@
 				06276C041DBF69EF005B3F4F /* emo_027@2x.png in Resources */,
 				06276C131DBF69EF005B3F4F /* emo_042@2x.png in Resources */,
 				0692756F1D77DAE200CAB0A5 /* Main.storyboard in Resources */,
+				06E72F181DC1B1040054A4B9 /* MessageTest2.plist in Resources */,
 				0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */,
 				06276C101DBF69EF005B3F4F /* emo_039@2x.png in Resources */,
 				06276C051DBF69EF005B3F4F /* emo_028@2x.png in Resources */,
@@ -962,6 +1052,7 @@
 				06276BEA1DBF69EF005B3F4F /* emo_001@2x.png in Resources */,
 				06276C1D1DBF69EF005B3F4F /* emo_052@2x.png in Resources */,
 				06276C1B1DBF69EF005B3F4F /* emo_050@2x.png in Resources */,
+				06E72F171DC1B1040054A4B9 /* MessageTest.plist in Resources */,
 				06276C161DBF69EF005B3F4F /* emo_045@2x.png in Resources */,
 				06276C151DBF69EF005B3F4F /* emo_044@2x.png in Resources */,
 				06276C031DBF69EF005B3F4F /* emo_026@2x.png in Resources */,
@@ -1012,7 +1103,6 @@
 				06276C0E1DBF69EF005B3F4F /* emo_037@2x.png in Resources */,
 				06276BFC1DBF69EF005B3F4F /* emo_019@2x.png in Resources */,
 				06276BEE1DBF69EF005B3F4F /* emo_005@2x.png in Resources */,
-				068B4BD01DAF896A00AD4652 /* ChatContent.plist in Resources */,
 				0692756E1D77DAE200CAB0A5 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1130,14 +1220,11 @@
 				06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				063523C01DB0DD6B00A841EA /* JSONModelError.m in Sources */,
-				068B4BF11DAFC95C00AD4652 /* CHNoticeEvent.m in Sources */,
 				063523BD1DB0DD6B00A841EA /* JSONModel.m in Sources */,
 				0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */,
 				0692783C1D77E39300CAB0A5 /* FaceBoard.m in Sources */,
 				0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */,
-				0633BA671DADE3460077A845 /* CHEMChatAccountEvent.m in Sources */,
 				0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */,
-				0633BA611DADDC580077A845 /* AppDelegate+Extensions.m in Sources */,
 				0632EA741D93BA7A00A4E37C /* CHChatMessageVoiceCell.m in Sources */,
 				068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */,
 				0633BA7F1DAE18900077A845 /* CHRimMapViewController.m in Sources */,
@@ -1171,13 +1258,13 @@
 				0612E6D51D9D4A5E00B836E1 /* CHMessageEvent.m in Sources */,
 				0633A68B1D926CD60005D36F /* CHChatMessageCell.m in Sources */,
 				0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */,
+				06E72F1B1DC1CF100054A4B9 /* EMMessageHandler.m in Sources */,
 				06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */,
 				06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */,
 				0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */,
 				068B4BD11DAF896A00AD4652 /* CHChatModel.m in Sources */,
 				063523C21DB0DD6B00A841EA /* JSONAPI.m in Sources */,
 				06D1EFE81D9B9C94003B7DE0 /* CHChatFileStorage.m in Sources */,
-				0633BA641DADDF4E0077A845 /* CHEMChatInstallEvent.m in Sources */,
 				068B4BE81DAF897B00AD4652 /* CHChatMessageImageVM.m in Sources */,
 				068B4BE71DAF897B00AD4652 /* CHChatMessageFileVM.m in Sources */,
 				062829301D92731500DCED17 /* CHChatMessageTextCell.m in Sources */,
@@ -1190,6 +1277,7 @@
 				068B4BEE1DAF897B00AD4652 /* CHChatMessageVoiceVM.m in Sources */,
 				0633BA7D1DAE18900077A845 /* CHRimMapCellViewModel.m in Sources */,
 				066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */,
+				06E72F1E1DC1E3110054A4B9 /* AppDelegate+Extensions.m in Sources */,
 				0632EA771D93C2F500A4E37C /* CHChatMessageLocationCell.m in Sources */,
 				0633BA7C1DAE18900077A845 /* CHMapViewController.m in Sources */,
 			);
@@ -1267,8 +1355,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1311,8 +1401,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1342,6 +1434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Bootstrap/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1350,6 +1443,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
+					"$(PROJECT_DIR)/Business/HyphenateFullSDK/lib",
+					"$(PROJECT_DIR)/Business/HyphenateSDK/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.heiyan.DEMO829;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1364,6 +1459,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Bootstrap/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1372,6 +1468,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrnb",
 					"$(PROJECT_DIR)/CHChatKit/Vendors/MJRefresh/amrwapper/opencore-amrwb",
+					"$(PROJECT_DIR)/Business/HyphenateFullSDK/lib",
+					"$(PROJECT_DIR)/Business/HyphenateSDK/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.heiyan.DEMO829;
 				PRODUCT_NAME = "$(TARGET_NAME)";
