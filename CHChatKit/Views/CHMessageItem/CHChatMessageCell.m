@@ -195,7 +195,7 @@ static NSString *refreshName = nil;
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
     self.nickName.hidden = !viewModel.visableNickName;
-    [self reloadState];
+
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [image ch_fitToSize:self.icon.frame.size];
@@ -203,6 +203,7 @@ static NSString *refreshName = nil;
     }];
   //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
+    [self reloadSendingState];
     [self updateConstraints];
 }
 - (void)resend{
@@ -231,7 +232,7 @@ static NSString *refreshName = nil;
 - ( __kindof CHChatMessageViewModel *)viewModel{
     return _viewModel;
 }
-- (void)reloadState{
+- (void)reloadSendingState{
     switch (self.viewModel.sendingState) {
         case CHMessageSending:{
             [self.resendBtn setHidden:YES];
@@ -260,12 +261,14 @@ static NSString *refreshName = nil;
 - (UIImageView *)icon{
     if (!_icon) {
         _icon = [[UIImageView alloc]init];
+        _icon.opaque = YES;
     }
     return _icon;
 }
 - (UIView *)messageContainer{
     if (!_messageContainer) {
         _messageContainer = [[CHMessageContentView alloc]init];
+        _messageContainer.opaque = YES;
         _messageContainer.backgroundColor = self.contentView.backgroundColor;
        // _messageContainer.backgroundColor = [UIColor blueColor];
     }
@@ -275,6 +278,7 @@ static NSString *refreshName = nil;
     if (!_date) {
         _date = [[UILabel alloc]init];
         _date.layer.cornerRadius = 5;
+        _date.opaque = YES;
         _date.layer.masksToBounds  =  YES ;
         _date.font = [UIFont systemFontOfSize:11] ;//时间字体
         _date.backgroundColor = [UIColor colorWithRed:192.0/ 255.0 green:192.0/255.0 blue:192.0 / 255.0 alpha:1];
@@ -295,7 +299,10 @@ static NSString *refreshName = nil;
 - (UIActivityIndicatorView *)stateIndicatorView{
     if (!_stateIndicatorView) {
         _stateIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _stateIndicatorView.opaque = YES;
         _stateIndicatorView.backgroundColor = self.contentView.backgroundColor;
+        [_stateIndicatorView startAnimating];
+        
     }
     return _stateIndicatorView;
 }
@@ -304,6 +311,7 @@ static NSString *refreshName = nil;
         _resendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _resendBtn.backgroundColor = self.contentView.backgroundColor;
         _resendBtn.hidden = YES;
+        _resendBtn.opaque = YES;
         [_resendBtn setBackgroundImage:[UIImage imageNamed:@"MessageSendFail"] forState:UIControlStateNormal];
         [_resendBtn addTarget:self action:@selector(resend) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -312,7 +320,7 @@ static NSString *refreshName = nil;
 #pragma mark KVO
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
     if ([key isEqualToString:@"viewModel.sendingState"]) {
-        [self reloadState];
+        [self reloadSendingState];
     }
 }
 - (void)dealloc{

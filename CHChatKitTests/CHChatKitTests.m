@@ -7,12 +7,11 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <EMSDK.h>
+#import "EMSDK.h"
 #import "XEBEventBus.h"
 #import "CHMessageTextEvent.h"
 #import "CHChatViewModel.h"
-#import "CHEMChatInstallEvent.h"
-#import "CHEMChatAccountEvent.h"
+#import "EMMessageHandler.h"
 @interface CHChatKitTests : XCTestCase
 
 @end
@@ -26,15 +25,9 @@
     [super setUp];
     _eventBus = [XEBEventBus defaultEventBus];
     _viewModel = [[CHChatViewModel alloc]initWithMessageHistroy:nil configuration:[CHChatConfiguration defultConfigruration]];
-    CHEMChatInstallEvent *install = [CHEMChatInstallEvent new];
-    CHEMChatAccountEvent *account = [CHEMChatAccountEvent new];
-    install.apnsCertName = @"vacances_dev";
-    install.appKey = @"jiazu#jiazu";
-    install.host = @"http://vacances.sudaotech.com";
-    account.userName = @"14128";
-    account.password = @"1234abcd";
-    [[XEBEventBus defaultEventBus] postEvent:install];
-    [[XEBEventBus defaultEventBus] postEvent:account];
+    [[EMMessageHandler shareInstance] install:@"jiazu#jiazu" apnsCertName:@"vacances_dev"];
+    [[EMMessageHandler shareInstance] signInWithUserName:@"14128" password:@"1234abcd"];
+
 }
 
 - (void)tearDown {

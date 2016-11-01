@@ -12,6 +12,8 @@
 #import "EMSDK.h"
 
 @interface EMMessageHandler : NSObject<CHMessageEventProtocl,EMChatManagerDelegate>
+@property (nonatomic ,readonly) NSString *userName;
+
 + (instancetype)shareInstance;
 
 - (void)install:(NSString *)appkey

@@ -13,10 +13,8 @@
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatMessageImageVM.h"
 #import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
 @interface CHChatMessageViewModel ()
-@property (nonatomic ,copy) NSString *voice;
-@property (nonatomic ,copy) NSString *location;
-@property (nonatomic ,copy) NSString *image;
 @property (nonatomic ,copy) NSString *date;
 @property (nonatomic ,copy) NSString *nickName;
 @property (nonatomic ,assign) CHChatMessageType category;
@@ -33,8 +31,7 @@
 @interface CHChatMessageFileVM ()
 
 @property (nonatomic ,copy) NSString *filePath;
-
-
+@property (nonatomic ,copy) NSString *fileName;
 @end
 @interface CHChatMessageLocationVM ()
 @property (nonatomic ,assign) double longitude;
@@ -47,7 +44,7 @@
 @interface CHChatMessageImageVM ()
 
 @property (nonatomic ,copy) NSString *imageName;
-@property (nonatomic ,assign) float size;
+@property (nonatomic ,assign) CGSize size;
 @property (nonatomic ,assign) float width;
 @property (nonatomic ,assign) float height;
 

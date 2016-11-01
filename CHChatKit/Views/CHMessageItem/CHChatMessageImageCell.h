@@ -10,4 +10,6 @@
 
 @interface CHChatMessageImageCell : CHChatMessageCell<CHChatMessageCellCategory>
 @property (strong ,nonatomic ) UIImageView *imageContainer;
+@property (strong ,nonatomic ) UIView *prettyUploadMask;
+@property (strong ,nonatomic ) UILabel *progress;
 @end

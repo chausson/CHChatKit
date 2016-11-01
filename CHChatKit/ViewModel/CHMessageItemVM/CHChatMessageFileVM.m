@@ -8,7 +8,10 @@
 
 #import "CHChatMessageFileVM.h"
 #import "CHRecordHandler.h"
+#import "CHChatMessageViewModel+Protocol.h"
+
 @implementation CHChatMessageFileVM
+
 - (BOOL)isLocalFile{
 
     return ![_filePath hasPrefix:@"http"];
@@ -17,7 +20,15 @@
 - (void)setFilePath:(NSString *)filePath{
     _filePath = filePath;
 }
-
-
+- (void)setFileName:(NSString *)fileName{
+    _fileName = fileName;
+}
+- (NSProgress *)progress{
+    if (!_progress) {
+        _progress = [NSProgress progressWithTotalUnitCount:100];
+        [_progress setCompletedUnitCount:100];
+    }
+    return _progress;
+}
 
 @end

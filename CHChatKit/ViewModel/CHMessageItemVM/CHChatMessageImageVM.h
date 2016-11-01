@@ -7,14 +7,14 @@
 //
 
 #import "CHChatMessageFileVM.h"
-@class UIImage;
+#import <UIKit/UIKit.h>
 
 @interface CHChatMessageImageVM : CHChatMessageFileVM<CHChatMessageViewModelProtocol>
-
+@property (nonatomic ,strong,readwrite) NSString *fullPath;
 @property (nonatomic ,strong,readwrite) UIImage *fullImage;
 @property (nonatomic ,strong,readwrite) UIImage *thumbnailImage;
 @property (nonatomic ,readonly) NSString *imageName;
-@property (nonatomic ,readonly) float size;
+@property (nonatomic ,readonly) CGSize size;
 @property (nonatomic ,readonly) float width;
 @property (nonatomic ,readonly) float height;
 

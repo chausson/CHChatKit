@@ -16,7 +16,7 @@
 - (void)setImageName:(NSString *)imageName{
     _imageName = imageName;
 }
-- (void)setSize:(float)size{
+- (void)setSize:(CGSize)size{
     _size = size;
 }
 - (void)setWidth:(float)width{

@@ -58,7 +58,7 @@
 
 
 - (void)executeTextEvent:(CHMessageTextEvent *)event{
-    CHChatMessageTextVM *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeData:event.date  nickName:nil content:event.text isOwner:YES];
+    CHChatMessageTextVM *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeDate:event.date  nickName:nil content:event.text isOwner:YES];
     viewModel.receiveId = event.receiverId;
     viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
@@ -68,7 +68,7 @@
     }
 }
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
-    CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeData:event.date nickName:nil resource:event.file thumbnailImage:nil fullImage:event.fullPicture  isOwner:YES];
+    CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:event.date nickName:nil resource:event.fullLocalPath size:event.fullPicture.size thumbnailImage:event.thumbnailPicture fullImage:event.fullPicture isOwner:YES];
     viewModel.receiveId = event.receiverId;
     viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
@@ -80,10 +80,16 @@
 - (void)executeLocationEvent:(CHMessageLocationEvent *)event{
     CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file snapshot:event.map location:event.location.coordinate isOwner:YES];
     [self receiveMessage:viewModel];
+    if ([self.delegate respondsToSelector:@selector(executeLocation:)]) {
+        [self.delegate executeLocation:viewModel];
+    }
 }
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
-    CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeData:event.date nickName:nil resource:event.file voiceLength:event.length isOwner:YES];
+    CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:event.date nickName:nil fileName:event.fileName resource:event.file voiceLength:event.length isOwner:YES];
     [self receiveMessage:viewModel];
+    if ([self.delegate respondsToSelector:@selector(executeVoice:)]) {
+        [self.delegate executeVoice:viewModel];
+    }
 }
 - (void)receiveMessage:(CHChatMessageViewModel *)viewModel{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];

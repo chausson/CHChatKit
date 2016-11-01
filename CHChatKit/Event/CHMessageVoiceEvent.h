@@ -12,5 +12,6 @@
 @interface CHMessageVoiceEvent : CHMessageEvent
 @property (nonatomic ,assign) NSInteger length;
 @property (nonatomic ,copy) NSString *file;
+@property (nonatomic ,copy) NSString *fileName;
 @property (nonatomic ,assign) BOOL hasRead;
 @end

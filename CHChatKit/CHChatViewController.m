@@ -107,7 +107,7 @@
 - (void)autoScrolleTableView
 {
     [self.view layoutIfNeeded];
-    if (self.viewModel.cellViewModels.count >= 5) {
+    if (self.viewModel.cellViewModels.count >= 2) {
         
         [self.chatTableView scrollToRowAtIndexPath:
          [NSIndexPath indexPathForRow:[self.viewModel.cellViewModels count]-1 inSection:0]

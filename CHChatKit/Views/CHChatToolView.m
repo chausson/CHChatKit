@@ -473,16 +473,17 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 - (void)endRecordVoice:(UIButton *)button
 {
-   NSString *fileName = [[CHRecordHandler standardDefault] stopRecording];
+   NSString *filePath = [[CHRecordHandler standardDefault] stopRecording];
     [UUProgressHUD dismissWithSuccess:nil];
 //    NSLog(@"endrecord=%g",self.recordTime);
-    if ([CHRecordHandler standardDefault].recordSecs < 0.5) {
+    if ([CHRecordHandler standardDefault].recordSecs < 1) {
         [UUProgressHUD dismissWithError:@"时间太短"];
         [[CHRecordHandler standardDefault] destory];
         return;
     }
     CHMessageVoiceEvent *e = [CHMessageVoiceEvent new];
-    e.file = fileName;
+    e.file = filePath;
+    e.fileName = [NSString stringWithFormat:@"CHVoice_%@",[[NSDate date] description]];
     if([_observer isKindOfClass:[CHChatViewController class]]){
         CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
         e.receiverId = vm?vm.receiveId:0;

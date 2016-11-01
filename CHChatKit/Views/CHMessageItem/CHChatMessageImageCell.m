@@ -11,6 +11,7 @@
 #import "UIView+CHMaskLayer.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+CHImage.h"
+#import "NSObject+KVOExtension.h"
 #import "Masonry.h"
 
 
@@ -24,7 +25,11 @@
     return CHMessageImage;
 }
 - (void)layout{
+    [self.stateIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
     [self.messageContainer addSubview:self.imageContainer];
+    [self.imageContainer addSubview:self.prettyUploadMask];
+    [self.messageContainer addSubview:self.progress];
+    [self ch_registerForKVO:[NSArray arrayWithObjects:@"viewModel.progress", nil]];
     [super layout];
     if ([self isOwner]) {
         [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -33,6 +38,7 @@
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
+
     }else{
         [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.lessThanOrEqualTo(@(200)).priorityHigh();
@@ -40,11 +46,31 @@
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
         }];
+
     }
+    [self.prettyUploadMask mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.imageContainer).offset(0);
+        make.right.equalTo(self.imageContainer).offset(0);
+        make.top.equalTo(self.imageContainer).offset(0);
+        make.bottom.equalTo(self.imageContainer).offset(0);
+    }];
+    [self.progress mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.stateIndicatorView).offset(25);
+        make.centerX.equalTo(self.imageContainer.mas_centerX);
+        make.height.equalTo(@(25));
+        make.width.equalTo(@(40));
+    }];
+
     
 }
 - (void)updateConstraints{
     [super updateConstraints];
+    [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.imageContainer.mas_centerX);
+        make.centerY.equalTo(self.messageContainer.mas_centerY);
+        //      make.width.equalTo(@(widthMax));
+    }];
+    
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
@@ -74,7 +100,13 @@
             return;
         }
         __weak typeof(self )weakSelf = self;
-        [self.imageContainer sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        NSURL *url;
+        if ([vm isLocalFile]) {
+            url = [NSURL fileURLWithPath:vm.filePath];
+        }else{
+            url = [NSURL URLWithString:vm.filePath];
+        }
+        [self.imageContainer sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 __strong typeof(self )strongSelf = weakSelf;
             dispatch_async(dispatch_get_main_queue(), ^{
                 //display the image
@@ -109,7 +141,42 @@
 - (void )imageTap:(UITapGestureRecognizer *)tap{
     
 }
+- (void)uploadProgress:(NSProgress *)progress{
+    if (self.viewModel.sendingState == CHMessageSending  && progress) {
+        _progress.hidden = NO;
+        _prettyUploadMask.hidden = NO;
+        _progress.text = [NSString stringWithFormat:@"%lld%%",progress.completedUnitCount];
+    }
+
+}
+- (void)reloadSendingState{
+    [super reloadSendingState];
+    if (self.viewModel.sendingState != CHMessageSending ) {
+        _progress.hidden = YES;
+        _prettyUploadMask.hidden = YES;
+    }
+}
 #pragma mark 懒加载
+- (UILabel *)progress{
+    if (!_progress) {
+        _progress = [[UILabel alloc]init];
+        _progress.font = [UIFont systemFontOfSize:14];
+        _progress.textColor = [UIColor whiteColor];
+        _progress.hidden = YES;
+        _progress.opaque = YES;
+        _progress.textAlignment = NSTextAlignmentCenter;
+    }
+    return _progress;
+}
+- (UIView *)prettyUploadMask{
+    if (!_prettyUploadMask) {
+        _prettyUploadMask = [[UIView alloc]init];
+        _prettyUploadMask.opaque = YES;
+        _prettyUploadMask.backgroundColor = [UIColor colorWithRed:122/255.0f green:122/255.0f blue:122/255.0f alpha:0.7];
+        _prettyUploadMask.hidden = YES;
+    }
+    return _prettyUploadMask;
+}
 - (UIImageView *)imageContainer{
     if (!_imageContainer) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
@@ -118,5 +185,20 @@
         [_imageContainer addGestureRecognizer:tap];
     }
     return _imageContainer;
+}
+#pragma mark KVO
+- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+    if ([key isEqualToString:@"viewModel.progress"]) {
+        NSProgress *progress = [change objectForKey:@"new"] ;
+        if (progress) {
+            [self uploadProgress:progress];
+        }
+    }else if ([key isEqualToString:@"viewModel.sendingState"]) {
+        [self reloadSendingState];
+    }
+}
+-(void)dealloc{
+    [self ch_unregisterFromKVO];
+    
 }
 @end

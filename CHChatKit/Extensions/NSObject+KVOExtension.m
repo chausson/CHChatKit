@@ -42,7 +42,7 @@ static char AddressKey;
 }
 - (void)ch_unregisterFromKVO {
 
-    NSLog(@"%@ ch_unregister",self.observers);
+   // NSLog(@"%@ ch_unregister",self.observers);
     if (self.observers.count > 0) {
         @synchronized (self) {
             NSMutableArray *obsMutable = [NSMutableArray arrayWithArray:self.observers];

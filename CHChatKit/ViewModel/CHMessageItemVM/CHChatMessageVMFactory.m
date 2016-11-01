@@ -10,7 +10,7 @@
 #import "CHChatMessageViewModel+Protocol.h"
 @implementation CHChatMessageVMFactory
 + (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
-                                        timeData:(NSString *)date
+                                        timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                          content:(NSString *)content
                                          isOwner:(BOOL)owner{
@@ -24,7 +24,7 @@
 }
 
 + (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)icon
-                                        timeData:(NSString *)date
+                                        timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         filePath:(NSString *)file
                                          isOwner:(BOOL)owner
@@ -60,26 +60,11 @@
     return locationVM;
 }
 + (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
-                                        timeData:(NSString *)date
+                                        timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
+                                            size:(CGSize )size
                                   thumbnailImage:(UIImage *)thumbnail
-                                       fullImage:(UIImage *)full
-                                         isOwner:(BOOL)owner{
-    CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
-    imageVM.nickName = name;
-    imageVM.thumbnailImage = thumbnail;
-    imageVM.fullImage = full;
-    imageVM.date = date;
-    imageVM.owner = owner;
-    imageVM.icon = icon;
-    imageVM.filePath = path;
-    return imageVM;
-}
-+ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
-                                        timeData:(NSString *)date
-                                        nickName:(NSString *)name
-                                        resource:(NSString *)path
                                        fullImage:(UIImage *)image
                                          isOwner:(BOOL)owner{
     CHChatMessageImageVM *imageVM = [CHChatMessageImageVM new];
@@ -87,18 +72,22 @@
     imageVM.date = date;
     imageVM.owner = owner;
     imageVM.icon = icon;
+    imageVM.thumbnailImage = thumbnail;
+    imageVM.size = size;
     imageVM.fullImage = image;
     imageVM.filePath = path;
     return imageVM;
 }
 + (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
-                                        timeData:(NSString *)date
+                                        timeDate:(NSString *)date
                                         nickName:(NSString *)name
+                                        fileName:(NSString *)fileName
                                         resource:(NSString *)path
                                      voiceLength:(NSInteger )length
                                          isOwner:(BOOL)owner{
     CHChatMessageVoiceVM *voiceVM = [CHChatMessageVoiceVM new];
     voiceVM.nickName = name;
+    voiceVM.fileName = fileName;
     voiceVM.date = date;
     voiceVM.owner = owner;
     voiceVM.icon = icon;

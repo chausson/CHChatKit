@@ -12,5 +12,6 @@
 @interface CHMessagePictureEvent : CHMessageEvent
 @property (nonatomic ,strong) UIImage *thumbnailPicture;
 @property (nonatomic ,strong) UIImage *fullPicture;
-@property (nonatomic ,copy) NSString *file;
+@property (nonatomic ,copy) NSString *fullLocalPath;
+@property (nonatomic ,copy) NSString *picutreName;
 @end

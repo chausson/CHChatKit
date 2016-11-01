@@ -60,7 +60,7 @@
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
-        event.file = url.absoluteString;
+        event.fullLocalPath = url.absoluteString;
         event.receiverId = strongSelf.receiveId;
         event.userId = strongSelf.userId;
         event.fullPicture = image;
