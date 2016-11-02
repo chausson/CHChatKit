@@ -153,7 +153,7 @@ static NSString * changeDateToStr(long long timestamp){
         if (msg.ext) {
 
         }else{
-            //                声音和振动
+            // 声音和振动
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
             AudioServicesPlaySystemSound(1106);
             switch (msg.body.type) {
@@ -164,26 +164,32 @@ static NSString * changeDateToStr(long long timestamp){
                     [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
                     }break;
                 case EMMessageBodyTypeImage:{
-
-                    [[EMClient sharedClient].chatManager downloadMessageAttachment:msg progress:nil completion:^(EMMessage *message, EMError *error) {
-                        
-                        EMImageMessageBody *body = (EMImageMessageBody *)msg.body;
-                        if (body.downloadStatus == EMDownloadStatusSuccessed) {
-                            CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.thumbnailLocalPath size:body.size thumbnailImage:nil fullImage:nil isOwner:NO];
-                            viewModel.receiveId = [msg.from intValue];
-                            viewModel.fullPath = body.localPath;
-                            [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
-                        }
-        
-                    }];
-          
-   
-
+                      EMImageMessageBody *body = (EMImageMessageBody *)msg.body;
+                    if (body.downloadStatus != EMDownloadStatusSuccessed){
+                        [[EMClient sharedClient].chatManager downloadMessageAttachment:msg progress:nil completion:^(EMMessage *message, EMError *error) {
+                            if (error == nil && body.downloadStatus != EMDownloadStatusSuccessed) {
+                                CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.localPath size:body.size thumbnailImage:nil fullImage:nil isOwner:NO];
+                                viewModel.receiveId = [msg.from intValue];
+                                viewModel.fullPath = body.localPath;
+                                [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
+                            }
+                            
+                        }];
+                    }else{
+                        CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.thumbnailLocalPath size:body.size thumbnailImage:nil fullImage:nil isOwner:NO];
+                        viewModel.receiveId = [msg.from intValue];
+                        viewModel.fullPath = body.localPath;
+                        [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
+                    }
+             
                 }break;
                 case EMMessageBodyTypeVoice:{
+
                     EMVoiceMessageBody *body = (EMVoiceMessageBody *)msg.body;
-                    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp)  nickName:nil fileName:body.displayName resource:body.localPath voiceLength:body.fileLength isOwner:NO];
+                    CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp)  nickName:nil fileName:body.displayName resource:body.localPath voiceLength:body.duration isOwner:NO];
+                    viewModel.receiveId = [msg.from intValue];
                     [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
+
                 }break;
                 default:
                     

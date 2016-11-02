@@ -75,7 +75,7 @@
 - (void)updateConstraints{
     [super updateConstraints];
     CHChatMessageVoiceVM *voice = (CHChatMessageVoiceVM  *)self.viewModel;
-    CGFloat width = 50+self.contentView.frame.size.width/2/60*voice.length;
+    CGFloat width = MIN(50+self.contentView.frame.size.width/2/60*voice.length, 50+self.contentView.frame.size.width/2);
     if ([self isOwner]) {
 
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -177,6 +177,7 @@
 }
 
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+    [super ch_ObserveValueForKey:key ofObject:obj change:change];
     if ([key isEqualToString:@"viewModel.isOwner"]) {
         self.unreadContainer.hidden = [[change objectForKey:@"new"] boolValue];
     }else if ([key isEqualToString:@"viewModel.hasRead"]) {

@@ -26,8 +26,8 @@
     configuration.title = @"聊天";
     [configuration addAssistances:@[CHPictureAssistanceIdentifer,CHPickPhotoAssistanceIdentifer,CHLocationAssistanceIdentifer]];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:[self getHistroy] configuration:configuration];
- //    vm.receiveId = 14128;
-    vm.receiveId = 14060;
+    vm.receiveId = 14128;
+  //  vm.receiveId = 14060;
     vm.userId = [[EMMessageHandler shareInstance].userName intValue];
     vm.receiverIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
     vm.userIcon = @"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg";

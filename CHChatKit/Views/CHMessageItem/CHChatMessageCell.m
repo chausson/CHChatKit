@@ -195,11 +195,14 @@ static NSString *refreshName = nil;
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
     self.nickName.hidden = !viewModel.visableNickName;
-
+    
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [image ch_fitToSize:self.icon.frame.size];
-        });
+        if (!CGSizeEqualToSize(image.size, self.icon.image.size)) {
+                 [image ch_fitToSize:self.icon.frame.size];
+        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+       
+//        });
     }];
   //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;

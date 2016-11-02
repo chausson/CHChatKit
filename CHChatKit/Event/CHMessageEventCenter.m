@@ -86,6 +86,9 @@
 }
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
     CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:event.date nickName:nil fileName:event.fileName resource:event.file voiceLength:event.length isOwner:YES];
+    viewModel.receiveId = event.receiverId;
+    viewModel.sendingState = CHMessageSending;
+    viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executeVoice:)]) {
         [self.delegate executeVoice:viewModel];
