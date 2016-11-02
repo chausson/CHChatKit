@@ -18,8 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[EMMessageHandler shareInstance] install:@"jiazu#jiazu" apnsCertName: @"vacances_dev"];
-    [[EMMessageHandler shareInstance] signInWithUserName:@"14060" password:@"1234abcd"];
-  //  [[EMMessageHandler shareInstance] signInWithUserName:@"14128" password:@"1234abcd"];
+  //  [[EMMessageHandler shareInstance] signInWithUserName:@"14060" password:@"1234abcd"];
+    [[EMMessageHandler shareInstance] signInWithUserName:@"14128" password:@"1234abcd"];
 
     // Override point for customization after application launch.
     return YES;

@@ -30,8 +30,8 @@
     [self.messageContainer addSubview:self.secondsLabel];
     [self.messageContainer addSubview:self.bubbleBtn];
     [self.messageContainer addSubview:self.voiceImageView];
-    [self.messageContainer addSubview:self.unreadContainer];
-    [self.unreadContainer.layer addSublayer:self.unreadLayer];
+  //  [self.messageContainer addSubview:self.unreadContainer];
+  //  [self.unreadContainer.layer addSublayer:self.unreadLayer];
     [self.messageContainer addSubview:self.stateIndicatorView];
     [self ch_registerForKVO:[NSArray arrayWithObjects:@"viewModel.isOwner", @"viewModel.hasRead",@"viewModel.voiceState", nil]];
 
@@ -63,19 +63,19 @@
             make.width.equalTo(@25);
             make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
         }];
-        [self.unreadContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.messageContainer).offset(5);
-            make.height.equalTo(@10);
-            make.width.equalTo(@10);
-            make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
-        }];
+//        [self.unreadContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.messageContainer).offset(5);
+//            make.height.equalTo(@10);
+//            make.width.equalTo(@10);
+//            make.left.equalTo(self.bubbleBtn.mas_right).offset(3);
+//        }];
         
     }
 }
 - (void)updateConstraints{
     [super updateConstraints];
     CHChatMessageVoiceVM *voice = (CHChatMessageVoiceVM  *)self.viewModel;
-    CGFloat width = MIN(50+self.contentView.frame.size.width/2/60*voice.length, 50+self.contentView.frame.size.width/2);
+    CGFloat width = MIN(50+self.contentView.frame.size.width/2/30*voice.length, 50+self.contentView.frame.size.width/2);
     if ([self isOwner]) {
 
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {

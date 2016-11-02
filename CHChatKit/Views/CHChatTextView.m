@@ -90,7 +90,7 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.scrollIndicatorInsets = UIEdgeInsetsMake(10.0f, 0.0f, 10.0f, 8.0f);
     self.contentInset = UIEdgeInsetsZero;
-    self.scrollEnabled = YES;
+    self.scrollEnabled = NO;
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
     self.font = [UIFont systemFontOfSize:16.0f];

@@ -191,6 +191,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     [_talkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.with.insets(talkPadding);
     }];
+    // TO DO 根据行数定义输入框高度
     [_chatWindowView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.with.offset(0);
         make.height.equalTo(@(KINPUTVIEW_HEIGHT));
@@ -235,6 +236,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         make.height.equalTo(@(KASSIGANTVIEW_HEIGHT));
         
     }];
+    // FIX ME 定义约束布局 名称改为CHFaceBoard
     _faceBoard.frame = CGRectMake(0, KINPUTVIEW_HEIGHT+KASSIGANTVIEW_HEIGHT, self.frame.size.width, KASSIGANTVIEW_HEIGHT);
 
 }
@@ -552,6 +554,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
             e.userId = vm?vm.userId:0;
         }
         [[XEBEventBus defaultEventBus] postEvent:e];
+//        if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)]) {
+//
+//        }
         _contentTextView.text = nil;
     }
 }

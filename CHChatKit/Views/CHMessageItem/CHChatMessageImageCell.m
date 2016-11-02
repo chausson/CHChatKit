@@ -116,7 +116,7 @@
                     
                     vm.thumbnailImage = fitImage;
                     strongSelf.imageContainer.image = fitImage;
-                    [strongSelf cropMask:self.imageContainer.image.size];
+                    [strongSelf cropMask:strongSelf.imageContainer.image.size];
                     [strongSelf reloadTableView];
                 }
     

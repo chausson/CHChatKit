@@ -94,6 +94,8 @@
 		063523C41DB0DD6B00A841EA /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523B71DB0DD6B00A841EA /* JSONModel+networking.m */; };
 		063523C51DB0DD6B00A841EA /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523BA1DB0DD6B00A841EA /* JSONKeyMapper.m */; };
 		063523C61DB0DD6B00A841EA /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 063523BC1DB0DD6B00A841EA /* JSONValueTransformer.m */; };
+		0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */; };
+		0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
 		0666DBA51D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */; };
 		06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */; };
@@ -280,6 +282,10 @@
 		063523BA1DB0DD6B00A841EA /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
 		063523BB1DB0DD6B00A841EA /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		063523BC1DB0DD6B00A841EA /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		0655C2A61DCA175800B8DA9F /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		0655C2A81DCA175800B8DA9F /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
+		0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
 		065890DB1D9138CA00531445 /* CHChatDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatDefinition.h; sourceTree = "<group>"; };
 		066432AD1D7EBEC00068AEF2 /* CHChatConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatConfiguration.h; sourceTree = "<group>"; };
 		066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatConfiguration.m; sourceTree = "<group>"; };
@@ -670,6 +676,17 @@
 			path = JSONModelTransformations;
 			sourceTree = "<group>";
 		};
+		0655C2A51DCA175800B8DA9F /* YYFPSLabel */ = {
+			isa = PBXGroup;
+			children = (
+				0655C2A61DCA175800B8DA9F /* YYFPSLabel.h */,
+				0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */,
+				0655C2A81DCA175800B8DA9F /* YYWeakProxy.h */,
+				0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */,
+			);
+			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
 		066432AA1D7EBE8F0068AEF2 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +700,7 @@
 		068B4BCC1DAF88FE00AD4652 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				0655C2A51DCA175800B8DA9F /* YYFPSLabel */,
 				06E72F151DC1B1040054A4B9 /* MessageTest.plist */,
 				06E72F161DC1B1040054A4B9 /* MessageTest2.plist */,
 				0609294C1DC094E90004DE17 /* EMHandler */,
@@ -1218,6 +1236,7 @@
 			files = (
 				0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */,
 				06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */,
+				0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */,
 				06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				063523C01DB0DD6B00A841EA /* JSONModelError.m in Sources */,
@@ -1252,6 +1271,7 @@
 				06C766C01DACBBC900DADEC0 /* CHPickPhotoAssistance.m in Sources */,
 				063523BE1DB0DD6B00A841EA /* JSONModelArray.m in Sources */,
 				068B4BEA1DAF897B00AD4652 /* CHChatMessageTextVM.m in Sources */,
+				0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */,
 				0692764D1D77DE0000CAB0A5 /* NSString+CHExtensions.m in Sources */,
 				069275711D77DAE200CAB0A5 /* main.m in Sources */,
 				06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */,

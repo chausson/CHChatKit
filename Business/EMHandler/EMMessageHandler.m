@@ -164,23 +164,20 @@ static NSString * changeDateToStr(long long timestamp){
                     [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
                     }break;
                 case EMMessageBodyTypeImage:{
-                      EMImageMessageBody *body = (EMImageMessageBody *)msg.body;
-                    if (body.downloadStatus != EMDownloadStatusSuccessed){
+  
                         [[EMClient sharedClient].chatManager downloadMessageAttachment:msg progress:nil completion:^(EMMessage *message, EMError *error) {
+                            EMImageMessageBody *body = (EMImageMessageBody *)message.body;
                             if (error == nil && body.downloadStatus != EMDownloadStatusSuccessed) {
-                                CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.localPath size:body.size thumbnailImage:nil fullImage:nil isOwner:NO];
+
+                                UIImage *fullImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:body.localPath]];
+                                CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.remotePath size:body.size thumbnailImage:nil fullImage:fullImage isOwner:NO];
                                 viewModel.receiveId = [msg.from intValue];
                                 viewModel.fullPath = body.localPath;
                                 [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
                             }
                             
                         }];
-                    }else{
-                        CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.thumbnailLocalPath size:body.size thumbnailImage:nil fullImage:nil isOwner:NO];
-                        viewModel.receiveId = [msg.from intValue];
-                        viewModel.fullPath = body.localPath;
-                        [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
-                    }
+ 
              
                 }break;
                 case EMMessageBodyTypeVoice:{

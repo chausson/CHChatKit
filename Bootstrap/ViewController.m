@@ -12,22 +12,36 @@
 #import "CHChatViewController.h"
 #import "CHChatConfiguration.h"
 #import "EMMessageHandler.h"
+#import "YYFPSLabel.h"
+
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    [self testFPSLabel];
     // Do any additional setup after loading the view, typically from a nib.
 }
+#pragma mark - FPS
 
+- (void)testFPSLabel {
+    YYFPSLabel *fpsLabel = [YYFPSLabel new];
+    fpsLabel.frame = CGRectMake([UIScreen mainScreen].bounds.size.width/2-25, 5, 50, 30);
+    [fpsLabel sizeToFit];
+    [[UIApplication sharedApplication].keyWindow addSubview:fpsLabel];
+    
+    // 如果直接用 self 或者 weakSelf，都不能解决循环引用问题
+    
+    // 移除也不能使 label里的 timer invalidate
+    //        [_fpsLabel removeFromSuperview];
+}
 - (IBAction)singleChat:(UIButton *)sender {
     
     CHChatConfiguration *configuration = [CHChatConfiguration defultConfigruration];
     configuration.title = @"聊天";
     [configuration addAssistances:@[CHPictureAssistanceIdentifer,CHPickPhotoAssistanceIdentifer,CHLocationAssistanceIdentifer]];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:[self getHistroy] configuration:configuration];
-    vm.receiveId = 14128;
-  //  vm.receiveId = 14060;
+   // vm.receiveId = 14128;
+    vm.receiveId = 14060;
     vm.userId = [[EMMessageHandler shareInstance].userName intValue];
     vm.receiverIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
     vm.userIcon = @"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg";
