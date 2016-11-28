@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CHChatDefinition.h"
-#import "CHChatModel.h"
+
 @class CHChatMessageViewModel;
 @protocol CHChatMessageViewModelProtocol <NSObject>
 @required

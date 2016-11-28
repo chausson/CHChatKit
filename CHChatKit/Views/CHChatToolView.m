@@ -554,9 +554,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
             e.userId = vm?vm.userId:0;
         }
         [[XEBEventBus defaultEventBus] postEvent:e];
-//        if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)]) {
-//
-//        }
+        if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)] && [_observer respondsToSelector:@selector(sendMessage:)]) {
+            [_observer performSelector:@selector(sendMessage:) withObject:_contentTextView.text];
+        }
         _contentTextView.text = nil;
     }
 }

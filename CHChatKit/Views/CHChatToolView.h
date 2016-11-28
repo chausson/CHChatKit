@@ -18,13 +18,14 @@
 - (void)chatInputView;
 @end
 /* 废弃该代理方法发送内容，通过EventBus 发送 */
-//@protocol CHKeyboardEvent <NSObject>
-//- (void)sendMessage:(NSString *)text;
-//- (void)sendSound:(NSString *)path
-//           second:(NSInteger )sec;
-//- (void)sendOriginPath:(NSString *)path
-//                 photo:(UIImage *)image;
-//@end
+
+@protocol CHKeyboardEvent <NSObject>
+- (void)sendMessage:(NSString *)text;
+- (void)sendSound:(NSString *)path
+           second:(NSInteger )sec;
+- (void)sendOriginPath:(NSString *)path
+                 photo:(UIImage *)image;
+@end
 
 @interface CHChatToolView : UIView
 
