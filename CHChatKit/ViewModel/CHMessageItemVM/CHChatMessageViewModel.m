@@ -8,7 +8,9 @@
 
 #import "CHChatMessageViewModel.h"
 
-@implementation CHChatMessageViewModel
+@implementation CHChatMessageViewModel{
+    void(^ stateCallBack)() ;
+}
 
 - (instancetype)init
 {
@@ -30,28 +32,33 @@
         }
     }
 }
-
+- (CHChatMessageType )category{
+    return CHMessageNone;
+}
+- (CHMessageSendState )sendState{
+    return [self.sendingState intValue];
+}
+- (void)changeSendingState:(CHMessageSendState )state{
+    _sendingState = @(state);
+    if (stateCallBack) {
+        stateCallBack();
+    }
+}
+- (void)setSendingStateCallBack:(void(^)())stateChange{
+    stateCallBack = stateChange;
+}
 - (void)resend{
     NSLog(@"重发消息");
 }
-- (void)setNickName:(NSString *)nickName{
-    _nickName = nickName;
+
++ (NSArray *)ignoredProperties {
+    return @[@"sendingState"];
 }
-- (void)setSendingState:(CHMessageSendState)sendingState{
-    _sendingState = sendingState;
+// *Realm 默认值
++ (NSDictionary *)defaultPropertyValues {
+    return @{@"createDate" :[NSDate date]};
 }
-- (void)setCategory:(CHChatMessageType)category{
-    _category = category;
-}
-- (void)setDate:(NSString *)date{
-    _date = date;
-}
-- (void)setOwner:(BOOL)owner{
-    _owner = owner;
-}
-- (void)setVisableTime:(BOOL)visableTime{
-    _visableTime = visableTime;
-}
+
 
 
 @end

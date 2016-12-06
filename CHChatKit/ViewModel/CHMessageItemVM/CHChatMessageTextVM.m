@@ -13,8 +13,6 @@
 - (CHChatMessageType )category{
     return CHMessageText;
 }
-- (void)setContent:(NSString *)content{
-    _content = content;
-}
+
 
 @end

@@ -63,7 +63,7 @@ static NSString *refreshName = nil;
     //默认的聊天模式
     self.backgroundColor = self.superview.backgroundColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self ch_registerForKVO:@[@"viewModel.sendingState"]];
+   // [self ch_registerForKVO:@[@"viewModel.sendingState"]];
     [self layoutContainer];
 
 }
@@ -97,8 +97,7 @@ static NSString *refreshName = nil;
     }
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
     CGFloat widthMax = width - (cellIconWidth +cellContentGap*2)*2;
-    CGFloat nickNameHeight = self.viewModel.isVisableNickName?20:0;
-    CGSize nickNameSize = [self boundingRectWithSize:CGSizeMake(widthMax, nickNameHeight) text:self.viewModel.nickName font:_nickName.font];
+    CGFloat nickNameHeight = self.viewModel.visableNickName?20:0;
     if ([self isOwner]){
         [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
@@ -113,7 +112,7 @@ static NSString *refreshName = nil;
         [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_icon.mas_top);
             make.height.equalTo(@(nickNameHeight));
-            make.width.equalTo(@(nickNameSize.width));
+            make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
             make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
         }];
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -151,7 +150,7 @@ static NSString *refreshName = nil;
         [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_icon.mas_top);
             make.height.equalTo(@(nickNameHeight));
-            make.width.equalTo(@(nickNameSize.width));
+            make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
             make.left.equalTo(_icon.mas_right).offset(cellContentGap);
         }];
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -200,14 +199,16 @@ static NSString *refreshName = nil;
         if (!CGSizeEqualToSize(image.size, self.icon.image.size)) {
                  [image ch_fitToSize:self.icon.frame.size];
         }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-       
-//        });
     }];
-  //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
     [self reloadSendingState];
+    __weak typeof(self ) weakSelf = self;
+    [self.viewModel setSendingStateCallBack:^{
+        __strong typeof(self) strongSelf =weakSelf;
+        [strongSelf reloadSendingState];
+    }];
     [self updateConstraints];
+
 }
 - (void)resend{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"重发该消息" preferredStyle:UIAlertControllerStyleAlert];
@@ -236,7 +237,7 @@ static NSString *refreshName = nil;
     return _viewModel;
 }
 - (void)reloadSendingState{
-    switch (self.viewModel.sendingState) {
+    switch ([self.viewModel sendState]) {
         case CHMessageSending:{
             [self.resendBtn setHidden:YES];
             [self.stateIndicatorView startAnimating];
@@ -320,16 +321,16 @@ static NSString *refreshName = nil;
     }
     return _resendBtn;
 }
-#pragma mark KVO
-- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
-    if ([key isEqualToString:@"viewModel.sendingState"]) {
-        [self reloadSendingState];
-    }
-}
-- (void)dealloc{
-    [self ch_unregisterFromKVO];
-
-}
+#pragma mark KVO 2.0版本废弃该方法,Realm存储不支持监听
+//- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+//    if ([key isEqualToString:@"viewModel.sendingState"]) {
+//        [self reloadSendingState];
+//    }
+//}
+//- (void)dealloc{
+//    [self ch_unregisterFromKVO];
+//
+//}
 
 
 @end

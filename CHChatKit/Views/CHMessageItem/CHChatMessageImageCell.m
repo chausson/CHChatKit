@@ -29,7 +29,7 @@
     [self.messageContainer addSubview:self.imageContainer];
     [self.imageContainer addSubview:self.prettyUploadMask];
     [self.messageContainer addSubview:self.progress];
-    [self ch_registerForKVO:[NSArray arrayWithObjects:@"viewModel.progress", nil]];
+//    [self ch_registerForKVO:[NSArray arrayWithObjects:@"viewModel.progress", nil]];
     [super layout];
     if ([self isOwner]) {
         [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +77,6 @@
     // TO DO 内存缓存和沙盒缓存
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
 
-        
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
         UIImage *thumbnailPhoto = vm.thumbnailImage;
         if (self.imageContainer.image == thumbnailPhoto && self.imageContainer.image) {
@@ -132,7 +131,7 @@
 }
 
 - (void)cropMask:(CGSize )size{
-    if (self.viewModel.isOwner) {
+    if (self.viewModel.owner) {
         [self.imageContainer maskRightLayer:size];
     }else{
         [self.imageContainer maskLeftLayer:size];
@@ -142,7 +141,7 @@
     
 }
 - (void)uploadProgress:(NSProgress *)progress{
-    if (self.viewModel.sendingState == CHMessageSending  && progress) {
+    if ([self.viewModel sendState] == CHMessageSending  && progress) {
         _progress.hidden = NO;
         _prettyUploadMask.hidden = NO;
         _progress.text = [NSString stringWithFormat:@"%lld%%",progress.completedUnitCount];
@@ -151,7 +150,7 @@
 }
 - (void)reloadSendingState{
     [super reloadSendingState];
-    if (self.viewModel.sendingState != CHMessageSending ) {
+    if ([self.viewModel sendState] != CHMessageSending ) {
         _progress.hidden = YES;
         _prettyUploadMask.hidden = YES;
     }
@@ -186,19 +185,19 @@
     }
     return _imageContainer;
 }
-#pragma mark KVO
-- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
-    if ([key isEqualToString:@"viewModel.progress"]) {
-        NSProgress *progress = [change objectForKey:@"new"] ;
-        if (progress) {
-            [self uploadProgress:progress];
-        }
-    }else if ([key isEqualToString:@"viewModel.sendingState"]) {
-        [self reloadSendingState];
-    }
-}
--(void)dealloc{
-    [self ch_unregisterFromKVO];
-    
-}
+#pragma mark KVO 2.0版本废弃该方法,Realm存储不支持监听
+//- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+//    if ([key isEqualToString:@"viewModel.progress"]) {
+//        NSProgress *progress = [change objectForKey:@"new"] ;
+//        if (progress) {
+//            [self uploadProgress:progress];
+//        }
+//    }else if ([key isEqualToString:@"viewModel.sendingState"]) {
+//        [self reloadSendingState];
+//    }
+//}
+//-(void)dealloc{
+//    [self ch_unregisterFromKVO];
+//    
+//}
 @end

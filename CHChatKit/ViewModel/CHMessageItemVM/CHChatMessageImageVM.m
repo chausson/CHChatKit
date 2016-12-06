@@ -25,4 +25,7 @@
 - (void)setHeight:(float)height{
     _height = height;
 }
++ (NSArray *)ignoredProperties {
+    return @[@"fullImage",@"thumbnailImage"];
+}
 @end

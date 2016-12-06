@@ -102,7 +102,7 @@
 - (void)loadViewModel:(CHChatMessageVoiceVM *)viewModel{
     [super loadViewModel:viewModel];
     [self setAnimationImage];
-    [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.isOwner] forState:UIControlStateNormal];
+    [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.owner] forState:UIControlStateNormal];
     if ([viewModel isKindOfClass:[CHChatMessageVoiceVM class]]) {
     
         self.secondsLabel.text = [NSString stringWithFormat:@"%ld''", (long)viewModel.length];
@@ -113,7 +113,7 @@
 }
 - (void)setAnimationImage{
     NSString *voiceName = ({
-        self.viewModel.isOwner ? @"SenderVoice":@"ReceiveVoice";
+        self.viewModel.owner ? @"SenderVoice":@"ReceiveVoice";
     });
     
     self.voiceImageView.image = [UIImage imageNamed:voiceName];

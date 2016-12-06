@@ -15,6 +15,7 @@
 @property (nonatomic ,readwrite) NSProgress *progress;
 
 @property (nonatomic ,readonly) NSString *fileName;
+
 - (BOOL)isLocalFile;
 
 @end

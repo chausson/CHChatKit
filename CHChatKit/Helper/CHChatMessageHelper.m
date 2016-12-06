@@ -27,7 +27,7 @@
     CHChatMessageViewModel *cellViewModel = viewModel.cellViewModels[indexPath.row];
     __block CHChatMessageCell *cell;
     [CHChatMessageCell registerNotificationRefresh:viewModel.refreshName];
-    NSString *identifier = cellViewModel.isOwner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
+    NSString *identifier = cellViewModel.owner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([aClass messageCategory] == cellViewModel.category) {
             cell =  [tableView dequeueReusableCellWithIdentifier:[NSStringFromClass(aClass) stringByAppendingString:identifier] forIndexPath:indexPath];
@@ -43,7 +43,7 @@
 + (NSString *)fetchMessageIdentifier:(__kindof CHChatTableView *)tableView
                        cellViewModel:(CHChatMessageViewModel *)cellViewModel{
     __block NSString *cellIdentifier ;
-     NSString *identifier = cellViewModel.isOwner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
+     NSString *identifier = cellViewModel.owner?CHChatCellOwnerIdentifier:CHChatCellOthersIdentifier;
     [ChatCellMessageCatagory.allValues enumerateObjectsUsingBlock:^(Class  _Nonnull aClass, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([aClass messageCategory] == cellViewModel.category) {
             cellIdentifier = [NSStringFromClass(aClass) stringByAppendingString:identifier];

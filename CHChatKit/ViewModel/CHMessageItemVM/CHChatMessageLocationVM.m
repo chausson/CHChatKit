@@ -35,4 +35,8 @@
     UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
     [[CHLocationService new] openLocation:controller coor:_coor postionTitle:_areaName postionContent:_areaDetail];
 }
++ (NSArray *)ignoredProperties {
+    return @[@"coor",@"snapshot"];
+}
+
 @end

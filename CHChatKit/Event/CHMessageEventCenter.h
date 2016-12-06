@@ -29,6 +29,11 @@
 - (void)executePicture:(CHChatMessageImageVM *)viewModel;
 - (void)executeLocation:(CHChatMessageLocationVM *)viewModel;
 - (void)executeVoice:(CHChatMessageVoiceVM *)viewModel;
+// 发送群聊
+- (void)executeGroupText:(CHChatMessageTextVM *)viewModel;
+- (void)executeGroupPicture:(CHChatMessageImageVM *)viewModel;
+- (void)executeGroupLocation:(CHChatMessageLocationVM *)viewModel;
+- (void)executeGroupVoice:(CHChatMessageVoiceVM *)viewModel;
 @end
 
 @interface CHMessageEventCenter : NSObject

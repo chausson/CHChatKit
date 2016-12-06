@@ -18,6 +18,20 @@
 			<key>type</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>owner</key>
+			<integer>0</integer>
+			<key>voice</key>
+			<string></string>
+			<key>content</key>
+			<string>确认了</string>
+			<key>icon</key>
+			<string>http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg</string>
+			<key>time</key>
+			<string>2015年10月12日 14:35</string>
+			<key>type</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 </dict>
 </plist>

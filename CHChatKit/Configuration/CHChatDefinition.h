@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
     CHMessageImage,
     CHMessageVoice,
     CHMessageVideo,
+    CHMessageFile,
     CHMessageLocation,
     CHMessageSystem,
 };

@@ -11,7 +11,12 @@
 #import "CHChatMessageViewModel+Protocol.h"
 
 @implementation CHChatMessageFileVM
-
++ (NSArray *)ignoredProperties {
+    return @[@"progress"];
+}
+- (CHChatMessageType )category{
+    return CHMessageFile;
+}
 - (BOOL)isLocalFile{
 
     return ![_filePath hasPrefix:@"http"];

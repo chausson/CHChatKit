@@ -8,7 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import "EMSDK.h"
-#import "XEBEventBus.h"
+#import <XEBEventBus/XEBEventBus.h>
+//#import "XEBEventBus.h"
 #import "CHMessageTextEvent.h"
 #import "CHChatViewModel.h"
 #import "EMMessageHandler.h"

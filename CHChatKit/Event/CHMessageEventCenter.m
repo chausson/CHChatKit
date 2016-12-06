@@ -60,39 +60,64 @@
 - (void)executeTextEvent:(CHMessageTextEvent *)event{
     CHChatMessageTextVM *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeDate:event.date  nickName:nil content:event.text isOwner:YES];
     viewModel.receiveId = event.receiverId;
-    viewModel.sendingState = CHMessageSending;
+    [viewModel changeSendingState:CHMessageSending];
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
+
     if ([self.delegate respondsToSelector:@selector(executeText:)]) {
-        [self.delegate executeText:viewModel];
+        if (event.isGroup) {
+            [self.delegate executeGroupText:viewModel];
+        }else{
+            [self.delegate executeText:viewModel];
+        }
+
     }
 }
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
     CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:event.date nickName:nil resource:event.fullLocalPath size:event.fullPicture.size thumbnailImage:event.thumbnailPicture fullImage:event.fullPicture isOwner:YES];
     viewModel.receiveId = event.receiverId;
-    viewModel.sendingState = CHMessageSending;
+ //   viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executePicture:)]) {
-        [self.delegate executePicture:viewModel];
+        if (event.isGroup) {
+            [self.delegate executePicture:viewModel];
+        }else{
+            [self.delegate executePicture:viewModel];
+        }
     }
 }
 - (void)executeLocationEvent:(CHMessageLocationEvent *)event{
     CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file snapshot:event.map location:event.location.coordinate isOwner:YES];
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executeLocation:)]) {
-        [self.delegate executeLocation:viewModel];
+        if (event.isGroup) {
+            [self.delegate executeGroupLocation:viewModel];
+        }else{
+            [self.delegate executeLocation:viewModel];
+        }
     }
 }
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
     CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:event.date nickName:nil fileName:event.fileName resource:event.file voiceLength:event.length isOwner:YES];
     viewModel.receiveId = event.receiverId;
-    viewModel.sendingState = CHMessageSending;
+ //   viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executeVoice:)]) {
-        [self.delegate executeVoice:viewModel];
+        if (event.isGroup) {
+            [self.delegate executeGroupVoice:viewModel];
+        }else{
+            [self.delegate executeVoice:viewModel];
+        }
     }
+}
+- (void)save:(CHChatMessageTextVM *)viewModel{
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    NSLog(@"realm =%@",realm.configuration.fileURL.absoluteString);
+    [realm transactionWithBlock:^{
+        [realm addObject:viewModel];
+    }];
 }
 - (void)receiveMessage:(CHChatMessageViewModel *)viewModel{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];

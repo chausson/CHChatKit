@@ -10,6 +10,6 @@
 
 @interface CHChatMessageTextVM : CHChatMessageViewModel<CHChatMessageViewModelProtocol>
 
-@property (nonatomic ,readonly) NSString *content;
+@property  NSString *content;
 
 @end

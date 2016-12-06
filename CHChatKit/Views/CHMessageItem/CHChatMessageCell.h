@@ -42,11 +42,6 @@
 
 - (void)reloadTableView;
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel;
-
-- (CGSize)boundingRectWithSize:(CGSize)size
-                          text:(NSString *)text
-                          font:(UIFont *)font;
-
 - (void)layout;
 - (BOOL)isOwner;
 - (void)reloadSendingState;

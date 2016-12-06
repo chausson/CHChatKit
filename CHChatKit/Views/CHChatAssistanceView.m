@@ -67,6 +67,7 @@
     [assistanceItems enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, NSUInteger i, BOOL * _Nonnull stop) {
         UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         CHChatAssistance *assistance = [self fetchAssistance:identifier];
+        assistance.group = config.type;
         [itemButton addTarget:self action:@selector(itemButton:) forControlEvents:UIControlEventTouchUpInside];
         itemButton.tag = i;
         CGFloat x = ITEM_DISTANCE_SIZE * (i % 4 + 1) + (i % 4) * CHATASSISTANCE_ITEM_SIZE + [UIScreen mainScreen].bounds.size.width * (i / 8);

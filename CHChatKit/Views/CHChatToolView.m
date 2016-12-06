@@ -547,6 +547,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 - (void)sendText{
     if (_contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
+        e.group = _config.type;
         e.text = _contentTextView.text;
         if([_observer isKindOfClass:[CHChatViewController class]]){
             CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];

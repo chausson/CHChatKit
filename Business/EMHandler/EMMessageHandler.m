@@ -11,9 +11,7 @@
 #import "CHChatMessageViewModel+Protocol.h"
 #import "CHChatMessageTextVM.h"
 #import "CHChatMessageVMFactory.h"
-#import "NSObject+KVOExtension.h"
-#import <AFNetworking/AFNetworking.h>
-
+#import "CHMessageDatabase.h"
 #import <AudioToolbox/AudioToolbox.h>
 static NSString * changeDateToStr(long long timestamp){
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -22,7 +20,9 @@ static NSString * changeDateToStr(long long timestamp){
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     return [formatter stringFromDate:date];
 }
-@implementation EMMessageHandler
+@implementation EMMessageHandler{
+    CHMessageDatabase *_dataBase;
+}
 
 + (instancetype)shareInstance{
     static id instance = nil;
@@ -50,6 +50,7 @@ static NSString * changeDateToStr(long long timestamp){
         if (aError == nil) {
             [[EMClient sharedClient].chatManager removeDelegate:self];
             [[EMClient sharedClient].chatManager addDelegate:self];
+            _dataBase = [CHMessageDatabase databaseWithName:userName]; // 创建本地数据库
         }else{
             NSLog(@"环信的错误信息=%@",aError.errorDescription);
         }
@@ -60,7 +61,6 @@ static NSString * changeDateToStr(long long timestamp){
 }
 #pragma mark POST-TEXT
 - (void)executeText:(CHChatMessageViewModel *)viewModel{
-    //  [self postTextViewModel:viewModel];
     [self EMTextPOST:(CHChatMessageTextVM *)viewModel];
 }
 - (void)EMTextPOST:(CHChatMessageTextVM *)viewModel{
@@ -72,27 +72,15 @@ static NSString * changeDateToStr(long long timestamp){
     message.chatType = EMChatTypeChat;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
         if (!error) {
-                  viewModel.sendingState = CHMessageSendSuccess;
+                [viewModel changeSendingState:CHMessageSendSuccess];
         }else{
-                  viewModel.sendingState = CHMessageSendFailure;
+                [viewModel changeSendingState:CHMessageSendFailure];
         }
+        [_dataBase saveMessage:viewModel];
+        NSLog(@"dataBBase  =%@",[_dataBase fetchAllMessageWithUser:viewModel.senderId receive:viewModel.receiveId]);
     }];
 }
-- (void)postTextViewModel:(CHChatMessageViewModel *)vm{
-    CHChatMessageTextVM *viewModel = (CHChatMessageTextVM *)vm;
-    NSDictionary *para = @{@"receiverId":@(viewModel.receiveId),
-                           @"messageType":@"TEXT",
-                           @"messageContent":viewModel.content,
-                           @"userId":@(viewModel.senderId)};
-    NSString *url = [NSString stringWithFormat:@"http://vacances.sudaotech.com/platform/app/notice/sendMsg"];
-    AFHTTPSessionManager
-    *manager = [self manager];
-    [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        vm.sendingState = CHMessageSendSuccess;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        vm.sendingState = CHMessageSendFailure;
-    }];
-}
+
 #pragma mark POST-PICTURE
 - (void)executePicture:(CHChatMessageImageVM *)viewModel{
     NSProgress *current = [NSProgress progressWithTotalUnitCount:100];
@@ -116,11 +104,11 @@ static NSString * changeDateToStr(long long timestamp){
                 viewModel.progress = current;
 
         } completion:^(EMMessage *message, EMError *error) {
-            if (!error) {
-                viewModel.sendingState = CHMessageSendSuccess;
-            }else{
-                viewModel.sendingState = CHMessageSendFailure;
-            }
+//            if (!error) {
+//                viewModel.sendingState = CHMessageSendSuccess;
+//            }else{
+//                viewModel.sendingState = CHMessageSendFailure;
+//            }
         }];
 
     //UIImage转换为NSData
@@ -137,11 +125,11 @@ static NSString * changeDateToStr(long long timestamp){
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
     message.chatType = EMChatTypeChat;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-        if (!error) {
-            viewModel.sendingState = CHMessageSendSuccess;
-        }else{
-            viewModel.sendingState = CHMessageSendFailure;
-        }
+//        if (!error) {
+//            viewModel.sendingState = CHMessageSendSuccess;
+//        }else{
+//            viewModel.sendingState = CHMessageSendFailure;
+//        }
     }];
 }
 #pragma mark POST-LOCATION
@@ -197,42 +185,4 @@ static NSString * changeDateToStr(long long timestamp){
     }];
 }
 
-#pragma mark - Private
-- (AFHTTPSessionManager *)manager{
-    // 开启转圈圈
-    AFHTTPSessionManager *manager = nil;
-    
-    
-    
-    manager = [AFHTTPSessionManager manager];
-    
-    
-    manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-    
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",
-                                                                              @"text/html",
-                                                                              @"text/json",
-                                                                              @"text/plain",
-                                                                              @"text/javascript",
-                                                                              @"text/xml",
-                                                                              @"image/*"]];
-    manager.requestSerializer.timeoutInterval = 300;
-    
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    
-    
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    
-    manager.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-    
-    
-    
-    return manager;
-}
 @end

@@ -11,6 +11,7 @@
 		0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6D71D9D4E4300B836E1 /* CHMessageTextEvent.m */; };
 		0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */; };
 		0612E6E11D9D538900B836E1 /* CHRecordHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */; };
+		06199EF21DF661DB00DAAFED /* CHMessageDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 06199EF11DF661DB00DAAFED /* CHMessageDatabase.m */; };
 		06276BEA1DBF69EF005B3F4F /* emo_001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06276BB21DBF69EE005B3F4F /* emo_001@2x.png */; };
 		06276BEB1DBF69EF005B3F4F /* emo_002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06276BB31DBF69EE005B3F4F /* emo_002@2x.png */; };
 		06276BEC1DBF69EF005B3F4F /* emo_003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06276BB41DBF69EE005B3F4F /* emo_003@2x.png */; };
@@ -149,8 +150,6 @@
 		06E72F1B1DC1CF100054A4B9 /* EMMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E72F1A1DC1CF100054A4B9 /* EMMessageHandler.m */; };
 		06E72F1E1DC1E3110054A4B9 /* AppDelegate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E72F1D1DC1E3110054A4B9 /* AppDelegate+Extensions.m */; };
 		86F5AB786DE6F4086C6E05E5 /* libPods-CHChatKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B3BE70589A5033D5F0B177 /* libPods-CHChatKit.a */; };
-		92EA53AAB290C8384B33F497 /* libPods-CHChatKitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB18B39083970533DDBBC489 /* libPods-CHChatKitTests.a */; };
-		94E11D62C9785116642AB167 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20168A8F6F5FB14116652276 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +171,8 @@
 		0612E6DA1D9D4F3E00B836E1 /* CHMessageEventCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageEventCenter.m; sourceTree = "<group>"; };
 		0612E6DE1D9D538900B836E1 /* CHRecordHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRecordHandler.h; sourceTree = "<group>"; };
 		0612E6DF1D9D538900B836E1 /* CHRecordHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRecordHandler.m; sourceTree = "<group>"; };
+		06199EF01DF661DB00DAAFED /* CHMessageDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageDatabase.h; sourceTree = "<group>"; };
+		06199EF11DF661DB00DAAFED /* CHMessageDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageDatabase.m; sourceTree = "<group>"; };
 		06276BB21DBF69EE005B3F4F /* emo_001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emo_001@2x.png"; sourceTree = "<group>"; };
 		06276BB31DBF69EE005B3F4F /* emo_002@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emo_002@2x.png"; sourceTree = "<group>"; };
 		06276BB41DBF69EE005B3F4F /* emo_003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emo_003@2x.png"; sourceTree = "<group>"; };
@@ -409,8 +410,6 @@
 		06E72F1C1DC1E3110054A4B9 /* AppDelegate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Extensions.h"; sourceTree = "<group>"; };
 		06E72F1D1DC1E3110054A4B9 /* AppDelegate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Extensions.m"; sourceTree = "<group>"; };
 		20168A8F6F5FB14116652276 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.debug.xcconfig"; sourceTree = "<group>"; };
-		93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		B667F1D32CE7D3A7BF324DD8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BAC4F4633E0FBB4A30D0AAD9 /* Pods-CHChatKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit.release.xcconfig"; sourceTree = "<group>"; };
 		CACB10AA6B404B2C902BF33E /* Pods-CHChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHChatKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -424,8 +423,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92EA53AAB290C8384B33F497 /* libPods-CHChatKitTests.a in Frameworks */,
-				94E11D62C9785116642AB167 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +478,15 @@
 				06C766C51DACF21C00DADEC0 /* CHMessageVoiceEvent.m */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		06199EEF1DF661A400DAAFED /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				06199EF01DF661DB00DAAFED /* CHMessageDatabase.h */,
+				06199EF11DF661DB00DAAFED /* CHMessageDatabase.m */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		06276BB11DBF69EE005B3F4F /* img */ = {
@@ -786,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				066432AA1D7EBE8F0068AEF2 /* Configuration */,
+				06199EEF1DF661A400DAAFED /* Database */,
 				0612E6D21D9D4A0600B836E1 /* Event */,
 				062829341D9292F000DCED17 /* Helper */,
 				069275891D77DDFF00CAB0A5 /* CHChatViewController.h */,
@@ -957,8 +964,6 @@
 			children = (
 				E0BC858B491375F90A940434 /* Pods.debug.xcconfig */,
 				B667F1D32CE7D3A7BF324DD8 /* Pods.release.xcconfig */,
-				5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */,
-				93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */,
 				CACB10AA6B404B2C902BF33E /* Pods-CHChatKit.debug.xcconfig */,
 				BAC4F4633E0FBB4A30D0AAD9 /* Pods-CHChatKit.release.xcconfig */,
 			);
@@ -972,12 +977,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 063523A01DB0A51900A841EA /* Build configuration list for PBXNativeTarget "CHChatKitTests" */;
 			buildPhases = (
-				6622BABA1B6CE2824712B8B7 /* [CP] Check Pods Manifest.lock */,
 				063523951DB0A51900A841EA /* Sources */,
 				063523961DB0A51900A841EA /* Frameworks */,
 				063523971DB0A51900A841EA /* Resources */,
-				041A9DBB0652F40A32279DD3 /* [CP] Embed Pods Frameworks */,
-				DC9DD58109051C16471EC0CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1129,21 +1131,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		041A9DBB0652F40A32279DD3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2F5330B777A18E02D53F1501 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1157,21 +1144,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKit/Pods-CHChatKit-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6622BABA1B6CE2824712B8B7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		832F8805FBCC6F7FDCDDEE2A /* [CP] Embed Pods Frameworks */ = {
@@ -1202,21 +1174,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		DC9DD58109051C16471EC0CA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHChatKitTests/Pods-CHChatKitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1281,6 +1238,7 @@
 				0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */,
 				06E72F1B1DC1CF100054A4B9 /* EMMessageHandler.m in Sources */,
 				06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */,
+				06199EF21DF661DB00DAAFED /* CHMessageDatabase.m in Sources */,
 				06E6182A1DAB83EE00E11B96 /* CHLocationAssistance.m in Sources */,
 				0633BA7E1DAE18900077A845 /* CHRimMapTableViewCell.m in Sources */,
 				068B4BD11DAF896A00AD4652 /* CHChatModel.m in Sources */,
@@ -1336,7 +1294,6 @@
 /* Begin XCBuildConfiguration section */
 		063523A11DB0A51900A841EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C61B41EF2B5EE39595D46D4 /* Pods-CHChatKitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CHChatKitTests/Info.plist;
@@ -1350,7 +1307,6 @@
 		};
 		063523A21DB0A51900A841EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93302DB7D7B6231787E611DC /* Pods-CHChatKitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CHChatKitTests/Info.plist;

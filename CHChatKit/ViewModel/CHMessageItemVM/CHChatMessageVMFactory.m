@@ -9,6 +9,9 @@
 #import "CHChatMessageVMFactory.h"
 #import "CHChatMessageViewModel+Protocol.h"
 @implementation CHChatMessageVMFactory
++ (NSArray <Class>*)messageViewModelClasses{
+    return @[CHChatMessageTextVM.class];
+}
 + (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
@@ -35,7 +38,7 @@
     fileVM.date = date;
     fileVM.owner = owner;
     fileVM.icon = icon;
-    fileVM.category = category;
+//    fileVM.category = category;
     return fileVM;
 }
 + (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)icon
