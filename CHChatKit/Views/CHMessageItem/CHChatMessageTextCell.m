@@ -52,7 +52,7 @@
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
-    [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.owner] forState:UIControlStateNormal];
+    [self.bubbleBtn setBackgroundImage:[UIImage avaiableBubbleImage:viewModel.isOwner] forState:UIControlStateNormal];
     if ([viewModel isKindOfClass:[CHChatMessageTextVM class]]) {
         CHChatMessageTextVM *vm = (CHChatMessageTextVM *)viewModel;
         self.message.text = [vm.content stringByReplacingEmojiCheatCodesWithUnicode];

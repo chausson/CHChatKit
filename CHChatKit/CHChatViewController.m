@@ -66,6 +66,9 @@
         make.left.and.right.offset(0);
         make.bottom.equalTo(self.chatView.mas_top).with.offset(0);
     }];
+    if (self.viewModel.draft.length > 0) {
+        [_chatView setKeyboardHidden:NO];
+    }
     [CHChatMessageHelper registerCellForTableView:self.chatTableView];
 }
 #pragma mark TableView Delagate
@@ -135,7 +138,7 @@
 #pragma mark Lazy Init
 - (CHChatToolView *)chatView{
     if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self configuration:_viewModel.configuration];
+        _chatView = [[CHChatToolView alloc]initWithObserver:self viewModel:self.viewModel];
         
     }
     return _chatView;

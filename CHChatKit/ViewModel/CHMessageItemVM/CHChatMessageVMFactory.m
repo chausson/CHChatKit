@@ -9,9 +9,7 @@
 #import "CHChatMessageVMFactory.h"
 #import "CHChatMessageViewModel+Protocol.h"
 @implementation CHChatMessageVMFactory
-+ (NSArray <Class>*)messageViewModelClasses{
-    return @[CHChatMessageTextVM.class];
-}
+
 + (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name

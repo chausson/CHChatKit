@@ -60,7 +60,7 @@
 - (void)executeTextEvent:(CHMessageTextEvent *)event{
     CHChatMessageTextVM *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:nil timeDate:event.date  nickName:nil content:event.text isOwner:YES];
     viewModel.receiveId = event.receiverId;
-    [viewModel changeSendingState:CHMessageSending];
+    viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
 
@@ -76,7 +76,7 @@
 - (void)executePictureEvent:(CHMessagePictureEvent *)event{
     CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:event.date nickName:nil resource:event.fullLocalPath size:event.fullPicture.size thumbnailImage:event.thumbnailPicture fullImage:event.fullPicture isOwner:YES];
     viewModel.receiveId = event.receiverId;
- //   viewModel.sendingState = CHMessageSending;
+    viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executePicture:)]) {
@@ -101,7 +101,7 @@
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
     CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:event.date nickName:nil fileName:event.fileName resource:event.file voiceLength:event.length isOwner:YES];
     viewModel.receiveId = event.receiverId;
- //   viewModel.sendingState = CHMessageSending;
+    viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executeVoice:)]) {

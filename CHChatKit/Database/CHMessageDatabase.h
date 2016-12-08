@@ -9,21 +9,26 @@
 #import <Foundation/Foundation.h>
 #import "CHChatMessageViewModel.h"
 @interface CHMessageDatabase : NSObject
-+ (CHMessageDatabase *)databaseWithName:(NSString *)name;
+@property (nonatomic , readonly) int userId;
 
++ (instancetype)new __unavailable;
++ (CHMessageDatabase *)databaseWithUserId:(int )identifier;
+- (instancetype)init __unavailable;
 - (void)saveMessage:(CHChatMessageViewModel *)viewModel;
 - (void)editMessage:(CHChatMessageViewModel *)viewModel;
 - (void)deleteMessage:(CHChatMessageViewModel *)viewModel;
-- (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithUser:(long long)userId
-                                                       receive:(long long)receiveId;
+- (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithReceive:(long long)receiveId;
 - (NSArray <CHChatMessageViewModel *>*)fetchIn:(CHChatMessageViewModel *)viewModel
-                                          user:(long long)userId
                                        receive:(long long)receiveId
                                          count:(NSInteger )count;
 - (NSArray <CHChatMessageViewModel *>*)fetchLastMessage:(NSInteger )count
-                                                   user:(long long)userId
                                                 receive:(long long)receiveId;
+- (void)removeAllMessages;
 
-- (void)removeAll;
+
+- (void)saveAndUpdateDraft:(NSString *)draft
+                   receive:(long long)receiveId;
+- (void)deleteDraftWithReceive:(long long)receiveId;
+- (NSString *)fetchDraftWithReceive:(long long)receiveId; // 获取草稿信息
 
 @end

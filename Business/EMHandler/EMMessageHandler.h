@@ -10,10 +10,11 @@
 #import <Foundation/Foundation.h>
 #import "CHMessageEventCenter.h"
 #import "EMSDK.h"
+#import "CHMessageDatabase.h"
 
 @interface EMMessageHandler : NSObject<CHMessageEventProtocl,EMChatManagerDelegate>
 @property (nonatomic ,readonly) NSString *userName;
-
+@property (nonatomic ,readonly) CHMessageDatabase *dataBase;
 + (instancetype)shareInstance;
 
 - (void)install:(NSString *)appkey

@@ -14,7 +14,6 @@
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatDefinition.h"
 @interface CHChatMessageVMFactory : NSObject
-+ (NSArray <Class>*)messageViewModelClasses;
 
 + (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
                                         timeDate:(NSString *)date

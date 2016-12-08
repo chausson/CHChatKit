@@ -14,6 +14,7 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "CHMessageDatabase.h"
 #import "CHChatToolView.h"
 #import "CHChatAssistanceView.h"
 #import "CHChatTextView.h"
@@ -62,7 +63,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 @implementation CHChatToolView
 
 - (instancetype)initWithObserver:(NSObject<CHKeyboardActivity>*)object
-                   configuration:(CHChatConfiguration *)config{
+                       viewModel:(CHChatViewModel *)viewModel{
     self = [super init];
     if (self) {
 
@@ -71,17 +72,17 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         if (object) {
             _observer = object;
         }
-        if (config) {
-            _config = config;
+        if (viewModel) {
+            _viewModel = viewModel;
         }
-        if (!config.fitToNaviation) {
+        if (!_viewModel.configuration.fitToNaviation) {
             self.currentScreenHeight -= 64;
         }
         
        // self.hidden = YES;
         self.frame = CGRectMake(0,self.currentScreenHeight-KINPUTVIEW_HEIGHT, [UIScreen mainScreen].bounds.size.width, (KINPUTVIEW_HEIGHT+KASSIGANTVIEW_HEIGHT));
             
-        self.backgroundColor = config.toolContentBackground;
+        self.backgroundColor = _viewModel.configuration.toolContentBackground;
         [self initInputView];
         [self addSubviewsAndAutoLayout];
         [self maekConstaints];
@@ -121,7 +122,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentView = [[UIView alloc]init];
     _contentView.backgroundColor = [UIColor clearColor];
     _contentTextView = [[CHChatTextView alloc]init];
-    _contentTextView.keyboardAppearance = _config.keyboardAppearance;
+    _contentTextView.keyboardAppearance = _viewModel.configuration.keyboardAppearance;
+    _contentTextView.text = _viewModel.draft;
     _contentBackground = [[UIImageView alloc]init];
     UIImage* img= [UIImage imageNamed:@"Action_Sheet_Normal_New"];//原图
     _contentBackground.image = img;
@@ -133,7 +135,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentBackground.backgroundColor = self.backgroundColor;
     _contentTextView.font = [UIFont systemFontOfSize:KCONTENT_FONT];
     _contentTextView.delegate = self;
-    _contentTextView.backgroundColor = _config.toolInputViewBackground;
+    _contentTextView.backgroundColor = _viewModel.configuration.toolInputViewBackground;
     _contentTextView.returnKeyType = UIReturnKeySend;
     
     _faceBoard = [[FaceBoard alloc] init];
@@ -141,7 +143,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _faceBoard.backgroundColor = self.backgroundColor;
     _assistanceView = [[CHChatAssistanceView alloc] init];
     _assistanceView.observer = _observer;
-    _assistanceView.config = _config;
+    _assistanceView.config = _viewModel.configuration;
     _assistanceView.backgroundColor = self.backgroundColor;
     
 
@@ -183,9 +185,9 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
 }
 - (void)maekConstaints{
-    CGFloat messageWH = _config.allowRecordVoice?KBUTTON_SIZE:0;
-    CGFloat emojiWH = _config.allowEmoji?KBUTTON_SIZE:0;
-    CGFloat assisatanceWH = _config.allowAssistance?KBUTTON_SIZE:0;
+    CGFloat messageWH = _viewModel.configuration.allowRecordVoice?KBUTTON_SIZE:0;
+    CGFloat emojiWH = _viewModel.configuration.allowEmoji?KBUTTON_SIZE:0;
+    CGFloat assisatanceWH = _viewModel.configuration.allowAssistance?KBUTTON_SIZE:0;
 
     UIEdgeInsets talkPadding = UIEdgeInsetsMake(KGAP, KGAP, KGAP, KGAP);
     [_talkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -538,22 +540,27 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
      
         return NO;
     }
-    if ([text length] != 0) {
-    }else{
+
+    if([_observer isKindOfClass:[CHChatViewController class]]){
+        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
+       
+            
+        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId];
+  
+
     }
+
     
     return YES;
 }
 - (void)sendText{
     if (_contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
-        e.group = _config.type;
+        e.group = _viewModel.configuration.type;
         e.text = _contentTextView.text;
-        if([_observer isKindOfClass:[CHChatViewController class]]){
-            CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
-            e.receiverId = vm?vm.receiveId:0;
-            e.userId = vm?vm.userId:0;
-        }
+        e.receiverId = _viewModel.receiveId;
+        e.userId = _viewModel.userId;
+        
         [[XEBEventBus defaultEventBus] postEvent:e];
         if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)] && [_observer respondsToSelector:@selector(sendMessage:)]) {
             [_observer performSelector:@selector(sendMessage:) withObject:_contentTextView.text];

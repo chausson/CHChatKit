@@ -29,6 +29,7 @@
 /** UI配置类*/
 @property (nonatomic ,readonly ) CHChatConfiguration *configuration;
 @property (nonatomic ,readonly ) NSString *refreshName;
-
+/** 草稿信息*/
+@property (nonatomic ,copy ) NSString *draft;
 
 @end

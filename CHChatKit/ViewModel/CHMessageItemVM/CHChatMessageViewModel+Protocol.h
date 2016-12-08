@@ -15,11 +15,17 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 @interface CHChatMessageViewModel ()
-
+@property (nonatomic ,copy) NSString *date;
+@property (nonatomic ,copy) NSString *nickName;
+@property (nonatomic ,assign) CHChatMessageType category;
+@property (nonatomic ,assign) CHMessageSendState sendingState;
+@property (nonatomic ,assign , getter= isVisableTime) BOOL visableTime;
+@property (nonatomic ,assign , getter= isOwner) BOOL owner;
 @end
 
 @interface CHChatMessageTextVM ()
 
+@property (nonatomic ,copy) NSString *content;
 
 @end
 @interface CHChatMessageFileVM ()

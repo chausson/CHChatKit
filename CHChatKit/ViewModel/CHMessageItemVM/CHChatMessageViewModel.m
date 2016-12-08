@@ -8,16 +8,14 @@
 
 #import "CHChatMessageViewModel.h"
 
-@implementation CHChatMessageViewModel{
-    void(^ stateCallBack)() ;
-}
+@implementation CHChatMessageViewModel
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _visableTime = YES;
-
+        _createDate = [NSDate date];
     }
     return self;
 }
@@ -32,32 +30,28 @@
         }
     }
 }
-- (CHChatMessageType )category{
-    return CHMessageNone;
+- (void)setNickName:(NSString *)nickName{
+    _nickName = nickName;
 }
-- (CHMessageSendState )sendState{
-    return [self.sendingState intValue];
+- (void)setSendingState:(CHMessageSendState)sendingState{
+    _sendingState = sendingState;
 }
-- (void)changeSendingState:(CHMessageSendState )state{
-    _sendingState = @(state);
-    if (stateCallBack) {
-        stateCallBack();
-    }
+- (void)setCategory:(CHChatMessageType)category{
+    _category = category;
 }
-- (void)setSendingStateCallBack:(void(^)())stateChange{
-    stateCallBack = stateChange;
+- (void)setDate:(NSString *)date{
+    _date = date;
+}
+- (void)setOwner:(BOOL)owner{
+    _owner = owner;
+}
+- (void)setVisableTime:(BOOL)visableTime{
+    _visableTime = visableTime;
 }
 - (void)resend{
     NSLog(@"重发消息");
 }
 
-+ (NSArray *)ignoredProperties {
-    return @[@"sendingState"];
-}
-// *Realm 默认值
-+ (NSDictionary *)defaultPropertyValues {
-    return @{@"createDate" :[NSDate date]};
-}
 
 
 

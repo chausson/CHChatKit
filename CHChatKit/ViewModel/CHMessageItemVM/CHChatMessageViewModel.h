@@ -15,22 +15,19 @@
 @required
 - (CHChatMessageType )category;
 @end
-@interface CHChatMessageViewModel : RLMObject<CHChatMessageViewModelProtocol>
+@interface CHChatMessageViewModel : NSObject
 
-@property NSString *icon;
-@property NSString *date;
-@property NSString *nickName;
-@property NSDate *createDate;
-@property BOOL visableTime;
-@property BOOL owner;
-@property BOOL visableNickName;
-@property long long receiveId; /* 消息接收人的id 没有的话默认是0 */
-@property long long senderId; /* 发送消息者的id 没有的话默认是0 */
-@property NSNumber<RLMInt> *sendingState;
-
-- (CHMessageSendState )sendState;
-- (void)setSendingStateCallBack:(void(^)())stateChange;
-- (void)changeSendingState:(CHMessageSendState )state;
+@property (nonatomic ,copy) NSString *icon;
+@property (nonatomic ,readonly) NSString *date;
+@property (nonatomic ,readonly) NSDate *createDate;
+@property (nonatomic ,readonly) NSString *nickName;
+@property (nonatomic ,readonly) CHChatMessageType category;
+@property (nonatomic ,readonly) CHMessageSendState sendingState;
+@property (nonatomic ,readonly , getter= isVisableTime) BOOL visableTime;
+@property (nonatomic ,readonly , getter= isOwner) BOOL owner;
+@property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
+@property (nonatomic ,assign) long long receiveId; /* 消息接收人的id 没有的话默认是0 */
+@property (nonatomic ,assign) long long senderId; /* 发送消息者的id 没有的话默认是0 */
 
 - (void)sortOutWithTime:(NSString *)time;
 /* 处理响应事件  */

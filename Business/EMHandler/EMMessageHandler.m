@@ -11,7 +11,7 @@
 #import "CHChatMessageViewModel+Protocol.h"
 #import "CHChatMessageTextVM.h"
 #import "CHChatMessageVMFactory.h"
-#import "CHMessageDatabase.h"
+
 #import <AudioToolbox/AudioToolbox.h>
 static NSString * changeDateToStr(long long timestamp){
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -20,10 +20,10 @@ static NSString * changeDateToStr(long long timestamp){
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
     return [formatter stringFromDate:date];
 }
-@implementation EMMessageHandler{
-    CHMessageDatabase *_dataBase;
-}
-
+@interface EMMessageHandler()
+@property (nonatomic ,strong) CHMessageDatabase *dataBase;
+@end
+@implementation EMMessageHandler
 + (instancetype)shareInstance{
     static id instance = nil;
     static dispatch_once_t onceToken;
@@ -50,7 +50,6 @@ static NSString * changeDateToStr(long long timestamp){
         if (aError == nil) {
             [[EMClient sharedClient].chatManager removeDelegate:self];
             [[EMClient sharedClient].chatManager addDelegate:self];
-            _dataBase = [CHMessageDatabase databaseWithName:userName]; // 创建本地数据库
         }else{
             NSLog(@"环信的错误信息=%@",aError.errorDescription);
         }
@@ -59,6 +58,7 @@ static NSString * changeDateToStr(long long timestamp){
 - (void)signOut{
     [[EMClient sharedClient] logout:YES];
 }
+
 #pragma mark POST-TEXT
 - (void)executeText:(CHChatMessageViewModel *)viewModel{
     [self EMTextPOST:(CHChatMessageTextVM *)viewModel];
@@ -70,14 +70,15 @@ static NSString * changeDateToStr(long long timestamp){
     //生成Message
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
     message.chatType = EMChatTypeChat;
+    __weak typeof(self)weakSelf = self;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+        __strong typeof(self)strongSelf = weakSelf;
         if (!error) {
-                [viewModel changeSendingState:CHMessageSendSuccess];
+            viewModel.sendingState = CHMessageSendSuccess;
         }else{
-                [viewModel changeSendingState:CHMessageSendFailure];
+            viewModel.sendingState = CHMessageSendFailure;
         }
-        [_dataBase saveMessage:viewModel];
-        NSLog(@"dataBBase  =%@",[_dataBase fetchAllMessageWithUser:viewModel.senderId receive:viewModel.receiveId]);
+        [strongSelf.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
     }];
 }
 
@@ -104,11 +105,11 @@ static NSString * changeDateToStr(long long timestamp){
                 viewModel.progress = current;
 
         } completion:^(EMMessage *message, EMError *error) {
-//            if (!error) {
-//                viewModel.sendingState = CHMessageSendSuccess;
-//            }else{
-//                viewModel.sendingState = CHMessageSendFailure;
-//            }
+            if (!error) {
+                viewModel.sendingState = CHMessageSendSuccess;
+            }else{
+                viewModel.sendingState = CHMessageSendFailure;
+            }
         }];
 
     //UIImage转换为NSData
@@ -125,11 +126,11 @@ static NSString * changeDateToStr(long long timestamp){
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
     message.chatType = EMChatTypeChat;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//        if (!error) {
-//            viewModel.sendingState = CHMessageSendSuccess;
-//        }else{
-//            viewModel.sendingState = CHMessageSendFailure;
-//        }
+        if (!error) {
+            viewModel.sendingState = CHMessageSendSuccess;
+        }else{
+            viewModel.sendingState = CHMessageSendFailure;
+        }
     }];
 }
 #pragma mark POST-LOCATION
@@ -184,5 +185,10 @@ static NSString * changeDateToStr(long long timestamp){
         
     }];
 }
-
+- (CHMessageDatabase *)dataBase{
+    if (!_dataBase) {
+        _dataBase = [CHMessageDatabase databaseWithUserId:[[EMMessageHandler shareInstance].userName intValue]];
+    }
+    return _dataBase;
+}
 @end

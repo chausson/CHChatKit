@@ -63,7 +63,7 @@ static NSString *refreshName = nil;
     //默认的聊天模式
     self.backgroundColor = self.superview.backgroundColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-   // [self ch_registerForKVO:@[@"viewModel.sendingState"]];
+    [self ch_registerForKVO:@[@"viewModel.sendingState"]];
     [self layoutContainer];
 
 }
@@ -197,18 +197,16 @@ static NSString *refreshName = nil;
     
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (!CGSizeEqualToSize(image.size, self.icon.image.size)) {
-                 [image ch_fitToSize:self.icon.frame.size];
+            [image ch_fitToSize:self.icon.frame.size];
         }
+        //        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        //        });
     }];
+    //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
     [self reloadSendingState];
-    __weak typeof(self ) weakSelf = self;
-    [self.viewModel setSendingStateCallBack:^{
-        __strong typeof(self) strongSelf =weakSelf;
-        [strongSelf reloadSendingState];
-    }];
     [self updateConstraints];
-
 }
 - (void)resend{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"重发该消息" preferredStyle:UIAlertControllerStyleAlert];
@@ -237,7 +235,7 @@ static NSString *refreshName = nil;
     return _viewModel;
 }
 - (void)reloadSendingState{
-    switch ([self.viewModel sendState]) {
+    switch (self.viewModel.sendingState) {
         case CHMessageSending:{
             [self.resendBtn setHidden:YES];
             [self.stateIndicatorView startAnimating];
@@ -245,7 +243,7 @@ static NSString *refreshName = nil;
         }case CHMessageSendFailure:{
             [self.stateIndicatorView stopAnimating];
             [self.resendBtn setHidden:NO];
-        break;
+            break;
             
         }default:
             [self.resendBtn setHidden:YES];
@@ -321,16 +319,16 @@ static NSString *refreshName = nil;
     }
     return _resendBtn;
 }
-#pragma mark KVO 2.0版本废弃该方法,Realm存储不支持监听
-//- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
-//    if ([key isEqualToString:@"viewModel.sendingState"]) {
-//        [self reloadSendingState];
-//    }
-//}
-//- (void)dealloc{
-//    [self ch_unregisterFromKVO];
-//
-//}
+#pragma mark KVO
+- (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
+    if ([key isEqualToString:@"viewModel.sendingState"]) {
+        [self reloadSendingState];
+    }
+}
+- (void)dealloc{
+    [self ch_unregisterFromKVO];
+    
+}
 
 
 @end

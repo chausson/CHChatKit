@@ -6,7 +6,7 @@
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "CHChatConfiguration.h"
+#import "CHChatViewModel.h"
 #import <UIKit/UIKit.h>
 @class CHChatToolView;
 @protocol CHKeyboardActivity <NSObject>
@@ -29,7 +29,7 @@
 
 @interface CHChatToolView : UIView
 
-@property (nonatomic , readonly) CHChatConfiguration *config;
+@property (nonatomic , readonly) CHChatViewModel *viewModel;
 - (instancetype)init __unavailable;
 - (instancetype)initWithFrame:(CGRect)frame __unavailable;
 /**
@@ -37,7 +37,7 @@
  * @return toolview实例对象
  */
 - (instancetype)initWithObserver:(NSObject<CHKeyboardActivity>*)object
-                   configuration:(CHChatConfiguration *)config;
+                       viewModel:(CHChatViewModel *)viewModel;
 /**
  * @brief 是否隐藏键盘
  */
