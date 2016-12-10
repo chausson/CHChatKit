@@ -447,7 +447,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 - (void)moveEmojiWithY:(CGFloat)y{
     CGRect rect = _faceBoard.frame;
     rect.origin.y =  y;
-    [UIView animateWithDuration:0.4f animations:^{
+    [UIView animateWithDuration:0.2f animations:^{
         _faceBoard.frame = rect;
     }];
 }

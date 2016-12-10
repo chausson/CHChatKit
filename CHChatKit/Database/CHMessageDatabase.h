@@ -12,8 +12,10 @@
 @property (nonatomic , readonly) int userId;
 
 + (instancetype)new __unavailable;
-+ (CHMessageDatabase *)databaseWithUserId:(int )identifier;
 - (instancetype)init __unavailable;
+
++ (CHMessageDatabase *)databaseWithUserId:(int )identifier;
+
 - (void)saveMessage:(CHChatMessageViewModel *)viewModel;
 - (void)editMessage:(CHChatMessageViewModel *)viewModel;
 - (void)deleteMessage:(CHChatMessageViewModel *)viewModel;

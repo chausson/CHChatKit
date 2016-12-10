@@ -29,6 +29,7 @@
         _viewModel = viewModel;
         self.title = viewModel.configuration.title;
         self.view.backgroundColor = [UIColor colorWithRed:235.0/ 255.0 green:235.0/255.0 blue:235.0 / 255.0 alpha:1];
+ 
     }
     return self;
 }
@@ -59,6 +60,9 @@
     [self.chatTableView addGestureRecognizer:keyBoardTap];
     [self.view addSubview:self.chatTableView];
     [self.view addSubview:self.chatView];
+    if (self.viewModel.draft.length > 0) {
+        [_chatView setKeyboardHidden:NO];
+    }
 
 //    [_chatView autoLayoutView];
     [self.chatTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,9 +70,7 @@
         make.left.and.right.offset(0);
         make.bottom.equalTo(self.chatView.mas_top).with.offset(0);
     }];
-    if (self.viewModel.draft.length > 0) {
-        [_chatView setKeyboardHidden:NO];
-    }
+
     [CHChatMessageHelper registerCellForTableView:self.chatTableView];
 }
 #pragma mark TableView Delagate
