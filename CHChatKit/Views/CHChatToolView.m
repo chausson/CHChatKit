@@ -533,25 +533,22 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 #pragma mark TextView_Delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    
     //按下send 键
+    
     if ([text isEqualToString:@"\n"]) {
         [self sendText];
-     
+        
         return NO;
     }
-
-    if([_observer isKindOfClass:[CHChatViewController class]]){
-        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
-       
-            
-        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId];
-  
-
-    }
-
     
     return YES;
+}
+- (void)textViewDidChange:(UITextView *)textView{
+    if([_observer isKindOfClass:[CHChatViewController class]]){
+        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
+        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId];
+
+    }
 }
 - (void)sendText{
     if (_contentTextView.text.length > 0) {
@@ -560,7 +557,8 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         e.text = _contentTextView.text;
         e.receiverId = _viewModel.receiveId;
         e.userId = _viewModel.userId;
-        
+        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
+        [dataBase deleteDraftWithReceive:self.viewModel.receiveId];
         [[XEBEventBus defaultEventBus] postEvent:e];
         if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)] && [_observer respondsToSelector:@selector(sendMessage:)]) {
             [_observer performSelector:@selector(sendMessage:) withObject:_contentTextView.text];
