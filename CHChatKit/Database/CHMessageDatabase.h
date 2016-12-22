@@ -34,7 +34,7 @@
                    receive:(long long)receiveId
                      group:(long long)groupId;
 - (void)deleteDraftWithReceive:(long long)receiveId;
-- (NSString *)fetchDraftWithReceive:(long long)receiveId; // 获取草稿信息
 - (void)deleteDraftWithGroup:(long long)groupId;
+- (NSString *)fetchDraftWithReceive:(long long)receiveId; // 获取草稿信息
 - (NSString *)fetchDraftWithGroup:(long long)groupId;
 @end

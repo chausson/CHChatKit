@@ -63,7 +63,7 @@ static NSString *refreshName = nil;
     //默认的聊天模式
     self.backgroundColor = self.superview.backgroundColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self ch_registerForKVO:@[@"viewModel.sendingState"]];
+    [self ch_registerForKVO:@[@"viewModel.sendingState",@"viewModel.icon"]];
     [self layoutContainer];
 
 }
@@ -194,14 +194,12 @@ static NSString *refreshName = nil;
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
     self.nickName.hidden = !viewModel.visableNickName;
-    
+    __weak typeof(self) weakSelf = self;
     [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (!CGSizeEqualToSize(image.size, self.icon.image.size)) {
-            [image ch_fitToSize:self.icon.frame.size];
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        if (!CGSizeEqualToSize(image.size, strongSelf.icon.image.size)) {
+            [image ch_fitToSize:strongSelf.icon.frame.size];
         }
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        
-        //        });
     }];
     //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
@@ -323,6 +321,14 @@ static NSString *refreshName = nil;
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
     if ([key isEqualToString:@"viewModel.sendingState"]) {
         [self reloadSendingState];
+    }else if ([key isEqualToString:@"viewModel.icon"]) {
+        __weak typeof(self) weakSelf = self;
+        [self.icon sd_setImageWithURL:[NSURL URLWithString:self.viewModel.icon] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            if (!CGSizeEqualToSize(image.size, strongSelf.icon.image.size)) {
+                [image ch_fitToSize:strongSelf.icon.frame.size];
+            }
+        }];
     }
 }
 - (void)dealloc{
