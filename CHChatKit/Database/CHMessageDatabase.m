@@ -144,7 +144,7 @@
 }
 - (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithGroupId:(long long)identifier{
     NSAssert(_userId != 0, @"数据库的UserId尚未设置");
-    NSString *where = [NSString stringWithFormat:@"senderId = %d AND groudId = %lld",_userId,identifier];
+    NSString *where = [NSString stringWithFormat:@"senderId = %d AND groupId = %lld",_userId,identifier];
     RLMResults<CHRLMMessage *> *msgs = [CHRLMMessage objectsInRealm:self.realm where:where];
     NSLog(@"url = %@ \n DATA = %@",self.realm.configuration.fileURL.absoluteString,msgs);
     NSMutableArray <CHChatMessageViewModel *>*array = [NSMutableArray arrayWithCapacity:msgs.count];
@@ -161,10 +161,12 @@
     return [array copy];
 }
 - (void)saveAndUpdateDraft:(NSString *)draft
-                   receive:(long long)receiveId{
+                   receive:(long long)receiveId
+                     group:(long long)groupId{
     CHRLMConversation *conversation = [[CHRLMConversation alloc]init];
     conversation.draft = draft;
     conversation.receiveId = (int)receiveId;
+    conversation.groupId = (int)groupId;
     [self.realm beginWriteTransaction];
     [self.realm addOrUpdateObject:conversation];
     [self.realm commitWriteTransaction];
@@ -180,6 +182,20 @@
 }
 - (NSString *)fetchDraftWithReceive:(long long)receiveId{
     NSString *where = [NSString stringWithFormat:@"receiveId = %lld",receiveId];
+    RLMResults <CHRLMConversation *> *draft =[CHRLMConversation objectsInRealm:_realm where:where];
+    return [draft firstObject].draft;
+}
+- (void)deleteDraftWithGroup:(long long)groupId{
+    NSString *where = [NSString stringWithFormat:@"groupId = %lld",groupId];
+    RLMResults <CHRLMConversation *> *draft =[CHRLMConversation objectsInRealm:_realm where:where];
+    if (draft.firstObject) {
+        [self.realm beginWriteTransaction];
+        [self.realm deleteObject:draft.firstObject];
+        [self.realm commitWriteTransaction];
+    }
+}
+- (NSString *)fetchDraftWithGroup:(long long)groupId{
+    NSString *where = [NSString stringWithFormat:@"groupId = %lld",groupId];
     RLMResults <CHRLMConversation *> *draft =[CHRLMConversation objectsInRealm:_realm where:where];
     return [draft firstObject].draft;
 }
@@ -204,6 +220,7 @@
     msg.sendingState = (int)viewModel.sendingState;
     msg.receiveId = (int)viewModel.receiveId;
     msg.senderId = (int)viewModel.senderId;
+    msg.groupId = (int)viewModel.groupId;
     msg.date = viewModel.date;
     switch (viewModel.category) {
         case CHMessageText:{
@@ -254,7 +271,7 @@
 - (RLMResults<CHRLMMessage *>*)fetchAllMessageUser:(long long)user
                                            receive:(long long)receive
                                            groupId:(long long)group{
-    NSString *where = [NSString stringWithFormat:@"senderId = %lld AND receiveId = %lld AND groudId = %lld",user,receive,group];
+    NSString *where = [NSString stringWithFormat:@"senderId = %lld AND receiveId = %lld AND groupId = %lld",user,receive,group];
     RLMResults<CHRLMMessage *> *msgs = [CHRLMMessage objectsInRealm:self.realm where:where];
     
     return msgs;

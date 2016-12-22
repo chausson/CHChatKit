@@ -11,4 +11,5 @@
 @interface CHRLMConversation : RLMObject
 @property NSString *draft;
 @property int receiveId;
+@property int groupId;
 @end

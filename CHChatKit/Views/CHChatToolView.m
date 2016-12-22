@@ -547,7 +547,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 - (void)textViewDidChange:(UITextView *)textView{
     if([_observer isKindOfClass:[CHChatViewController class]]){
         CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
-        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId];
+        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId group:self.viewModel.groupId];
 
     }
 }
