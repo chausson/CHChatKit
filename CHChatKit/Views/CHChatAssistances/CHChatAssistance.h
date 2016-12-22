@@ -23,6 +23,7 @@
 @property (nonatomic , readwrite) NSString *identifier;
 @property (nonatomic , assign) long long receiveId;
 @property (nonatomic , assign) long long userId;
+@property (nonatomic , assign) long long groupId;
 @property (assign ,nonatomic ,getter=isGroup) BOOL group; // 群聊
 + (void)registerSubclass;
 /* 事件处理方法，参数是事件响应者 */

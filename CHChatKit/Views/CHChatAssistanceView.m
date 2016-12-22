@@ -105,6 +105,7 @@
                     CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
                     assinstance.receiveId = vm?vm.receiveId:0;
                     assinstance.userId = vm?vm.userId:0;
+                    assinstance.groupId = vm?vm.groupId:0;
                 }
                 *stop = YES;
             }

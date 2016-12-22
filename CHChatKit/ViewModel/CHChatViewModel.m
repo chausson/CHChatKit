@@ -47,7 +47,7 @@
     return @[[CHMessageReceiveEvent class]];
 }
 - (void)onEvent:(CHMessageReceiveEvent *)event{
-    if(event.receiverId == self.receiveId || event.item.owner){
+    if(event.item.receiveId == self.receiveId || event.item.groupId != 0){
         NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
         event.item.owner?(event.item.icon = self.userIcon):(event.item.icon = self.receiverIcon);
         [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];

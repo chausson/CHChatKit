@@ -62,6 +62,7 @@
     viewModel.receiveId = event.receiverId;
     viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
+    viewModel.groupId = event.groupId;
     [self receiveMessage:viewModel];
 
     if ([self.delegate respondsToSelector:@selector(executeText:)]) {
@@ -78,6 +79,7 @@
     viewModel.receiveId = event.receiverId;
     viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
+    viewModel.groupId = event.groupId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executePicture:)]) {
         if (event.isGroup) {
@@ -103,6 +105,7 @@
     viewModel.receiveId = event.receiverId;
     viewModel.sendingState = CHMessageSending;
     viewModel.senderId = event.userId;
+    viewModel.groupId = event.groupId;
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executeVoice:)]) {
         if (event.isGroup) {
@@ -112,17 +115,10 @@
         }
     }
 }
-- (void)save:(CHChatMessageTextVM *)viewModel{
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    NSLog(@"realm =%@",realm.configuration.fileURL.absoluteString);
-    [realm transactionWithBlock:^{
-        [realm addObject:viewModel];
-    }];
-}
 - (void)receiveMessage:(CHChatMessageViewModel *)viewModel{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];
     r.item = viewModel;
-    r.receiverId = viewModel.receiveId;
+
     if([_eventBus hasSubscriberForEventClass:[CHMessageReceiveEvent class]]){
         [_eventBus postEvent:r];
     }

@@ -492,6 +492,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         CHChatViewModel *vm = [(CHChatViewController *)_observer valueForKey:@"viewModel"];
         e.receiverId = vm?vm.receiveId:0;
         e.userId = vm?vm.userId:0;
+        e.groupId = vm?vm.groupId:0;
     }
 
     e.length = [CHRecordHandler standardDefault].recordSecs;
@@ -554,6 +555,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     if (_contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
         e.group = _viewModel.configuration.type;
+        e.groupId = _viewModel.groupId;
         e.text = _contentTextView.text;
         e.receiverId = _viewModel.receiveId;
         e.userId = _viewModel.userId;

@@ -28,6 +28,7 @@
 @property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
 @property (nonatomic ,assign) long long receiveId; /* 消息接收人的id 没有的话默认是0 */
 @property (nonatomic ,assign) long long senderId; /* 发送消息者的id 没有的话默认是0 */
+@property (nonatomic ,assign) long long groupId; /* 群组id 0代表没有群组 */
 
 - (void)sortOutWithTime:(NSString *)time;
 /* 处理响应事件  */

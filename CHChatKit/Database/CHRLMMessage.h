@@ -20,6 +20,7 @@
 @property int sendingState;
 @property int receiveId;
 @property int senderId;
+@property int groupId;
 @property NSString *text;
 @property NSString *date;
 

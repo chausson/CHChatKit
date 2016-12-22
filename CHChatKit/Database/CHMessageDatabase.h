@@ -19,6 +19,10 @@
 - (void)saveMessage:(CHChatMessageViewModel *)viewModel;
 - (void)editMessage:(CHChatMessageViewModel *)viewModel;
 - (void)deleteMessage:(CHChatMessageViewModel *)viewModel;
+/**
+ @brief 获取数据接口
+ */
+- (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithGroupId:(long long)identifier;
 - (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithReceive:(long long)receiveId;
 - (NSArray <CHChatMessageViewModel *>*)fetchIn:(CHChatMessageViewModel *)viewModel
                                        receive:(long long)receiveId
@@ -26,8 +30,6 @@
 - (NSArray <CHChatMessageViewModel *>*)fetchLastMessage:(NSInteger )count
                                                 receive:(long long)receiveId;
 - (void)removeAllMessages;
-
-
 - (void)saveAndUpdateDraft:(NSString *)draft
                    receive:(long long)receiveId;
 - (void)deleteDraftWithReceive:(long long)receiveId;

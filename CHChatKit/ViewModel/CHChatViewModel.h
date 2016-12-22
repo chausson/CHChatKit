@@ -24,6 +24,7 @@
 /** 接收图标*/
 @property (nonatomic ,copy ) NSString *receiverIcon;
 
+@property (nonatomic ,assign) long long groupId;
 @property (nonatomic ,assign) long long receiveId;
 @property (nonatomic ,assign) long long userId;
 /** UI配置类*/

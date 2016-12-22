@@ -56,7 +56,6 @@
 }
 
 - (void)saveMessage:(CHChatMessageViewModel *)viewModel{
-
     CHRLMMessage *msg = [self createRLMWithVM:viewModel];
     [self.realm beginWriteTransaction];
     [self.realm addObject:msg];
@@ -90,7 +89,7 @@
 
 - (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithReceive:(long long)receiveId{
     NSAssert(_userId != 0, @"数据库的UserId尚未设置");
-    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId];
+    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId groupId:0];
     NSLog(@"url = %@ \n DATA = %@",self.realm.configuration.fileURL.absoluteString,msgs);
     NSMutableArray <CHChatMessageViewModel *>*array = [NSMutableArray arrayWithCapacity:msgs.count];
     for (CHRLMMessage *message in msgs) {
@@ -108,7 +107,7 @@
 - (NSArray <CHChatMessageViewModel *>*)fetchLastMessage:(NSInteger )count
                                                 receive:(long long)receiveId{
     NSAssert(_userId != 0, @"数据库的UserId尚未设置");
-    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId];
+    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId groupId:0];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i < count; i++) {
         CHChatMessageViewModel *vm = [self buildVMWithMessage:[msgs objectAtIndex:i]];
@@ -126,7 +125,7 @@
                                        receive:(long long)receiveId
                                          count:(NSInteger )count{
     NSAssert(_userId != 0, @"数据库的UserId尚未设置");
-    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId];
+    RLMResults<CHRLMMessage *> *msgs = [self fetchAllMessageUser:_userId receive:receiveId groupId:0];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:count];
     CHRLMMessage *msg = [self findRLMWithVM:viewModel];
     int index = (int)[msgs indexOfObject:msg];
@@ -141,6 +140,24 @@
         }
     }
     
+    return [array copy];
+}
+- (NSArray <CHChatMessageViewModel *>*)fetchAllMessageWithGroupId:(long long)identifier{
+    NSAssert(_userId != 0, @"数据库的UserId尚未设置");
+    NSString *where = [NSString stringWithFormat:@"senderId = %d AND groudId = %lld",_userId,identifier];
+    RLMResults<CHRLMMessage *> *msgs = [CHRLMMessage objectsInRealm:self.realm where:where];
+    NSLog(@"url = %@ \n DATA = %@",self.realm.configuration.fileURL.absoluteString,msgs);
+    NSMutableArray <CHChatMessageViewModel *>*array = [NSMutableArray arrayWithCapacity:msgs.count];
+    for (CHRLMMessage *message in msgs) {
+        CHChatMessageViewModel *vm = [self buildVMWithMessage:message];
+        if (vm) {
+            [array addObject:vm];
+        }else{
+            NSString *error = [NSString stringWithFormat:@"%s有未找到类型的Message",__PRETTY_FUNCTION__];
+            NSAssert(NO, error);
+        }
+        
+    }
     return [array copy];
 }
 - (void)saveAndUpdateDraft:(NSString *)draft
@@ -160,7 +177,6 @@
         [self.realm deleteObject:draft.firstObject];
         [self.realm commitWriteTransaction];
     }
-
 }
 - (NSString *)fetchDraftWithReceive:(long long)receiveId{
     NSString *where = [NSString stringWithFormat:@"receiveId = %lld",receiveId];
@@ -212,6 +228,7 @@
         msg.sendingState = (int)aViewModel.sendingState;
         msg.receiveId = (int)aViewModel.receiveId;
         msg.senderId = (int)aViewModel.senderId;
+        msg.groupId = (int)aViewModel.groupId;
         switch (aViewModel.category) {
             case CHMessageText:{
                 CHChatMessageTextVM *text = (CHChatMessageTextVM *)aViewModel;
@@ -235,8 +252,9 @@
     
 }
 - (RLMResults<CHRLMMessage *>*)fetchAllMessageUser:(long long)user
-                                          receive:(long long)receive{
-    NSString *where = [NSString stringWithFormat:@"senderId = %lld AND receiveId = %lld",user,receive];
+                                           receive:(long long)receive
+                                           groupId:(long long)group{
+    NSString *where = [NSString stringWithFormat:@"senderId = %lld AND receiveId = %lld AND groudId = %lld",user,receive,group];
     RLMResults<CHRLMMessage *> *msgs = [CHRLMMessage objectsInRealm:self.realm where:where];
     
     return msgs;

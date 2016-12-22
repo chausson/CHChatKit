@@ -65,6 +65,7 @@
         event.group = self.group;
         event.fullLocalPath = url.absoluteString;
         event.receiverId = strongSelf.receiveId;
+        event.groupId = strongSelf.groupId;
         event.userId = strongSelf.userId;
         event.fullPicture = image;
         [[XEBEventBus defaultEventBus] postEvent:event];

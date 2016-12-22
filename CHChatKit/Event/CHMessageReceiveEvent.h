@@ -8,6 +8,6 @@
 
 #import "CHMessageEvent.h"
 @class CHChatMessageViewModel;
-@interface CHMessageReceiveEvent : CHMessageEvent
+@interface CHMessageReceiveEvent : NSObject
 @property (nonatomic ,strong ) CHChatMessageViewModel *item;
 @end
