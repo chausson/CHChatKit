@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Realm/Realm.h>
 #import "CHChatDefinition.h"
 
 @class CHChatMessageViewModel;
