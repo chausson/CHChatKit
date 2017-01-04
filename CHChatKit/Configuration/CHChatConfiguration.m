@@ -28,30 +28,29 @@
     return instance;
 }
 
-- (void)addAssistance:(NSString *)identifier{
+- (void)addAssistance:(Class )aClass{
     @synchronized (self) {
         NSMutableArray *items = [NSMutableArray arrayWithArray:_assistances];
         
-        [items addObject:identifier];
+        [items addObject:aClass];
         
         _assistances = [items copy];
     }
 }
-- (void)addAssistances:(NSArray  <NSString *>*)identifiers{
-    @synchronized (self) {
+- (void)addAssistances:(NSArray  <Class >*)aClasses{
+        @synchronized (self) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:_assistances];
-        [identifiers enumerateObjectsUsingBlock:^(NSString *identifier, NSUInteger idx, BOOL *  stop) {
-            [array addObject:identifier];
-        }];
+        [array addObjectsFromArray:aClasses];
         _assistances = [array copy];
     }
 }
-- (void)removeAssistanceItem:(NSString *)identifier{
+- (void)removeAssistanceItem:(Class )aClass{
     @synchronized (self) {
         NSMutableArray *items = [NSMutableArray arrayWithArray:_assistances];
-        [items enumerateObjectsUsingBlock:^(NSString * _Nonnull assistanceIdentifier, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([assistanceIdentifier isEqualToString:identifier]) {
-                [items removeObject:assistanceIdentifier];
+
+        [items enumerateObjectsUsingBlock:^(Class class, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([NSStringFromClass(aClass) isEqualToString:NSStringFromClass(class)]) {
+                [items removeObject:aClass];
                 *stop = YES;
             }
         }];

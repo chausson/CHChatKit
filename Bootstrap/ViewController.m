@@ -10,6 +10,8 @@
 #import "CHChatViewController.h"
 #import "CHChatConfiguration.h"
 #import "CHMessageDatabase.h"
+#import "CHPictureAssistance.h"
+#import "CHPickPhotoAssistance.h"
 #import "EMMessageHandler.h"
 #import "YYFPSLabel.h"
 
@@ -33,7 +35,7 @@
     
     CHChatConfiguration *configuration = [CHChatConfiguration defultConfigruration];
     configuration.title = @"聊天";
-    [configuration addAssistances:@[CHPictureAssistanceIdentifer,CHPickPhotoAssistanceIdentifer,CHLocationAssistanceIdentifer]];
+    [configuration addAssistances:@[[CHPictureAssistance class],[CHPickPhotoAssistance class]]];
     int userId = [[EMMessageHandler shareInstance].userName intValue];
     int receiveId = 14060;
     CHMessageDatabase *data =  [CHMessageDatabase databaseWithUserId:userId];

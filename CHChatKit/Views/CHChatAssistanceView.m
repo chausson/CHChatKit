@@ -60,13 +60,12 @@
 }
 - (void)setConfig:(CHChatConfiguration *)config{
     _config = config;
-    NSArray <NSString *>* assistanceItems = config.assistances;
     [chatAssistanceScrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
     }];
-    [assistanceItems enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, NSUInteger i, BOOL * _Nonnull stop) {
+    [config.assistances enumerateObjectsUsingBlock:^(Class  _Nonnull obj, NSUInteger i, BOOL * _Nonnull stop) {
         UIButton *itemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        CHChatAssistance *assistance = [self fetchAssistance:identifier];
+        CHChatAssistance *assistance = [self fetchAssistance:obj];
         assistance.group = config.type;
         [itemButton addTarget:self action:@selector(itemButton:) forControlEvents:UIControlEventTouchUpInside];
         itemButton.tag = i;
@@ -88,15 +87,16 @@
         itemTitle.textAlignment = NSTextAlignmentCenter;
         [chatAssistanceScrollView addSubview:itemTitle];
     }];
-    chatAssistanceScrollView.contentSize = CGSizeMake((assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1) * [UIScreen mainScreen].bounds.size.width, 190);
+
+    chatAssistanceScrollView.contentSize = CGSizeMake((config.assistances.count / CHATASSISTANCE_COUNT_PAGE + 1) * [UIScreen mainScreen].bounds.size.width, 190);
     assistancePageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(assistancePageControl.frame.origin.x, 190, assistancePageControl.frame.size.width, assistancePageControl.frame.size.height)];
     [assistancePageControl addTarget:self action:@selector(pageChange:) forControlEvents:UIControlEventValueChanged];
-    assistancePageControl.numberOfPages = assistanceItems.count / CHATASSISTANCE_COUNT_PAGE + 1;
+    assistancePageControl.numberOfPages = config.assistances.count / CHATASSISTANCE_COUNT_PAGE + 1;
     assistancePageControl.currentPage = 0;
     [self addSubview:assistancePageControl];
 }
-- (CHChatAssistance *)fetchAssistance:(NSString *)identifier{
-    Class prettyClass = [AssistanceDic objectForKey:identifier];
+- (CHChatAssistance *)fetchAssistance:(Class )aClass{
+    Class prettyClass = aClass;
     __block CHChatAssistance *assinstance ;
         [_assistances enumerateObjectsUsingBlock:^(CHChatAssistance * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([prettyClass isSubclassOfClass:obj.class]  ) {
@@ -137,8 +137,7 @@
 }
 
 - (void)itemButton:(UIButton *)sender {
-    NSArray <NSString *>* assistanceItems = _config.assistances;
-    CHChatAssistance *assistance = [self fetchAssistance:assistanceItems[sender.tag]];
+    CHChatAssistance *assistance = [self fetchAssistance:_config.assistances[sender.tag]];
     [assistance executeEvent:self.observer];
 }
 

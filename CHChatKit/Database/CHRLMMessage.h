@@ -11,7 +11,7 @@
 @interface CHRLMMessage : RLMObject
 
 @property NSDate *createDate;
-@property NSString *icon;
+@property NSString *avatar;
 @property NSString *nickName;
 @property BOOL visableTime;
 @property BOOL owner;
@@ -21,7 +21,7 @@
 @property int receiveId;
 @property int senderId;
 @property int groupId;
-@property NSString *text;
 @property NSString *date;
+@property NSString *body;
 
 @end

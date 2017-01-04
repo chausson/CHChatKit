@@ -15,20 +15,20 @@
 #import "CHChatDefinition.h"
 @interface CHChatMessageVMFactory : NSObject
 
-+ (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
++ (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                          content:(NSString *)content
                                          isOwner:(BOOL)owner;
 
-+ (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)icon
++ (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         filePath:(NSString *)file
                                          isOwner:(BOOL)owner
                                         category:(CHChatMessageType )category;
 
-+ (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)icon
++ (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)avatar
                                               timeDate:(NSString *)date
                                               nickName:(NSString *)name
                                               areaName:(NSString *)title
@@ -37,7 +37,7 @@
                                               snapshot:(UIImage *)map
                                               location:(CLLocationCoordinate2D)coor
                                                isOwner:(BOOL)owner;
-+ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
++ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
@@ -46,7 +46,7 @@
                                        fullImage:(UIImage *)image
                                          isOwner:(BOOL)owner;
 
-+ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
++ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         fileName:(NSString *)fileName

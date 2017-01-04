@@ -7,7 +7,6 @@
 //
 
 #import "CHChatMessageTextVM.h"
-
 @implementation CHChatMessageTextVM
 
 - (CHChatMessageType )category{

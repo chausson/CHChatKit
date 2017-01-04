@@ -10,13 +10,7 @@
 #import "CHChatDefinition.h"
 #import "XEBEventBus.h"
 
-@class CHChatAssistance;
-@protocol CHChatAssistanceProtocol <NSObject>
-@required
-+ (NSString *)registerAssistance;
-
-@end
-@interface CHChatAssistance : NSObject<CHChatAssistanceProtocol>
+@interface CHChatAssistance : NSObject
 
 @property (nonatomic , readonly) NSString *title;
 @property (nonatomic , readonly) NSString *picture;
@@ -25,8 +19,10 @@
 @property (nonatomic , assign) long long userId;
 @property (nonatomic , assign) long long groupId;
 @property (assign ,nonatomic ,getter=isGroup) BOOL group; // 群聊
+/* 注册的插件需要在load中 实现该方法*/
 + (void)registerSubclass;
 /* 事件处理方法，参数是事件响应者 */
 - (void)executeEvent:(id )responder;
+- (void)postEvent;
 
 @end

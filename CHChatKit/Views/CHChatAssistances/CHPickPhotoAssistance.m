@@ -12,9 +12,6 @@
 @interface CHPickPhotoAssistance ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @end;
 @implementation CHPickPhotoAssistance
-+ (NSString *)registerAssistance{
-    return CHPickPhotoAssistanceIdentifer;
-}
 
 + (void)load{
     [self registerSubclass];
@@ -56,11 +53,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     __weak typeof(self) weakSelf = self;
     [picker dismissViewControllerAnimated:YES completion:^{
-        __strong typeof(self) strongSelf = weakSelf;
+        __strong typeof(weakSelf) strongSelf = weakSelf;
         NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
-        event.group = self.group;
+        event.group = strongSelf.group;
         event.fullLocalPath = url.absoluteString;
         event.receiverId = strongSelf.receiveId;
         event.groupId = strongSelf.groupId;

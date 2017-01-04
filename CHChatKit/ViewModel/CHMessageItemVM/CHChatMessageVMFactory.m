@@ -10,7 +10,7 @@
 #import "CHChatMessageViewModel+Protocol.h"
 @implementation CHChatMessageVMFactory
 
-+ (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)icon
++ (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                          content:(NSString *)content
@@ -20,11 +20,11 @@
     textVM.nickName = name;
     textVM.date = date;
     textVM.owner = owner;
-    textVM.icon = icon;
+    textVM.avatar = avatar;
     return textVM;
 }
 
-+ (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)icon
++ (CHChatMessageFileVM *)factoryFileOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         filePath:(NSString *)file
@@ -35,11 +35,11 @@
     fileVM.nickName = name;
     fileVM.date = date;
     fileVM.owner = owner;
-    fileVM.icon = icon;
+    fileVM.avatar = avatar;
 //    fileVM.category = category;
     return fileVM;
 }
-+ (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)icon
++ (CHChatMessageLocationVM *)factoryLoactionOfUserIcon:(NSString *)avatar
                                               timeDate:(NSString *)date
                                               nickName:(NSString *)name
                                               areaName:(NSString *)title
@@ -52,7 +52,7 @@
     locationVM.nickName = name;
     locationVM.date = date;
     locationVM.owner = owner;
-    locationVM.icon = icon;
+    locationVM.avatar = avatar;
     locationVM.filePath = path;
     locationVM.areaDetail = detail;
     locationVM.areaName = title;
@@ -60,7 +60,7 @@
     locationVM.coor = coor;
     return locationVM;
 }
-+ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)icon
++ (CHChatMessageImageVM *)factoryImageOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         resource:(NSString *)path
@@ -72,14 +72,14 @@
     imageVM.nickName = name;
     imageVM.date = date;
     imageVM.owner = owner;
-    imageVM.icon = icon;
+    imageVM.avatar = avatar;
     imageVM.thumbnailImage = thumbnail;
     imageVM.size = size;
     imageVM.fullImage = image;
     imageVM.filePath = path;
     return imageVM;
 }
-+ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)icon
++ (CHChatMessageVoiceVM *)factoryVoiceOfUserIcon:(NSString *)avatar
                                         timeDate:(NSString *)date
                                         nickName:(NSString *)name
                                         fileName:(NSString *)fileName
@@ -91,7 +91,7 @@
     voiceVM.fileName = fileName;
     voiceVM.date = date;
     voiceVM.owner = owner;
-    voiceVM.icon = icon;
+    voiceVM.avatar = avatar;
     voiceVM.length = length;
     voiceVM.filePath = path;
     return voiceVM;

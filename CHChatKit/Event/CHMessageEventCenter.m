@@ -12,10 +12,10 @@
 #import "CHMessageEvent.h"
 #import "CHMessageTextEvent.h"
 #import "CHMessagePictureEvent.h"
-#import "CHMessageLocationEvent.h"
 #import "CHMessageReceiveEvent.h"
 #import "CHChatMessageVMFactory.h"
 #import "CHMessageVoiceEvent.h"
+#import "CHMessageAssistanceEvent.h"
 #import "CHChatMessageViewModel+Protocol.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -47,11 +47,11 @@
     }else if ([event isKindOfClass:[CHMessagePictureEvent class]]){
         [self executePictureEvent:(CHMessagePictureEvent *)event];
         return;
-    }else if ([event isKindOfClass:[CHMessageLocationEvent class]]){
-        [self executeLocationEvent:(CHMessageLocationEvent *)event];
-        return;
     }else if ([event isKindOfClass:[CHMessageVoiceEvent class]]){
         [self executeVoiceEvent:(CHMessageVoiceEvent *)event];
+        return;
+    }else if ([event isKindOfClass:[CHMessageAssistanceEvent class]]){
+        [self executeAssistanceEvent:(CHMessageAssistanceEvent *)event];
         return;
     }
 }
@@ -83,23 +83,13 @@
     [self receiveMessage:viewModel];
     if ([self.delegate respondsToSelector:@selector(executePicture:)]) {
         if (event.isGroup) {
-            [self.delegate executePicture:viewModel];
+            [self.delegate executeGroupPicture:viewModel];
         }else{
             [self.delegate executePicture:viewModel];
         }
     }
 }
-- (void)executeLocationEvent:(CHMessageLocationEvent *)event{
-    CHChatMessageLocationVM *viewModel = [CHChatMessageVMFactory factoryLoactionOfUserIcon:nil timeDate:event.date nickName:nil areaName:event.title areaDetail:event.detail resource:event.file snapshot:event.map location:event.location.coordinate isOwner:YES];
-    [self receiveMessage:viewModel];
-    if ([self.delegate respondsToSelector:@selector(executeLocation:)]) {
-        if (event.isGroup) {
-            [self.delegate executeGroupLocation:viewModel];
-        }else{
-            [self.delegate executeLocation:viewModel];
-        }
-    }
-}
+
 - (void)executeVoiceEvent:(CHMessageVoiceEvent *)event{
     CHChatMessageVoiceVM *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:nil timeDate:event.date nickName:nil fileName:event.fileName resource:event.file voiceLength:event.length isOwner:YES];
     viewModel.receiveId = event.receiverId;
@@ -115,6 +105,19 @@
         }
     }
 }
+- (void)executeAssistanceEvent:(CHMessageAssistanceEvent *)event{
+    if ([self.delegate respondsToSelector:@selector(executeAssistance:)]) {
+        CHChatMessageViewModel *viewModel;
+        if (event.isGroup) {
+            viewModel = [self.delegate executeAssistance:event.item];
+        }else{
+            viewModel = [self.delegate executeGroupAssistance:event.item];
+        }
+        [self receiveMessage:viewModel];
+    }else{
+        NSLog(@"插件事件需要在EventCenter的代理里面实现");
+    }
+}
 - (void)receiveMessage:(CHChatMessageViewModel *)viewModel{
     CHMessageReceiveEvent *r = [CHMessageReceiveEvent new];
     r.item = viewModel;
@@ -128,6 +131,6 @@
     [_eventBus unregisterSubscriber: self];
 }
 + (NSArray<Class>*)handleableEventClasses {
-    return @[ [CHMessageTextEvent class],[CHMessagePictureEvent class],[CHMessageLocationEvent class] ,[CHMessageVoiceEvent class]];
+    return @[ [CHMessageTextEvent class],[CHMessagePictureEvent class],[CHMessageVoiceEvent class],[CHMessageAssistanceEvent class]];
 }
 @end

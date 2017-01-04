@@ -68,11 +68,12 @@ static NSString * changeDateToStr(long long timestamp){
     NSString *from = self.userName;
     NSString *to = [NSString stringWithFormat:@"%lld",viewModel.receiveId];
     //生成Message
+    
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
     message.chatType = EMChatTypeChat;
     __weak typeof(self)weakSelf = self;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-        __strong typeof(self)strongSelf = weakSelf;
+        __strong typeof(weakSelf)strongSelf = weakSelf;
         if (!error) {
             viewModel.sendingState = CHMessageSendSuccess;
         }else{
@@ -98,6 +99,7 @@ static NSString * changeDateToStr(long long timestamp){
         EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:data displayName:viewModel.imageName];
         EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
         message.chatType = EMChatTypeChat;// 设置为单聊消息
+        __weak typeof(self)weakSelf = self;
         [[EMClient sharedClient].chatManager sendMessage:message progress:^(int progress) {
 
                 NSProgress *current = [NSProgress progressWithTotalUnitCount:100];
@@ -105,11 +107,15 @@ static NSString * changeDateToStr(long long timestamp){
                 viewModel.progress = current;
 
         } completion:^(EMMessage *message, EMError *error) {
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+
             if (!error) {
                 viewModel.sendingState = CHMessageSendSuccess;
             }else{
                 viewModel.sendingState = CHMessageSendFailure;
             }
+            [strongSelf.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
+
         }];
 
     //UIImage转换为NSData
@@ -161,7 +167,7 @@ static NSString * changeDateToStr(long long timestamp){
                                 UIImage *fullImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:body.localPath]];
                                 CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.remotePath size:body.size thumbnailImage:nil fullImage:fullImage isOwner:NO];
                                 viewModel.receiveId = [msg.from intValue];
-                                viewModel.fullPath = body.localPath;
+                                viewModel.filePath = body.localPath;
                                 [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
                             }
                             

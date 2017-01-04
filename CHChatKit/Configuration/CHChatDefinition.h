@@ -19,9 +19,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 static NSString *const CHChatCellOwnerIdentifier = @"OwnerIdentifier";
 static NSString *const CHChatCellOthersIdentifier = @"OthersIdentifier";
 
-static NSString *const CHLocationAssistanceIdentifer = @"CHLocationIdentifier";// 位置
-static NSString *const CHPictureAssistanceIdentifer = @"CHPictureIdentifer"; // 图片
-static NSString *const CHPickPhotoAssistanceIdentifer = @"CHPickPhotoIdentifer";// 照片机
 
 FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* ChatCellMessageCatagory ;
 FOUNDATION_EXTERN NSMutableDictionary <NSString *,Class>const* AssistanceDic ;

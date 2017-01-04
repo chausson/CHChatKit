@@ -18,7 +18,7 @@
 @property (nonatomic ,strong) UIColor *toolContentBackground;
 @property (nonatomic ,strong) UIColor *toolInputViewBackground;
 
-@property (nonatomic ,readonly) NSArray <NSString *>* assistances;
+@property (nonatomic ,readonly) NSArray <Class>* assistances;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
 /* default is zero */
 @property (nonatomic ,assign) CGFloat iconCornerRadius;
@@ -35,7 +35,7 @@
 /** 显示标题*/
 @property (nonatomic ,copy ) NSString *title;
 
-- (void)addAssistance:(NSString *)identifier;
-- (void)addAssistances:(NSArray  <NSString *>*)identifiers;
-- (void)removeAssistanceItem:(NSString *)identifier;
+- (void)addAssistance:(Class )aClass; // 添加插件
+- (void)addAssistances:(NSArray  <Class >*)identifiers;
+- (void)removeAssistanceItem:(Class )aClass;
 @end

@@ -7,24 +7,28 @@
 //
 
 #import "CHChatAssistance.h"
-
+#import "CHMessageAssistanceEvent.h"
 
 NSMutableDictionary <NSString *,Class>const* AssistanceDic = nil;
 
 @implementation CHChatAssistance
 
-+ (NSString *)registerAssistance{
-    return nil;
-}
 + (void)registerSubclass{
     if (!AssistanceDic) {
         AssistanceDic = [NSMutableDictionary dictionary];
     }
-    if ([self conformsToProtocol:@protocol(CHChatAssistanceProtocol)] && [self registerAssistance]) {
-        [AssistanceDic setObject:[self class] forKey:[self registerAssistance]];
+    if ([[self class] isSubclassOfClass:[CHChatAssistance class]]) {
+        [AssistanceDic setObject:[self class] forKey:NSStringFromClass(self)];
     }
 }
 - (void)executeEvent:(id )responder{
-    
+
+}
+- (void)postEvent{
+    __weak typeof (self)weakSelf = self;
+    CHMessageAssistanceEvent *event = [CHMessageAssistanceEvent new];
+    event.item = weakSelf;
+    [[XEBEventBus defaultEventBus] postEvent:event];
+
 }
 @end

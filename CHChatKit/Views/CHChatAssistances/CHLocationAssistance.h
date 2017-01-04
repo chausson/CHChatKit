@@ -7,7 +7,14 @@
 //
 
 #import "CHChatAssistance.h"
+@class UIImage;
 
-@interface CHLocationAssistance : CHChatAssistance<CHChatAssistanceProtocol>
+@interface CHLocationAssistance : CHChatAssistance
+@property (nonatomic ,assign) double longitude;
+@property (nonatomic ,assign) double latitude;
+@property (nonatomic, copy)NSString *postionTitle;
+@property (nonatomic, copy)NSString *postionDetail;
+@property (nonatomic, weak)UIImage *snapshot;
+
 
 @end

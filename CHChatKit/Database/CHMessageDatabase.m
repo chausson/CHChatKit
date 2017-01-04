@@ -8,6 +8,7 @@
 
 #import "CHMessageDatabase.h"
 #import "CHChatMessageVMFactory.h"
+#import "CHChatMessageFileVM.h"
 #import "CHRLMConversation.h"
 #import "CHRLMMessage.h"
 #import <Realm/Realm.h>
@@ -146,7 +147,7 @@
     NSAssert(_userId != 0, @"数据库的UserId尚未设置");
     NSString *where = [NSString stringWithFormat:@"senderId = %d AND groupId = %lld",_userId,identifier];
     RLMResults<CHRLMMessage *> *msgs = [CHRLMMessage objectsInRealm:self.realm where:where];
-    NSLog(@"url = %@ \n DATA = %@",self.realm.configuration.fileURL.absoluteString,msgs);
+//    NSLog(@"url = %@ \n DATA = %@",self.realm.configuration.fileURL.absoluteString,msgs);
     NSMutableArray <CHChatMessageViewModel *>*array = [NSMutableArray arrayWithCapacity:msgs.count];
     for (CHRLMMessage *message in msgs) {
         CHChatMessageViewModel *vm = [self buildVMWithMessage:message];
@@ -211,7 +212,7 @@
     NSString *error = [NSString stringWithFormat:@"%s该类型不正确CHChatMessageViewModel",__PRETTY_FUNCTION__];
     NSAssert([viewModel isKindOfClass:[CHChatMessageViewModel class]], error);
     CHRLMMessage *msg = [[CHRLMMessage alloc]init];
-    msg.icon = viewModel.icon;
+    msg.avatar = viewModel.avatar;
     msg.nickName = viewModel.nickName;
     msg.visableTime = viewModel.isVisableTime;
     msg.visableNickName = viewModel.isVisableNickName;
@@ -222,21 +223,15 @@
     msg.senderId = (int)viewModel.senderId;
     msg.groupId = (int)viewModel.groupId;
     msg.date = viewModel.date;
-    switch (viewModel.category) {
-        case CHMessageText:{
-            CHChatMessageTextVM *text = (CHChatMessageTextVM *)viewModel;
-            msg.text = text.content;
-        }break;
-            
-        default:
-            break;
-    }
+    msg.body =  [self assemblyBodyWithVM:viewModel];
+   
+
     return msg;
 }
 - (void )updateMessage:(CHRLMMessage *)msg
              viewModel:(CHChatMessageViewModel *)aViewModel{
     if (msg) {
-        msg.icon = aViewModel.icon;
+        msg.avatar = aViewModel.avatar;
         msg.nickName = aViewModel.nickName;
         msg.visableTime = aViewModel.isVisableTime;
         msg.visableNickName = aViewModel.isVisableNickName;
@@ -246,15 +241,7 @@
         msg.receiveId = (int)aViewModel.receiveId;
         msg.senderId = (int)aViewModel.senderId;
         msg.groupId = (int)aViewModel.groupId;
-        switch (aViewModel.category) {
-            case CHMessageText:{
-                CHChatMessageTextVM *text = (CHChatMessageTextVM *)aViewModel;
-                msg.text = text.content;
-            }break;
-                
-            default:
-                break;
-        }
+
     }else{
         NSLog(@"Database中未找到需要修改的Message");
     }
@@ -268,6 +255,29 @@
     return vm.firstObject;
     
 }
+#pragma mark Private
+- (NSString *)assemblyBodyWithVM:(CHChatMessageViewModel *)viewModel{
+    NSError * err;
+    NSMutableDictionary *prettyDic = [NSMutableDictionary dictionaryWithDictionary:[viewModel fetchMessageBody]];
+    if ([viewModel.class isSubclassOfClass:[CHChatMessageFileVM class]]) {
+        CHChatMessageFileVM *fileVM = (CHChatMessageFileVM *)viewModel;
+        [prettyDic setValue:fileVM.filePath forKey:@"url"];
+        [prettyDic setValue:fileVM.fileName forKey:@"fileName"];
+    }
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:prettyDic options:0 error:&err];
+    NSString *body;
+    @try {
+        if (!err) {
+            NSString * myString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+            body = myString;
+        }
+    } @catch (NSException *exception) {
+        NSLog(@"%s %d %@ error=%@",__PRETTY_FUNCTION__,__LINE__,[exception description],[err description]);
+        return nil;
+    }
+    return body;
+    
+}
 - (RLMResults<CHRLMMessage *>*)fetchAllMessageUser:(long long)user
                                            receive:(long long)receive
                                            groupId:(long long)group{
@@ -277,13 +287,30 @@
     return msgs;
 }
 - (CHChatMessageViewModel *)buildVMWithMessage:(CHRLMMessage *)message{
+    NSError *e;
+    NSData *data = [message.body dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&e];
+    if (e) {
+        NSLog(@"%s %d %@",__PRETTY_FUNCTION__,__LINE__,[e description]);
+        return nil;
+    }
     switch (message.category) {
         case CHMessageText:{
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:message.icon timeDate:message.date nickName:message.nickName content:message.text isOwner:message.owner];
+            NSString *content ;
+            if ([json objectForKey:@"content"]) {
+                content = [json objectForKey:@"content"];
+            }
+            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName content:content isOwner:message.owner];
             return viewModel;
         }break;
         case CHMessageImage:{
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:message.icon timeDate:message.date nickName:message.nickName resource:nil size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:message.owner];
+            NSString *filePath ;
+            if ([json objectForKey:@"url"]) {
+                filePath = [json objectForKey:@"url"];
+            }
+            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName resource:filePath size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:message.owner];
             return viewModel;
         }break;
             

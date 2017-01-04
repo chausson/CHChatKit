@@ -16,7 +16,7 @@
 @end
 @interface CHChatMessageViewModel : NSObject
 
-@property (nonatomic ,copy) NSString *icon;
+@property (nonatomic ,copy) NSString *avatar;
 @property (nonatomic ,readonly) NSString *date;
 @property (nonatomic ,readonly) NSDate *createDate;
 @property (nonatomic ,readonly) NSString *nickName;
@@ -34,5 +34,7 @@
 - (void)respondsTapAction;
 /* 重发消息  */
 - (void)resend;
+/* 将消息体内容放入Dic */
+- (NSDictionary *)fetchMessageBody;
 
 @end

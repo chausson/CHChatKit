@@ -116,13 +116,13 @@
 		069278ED1D77E39300CAB0A5 /* UUProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692783A1D77E39300CAB0A5 /* UUProgressHUD.m */; };
 		06C766B71DAC86D500DADEC0 /* CHPictureAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766B61DAC86D500DADEC0 /* CHPictureAssistance.m */; };
 		06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766B91DAC8BB100DADEC0 /* CHMessagePictureEvent.m */; };
-		06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766BC1DACB6DB00DADEC0 /* CHMessageLocationEvent.m */; };
 		06C766C01DACBBC900DADEC0 /* CHPickPhotoAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766BF1DACBBC900DADEC0 /* CHPickPhotoAssistance.m */; };
 		06C766C31DACC76700DADEC0 /* CHMessageReceiveEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766C21DACC76700DADEC0 /* CHMessageReceiveEvent.m */; };
 		06C766C61DACF21C00DADEC0 /* CHMessageVoiceEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C766C51DACF21C00DADEC0 /* CHMessageVoiceEvent.m */; };
 		06D1EFE81D9B9C94003B7DE0 /* CHChatFileStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D1EFE71D9B9C94003B7DE0 /* CHChatFileStorage.m */; };
 		06D236361DF945F200DEB40B /* CHRLMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D236351DF945F200DEB40B /* CHRLMMessage.m */; };
 		06D236391DF993C300DEB40B /* CHRLMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D236381DF993C300DEB40B /* CHRLMConversation.m */; };
+		06DC77881E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DC77871E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m */; };
 		06DD8ED61DC71DCA00A6F048 /* libHyphenateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DD8ED51DC71DCA00A6F048 /* libHyphenateSDK.a */; };
 		06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E4BE341D79652900C78DBA /* CHChatTextView.m */; };
 		06E618071DAB414800E11B96 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618061DAB414800E11B96 /* CoreMedia.framework */; };
@@ -315,8 +315,6 @@
 		06C766B61DAC86D500DADEC0 /* CHPictureAssistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPictureAssistance.m; sourceTree = "<group>"; };
 		06C766B81DAC8BB100DADEC0 /* CHMessagePictureEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessagePictureEvent.h; sourceTree = "<group>"; };
 		06C766B91DAC8BB100DADEC0 /* CHMessagePictureEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessagePictureEvent.m; sourceTree = "<group>"; };
-		06C766BB1DACB6DB00DADEC0 /* CHMessageLocationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageLocationEvent.h; sourceTree = "<group>"; };
-		06C766BC1DACB6DB00DADEC0 /* CHMessageLocationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageLocationEvent.m; sourceTree = "<group>"; };
 		06C766BE1DACBBC900DADEC0 /* CHPickPhotoAssistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPickPhotoAssistance.h; sourceTree = "<group>"; };
 		06C766BF1DACBBC900DADEC0 /* CHPickPhotoAssistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPickPhotoAssistance.m; sourceTree = "<group>"; };
 		06C766C11DACC76700DADEC0 /* CHMessageReceiveEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageReceiveEvent.h; sourceTree = "<group>"; };
@@ -329,6 +327,8 @@
 		06D236351DF945F200DEB40B /* CHRLMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRLMMessage.m; sourceTree = "<group>"; };
 		06D236371DF993C300DEB40B /* CHRLMConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRLMConversation.h; sourceTree = "<group>"; };
 		06D236381DF993C300DEB40B /* CHRLMConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRLMConversation.m; sourceTree = "<group>"; };
+		06DC77861E1CCA3100F23CF0 /* CHMessageAssistanceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageAssistanceEvent.h; sourceTree = "<group>"; };
+		06DC77871E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageAssistanceEvent.m; sourceTree = "<group>"; };
 		06DD8EB51DC71DCA00A6F048 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatManagerDelegate.h; sourceTree = "<group>"; };
 		06DD8EB61DC71DCA00A6F048 /* EMChatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroom.h; sourceTree = "<group>"; };
 		06DD8EB71DC71DCA00A6F048 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
@@ -446,12 +446,12 @@
 				0612E6D71D9D4E4300B836E1 /* CHMessageTextEvent.m */,
 				06C766B81DAC8BB100DADEC0 /* CHMessagePictureEvent.h */,
 				06C766B91DAC8BB100DADEC0 /* CHMessagePictureEvent.m */,
-				06C766BB1DACB6DB00DADEC0 /* CHMessageLocationEvent.h */,
-				06C766BC1DACB6DB00DADEC0 /* CHMessageLocationEvent.m */,
 				06C766C11DACC76700DADEC0 /* CHMessageReceiveEvent.h */,
 				06C766C21DACC76700DADEC0 /* CHMessageReceiveEvent.m */,
 				06C766C41DACF21C00DADEC0 /* CHMessageVoiceEvent.h */,
 				06C766C51DACF21C00DADEC0 /* CHMessageVoiceEvent.m */,
+				06DC77861E1CCA3100F23CF0 /* CHMessageAssistanceEvent.h */,
+				06DC77871E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1161,7 +1161,6 @@
 				0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */,
 				06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */,
 				0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */,
-				06C766BD1DACB6DB00DADEC0 /* CHMessageLocationEvent.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */,
 				0692783C1D77E39300CAB0A5 /* FaceBoard.m in Sources */,
@@ -1179,6 +1178,7 @@
 				069278ED1D77E39300CAB0A5 /* UUProgressHUD.m in Sources */,
 				068B4BEC1DAF897B00AD4652 /* CHChatMessageViewModel.m in Sources */,
 				069276411D77DE0000CAB0A5 /* CHChatViewController.m in Sources */,
+				06DC77881E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m in Sources */,
 				069276BD1D77DF7400CAB0A5 /* CHChatToolView.m in Sources */,
 				0692783B1D77E39300CAB0A5 /* FaceBoard+EmojiHash.m in Sources */,
 				069276BA1D77DF7400CAB0A5 /* CHChatAssistanceView.m in Sources */,

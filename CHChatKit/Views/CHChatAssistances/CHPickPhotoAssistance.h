@@ -8,6 +8,6 @@
 
 #import "CHChatAssistance.h"
 
-@interface CHPickPhotoAssistance : CHChatAssistance<CHChatAssistanceProtocol>
+@interface CHPickPhotoAssistance : CHChatAssistance
 
 @end

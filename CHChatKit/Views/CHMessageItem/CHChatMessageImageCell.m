@@ -13,7 +13,7 @@
 #import "UIImage+CHImage.h"
 #import "NSObject+KVOExtension.h"
 #import "Masonry.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation CHChatMessageImageCell
 #pragma mark OverRide
@@ -78,6 +78,14 @@
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
 
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
+        if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath] ||
+            [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath]) {
+            if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath]) {
+                vm.fullImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath];
+            }else{
+                vm.fullImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath];
+            }
+        }
         UIImage *thumbnailPhoto = vm.thumbnailImage;
         if (self.imageContainer.image == thumbnailPhoto && self.imageContainer.image) {
             return;
@@ -101,12 +109,42 @@
         __weak typeof(self )weakSelf = self;
         NSURL *url;
         if ([vm isLocalFile]) {
-            url = [NSURL fileURLWithPath:vm.filePath];
+            url = [NSURL URLWithString:vm.filePath];
+            ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+            [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) // substitute YOURURL with your url of video
+             {
+                 __strong typeof(weakSelf )strongSelf = weakSelf;
+
+                 ALAssetRepresentation *rep = [asset defaultRepresentation];
+                 Byte *buffer = (Byte*)malloc(rep.size);
+                 NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
+                 NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];//this is NSData may be what you want
+                 UIImage *image = [UIImage imageWithData:data];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     //display the image
+                     if (image) {
+                         vm.fullImage = image;
+                         [[SDImageCache sharedImageCache] storeImage:image forKey:vm.filePath];
+                         UIImage *fitImage = [image ch_aspectImageCell];
+                         
+                         vm.thumbnailImage = fitImage;
+                         strongSelf.imageContainer.image = fitImage;
+                         [strongSelf cropMask:strongSelf.imageContainer.image.size];
+                         [strongSelf reloadTableView];
+                         
+                     }
+                     
+                     
+                 });
+             }
+            failureBlock:^(NSError *err) {
+                             NSLog(@"Error: %@",[err localizedDescription]);
+            }];
         }else{
             url = [NSURL URLWithString:vm.filePath];
         }
         [self.imageContainer sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                __strong typeof(self )strongSelf = weakSelf;
+                __strong typeof(weakSelf )strongSelf = weakSelf;
             dispatch_async(dispatch_get_main_queue(), ^{
                 //display the image
                 if (image) {

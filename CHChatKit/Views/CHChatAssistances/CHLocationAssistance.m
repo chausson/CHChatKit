@@ -7,7 +7,6 @@
 //
 
 #import "CHLocationAssistance.h"
-#import "CHMessageLocationEvent.h"
 #import <CoreLocation/CoreLocation.h>
 #import "CHLocationService.h"
 
@@ -18,11 +17,6 @@
 @end
 
 @implementation CHLocationAssistance
-
-+ (NSString *)registerAssistance{
-    return CHLocationAssistanceIdentifer;
-}
-
 + (void)load{
     [self registerSubclass];
 }
@@ -38,15 +32,12 @@
     self.service.finish = ^(CHLocationService *info){
         //        NSLog(@"%@", info.postionContent);
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        CHMessageLocationEvent *event = [CHMessageLocationEvent new];
-        event.title = info.postionTitle;
-        event.receiverId = strongSelf.receiveId;
-        event.userId = strongSelf.userId;
-        event.groupId = strongSelf.groupId;
-        event.map = info.snapshot;
-        event.detail = info.postionContent;
-        event.location = [[CLLocation alloc]initWithLatitude:info.coor.latitude longitude:info.coor.longitude];
-        [[XEBEventBus defaultEventBus] postEvent:event];
+        strongSelf.postionTitle = info.postionTitle;
+        strongSelf.snapshot = info.snapshot;
+        strongSelf.postionDetail = info.postionContent;
+        strongSelf.latitude = (double)info.coor.latitude;
+        strongSelf.longitude =  (double)info.coor.longitude;
+        [strongSelf postEvent];
     };
     [self.service fetchLocationInfo:responder];
 }
