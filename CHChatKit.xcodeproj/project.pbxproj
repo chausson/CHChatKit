@@ -123,6 +123,7 @@
 		06D236361DF945F200DEB40B /* CHRLMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D236351DF945F200DEB40B /* CHRLMMessage.m */; };
 		06D236391DF993C300DEB40B /* CHRLMConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 06D236381DF993C300DEB40B /* CHRLMConversation.m */; };
 		06DC77881E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DC77871E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m */; };
+		06DC778B1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DC778A1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m */; };
 		06DD8ED61DC71DCA00A6F048 /* libHyphenateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DD8ED51DC71DCA00A6F048 /* libHyphenateSDK.a */; };
 		06E4BE351D79652900C78DBA /* CHChatTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E4BE341D79652900C78DBA /* CHChatTextView.m */; };
 		06E618071DAB414800E11B96 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618061DAB414800E11B96 /* CoreMedia.framework */; };
@@ -329,6 +330,8 @@
 		06D236381DF993C300DEB40B /* CHRLMConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRLMConversation.m; sourceTree = "<group>"; };
 		06DC77861E1CCA3100F23CF0 /* CHMessageAssistanceEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageAssistanceEvent.h; sourceTree = "<group>"; };
 		06DC77871E1CCA3100F23CF0 /* CHMessageAssistanceEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageAssistanceEvent.m; sourceTree = "<group>"; };
+		06DC77891E1CFC1500F23CF0 /* CHChatMessagePacketCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessagePacketCell.h; sourceTree = "<group>"; };
+		06DC778A1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessagePacketCell.m; sourceTree = "<group>"; };
 		06DD8EB51DC71DCA00A6F048 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatManagerDelegate.h; sourceTree = "<group>"; };
 		06DD8EB61DC71DCA00A6F048 /* EMChatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroom.h; sourceTree = "<group>"; };
 		06DD8EB71DC71DCA00A6F048 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				0632EA761D93C2F500A4E37C /* CHChatMessageLocationCell.m */,
 				062829311D927A1400DCED17 /* CHMessageContentView.h */,
 				062829321D927A1400DCED17 /* CHMessageContentView.m */,
+				06DC77891E1CFC1500F23CF0 /* CHChatMessagePacketCell.h */,
+				06DC778A1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m */,
 			);
 			path = CHMessageItem;
 			sourceTree = "<group>";
@@ -1190,6 +1195,7 @@
 				06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */,
 				06C766C01DACBBC900DADEC0 /* CHPickPhotoAssistance.m in Sources */,
 				068B4BEA1DAF897B00AD4652 /* CHChatMessageTextVM.m in Sources */,
+				06DC778B1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m in Sources */,
 				06D236391DF993C300DEB40B /* CHRLMConversation.m in Sources */,
 				0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */,
 				0692764D1D77DE0000CAB0A5 /* NSString+CHExtensions.m in Sources */,

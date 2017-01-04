@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
     CHMessageVoice,
     CHMessageVideo,
     CHMessageFile,
+    CHMessagePacket, // 红包
     CHMessageLocation,
     CHMessageSystem,
 };

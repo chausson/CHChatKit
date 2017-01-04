@@ -40,7 +40,7 @@
     int receiveId = 14060;
     CHMessageDatabase *data =  [CHMessageDatabase databaseWithUserId:userId];
     NSString *draft = [data fetchDraftWithReceive:receiveId];
-    NSArray *messages = [data fetchAllMessageWithReceive:receiveId];
+    NSArray *messages = [NSMutableArray arrayWithArray:[data fetchAllMessageWithReceive:receiveId]];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:messages configuration:configuration];
    // vm.receiveId = 14128;
     vm.receiveId = receiveId;
@@ -53,6 +53,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 
 }
+
 
 
 @end
