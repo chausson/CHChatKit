@@ -172,8 +172,6 @@ static NSString * changeDateToStr(long long timestamp){
                             }
                             
                         }];
- 
-             
                 }break;
                 case EMMessageBodyTypeVoice:{
 
