@@ -14,7 +14,7 @@
 #import "NSObject+KVOExtension.h"
 #import "Masonry.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import "CHImageFullScreenHandler.h"
 @implementation CHChatMessageImageCell
 #pragma mark OverRide
 + (void)load{
@@ -25,6 +25,7 @@
     return CHMessageImage;
 }
 - (void)layout{
+    
     [self.stateIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
     [self.messageContainer addSubview:self.imageContainer];
     [self.imageContainer addSubview:self.prettyUploadMask];
@@ -37,6 +38,7 @@
             make.right.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
+            make.left.equalTo(self.messageContainer).offset(0);
         }];
 
     }else{
@@ -45,6 +47,8 @@
             make.left.equalTo(self.messageContainer).offset(0);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
+            make.right.equalTo(self.messageContainer).offset(0);
+
         }];
 
     }
@@ -74,7 +78,6 @@
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
-    // TO DO 内存缓存和沙盒缓存
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
 
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
@@ -176,7 +179,8 @@
     }
 }
 - (void )imageTap:(UITapGestureRecognizer *)tap{
-    
+    CHChatMessageImageVM *imageVM = (CHChatMessageImageVM *)self.viewModel;
+    [[CHImageFullScreenHandler standardDefault] thumbnailImageView:self.imageContainer fullImage:imageVM.fullImage];
 }
 - (void)uploadProgress:(NSProgress *)progress{
     if (self.viewModel.sendingState == CHMessageSending  && progress) {
@@ -194,6 +198,7 @@
     }
 }
 #pragma mark 懒加载
+
 - (UILabel *)progress{
     if (!_progress) {
         _progress = [[UILabel alloc]init];
@@ -209,8 +214,10 @@
     if (!_prettyUploadMask) {
         _prettyUploadMask = [[UIView alloc]init];
         _prettyUploadMask.opaque = YES;
+        _prettyUploadMask.userInteractionEnabled = YES;
         _prettyUploadMask.backgroundColor = [UIColor colorWithRed:122/255.0f green:122/255.0f blue:122/255.0f alpha:0.7];
         _prettyUploadMask.hidden = YES;
+
     }
     return _prettyUploadMask;
 }
@@ -223,7 +230,7 @@
     }
     return _imageContainer;
 }
-#pragma mark KVO 2.0版本废弃该方法,Realm存储不支持监听
+#pragma mark
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
     if ([key isEqualToString:@"viewModel.progress"]) {
         NSProgress *progress = [change objectForKey:@"new"] ;

@@ -16,6 +16,7 @@
 @end
 @interface CHChatMessageViewModel : NSObject
 
+
 @property (nonatomic ,copy) NSString *avatar;
 @property (nonatomic ,readonly) NSString *date;
 @property (nonatomic ,readonly) NSDate *createDate;
@@ -28,6 +29,7 @@
 @property (nonatomic ,assign) long long receiveId; /* 消息接收人的id 没有的话默认是0 */
 @property (nonatomic ,assign) long long senderId; /* 发送消息者的id 没有的话默认是0 */
 @property (nonatomic ,assign) long long groupId; /* 群组id 0代表没有群组 */
+@property (nonatomic ,assign) long long messageIdentifier; /* 消息的ID */
 
 - (void)sortOutWithTime:(NSString *)time;
 /* 处理响应事件  */

@@ -10,4 +10,6 @@
 
 @interface CHChatMessagePacketCell : CHChatMessageCell<CHChatMessageCellCategory>
 
+@property (strong ,nonatomic) UIButton *redPacketBtn;
+@property (strong ,nonatomic) UILabel *blessingTitle;
 @end

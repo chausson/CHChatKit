@@ -16,6 +16,7 @@
 @class CHChatMessageImageVM;
 @class CHChatMessageLocationVM;
 @class CHChatMessageVoiceVM;
+@class CHChatMessagePacketVM;
 @class CHChatAssistance;
 
 @protocol CHMessageInstallHandler <NSObject>
@@ -28,13 +29,19 @@
 @optional
 - (void)executeText:(CHChatMessageTextVM *)viewModel;
 - (void)executePicture:(CHChatMessageImageVM *)viewModel;
-- (CHChatMessageViewModel *)executeAssistance:(CHChatAssistance *)assistance;
 - (void)executeVoice:(CHChatMessageVoiceVM *)viewModel;
 // 发送群聊
 - (void)executeGroupText:(CHChatMessageTextVM *)viewModel;
 - (void)executeGroupPicture:(CHChatMessageImageVM *)viewModel;
-- (CHChatMessageViewModel *)executeGroupAssistance:(CHChatAssistance *)assistance;
 - (void)executeGroupVoice:(CHChatMessageVoiceVM *)viewModel;
+
+- (void)executePacket:(CHChatMessagePacketVM *)viewModel;
+
+// 接收插件事件
+- (CHChatMessageViewModel *)executeAssistance:(CHChatAssistance *)assistance;
+- (CHChatMessageViewModel *)executeGroupAssistance:(CHChatAssistance *)assistance;
+
+
 @end
 
 @interface CHMessageEventCenter : NSObject

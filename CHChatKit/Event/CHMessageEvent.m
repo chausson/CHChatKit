@@ -25,4 +25,7 @@ static NSString *SwiftDateToStr(NSDate *date){
 - (NSString *)date{
     return SwiftDateToStr([NSDate date]);
 }
+- (BOOL)isGroup{
+    return self.groupId > 0;
+}
 @end

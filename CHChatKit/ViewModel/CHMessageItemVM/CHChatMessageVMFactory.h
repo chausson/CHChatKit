@@ -12,6 +12,7 @@
 #import "CHChatMessageImageVM.h"
 #import "CHChatMessageLocationVM.h"
 #import "CHChatMessageVoiceVM.h"
+#import "CHChatMessagePacketVM.h"
 #import "CHChatDefinition.h"
 @interface CHChatMessageVMFactory : NSObject
 
@@ -53,7 +54,14 @@
                                         resource:(NSString *)path
                                      voiceLength:(NSInteger )length
                                          isOwner:(BOOL)owner;
++ (CHChatMessagePacketVM *)factoryPacketOfUserIcon:(NSString *)avatar
+                                          timeDate:(NSString *)date
+                                          nickName:(NSString *)name
+                                          packetId:(NSInteger )identifer
+                                          blessing:(NSString *)blessing
+                                           isOwner:(BOOL)owner;
 
++ (NSArray <CHChatMessageViewModel *>*)testData;
 
 
 @end

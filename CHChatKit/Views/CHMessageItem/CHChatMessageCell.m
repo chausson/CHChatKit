@@ -206,6 +206,13 @@ static NSString *refreshName = nil;
     [self reloadSendingState];
     [self updateConstraints];
 }
+- (void)userAction:(UITapGestureRecognizer *)sender{
+    NSLog(@"user aCgion ");
+}
+- (void)containerAction:(UITapGestureRecognizer *)sender{
+    NSLog(@"containerAction aCgion ");
+
+}
 - (void)resend{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"重发该消息" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
@@ -260,17 +267,23 @@ static NSString *refreshName = nil;
 }
 - (UIImageView *)icon{
     if (!_icon) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userAction:)];
+        
         _icon = [[UIImageView alloc]init];
         _icon.opaque = YES;
+        _icon.userInteractionEnabled = YES;
+        [_icon addGestureRecognizer:tap];
     }
     return _icon;
 }
 - (UIView *)messageContainer{
     if (!_messageContainer) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(containerAction:)];
         _messageContainer = [[CHMessageContentView alloc]init];
         _messageContainer.opaque = YES;
         _messageContainer.backgroundColor = self.contentView.backgroundColor;
        // _messageContainer.backgroundColor = [UIColor blueColor];
+        [_messageContainer addGestureRecognizer:tap];
     }
     return _messageContainer;
 }

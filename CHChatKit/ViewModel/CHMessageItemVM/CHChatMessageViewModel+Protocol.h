@@ -12,6 +12,7 @@
 #import "CHChatMessageLocationVM.h"
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatMessageImageVM.h"
+#import "CHChatMessagePacketVM.h"
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 @interface CHChatMessageViewModel ()
@@ -26,6 +27,12 @@
 @interface CHChatMessageTextVM ()
 
 @property (nonatomic ,copy) NSString *content;
+
+@end
+@interface CHChatMessagePacketVM ()
+
+@property (copy ,nonatomic) NSString *blessing;
+@property (assign ,nonatomic) NSInteger packetIdentifier;
 
 @end
 @interface CHChatMessageFileVM ()

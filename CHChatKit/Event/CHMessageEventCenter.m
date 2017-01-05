@@ -16,6 +16,7 @@
 #import "CHChatMessageVMFactory.h"
 #import "CHMessageVoiceEvent.h"
 #import "CHMessageAssistanceEvent.h"
+#import "CHMessagePacketEvent.h"
 #import "CHChatMessageViewModel+Protocol.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -52,6 +53,9 @@
         return;
     }else if ([event isKindOfClass:[CHMessageAssistanceEvent class]]){
         [self executeAssistanceEvent:(CHMessageAssistanceEvent *)event];
+        return;
+    }else if ([event isKindOfClass:[CHMessagePacketEvent class]]){
+        [self executePacket:(CHMessagePacketEvent *)event];
         return;
     }
 }
@@ -105,6 +109,12 @@
         }
     }
 }
+- (void)executePacket:(CHMessagePacketEvent *)event{
+    if ([self.delegate respondsToSelector:@selector(executePacket:)]) {
+
+        [self.delegate executePacket:event.packetViewModel];
+    }
+}
 - (void)executeAssistanceEvent:(CHMessageAssistanceEvent *)event{
     if ([self.delegate respondsToSelector:@selector(executeAssistance:)]) {
         CHChatMessageViewModel *viewModel;
@@ -131,6 +141,6 @@
     [_eventBus unregisterSubscriber: self];
 }
 + (NSArray<Class>*)handleableEventClasses {
-    return @[ [CHMessageTextEvent class],[CHMessagePictureEvent class],[CHMessageVoiceEvent class],[CHMessageAssistanceEvent class]];
+    return @[ [CHMessageTextEvent class],[CHMessagePictureEvent class],[CHMessageVoiceEvent class],[CHMessageAssistanceEvent class],[CHMessagePacketEvent class]];
 }
 @end

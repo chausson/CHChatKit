@@ -96,4 +96,36 @@
     voiceVM.filePath = path;
     return voiceVM;
 }
++ (CHChatMessagePacketVM *)factoryPacketOfUserIcon:(NSString *)avatar
+                                          timeDate:(NSString *)date
+                                          nickName:(NSString *)name
+                                          packetId:(NSInteger )identifer
+                                          blessing:(NSString *)blessing
+                                           isOwner:(BOOL)owner{
+    CHChatMessagePacketVM *packet = [CHChatMessagePacketVM new];
+    packet.packetIdentifier = identifer;
+    packet.avatar = avatar;
+    packet.date = date;
+    packet.nickName = name;
+    packet.blessing = blessing;
+    packet.owner = owner;
+    return packet;
+}
++ (NSArray <CHChatMessageViewModel *>*)testData{
+    NSMutableArray <CHChatMessageViewModel *>*viewModels = [NSMutableArray array];
+    NSString *userIcon = @"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg";
+    NSString *receiverIcon = @"http://a.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=5bda8a18a71ea8d38a777c02a73a1c76/5882b2b7d0a20cf4598dc37c77094b36acaf9977.jpg";
+    CHChatMessageTextVM *textVM = [self factoryTextOfUserIcon:userIcon timeDate:@"2015年10月12日 14:35" nickName:nil content:@"欢迎来到我们的大家庭！" isOwner:YES];
+    CHChatMessageTextVM *textVMO = [self factoryTextOfUserIcon:receiverIcon timeDate:@"2015年10月12日 14:55" nickName:nil content:@"新人报道，多多待见和指教，以后希望有机会多多向前辈们学习学习，下面我先自曝照片，哈哈" isOwner:NO];
+    CHChatMessageImageVM *imageVM = [self factoryImageOfUserIcon:receiverIcon timeDate:@"2015年10月12日 15:05" nickName:nil resource:@"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg" size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:NO];
+    CHChatMessagePacketVM *packetVM = [self factoryPacketOfUserIcon:receiverIcon timeDate:@"2015年10月12日 16:05" nickName:nil packetId:10001 blessing:@"新人红包，嘿嘿" isOwner:NO];
+    
+    
+    [viewModels addObject:textVM];
+    [viewModels addObject:textVMO];
+    [viewModels addObject:imageVM];
+    [viewModels addObject:packetVM];
+
+    return [viewModels copy];
+}
 @end

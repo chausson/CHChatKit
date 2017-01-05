@@ -12,6 +12,7 @@
 #import "CHMessageDatabase.h"
 #import "CHPictureAssistance.h"
 #import "CHPickPhotoAssistance.h"
+#import "CHChatMessageVMFactory.h"
 #import "EMMessageHandler.h"
 #import "YYFPSLabel.h"
 
@@ -40,7 +41,7 @@
     int receiveId = 14060;
     CHMessageDatabase *data =  [CHMessageDatabase databaseWithUserId:userId];
     NSString *draft = [data fetchDraftWithReceive:receiveId];
-    NSArray *messages = [NSMutableArray arrayWithArray:[data fetchAllMessageWithReceive:receiveId]];
+    NSArray *messages = [CHChatMessageVMFactory testData];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:messages configuration:configuration];
    // vm.receiveId = 14128;
     vm.receiveId = receiveId;

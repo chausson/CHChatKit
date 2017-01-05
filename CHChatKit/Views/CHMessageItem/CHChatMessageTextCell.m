@@ -71,7 +71,6 @@
         }else{
             _message.font = [UIFont systemFontOfSize:15];
         }
-
         _message.textColor = [UIColor blackColor];
         _message.backgroundColor = [UIColor clearColor];
     }
