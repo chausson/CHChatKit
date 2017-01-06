@@ -80,6 +80,7 @@
 		0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633A67F1D925A2E0005D36F /* NSObject+KVOExtension.m */; };
 		0633A68B1D926CD60005D36F /* CHChatMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0633A68A1D926CD60005D36F /* CHChatMessageCell.m */; };
 		0635239C1DB0A51900A841EA /* CHChatKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0635239B1DB0A51900A841EA /* CHChatKitTests.m */; };
+		0639EB0A1E1FA1D70072E558 /* CHRedEnvelopsAssistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 0639EB091E1FA1D70072E558 /* CHRedEnvelopsAssistance.m */; };
 		0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */; };
 		0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
@@ -242,6 +243,8 @@
 		063523991DB0A51900A841EA /* CHChatKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CHChatKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0635239B1DB0A51900A841EA /* CHChatKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHChatKitTests.m; sourceTree = "<group>"; };
 		0635239D1DB0A51900A841EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0639EB081E1FA1D70072E558 /* CHRedEnvelopsAssistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRedEnvelopsAssistance.h; sourceTree = "<group>"; };
+		0639EB091E1FA1D70072E558 /* CHRedEnvelopsAssistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRedEnvelopsAssistance.m; sourceTree = "<group>"; };
 		0655C2A61DCA175800B8DA9F /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		0655C2A81DCA175800B8DA9F /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
@@ -813,6 +816,8 @@
 		06E618241DAB67ED00E11B96 /* CHChatAssistances */ = {
 			isa = PBXGroup;
 			children = (
+				0639EB081E1FA1D70072E558 /* CHRedEnvelopsAssistance.h */,
+				0639EB091E1FA1D70072E558 /* CHRedEnvelopsAssistance.m */,
 				06E618251DAB67ED00E11B96 /* CHChatAssistance.h */,
 				06E618261DAB67ED00E11B96 /* CHChatAssistance.m */,
 				06E618281DAB83EE00E11B96 /* CHLocationAssistance.h */,
@@ -1134,6 +1139,7 @@
 				0612E6D81D9D4E4300B836E1 /* CHMessageTextEvent.m in Sources */,
 				0632EA741D93BA7A00A4E37C /* CHChatMessageVoiceCell.m in Sources */,
 				068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */,
+				0639EB0A1E1FA1D70072E558 /* CHRedEnvelopsAssistance.m in Sources */,
 				068B4BED1DAF897B00AD4652 /* CHChatMessageVMFactory.m in Sources */,
 				069276BF1D77DF7400CAB0A5 /* CHChatTableView.m in Sources */,
 				0632EA6E1D93A61F00A4E37C /* CHChatMessageHelper.m in Sources */,

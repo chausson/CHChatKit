@@ -119,11 +119,13 @@
     if ([self.delegate respondsToSelector:@selector(executeAssistance:)]) {
         CHChatMessageViewModel *viewModel;
         if (event.isGroup) {
-            viewModel = [self.delegate executeAssistance:event.item];
-        }else{
             viewModel = [self.delegate executeGroupAssistance:event.item];
+        }else{
+            viewModel = [self.delegate executeAssistance:event.item];
         }
-        [self receiveMessage:viewModel];
+        if (viewModel) {
+            [self receiveMessage:viewModel];
+        }
     }else{
         NSLog(@"插件事件需要在EventCenter的代理里面实现");
     }
