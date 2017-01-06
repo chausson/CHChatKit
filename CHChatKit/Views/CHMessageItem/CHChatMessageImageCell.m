@@ -186,7 +186,8 @@
     if (self.viewModel.sendingState == CHMessageSending  && progress) {
         _progress.hidden = NO;
         _prettyUploadMask.hidden = NO;
-        _progress.text = [NSString stringWithFormat:@"%lld%%",progress.completedUnitCount];
+        long long count = (float)progress.completedUnitCount/(float)progress.totalUnitCount*100;
+        _progress.text = [NSString stringWithFormat:@"%lld%%",count];
     }
     
 }

@@ -127,8 +127,13 @@ static id instance;
 }
 - (void)playRecordWithPath:(NSString *)filePath
                      finsh:(CHRecordBlock )compeltion{
-    [self playRecordWithPath:filePath];
-    _finish = compeltion;
+    if (filePath.length >0) {
+        [self playRecordWithPath:filePath];
+        _finish = compeltion;
+    }else{
+        NSLog(@"%s %d 播放的声音地址不能为nil",__PRETTY_FUNCTION__,__LINE__);
+    }
+ 
 }
 - (void)stopPlaying {
     _finish = nil;
@@ -151,7 +156,7 @@ static id instance;
     // 3.设置录音的一些参数
     NSMutableDictionary *setting = [NSMutableDictionary dictionary];
     // 音频格式
-    setting[AVFormatIDKey] = @(kAudioFormatAMR);
+    setting[AVFormatIDKey] = @(kAudioFormatAppleIMA4);
     // 录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）
     setting[AVSampleRateKey] = @(44100);
     // 音频通道数 1 或 2
@@ -175,7 +180,7 @@ static id instance;
     _recordTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(countVoiceTime) userInfo:nil repeats:YES];
 }
 - (NSString *)saveVoicePath{
-    NSString *key = [NSString stringWithFormat:@"%f",[[NSDate date]timeIntervalSince1970]];
+    NSString *key = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
     NSString *createPath = [NSString stringWithFormat:@"%@/Voice", pathDocuments];
     NSString *createDir = [NSString stringWithFormat:@"%@/CHVoice_%@_%@", createPath,key,recordFileName];

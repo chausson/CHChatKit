@@ -73,7 +73,7 @@
         if (![self isValidType:propertyType]) {
             continue;
         }
-        NSLog(@"属性描述为 %@ 的 %@ ", propertyType, propertyName);
+//        NSLog(@"属性描述为 %@ 的 %@ ", propertyType, propertyName);
         [props setValue:[self valueForKey:propertyName] forKey:propertyName];
     }
     free(properties);
@@ -83,11 +83,11 @@
     if ([type containsString:@"NSString"] ||
         [type containsString:@"float"] ||
         [type containsString:@"int"] ||
-        [type containsString:@"NSInteger"] ||
+        [type containsString:@"Tq"] ||
         [type containsString:@"BOOL"] ||
-        [type containsString:@"double"] ||
-        [type containsString:@"long long"] ||
-        [type containsString:@"long"] ||
+        [type containsString:@"Td"] ||
+        [type containsString:@"Ti"] ||
+        [type containsString:@"Tl"] ||
         [type containsString:@"NSNumber"] ||
         [type containsString:@"NSData"]
         ) {

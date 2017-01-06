@@ -39,6 +39,7 @@
     }else{
         self.voiceState = CHVoicePlaying;
         __weak typeof(self) weakSelf = self;
+
         [[CHRecordHandler standardDefault] playRecordWithPath:self.filePath
          finsh:^(NSString *path, NSInteger duration) {
              __strong typeof(self) strongSelf = weakSelf;

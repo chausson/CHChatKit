@@ -131,12 +131,17 @@ static NSString * changeDateToStr(long long timestamp){
     NSString *to = [NSString stringWithFormat:@"%lld",viewModel.receiveId];
     EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
     message.chatType = EMChatTypeChat;
+    __weak typeof(self)weakSelf = self;
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+
         if (!error) {
             viewModel.sendingState = CHMessageSendSuccess;
         }else{
             viewModel.sendingState = CHMessageSendFailure;
         }
+        [strongSelf.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
+
     }];
 }
 #pragma mark POST-LOCATION

@@ -241,6 +241,7 @@
         msg.receiveId = (int)aViewModel.receiveId;
         msg.senderId = (int)aViewModel.senderId;
         msg.groupId = (int)aViewModel.groupId;
+        msg.body =  [self assemblyBodyWithVM:aViewModel];
 
     }else{
         NSLog(@"Database中未找到需要修改的Message");

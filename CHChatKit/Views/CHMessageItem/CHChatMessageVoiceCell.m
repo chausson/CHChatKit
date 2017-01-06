@@ -185,13 +185,13 @@
     }else if ([key isEqualToString:@"viewModel.voiceState"]) {
          NSInteger state = [[change objectForKey:@"new"] integerValue];
         switch (state) {
-            case 1:
+            case CHVoicePlaying:
                 [self.voiceImageView startAnimating];
                 break;
-            case 2:
+            case CHVoiceFinish:
                 [self.voiceImageView stopAnimating];
                 break;
-            case 3:
+            case CHVoicePlayCancel:
                 [self.voiceImageView stopAnimating];
                 break;
                 

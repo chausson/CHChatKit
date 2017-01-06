@@ -2,7 +2,6 @@ platform:ios,'8.0'
 
 target 'CHChatKit' do    
 
-pod 'BaiduMapKit'
 pod 'UITableView+FDTemplateLayoutCell'
 pod 'SDWebImage'
 pod 'Masonry'
