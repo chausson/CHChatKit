@@ -72,7 +72,7 @@
             _message.font = [UIFont systemFontOfSize:15];
         }
         _message.textColor = [UIColor blackColor];
-        _message.backgroundColor = [UIColor clearColor];
+        _message.opaque = YES;
     }
     return _message;
 }

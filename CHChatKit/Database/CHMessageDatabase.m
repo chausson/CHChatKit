@@ -313,6 +313,31 @@
             CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName resource:filePath size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:message.owner];
             return viewModel;
         }break;
+        case CHMessageVoice:{
+            NSString *filePath ;
+            NSInteger length ;
+            if ([json objectForKey:@"url"]) {
+                filePath = [json objectForKey:@"url"];
+            }
+            if([json objectForKey:@"length"]) {
+                length = [[json objectForKey:@"length"] integerValue];
+            }
+            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName fileName:nil resource:filePath voiceLength:length isOwner:message.owner];
+            return viewModel;
+        }break;
+        case CHMessagePacket:{
+            NSInteger identifer ;
+            NSString *blessing ;
+
+            if ([json objectForKey:@"packetIdentifier"]) {
+                identifer = [[json objectForKey:@"packetIdentifier"] integerValue];
+            }
+            if([json objectForKey:@"blessing"]){
+                blessing = [json objectForKey:@"blessing"];
+            }
+            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryPacketOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName packetId:identifer blessing:blessing isOwner:message.owner];
+            return viewModel;
+        }break;
             
         default:
             return nil;

@@ -88,6 +88,7 @@
         _blessingTitle = [UILabel new];
         _blessingTitle.font = [UIFont systemFontOfSize:15];
         _blessingTitle.textColor = [UIColor whiteColor];
+        _blessingTitle.opaque = NO;
 
     }
     return _blessingTitle;
