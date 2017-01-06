@@ -17,7 +17,7 @@
     return @"红包";
 }
 - (NSString *)picture{
-    return @"icon_gray red packet";
+    return @"red_packet";
 }
 - (void)executeEvent:(id )responder{
     // 进入发送红包界面

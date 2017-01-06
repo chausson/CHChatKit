@@ -20,7 +20,7 @@
     return @"拍照";
 }
 - (NSString *)picture{
-    return @"sharemore_video";
+    return @"icon_photography";
 }
 - (void)executeEvent:(id )responder{
     [self openCamera:responder];

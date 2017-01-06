@@ -19,7 +19,7 @@
     return @"照片";
 }
 - (NSString *)picture{
-    return @"sharemore_pic";
+    return @"icon_picture";
 }
 - (void)executeEvent:(id )responder{
     [self openPhotoLibrary:responder];
