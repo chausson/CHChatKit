@@ -60,12 +60,12 @@
     objc_property_t *properties = class_copyPropertyList([self class], &outCount);
     for (i = 0; i<outCount; i++)
     {
-        objc_property_t property = *properties;
+        objc_property_t property = properties[i];
         
         const char* char_f =property_getName(property);
         NSString *propertyName = [NSString stringWithUTF8String:char_f];
-
-        if ([props valueForKey:propertyName]) {
+        
+        if ([self isValidName:propertyName] || [props valueForKey:propertyName]) {
             continue;
         }
         const char * propertyAttr = property_getAttributes(property);
@@ -73,11 +73,19 @@
         if (![self isValidType:propertyType]) {
             continue;
         }
-//        NSLog(@"属性描述为 %@ 的 %@ ", propertyType, propertyName);
+        //        NSLog(@"属性描述为 %@ 的 %@ ", propertyType, propertyName);
         [props setValue:[self valueForKey:propertyName] forKey:propertyName];
     }
     free(properties);
     return props;
+}
+- (BOOL)isValidName:(NSString *)name{
+    if ([name isEqualToString:@"debugDescription"] ||
+        [name isEqualToString:@"description"]) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
 - (BOOL)isValidType:(NSString *)type{
     if ([type containsString:@"NSString"] ||
@@ -120,3 +128,4 @@
 }
 
 @end
+
