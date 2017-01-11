@@ -8,7 +8,7 @@
 
 #import "CHChatMessageImageCell.h"
 #import "CHChatMessageImageVM.h"
-#import "UIView+CHMaskLayer.h"
+#import "UIView+CHCatagory.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+CHImage.h"
 #import "NSObject+KVOExtension.h"

@@ -11,7 +11,7 @@
 #import "CHChatMessageLocationVM.h"
 #import "UIImage+CHImage.h"
 #import "UIImageView+WebCache.h"
-#import "UIView+CHMaskLayer.h"
+#import "UIView+CHCatagory.h"
 @implementation CHChatMessageLocationCell
 #pragma mark OverRide
 + (void)load{

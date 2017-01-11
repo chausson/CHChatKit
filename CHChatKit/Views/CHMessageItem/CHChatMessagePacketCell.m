@@ -59,20 +59,20 @@
     event.packetViewModel = self.viewModel;
     [[XEBEventBus defaultEventBus] postEvent:event];
 }
-- (void)packetActionHighlighted:(UIButton *)sender
-{
-    sender.alpha = 0.45;
-}
-- (void)packetActionOutside:(UIButton *)sender
-{
-    sender.alpha = 1;
-}
+//- (void)packetActionHighlighted:(UIButton *)sender
+//{
+//    sender.alpha = 0.45;
+//}
+//- (void)packetActionOutside:(UIButton *)sender
+//{
+//    sender.alpha = 1;
+//}
 - (UIButton *)redPacketBtn{
     if (!_redPacketBtn) {
         _redPacketBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_redPacketBtn addTarget:self action:@selector(packetAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_redPacketBtn addTarget:self action:@selector(packetActionHighlighted:) forControlEvents:UIControlEventTouchDown];
-        [_redPacketBtn addTarget:self action:@selector(packetActionOutside:) forControlEvents:UIControlEventTouchDragOutside];
+//        [_redPacketBtn addTarget:self action:@selector(packetActionHighlighted:) forControlEvents:UIControlEventTouchDown];
+//        [_redPacketBtn addTarget:self action:@selector(packetActionOutside:) forControlEvents:UIControlEventTouchDragOutside];
         if ([self isOwner]) {
             [_redPacketBtn setBackgroundImage:[UIImage imageNamed:@"RedPacket_Right"] forState:UIControlStateNormal];
         }else{

@@ -70,6 +70,11 @@
 		06276C211DBF69EF005B3F4F /* emo_056@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06276BE91DBF69EF005B3F4F /* emo_056@2x.png */; };
 		062829301D92731500DCED17 /* CHChatMessageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */; };
 		062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 062829321D927A1400DCED17 /* CHMessageContentView.m */; };
+		062BF1951E24D64D00FD1EF5 /* CHChatVoice.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 062BF1911E24D64D00FD1EF5 /* CHChatVoice.bundle */; };
+		062BF1961E24D64D00FD1EF5 /* CHFaceBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 062BF1921E24D64D00FD1EF5 /* CHFaceBoard.bundle */; };
+		062BF1981E24D69200FD1EF5 /* CHChatImage.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 062BF1971E24D69200FD1EF5 /* CHChatImage.bundle */; };
+		062D57EB1E25D7CC001735E9 /* UIView+CHCatagory.m in Sources */ = {isa = PBXBuildFile; fileRef = 062D57EA1E25D7CC001735E9 /* UIView+CHCatagory.m */; };
+		062D57EE1E25DC52001735E9 /* UIImageView+CHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 062D57ED1E25DC52001735E9 /* UIImageView+CHExtension.m */; };
 		0631768C1E1DE318003780B2 /* CHChatMessagePacketVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0631768B1E1DE318003780B2 /* CHChatMessagePacketVM.m */; };
 		0631768F1E1E0228003780B2 /* CHMessagePacketEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0631768E1E1E0228003780B2 /* CHMessagePacketEvent.m */; };
 		063176981E1E3F2A003780B2 /* CHImageFullScreenHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 063176971E1E3F2A003780B2 /* CHImageFullScreenHandler.m */; };
@@ -84,7 +89,6 @@
 		0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */; };
 		0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */; };
 		066432B11D7EBEC00068AEF2 /* CHChatConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */; };
-		0666DBA51D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */; };
 		06686DF41D98B8CB007812B7 /* UIImage+CHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */; };
 		068B4BE61DAF897B00AD4652 /* CHChatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BD41DAF897B00AD4652 /* CHChatViewModel.m */; };
 		068B4BE71DAF897B00AD4652 /* CHChatMessageFileVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 068B4BD71DAF897B00AD4652 /* CHChatMessageFileVM.m */; };
@@ -222,6 +226,14 @@
 		0628292F1D92731500DCED17 /* CHChatMessageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessageTextCell.m; sourceTree = "<group>"; };
 		062829311D927A1400DCED17 /* CHMessageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessageContentView.h; sourceTree = "<group>"; };
 		062829321D927A1400DCED17 /* CHMessageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMessageContentView.m; sourceTree = "<group>"; };
+		062BF1911E24D64D00FD1EF5 /* CHChatVoice.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHChatVoice.bundle; sourceTree = "<group>"; };
+		062BF1921E24D64D00FD1EF5 /* CHFaceBoard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHFaceBoard.bundle; sourceTree = "<group>"; };
+		062BF1971E24D69200FD1EF5 /* CHChatImage.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHChatImage.bundle; sourceTree = "<group>"; };
+		062D57E91E25D7CC001735E9 /* UIView+CHCatagory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CHCatagory.h"; sourceTree = "<group>"; };
+		062D57EA1E25D7CC001735E9 /* UIView+CHCatagory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CHCatagory.m"; sourceTree = "<group>"; };
+		062D57EC1E25DC52001735E9 /* UIImageView+CHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CHExtension.h"; sourceTree = "<group>"; };
+		062D57ED1E25DC52001735E9 /* UIImageView+CHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CHExtension.m"; sourceTree = "<group>"; };
+		062D57EF1E261CE5001735E9 /* CHChatKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatKit.h; sourceTree = "<group>"; };
 		0631768A1E1DE318003780B2 /* CHChatMessagePacketVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatMessagePacketVM.h; sourceTree = "<group>"; };
 		0631768B1E1DE318003780B2 /* CHChatMessagePacketVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatMessagePacketVM.m; sourceTree = "<group>"; };
 		0631768D1E1E0228003780B2 /* CHMessagePacketEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMessagePacketEvent.h; sourceTree = "<group>"; };
@@ -252,8 +264,6 @@
 		065890DB1D9138CA00531445 /* CHChatDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHChatDefinition.h; sourceTree = "<group>"; };
 		066432AD1D7EBEC00068AEF2 /* CHChatConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatConfiguration.h; sourceTree = "<group>"; };
 		066432AE1D7EBEC00068AEF2 /* CHChatConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHChatConfiguration.m; sourceTree = "<group>"; };
-		0666DBA31D9A4F9C00D5EA0C /* UIView+CHMaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CHMaskLayer.h"; sourceTree = "<group>"; };
-		0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CHMaskLayer.m"; sourceTree = "<group>"; };
 		06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CHImage.h"; sourceTree = "<group>"; };
 		06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CHImage.m"; sourceTree = "<group>"; };
 		068B4BD31DAF897B00AD4652 /* CHChatViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHChatViewModel.h; sourceTree = "<group>"; };
@@ -542,6 +552,16 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		062BF1841E24C0AF00FD1EF5 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				062BF1971E24D69200FD1EF5 /* CHChatImage.bundle */,
+				062BF1911E24D64D00FD1EF5 /* CHChatVoice.bundle */,
+				062BF1921E24D64D00FD1EF5 /* CHFaceBoard.bundle */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		0633A6881D926CD60005D36F /* CHMessageItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,16 +700,18 @@
 		069275861D77DDFF00CAB0A5 /* CHChatKit */ = {
 			isa = PBXGroup;
 			children = (
+				069275891D77DDFF00CAB0A5 /* CHChatViewController.h */,
+				0692758A1D77DDFF00CAB0A5 /* CHChatViewController.m */,
 				066432AA1D7EBE8F0068AEF2 /* Configuration */,
 				06199EEF1DF661A400DAAFED /* Database */,
 				0612E6D21D9D4A0600B836E1 /* Event */,
-				062829341D9292F000DCED17 /* Helper */,
-				069275891D77DDFF00CAB0A5 /* CHChatViewController.h */,
-				0692758A1D77DDFF00CAB0A5 /* CHChatViewController.m */,
 				069275A51D77DDFF00CAB0A5 /* Extensions */,
+				062829341D9292F000DCED17 /* Helper */,
+				062BF1841E24C0AF00FD1EF5 /* Resource */,
 				069275B31D77DDFF00CAB0A5 /* Vendors */,
 				068B4BD21DAF897B00AD4652 /* ViewModel */,
 				069276AC1D77DF7400CAB0A5 /* Views */,
+				062D57EF1E261CE5001735E9 /* CHChatKit.h */,
 			);
 			path = CHChatKit;
 			sourceTree = "<group>";
@@ -705,8 +727,10 @@
 				0633A67F1D925A2E0005D36F /* NSObject+KVOExtension.m */,
 				06686DF21D98B8CB007812B7 /* UIImage+CHImage.h */,
 				06686DF31D98B8CB007812B7 /* UIImage+CHImage.m */,
-				0666DBA31D9A4F9C00D5EA0C /* UIView+CHMaskLayer.h */,
-				0666DBA41D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m */,
+				062D57E91E25D7CC001735E9 /* UIView+CHCatagory.h */,
+				062D57EA1E25D7CC001735E9 /* UIView+CHCatagory.m */,
+				062D57EC1E25DC52001735E9 /* UIImageView+CHExtension.h */,
+				062D57ED1E25DC52001735E9 /* UIImageView+CHExtension.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -997,6 +1021,7 @@
 				06276BEB1DBF69EF005B3F4F /* emo_002@2x.png in Resources */,
 				06276C081DBF69EF005B3F4F /* emo_031@2x.png in Resources */,
 				06276BFA1DBF69EF005B3F4F /* emo_017@2x.png in Resources */,
+				062BF1981E24D69200FD1EF5 /* CHChatImage.bundle in Resources */,
 				06276BF31DBF69EF005B3F4F /* emo_010@2x.png in Resources */,
 				06276C1F1DBF69EF005B3F4F /* emo_054@2x.png in Resources */,
 				06276BF51DBF69EF005B3F4F /* emo_012@2x.png in Resources */,
@@ -1016,7 +1041,9 @@
 				06276C061DBF69EF005B3F4F /* emo_029@2x.png in Resources */,
 				06276C0E1DBF69EF005B3F4F /* emo_037@2x.png in Resources */,
 				06276BFC1DBF69EF005B3F4F /* emo_019@2x.png in Resources */,
+				062BF1951E24D64D00FD1EF5 /* CHChatVoice.bundle in Resources */,
 				06276BEE1DBF69EF005B3F4F /* emo_005@2x.png in Resources */,
+				062BF1961E24D64D00FD1EF5 /* CHFaceBoard.bundle in Resources */,
 				0692756E1D77DAE200CAB0A5 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1131,6 +1158,7 @@
 			files = (
 				0612E6DB1D9D4F3E00B836E1 /* CHMessageEventCenter.m in Sources */,
 				06C766BA1DAC8BB100DADEC0 /* CHMessagePictureEvent.m in Sources */,
+				062D57EE1E25DC52001735E9 /* UIImageView+CHExtension.m in Sources */,
 				0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */,
 				062829331D927A1400DCED17 /* CHMessageContentView.m in Sources */,
 				0633A6801D925A2E0005D36F /* NSObject+KVOExtension.m in Sources */,
@@ -1144,7 +1172,6 @@
 				069276BF1D77DF7400CAB0A5 /* CHChatTableView.m in Sources */,
 				0632EA6E1D93A61F00A4E37C /* CHChatMessageHelper.m in Sources */,
 				069275721D77DAE200CAB0A5 /* ViewController.m in Sources */,
-				0666DBA51D9A4F9C00D5EA0C /* UIView+CHMaskLayer.m in Sources */,
 				0632EA711D93BA2E00A4E37C /* CHChatMessageImageCell.m in Sources */,
 				069278ED1D77E39300CAB0A5 /* UUProgressHUD.m in Sources */,
 				068B4BEC1DAF897B00AD4652 /* CHChatMessageViewModel.m in Sources */,
@@ -1162,6 +1189,7 @@
 				068B4BEA1DAF897B00AD4652 /* CHChatMessageTextVM.m in Sources */,
 				06DC778B1E1CFC1500F23CF0 /* CHChatMessagePacketCell.m in Sources */,
 				06D236391DF993C300DEB40B /* CHRLMConversation.m in Sources */,
+				062D57EB1E25D7CC001735E9 /* UIView+CHCatagory.m in Sources */,
 				0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */,
 				0692764D1D77DE0000CAB0A5 /* NSString+CHExtensions.m in Sources */,
 				069275711D77DAE200CAB0A5 /* main.m in Sources */,

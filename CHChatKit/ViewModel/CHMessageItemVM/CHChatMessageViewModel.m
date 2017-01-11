@@ -65,7 +65,7 @@
         const char* char_f =property_getName(property);
         NSString *propertyName = [NSString stringWithUTF8String:char_f];
         
-        if ([self isValidName:propertyName] || [props valueForKey:propertyName]) {
+        if (![self isValidName:propertyName] || [props valueForKey:propertyName]) {
             continue;
         }
         const char * propertyAttr = property_getAttributes(property);

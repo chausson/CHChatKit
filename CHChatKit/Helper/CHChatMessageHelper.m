@@ -34,7 +34,7 @@
             *stop = YES;
         }
     }];
-    cell.iconCornerRadius = viewModel.configuration.iconCornerRadius;
+    cell.avatarCornerRadius = viewModel.configuration.avatarCornerRadius;
     NSAssert(cell, @"没有注册和实现相应的CHChatMessageCell类型");
  
     return cell;

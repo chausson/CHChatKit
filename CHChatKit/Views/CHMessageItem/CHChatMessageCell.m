@@ -14,11 +14,12 @@
 #import "NSObject+KVOExtension.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+CHImage.h"
+#import "UIImageView+CHExtension.h"
 NSMutableDictionary <NSString *,Class>const * ChatCellMessageCatagory = nil;
 
 static CGFloat const cellMessageDateHeight = 25.0f;
-static CGFloat const cellIconWidth = 40.0f;
-static CGFloat const cellIconHeight = cellIconWidth;
+static CGFloat const cellAvatarWidth = 40.0f;
+static CGFloat const cellAvatarHeight = cellAvatarWidth;
 static CGFloat const cellContentGap = 10.0f; // 每个控件的间隔
 static CGFloat const cellContentBottom = 16.0f;
 static NSString *refreshName = nil;
@@ -69,7 +70,7 @@ static NSString *refreshName = nil;
 }
 #pragma mark privite LayoutSubView
 - (void)layoutContainer{
-    [self.contentView addSubview:self.icon];
+    [self.contentView addSubview:self.avatarImageView];
     [self.contentView addSubview:self.date];
     [self.contentView addSubview:self.nickName];
     [self.contentView addSubview:self.messageContainer];
@@ -96,27 +97,27 @@ static NSString *refreshName = nil;
         
     }
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
-    CGFloat widthMax = width - (cellIconWidth +cellContentGap*2)*2;
+    CGFloat widthMax = width - (cellAvatarWidth +cellContentGap*2)*2;
     CGFloat nickNameHeight = self.viewModel.visableNickName?20:0;
     if ([self isOwner]){
-        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
                 make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
             }else{
                 make.top.offset(cellContentGap);
             }
             make.right.offset(-cellContentGap);
-            make.height.equalTo(@(cellIconHeight));
-            make.width.equalTo(@(cellIconWidth));
+            make.height.equalTo(@(cellAvatarHeight));
+            make.width.equalTo(@(cellAvatarWidth));
         }];
         [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_icon.mas_top);
+            make.top.equalTo(_avatarImageView.mas_top);
             make.height.equalTo(@(nickNameHeight));
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
-            make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
+            make.right.equalTo(_avatarImageView.mas_left).offset(-cellContentGap);
         }];
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(_icon.mas_left).offset(-cellContentGap);
+            make.right.equalTo(_avatarImageView.mas_left).offset(-cellContentGap);
             make.top.equalTo(_nickName.mas_bottom);
             make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
@@ -136,7 +137,7 @@ static NSString *refreshName = nil;
         }];
         
     }else{
-        [self.icon mas_remakeConstraints:^(MASConstraintMaker *make) {
+        [self.avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
                 make.top.equalTo(_date.mas_bottom).offset(cellContentGap);
             }else{
@@ -144,18 +145,18 @@ static NSString *refreshName = nil;
             }
 
             make.left.offset(cellContentGap);
-            make.height.equalTo(@(cellIconHeight));
-            make.width.equalTo(@(cellIconWidth));
+            make.height.equalTo(@(cellAvatarHeight));
+            make.width.equalTo(@(cellAvatarWidth));
         }];
         [self.nickName mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_icon.mas_top);
+            make.top.equalTo(_avatarImageView.mas_top);
             make.height.equalTo(@(nickNameHeight));
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
-            make.left.equalTo(_icon.mas_right).offset(cellContentGap);
+            make.left.equalTo(_avatarImageView.mas_right).offset(cellContentGap);
         }];
         [self.messageContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_nickName.mas_bottom);
-            make.left.equalTo(_icon.mas_right).offset(cellContentGap);
+            make.left.equalTo(_avatarImageView.mas_right).offset(cellContentGap);
             make.bottom.equalTo(self.contentView).offset(-cellContentBottom).priorityLow();
             make.width.mas_lessThanOrEqualTo(@(widthMax)).priorityHigh();
            // make.width.equalTo(@(widthMax));
@@ -194,20 +195,18 @@ static NSString *refreshName = nil;
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
     self.nickName.hidden = !viewModel.visableNickName;
-    __weak typeof(self) weakSelf = self;
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        __strong typeof(weakSelf)strongSelf = weakSelf;
-        if (!CGSizeEqualToSize(image.size, strongSelf.icon.image.size)) {
-            [image ch_fitToSize:strongSelf.icon.frame.size];
-        }
-    }];
-    //  [self.icon sd_setImageWithURL:[NSURL URLWithString:viewModel.icon]];
     self.viewModel = viewModel;
+    [self setAvatarImage:viewModel.avatar];
+
     [self reloadSendingState];
+    
     [self updateConstraints];
+
 }
 - (void)userAction:(UITapGestureRecognizer *)sender{
-    NSLog(@"user aCgion ");
+    UIImageView *view = (UIImageView *)sender.view;
+    
+    NSLog(@"user aCgion  size = %@",NSStringFromCGSize(view.image.size));
 }
 - (void)containerAction:(UITapGestureRecognizer *)sender{
     NSLog(@"containerAction aCgion ");
@@ -239,6 +238,27 @@ static NSString *refreshName = nil;
 - ( __kindof CHChatMessageViewModel *)viewModel{
     return _viewModel;
 }
+- (void)setAvatarImage:(NSString *)avatar{
+    __weak typeof(self) weakSelf = self;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        if (strongSelf) {
+            CGSize containerSize = CGSizeMake(cellAvatarWidth, cellAvatarHeight);
+            if (!CGSizeEqualToSize(image.size, containerSize) && [strongSelf.viewModel.avatar isEqualToString:imageURL.absoluteString]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    strongSelf.avatarImageView.image = [image ch_fitToSize:containerSize];
+                });
+            }
+            strongSelf.avatarImageView.layer.cornerRadius = strongSelf.avatarCornerRadius;
+            strongSelf.avatarImageView.layer.shouldRasterize = TRUE;
+            strongSelf.avatarImageView.layer.rasterizationScale = strongSelf.avatarImageView.layer.contentsScale;
+            strongSelf.avatarImageView.layer.masksToBounds = YES;
+            
+        }
+        
+        
+    }];
+}
 - (void)reloadSendingState{
     switch (self.viewModel.sendingState) {
         case CHMessageSending:{
@@ -258,23 +278,21 @@ static NSString *refreshName = nil;
 }
 
 #pragma mark 懒加载
-- (void)setIconCornerRadius:(CGFloat)iconCornerRadius{
-    _iconCornerRadius = iconCornerRadius;
-    if(iconCornerRadius > 0){
-        _icon.layer.cornerRadius = iconCornerRadius;
-        _icon.layer.masksToBounds = YES;
-    }
+- (void)setAvatarCornerRadius:(CGFloat)avatarCornerRadius{
+    _avatarCornerRadius = avatarCornerRadius;
+
 }
-- (UIImageView *)icon{
-    if (!_icon) {
+
+- (UIImageView *)avatarImageView{
+    if (!_avatarImageView) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userAction:)];
         
-        _icon = [[UIImageView alloc]init];
-        _icon.opaque = YES;
-        _icon.userInteractionEnabled = YES;
-        [_icon addGestureRecognizer:tap];
+        _avatarImageView = [[UIImageView alloc]init];
+        _avatarImageView.opaque = YES;
+        _avatarImageView.userInteractionEnabled = YES;
+        [_avatarImageView addGestureRecognizer:tap];
     }
-    return _icon;
+    return _avatarImageView;
 }
 - (UIView *)messageContainer{
     if (!_messageContainer) {
@@ -334,14 +352,9 @@ static NSString *refreshName = nil;
 - (void)ch_ObserveValueForKey:(NSString *)key ofObject:(id)obj change:(NSDictionary *)change{
     if ([key isEqualToString:@"viewModel.sendingState"]) {
         [self reloadSendingState];
-    }else if ([key isEqualToString:@"viewModel.icon"]) {
-        __weak typeof(self) weakSelf = self;
-        [self.icon sd_setImageWithURL:[NSURL URLWithString:self.viewModel.avatar] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            __strong typeof(weakSelf)strongSelf = weakSelf;
-            if (!CGSizeEqualToSize(image.size, strongSelf.icon.image.size)) {
-                [image ch_fitToSize:strongSelf.icon.frame.size];
-            }
-        }];
+    }else if ([key isEqualToString:@"viewModel.avatar"]) {
+         NSString *avatar = change[@"new"];
+        [self setAvatarImage:avatar];
     }
 }
 - (void)dealloc{

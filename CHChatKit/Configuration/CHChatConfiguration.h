@@ -21,7 +21,7 @@
 @property (nonatomic ,readonly) NSArray <Class>* assistances;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;
 /* default is zero */
-@property (nonatomic ,assign) CGFloat iconCornerRadius;
+@property (nonatomic ,assign) CGFloat avatarCornerRadius;
 @property (nonatomic ,assign) BOOL allowRecordVoice;
 @property (nonatomic ,assign) BOOL allowEmoji;
 @property (nonatomic ,assign) BOOL allowAssistance;

@@ -81,7 +81,7 @@
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
-            make.height.greaterThanOrEqualTo(self.icon.mas_height);
+            make.height.greaterThanOrEqualTo(self.avatarImageView.mas_height);
             make.width.equalTo(@(width));
             make.left.equalTo(self.messageContainer).offset(0);
             make.right.equalTo(self.messageContainer).offset(0);
@@ -91,7 +91,7 @@
         [self.bubbleBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
-            make.height.greaterThanOrEqualTo(self.icon.mas_height);
+            make.height.greaterThanOrEqualTo(self.avatarImageView.mas_height);
             make.width.equalTo(@(width));
             make.left.equalTo(self.messageContainer).offset(0);
             make.right.equalTo(self.messageContainer).offset(0);

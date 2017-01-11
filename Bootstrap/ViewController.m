@@ -36,6 +36,7 @@
     
     CHChatConfiguration *configuration = [CHChatConfiguration defultConfigruration];
     configuration.title = @"聊天";
+    configuration.avatarCornerRadius = 5;
     [configuration addAssistances:@[[CHPictureAssistance class],[CHPickPhotoAssistance class]]];
     int userId = [[EMMessageHandler shareInstance].userName intValue];
     int receiveId = 14060;

@@ -10,13 +10,11 @@
 #import "CHChatViewController.h"
 #import "CHChatMessageHelper.h"
 #import "CHChatMessageCell.h"
-#import "Masonry.h"
-#import "MJRefresh.h"
-#import "UITableView+FDTemplateLayoutCell.h"
+#import <Masonry/Masonry.h>
+#import <UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 
 @interface CHChatViewController()<CHChatMessageCellDelegate>
 
-@property(nonatomic,strong)MJRefreshHeader*  header;
 
 
 @end

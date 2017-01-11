@@ -16,7 +16,7 @@
 //    dispatch_once(&onceToken, ^{
       CHChatConfiguration *instance = [CHChatConfiguration new];
         instance.mainBackground = [UIColor blackColor];
-        instance.iconCornerRadius = 0;
+        instance.avatarCornerRadius = 0;
         instance.allowEmoji = YES;
         instance.allowAssistance = YES;
         instance.allowRecordVoice = YES;
