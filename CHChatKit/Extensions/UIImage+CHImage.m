@@ -12,12 +12,95 @@
 + (UIImage *)avaiableBubbleImage:(BOOL)right{
     UIImage *normal ;
     if (right) {
-        normal = [UIImage imageNamed:@"chatfrom_bg_normal"];
+        normal = [self imageNamed:@"chatfrom_bg_normal" inBundle:@"CHChatImage" bundleClass:self];
     }else{
-        normal = [UIImage imageNamed:@"chatto_bg_normal"];
+        normal = [self imageNamed:@"chatto_bg_normal" inBundle:@"CHChatImage" bundleClass:self];
     }
     normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
     return normal;
+}
++ (UIImage *)imageNamed:(NSString *)name
+               inBundle:(NSString *)bundleName{
+    return [self imageNamed:name inBundle:bundleName bundleClass:self];
+}
++ (UIImage *)imageNamed:(NSString *)name
+               inBundle:(NSString *)bundleName
+            bundleClass:(Class )aClass{
+    if (name.length == 0) return nil;
+    if ([name hasSuffix:@"/"]) return nil;
+    UIImage *image;
+    NSBundle *bundle = [self bundleForName:bundleName class:aClass];
+    NSCache *cache = [[NSCache alloc]init];
+    NSString *cacheKey = [NSString stringWithFormat:@"%@_%@",bundle,name];
+    image = [cache objectForKey:cacheKey];
+    
+    if(image && [image isKindOfClass:[UIImage class]]) {
+        return image;
+    }
+    NSString *res = name.stringByDeletingPathExtension;
+    NSString *ext = name.pathExtension;
+    NSString *path = nil;
+    CGFloat scale = 1;
+    // If no extension, guess by system supported (same as UIImage).
+    NSArray *exts = ext.length > 0 ? @[ext] : @[@"", @"png", @"jpeg", @"jpg", @"gif", @"webp", @"apng"];
+    NSArray *scales = ^NSArray *{
+        static NSArray *scales;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            CGFloat screenScale = [UIScreen mainScreen].scale;
+            if (screenScale <= 1) {
+                scales = @[ @1,@2,@3 ];
+            } else if (screenScale <= 2) {
+                scales = @[ @2,@3,@1 ];
+            } else {
+                scales = @[ @3,@2,@1 ];
+            }
+        });
+        return scales;
+    }();
+
+    for (int s = 0; s < scales.count; s++) {
+        scale = ((NSNumber *)scales[s]).floatValue;
+        
+        NSString *scaledName = [self stringByAppendingScale:scale str:res];
+        for (NSString *e in exts) {
+            path = [bundle pathForResource:scaledName ofType:e];
+            if (path) break;
+        }
+        if (path) break;
+    }
+    if (path.length == 0) return nil;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    if (data.length == 0) return nil;
+    image = [[UIImage alloc] initWithData:data scale:scale];
+    [cache setObject:image forKey:cacheKey];
+    return image;
+}
++ (NSString *)bundlePathForBundleName:(NSString *)bundleName class:(Class)aClass {
+    NSString *pathComponent = [NSString stringWithFormat:@"%@.bundle", bundleName];
+    NSString *bundlePath =[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:pathComponent];
+    return bundlePath;
+}
+
++ (NSString *)customizedBundlePathForBundleName:(NSString *)bundleName {
+    NSString *customizedBundlePathComponent = [NSString stringWithFormat:@"CHatCustomized.%@.bundle", bundleName];
+    NSString *customizedBundlePath =[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:customizedBundlePathComponent];
+    return customizedBundlePath;
+}
+
++ (NSBundle *)bundleForName:(NSString *)bundleName class:(Class)aClass {
+    NSString *customizedBundlePath = [self customizedBundlePathForBundleName:bundleName];
+    NSBundle *customizedBundle = [NSBundle bundleWithPath:customizedBundlePath];
+    if (customizedBundle) {
+        return customizedBundle;
+    }
+    NSString *bundlePath = [self bundlePathForBundleName:bundleName class:aClass];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    return bundle;
+}
++ (NSString *)stringByAppendingScale:(CGFloat)scale str:(NSString *)content{
+    if (fabs(scale - 1) <= __FLT_EPSILON__ || content.length == 0 || [content hasSuffix:@"/"]) return content.copy;
+    return [content stringByAppendingFormat:@"@%@x", @(scale)];
 }
 - (UIImage *)ch_fitToSize:(CGSize)aSize {
     CGSize originSize = ({
@@ -103,4 +186,6 @@
      }
      ];
 }
+
+
 @end

@@ -10,7 +10,11 @@
 
 @interface UIImage (CHImage)
 + (UIImage *)avaiableBubbleImage:(BOOL)right;
-
++ (UIImage *)imageNamed:(NSString *)name
+               inBundle:(NSString *)bundleName
+            bundleClass:(Class )aClass;
++ (UIImage *)imageNamed:(NSString *)name
+               inBundle:(NSString *)bundleName;
 - (UIImage *)ch_fitToSize:(CGSize)aSize;
 - (UIImage *)ch_aspectImageCell;
 - (void )fullResolutionImageForAssetUrl: (NSURL*)assetUrl

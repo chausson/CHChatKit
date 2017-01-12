@@ -11,8 +11,6 @@
 
 @class UIImage;
 
-
-
 @interface CHChatViewModel : NSObject
 - (instancetype)init __unavailable;
 - (instancetype)initWithMessageHistroy:(NSArray <CHChatMessageViewModel *>*)histroyMessage

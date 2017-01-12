@@ -11,5 +11,5 @@
     #import <CHChatKit/CHChatViewController.h>
     #import <CHChatKit/CHChatMessageVMFactory.h>
     #import <CHChatKit/CHMessageDatabase.h>
-
+    #import <CHChatKit/CHChatViewModel.h>
 #endif

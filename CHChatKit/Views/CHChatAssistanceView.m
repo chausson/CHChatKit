@@ -11,6 +11,7 @@
 #import "CHChatAssistance.h"
 #import "CHChatViewController.h"
 #import "CHChatViewModel.h"
+#import "UIImage+CHImage.h"
 #define CHATASSISTANCE_COUNT_ROW 2 // 行数
 
 #define CHATASSISTANCE_COUNT_CLU 4 // 每行个数
@@ -77,10 +78,10 @@
             y = CHATASSISTANCE_ITEM_SIZE + 2 * ITEM_DISTANCE_SIZE;
         }
         itemButton.frame = CGRectMake(x, y, CHATASSISTANCE_ITEM_SIZE, CHATASSISTANCE_ITEM_SIZE);
-        [itemButton setBackgroundImage:[UIImage imageNamed:assistance.picture] forState:UIControlStateNormal];
+        [itemButton setBackgroundImage:[UIImage imageNamed:assistance.picture inBundle:@"CHChatImage"] forState:UIControlStateNormal];
         [chatAssistanceScrollView addSubview:itemButton];
         
-        UILabel *itemTitle = [[UILabel alloc] initWithFrame:CGRectMake(itemButton.frame.origin.x, CGRectGetMaxY(itemButton.frame), itemButton.frame.size.width, 15)];
+        UILabel *itemTitle = [[UILabel alloc] initWithFrame:CGRectMake(itemButton.frame.origin.x, CGRectGetMaxY(itemButton.frame)+5, itemButton.frame.size.width, 15)];
         itemTitle.text = assistance.title;
         itemTitle.textColor = [UIColor lightGrayColor];
         itemTitle.font = [UIFont systemFontOfSize:12];
