@@ -50,7 +50,6 @@
 @end
 @interface CHChatMessageImageVM ()
 
-@property (nonatomic ,copy) NSString *imageName;
 @property (nonatomic ,assign) CGSize size;
 @property (nonatomic ,assign) float width;
 @property (nonatomic ,assign) float height;

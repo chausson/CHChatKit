@@ -96,7 +96,7 @@ static NSString * changeDateToStr(long long timestamp){
     NSString *to = [NSString stringWithFormat:@"%lld",viewModel.receiveId];
 //      环信默认设置是0.6
         NSData *data = UIImageJPEGRepresentation(viewModel.fullImage, 1);
-        EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:data displayName:viewModel.imageName];
+        EMImageMessageBody *body = [[EMImageMessageBody alloc] initWithData:data displayName:viewModel.fileName];
         EMMessage *message = [[EMMessage alloc] initWithConversationID:to from:from to:to body:body ext:nil];
         message.chatType = EMChatTypeChat;// 设置为单聊消息
         __weak typeof(self)weakSelf = self;

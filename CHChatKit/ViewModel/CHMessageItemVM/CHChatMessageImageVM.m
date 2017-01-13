@@ -13,9 +13,7 @@
 - (CHChatMessageType )category{
     return CHMessageImage;
 }
-- (void)setImageName:(NSString *)imageName{
-    _imageName = imageName;
-}
+
 - (void)setSize:(CGSize)size{
     _size = size;
 }

@@ -239,7 +239,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
         
     }];
     // FIX ME 定义约束布局 名称改为CHFaceBoard
-    _faceBoard.frame = CGRectMake(0, KINPUTVIEW_HEIGHT+KASSIGANTVIEW_HEIGHT, self.frame.size.width, KASSIGANTVIEW_HEIGHT);
+    _faceBoard.frame = CGRectMake(10, KASSIGANTVIEW_HEIGHT, self.frame.size.width, KASSIGANTVIEW_HEIGHT*(self.frame.size.width/375));
 
 }
 

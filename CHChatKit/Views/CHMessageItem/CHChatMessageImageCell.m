@@ -96,7 +96,8 @@
         if (thumbnailPhoto) {
             self.imageContainer.image = thumbnailPhoto;
             [self cropMask:self.imageContainer.image.size];
-            
+            self.imageContainer.hidden = NO;
+
             return;
         }
         if ([vm isLocalFile] && vm.fullImage) {
@@ -106,7 +107,8 @@
             vm.thumbnailImage = fitImage;
             self.imageContainer.image = fitImage;
             [self cropMask:self.imageContainer.image.size];
-            
+            self.imageContainer.hidden = NO;
+
             return;
         }
         __weak typeof(self )weakSelf = self;
@@ -133,6 +135,8 @@
                          vm.thumbnailImage = fitImage;
                          strongSelf.imageContainer.image = fitImage;
                          [strongSelf cropMask:strongSelf.imageContainer.image.size];
+                         strongSelf.imageContainer.hidden = NO;
+
                          [strongSelf reloadTableView];
                          
                      }
@@ -157,6 +161,8 @@
                     vm.thumbnailImage = fitImage;
                     strongSelf.imageContainer.image = fitImage;
                     [strongSelf cropMask:strongSelf.imageContainer.image.size];
+                    strongSelf.imageContainer.hidden = NO;
+
                     [strongSelf reloadTableView];
                 }
     
@@ -226,6 +232,7 @@
     if (!_imageContainer) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
         _imageContainer = [UIImageView new];
+        _imageContainer.hidden = YES;
         _imageContainer.userInteractionEnabled = YES;
         [_imageContainer addGestureRecognizer:tap];
     }

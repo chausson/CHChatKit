@@ -9,8 +9,8 @@
 #import "FaceBoard.h"
 
 @interface FaceBoard ()
-@property (strong ,nonatomic) NSArray *emojiArray;
-@property (strong ,nonatomic) NSArray *symbolArray;
+@property (strong ,nonatomic) NSArray <UIImage *>*emojiArray;
+@property (strong ,nonatomic) NSArray <NSString *>*symbolArray;
 /**
  * @brief 配置emoji表情和图片
  */

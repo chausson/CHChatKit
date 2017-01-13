@@ -7,7 +7,7 @@
 //
 
 #import "FaceBoard+EmojiHash.h"
-
+#import "UIImage+CHImage.h"
 @implementation FaceBoard (EmojiHash)
 - (void)configurationEmoji{
 
@@ -195,13 +195,9 @@
 //                        nil];
 }
 - (UIImage *)imageNamed:(NSString *)name{
-    NSString *pngName = [name stringByAppendingString:@"@2x.png"];
-    NSString *jpgName = [name stringByAppendingString:@"@2x.jpg"];
-    NSString *file = [[NSBundle mainBundle] pathForResource:pngName ofType:nil];
-    if (file.length == 0) {
-        file = [[NSBundle mainBundle] pathForResource:jpgName ofType:nil];
-    }
-    UIImage *image = [[UIImage alloc] initWithContentsOfFile:file];
+//    NSString *imageName = [name stringByAppendingString:@"@2x"];
+
+    UIImage *image = [UIImage imageNamed:name inBundle:@"CHChatFaceboard"];
 
     return image;
 }

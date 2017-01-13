@@ -704,8 +704,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = KuaiCTO.chausson.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "31efa13d-37ce-41f5-b85d-0c9b84d37fc4";
-				PROVISIONING_PROFILE_SPECIFIER = chaussonKuaiCto;
+				PROVISIONING_PROFILE = "e5c219d5-7cef-48bc-8579-c33cfcdd67ae";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: KuaiCTO.chausson.com";
 			};
 			name = Debug;
 		};
@@ -731,8 +731,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = KuaiCTO.chausson.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "31efa13d-37ce-41f5-b85d-0c9b84d37fc4";
-				PROVISIONING_PROFILE_SPECIFIER = chaussonKuaiCto;
+				PROVISIONING_PROFILE = "e5c219d5-7cef-48bc-8579-c33cfcdd67ae";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: KuaiCTO.chausson.com";
 			};
 			name = Release;
 		};

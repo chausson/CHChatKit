@@ -20,7 +20,7 @@
 
 #define FACE_COUNT_PAGE (FACE_COUNT_ROW * FACE_COUNT_CLU )
 
-#define FACE_ICON_SIZE 44 * [UIScreen mainScreen].bounds.size.width / 375
+#define FACE_ICON_SIZE 42 * [UIScreen mainScreen].bounds.size.width / 375
 
 
 @implementation FaceBoard
@@ -40,8 +40,11 @@
                 CGFloat x = (((i - 1) % FACE_COUNT_PAGE) % FACE_COUNT_CLU) * FACE_ICON_SIZE + 6 + ((i - 1) / FACE_COUNT_PAGE * [UIScreen mainScreen].bounds.size.width);
                 CGFloat y = (((i - 1) % FACE_COUNT_PAGE) / FACE_COUNT_CLU) * FACE_ICON_SIZE + 8;
                 faceButton.frame = CGRectMake( x, y, FACE_ICON_SIZE, FACE_ICON_SIZE);
-                [faceButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"emo_%03d", i]]
-                            forState:UIControlStateNormal];
+                if (self.emojiArray.count > i-1) {
+                    [faceButton setImage:self.emojiArray[i-1]
+                                forState:UIControlStateNormal];
+                }
+               
                 [self.faceView addSubview:faceButton];
             }
         }
@@ -116,7 +119,7 @@
         _sendBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
         [_sendBtn addTarget:self action:@selector(sendFaceMassage:) forControlEvents:UIControlEventTouchUpInside];
-        _sendBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 50, 185, 50, 30);
+        _sendBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 50, 187, 50, 30);
     }
 
     return _sendBtn;
@@ -128,7 +131,7 @@
         _deleteBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_deleteBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(cancelFaceMessage:) forControlEvents:UIControlEventTouchUpInside];
-        _deleteBtn.frame = CGRectMake(CGRectGetMinX(self.sendBtn.frame)-50, 185, 50, 30);
+        _deleteBtn.frame = CGRectMake(CGRectGetMinX(self.sendBtn.frame)-50, 187, 50, 30);
     }
     return _deleteBtn;
 }

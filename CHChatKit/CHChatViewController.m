@@ -11,7 +11,7 @@
 #import "CHChatMessageHelper.h"
 #import "CHChatMessageCell.h"
 #import <Masonry/Masonry.h>
-#import <UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
+#import "UITableView+FDTemplateLayoutCell.h"
 
 @interface CHChatViewController()<CHChatMessageCellDelegate>
 
