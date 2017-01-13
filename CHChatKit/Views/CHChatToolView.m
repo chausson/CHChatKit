@@ -28,6 +28,7 @@
 #import "FaceBoard.h"
 #import "NSString+CHExtensions.h"
 #import "Masonry.h"
+#import "UIImage+CHImage.h"
 
 typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     CHChatSelectedNone,
@@ -37,6 +38,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     CHChatSelectedAssistance
 };
 
+NSString *const bundleName = @"CHChatImage";
 
 
 @interface CHChatToolView ()<UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,FaceBoardDelegate>
@@ -102,21 +104,23 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
 
     }];
 }
+#define imageNamed(name) [UIImage imageNamed:name inBundle:bundleName]
 - (void)initInputView{
     _chatWindowView = [[UIView alloc]init];
     _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_messageBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewInputVoice"] forState:UIControlStateNormal];
-    [_messageBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateSelected];
-    [_messageBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewInputVoiceHL"] forState:UIControlStateHighlighted];
+    
+    [_messageBtn setBackgroundImage:imageNamed(@"ToolViewInputVoice") forState:UIControlStateNormal];
+    [_messageBtn setBackgroundImage:imageNamed(@"ToolViewKeyboard") forState:UIControlStateSelected];
+    [_messageBtn setBackgroundImage:imageNamed(@"ToolViewInputVoiceHL") forState:UIControlStateHighlighted];
     [_messageBtn addTarget:self action:@selector(messageAction:) forControlEvents:UIControlEventTouchUpInside];
     _moreItemBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_moreItemBtn setBackgroundImage:[UIImage imageNamed:@"mail_add_normal"] forState:UIControlStateNormal];
+    [_moreItemBtn setBackgroundImage:imageNamed(@"mail_add_normal") forState:UIControlStateNormal];
     [_moreItemBtn addTarget:self action:@selector(moreItemAction:) forControlEvents:UIControlEventTouchUpInside];
     
     _emojiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_emojiBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewEmotion"] forState:UIControlStateNormal];
-    [_emojiBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateSelected];
-    [_emojiBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewEmotionHL"] forState:UIControlStateHighlighted];
+    [_emojiBtn setBackgroundImage:imageNamed(@"ToolViewEmotion") forState:UIControlStateNormal];
+    [_emojiBtn setBackgroundImage:imageNamed(@"ToolViewKeyboard") forState:UIControlStateSelected];
+    [_emojiBtn setBackgroundImage:imageNamed(@"ToolViewEmotionHL") forState:UIControlStateHighlighted];
     [_emojiBtn addTarget:self action:@selector(emojiAction:) forControlEvents:UIControlEventTouchUpInside];
     
     _contentView = [[UIView alloc]init];
@@ -125,7 +129,7 @@ typedef NS_ENUM(NSUInteger, CHChatToolSate) {
     _contentTextView.keyboardAppearance = _viewModel.configuration.keyboardAppearance;
     _contentTextView.text = _viewModel.draft;
     _contentBackground = [[UIImageView alloc]init];
-    UIImage* img= [UIImage imageNamed:@"Action_Sheet_Normal_New"];//原图
+    UIImage* img= imageNamed(@"Action_Sheet_Normal_New");//原图
     _contentBackground.image = img;
     UIEdgeInsets  edge = UIEdgeInsetsMake(10, 30, 10,30);
          //UIImageResizingModeStretch：拉伸模式，通过拉伸UIEdgeInsets指定的矩形区域来填充图片
