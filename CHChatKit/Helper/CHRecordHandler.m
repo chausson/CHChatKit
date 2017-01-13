@@ -8,7 +8,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CHRecordHandler.h"
 #import "CommonCrypto/CommonDigest.h"
-NSString *const recordFileName = @"CHRecord.caf";
+NSString *const recordFileName = @"CHRecord.wav";
 NSString *const pathKey = @"CHRecordHandler_VOICE_PATH";
 
 
@@ -156,7 +156,7 @@ static id instance;
     // 3.设置录音的一些参数
     NSMutableDictionary *setting = [NSMutableDictionary dictionary];
     // 音频格式
-    setting[AVFormatIDKey] = @(kAudioFormatAppleIMA4);
+    setting[AVFormatIDKey] = @(kAudioFormatLinearPCM);
     // 录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量）
     setting[AVSampleRateKey] = @(44100);
     // 音频通道数 1 或 2
