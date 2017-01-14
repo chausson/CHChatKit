@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CHChatKit"
-  s.version      = "0.6"
+  s.version      = "0.7"
   s.summary      = "IM SDK FOR Objective-C ,implention EMHandler for Servive"
   s.homepage     = "https://github.com/chausson/CHChatKit"
   s.license      = "MIT"

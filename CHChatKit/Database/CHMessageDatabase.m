@@ -31,25 +31,31 @@
         NSString *path =  [NSString stringWithFormat:@"%@/%d.realm",pathStr,identifier];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         BOOL result = [fileManager fileExistsAtPath:path];
-        if(result){
-            dataBase -> _realm  =[RLMRealm realmWithURL:[NSURL URLWithString:path]];
-        }else{
-            RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-            configuration.fileURL = [NSURL URLWithString:path];
-            dataBase -> _realm  =[RLMRealm realmWithConfiguration:configuration error:nil];
-            dataBase -> _realm.configuration.readOnly = NO;
-            
+        @autoreleasepool {
+            if(result){
+                dataBase -> _realm  =[RLMRealm realmWithURL:[NSURL URLWithString:path]];
+            }else{
+                RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+                configuration.fileURL = [NSURL URLWithString:path];
+                dataBase -> _realm  =[RLMRealm realmWithConfiguration:configuration error:nil];
+                dataBase -> _realm.configuration.readOnly = NO;
+                
+            }
         }
+
             dataBase -> _userId = identifier;
     });
     if (dataBase ->_userId != identifier) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *pathStr = paths.firstObject;
         NSString *path =  [NSString stringWithFormat:@"%@/%d.realm",pathStr,identifier];
-        RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-        configuration.fileURL = [NSURL URLWithString:path];
-        dataBase -> _realm  =[RLMRealm realmWithConfiguration:configuration error:nil];
-        dataBase -> _realm.configuration.readOnly = NO;
+        @autoreleasepool {
+            RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+            configuration.fileURL = [NSURL URLWithString:path];
+            dataBase -> _realm  =[RLMRealm realmWithConfiguration:configuration error:nil];
+            dataBase -> _realm.configuration.readOnly = NO;
+        }
+
     }
     NSLog(@"realm =%@ ",dataBase -> _realm.configuration.fileURL.absoluteString);
 

@@ -562,11 +562,14 @@ NSString *const bundleName = @"CHChatImage";
         e.text = _contentTextView.text;
         e.receiverId = _viewModel.receiveId;
         e.userId = _viewModel.userId;
-        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
-        [dataBase deleteDraftWithReceive:self.viewModel.receiveId];
+
         [[XEBEventBus defaultEventBus] postEvent:e];
         if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)] && [_observer respondsToSelector:@selector(sendMessage:)]) {
             [_observer performSelector:@selector(sendMessage:) withObject:_contentTextView.text];
+        }
+        @autoreleasepool {
+            CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
+            [dataBase deleteDraftWithReceive:self.viewModel.receiveId];
         }
         _contentTextView.text = nil;
     }
