@@ -25,6 +25,7 @@
 @property (nonatomic ,readonly) CHMessageSendState sendingState;
 @property (nonatomic ,readonly , getter= isVisableTime) BOOL visableTime;
 @property (nonatomic ,readonly , getter= isOwner) BOOL owner;
+@property (nonatomic ,assign , getter= isHasRead) BOOL hasRead;
 @property (nonatomic ,readonly , getter= isVisableNickName) BOOL visableNickName;
 @property (nonatomic ,assign) long long receiveId; /* 消息接收人的id 没有的话默认是0 */
 @property (nonatomic ,assign) long long senderId; /* 发送消息者的id 没有的话默认是0 */

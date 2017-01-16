@@ -9,8 +9,8 @@
 #import "CHChatMessageFileVM.h"
 
 @interface CHChatMessageVoiceVM : CHChatMessageFileVM<CHChatMessageViewModelProtocol>
+
 @property (nonatomic ,readonly) NSInteger length;
-@property (nonatomic ,readonly) BOOL hasRead;
 @property (nonatomic ,readonly) CHVoicePlayState voiceState;
 
 - (void)playVoice;

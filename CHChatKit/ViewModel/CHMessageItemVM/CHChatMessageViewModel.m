@@ -16,6 +16,7 @@
     if (self) {
         _visableTime = YES;
         _createDate = [NSDate date];
+        _hasRead = YES;
     }
     return self;
 }

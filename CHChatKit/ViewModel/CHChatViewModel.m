@@ -43,6 +43,11 @@
     
     return self;
 }
+- (void)setUserId:(long long)userId{
+    _userId = userId;
+    _dataBase = [CHMessageDatabase databaseWithUserId:(int)userId];
+
+}
 + (NSArray<Class>*)handleableEventClasses {
     return @[[CHMessageReceiveEvent class]];
 }
@@ -51,6 +56,7 @@
         NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
         event.item.owner?(event.item.avatar = self.userIcon):(event.item.avatar = (event.item.groupId == 0?self.receiverIcon:event.item.avatar));
         [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
+        event.item.hasRead = YES;
         [cellTempArray addObject:event.item];
         self.cellViewModels = [cellTempArray copy];
     }

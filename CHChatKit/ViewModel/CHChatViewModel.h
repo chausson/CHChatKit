@@ -7,6 +7,7 @@
 //
 #import "CHChatMessageViewModel.h"
 #import "CHChatConfiguration.h"
+#import "CHMessageDatabase.h"
 #import <Foundation/Foundation.h>
 
 @class UIImage;
@@ -15,6 +16,8 @@
 - (instancetype)init __unavailable;
 - (instancetype)initWithMessageHistroy:(NSArray <CHChatMessageViewModel *>*)histroyMessage
                          configuration:(CHChatConfiguration *)config;
+
+@property (nonatomic ,readonly) CHMessageDatabase *dataBase;
 /** 聊天列表VM*/
 @property (nonatomic ,strong ) NSArray <CHChatMessageViewModel *>*cellViewModels;
 /** 自己用户图标*/

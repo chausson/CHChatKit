@@ -42,7 +42,7 @@
     int receiveId = 14060;
     CHMessageDatabase *data =  [CHMessageDatabase databaseWithUserId:userId];
     NSString *draft = [data fetchDraftWithReceive:receiveId];
-    NSMutableArray *messages = [NSMutableArray arrayWithArray:[CHChatMessageVMFactory testData]];
+    NSMutableArray *messages = [NSMutableArray array];
     NSArray *historyMs = [data fetchAllMessageWithReceive:receiveId];
     [messages addObjectsFromArray:historyMs];
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:messages configuration:configuration];

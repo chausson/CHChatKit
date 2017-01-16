@@ -25,15 +25,12 @@
 - (void)setLength:(NSInteger)length{
     _length  = length;
 }
-- (void)setHasRead:(BOOL)hasRead{
-    _hasRead = hasRead;
-}
 - (void)setVoiceState:(CHVoicePlayState)voiceState{
     _voiceState = voiceState;
 }
 - (void)playVoice
 {
-    self.hasRead = YES;
+
     if (_voiceState == CHVoicePlaying) {
         [self stopVoice];
     }else{

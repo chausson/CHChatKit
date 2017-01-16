@@ -15,6 +15,7 @@
 @property NSString *nickName;
 @property BOOL visableTime;
 @property BOOL owner;
+@property BOOL hasRead;
 @property BOOL visableNickName;
 @property int category;
 @property int sendingState;

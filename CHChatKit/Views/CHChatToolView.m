@@ -60,7 +60,6 @@ NSString *const bundleName = @"CHChatImage";
 @property (assign ,nonatomic) CGFloat currentScreenHeight;// 当前页面高度
 
 
-
 @end
 @implementation CHChatToolView
 
@@ -550,9 +549,9 @@ NSString *const bundleName = @"CHChatImage";
 }
 - (void)textViewDidChange:(UITextView *)textView{
     if([_observer isKindOfClass:[CHChatViewController class]]){
-        CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
-        [dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId group:self.viewModel.groupId];
-
+        if (self.viewModel.dataBase) {
+            [self.viewModel.dataBase saveAndUpdateDraft:textView.text receive:(int)_viewModel.receiveId group:self.viewModel.groupId];
+        }
     }
 }
 - (void)sendText{
@@ -567,10 +566,11 @@ NSString *const bundleName = @"CHChatImage";
         if ([_observer conformsToProtocol:@protocol(CHKeyboardEvent)] && [_observer respondsToSelector:@selector(sendMessage:)]) {
             [_observer performSelector:@selector(sendMessage:) withObject:_contentTextView.text];
         }
-        @autoreleasepool {
-            CHMessageDatabase *dataBase = [CHMessageDatabase databaseWithUserId:(int)self.viewModel.userId];
-            [dataBase deleteDraftWithReceive:self.viewModel.receiveId];
+        if (self.viewModel.dataBase) {
+            [self.viewModel.dataBase deleteDraftWithReceive:self.viewModel.receiveId];
+
         }
+
         _contentTextView.text = nil;
     }
 }
