@@ -22,6 +22,8 @@
 @property (nonatomic ,assign) CHMessageSendState sendingState;
 @property (nonatomic ,assign , getter= isVisableTime) BOOL visableTime;
 @property (nonatomic ,assign , getter= isOwner) BOOL owner;
+@property (nonatomic ,strong) NSDate *createDate;
+
 @end
 
 @interface CHChatMessageTextVM ()

@@ -27,7 +27,9 @@
 
     NSDate *_lastPlaySoundDate;
 }
-
++ (NSArray<Class>*)handleableEventClasses {
+    return @[[CHMessageReceiveEvent class]];
+}
 - (instancetype)initWithMessageHistroy:(NSArray <CHChatMessageViewModel *>*)histroyMessage
                          configuration:(CHChatConfiguration *)config{
     
@@ -48,9 +50,7 @@
     _dataBase = [CHMessageDatabase databaseWithUserId:(int)userId];
 
 }
-+ (NSArray<Class>*)handleableEventClasses {
-    return @[[CHMessageReceiveEvent class]];
-}
+
 - (void)onEvent:(CHMessageReceiveEvent *)event{
     if(event.item.receiveId == self.receiveId || event.item.groupId != 0){
         NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];

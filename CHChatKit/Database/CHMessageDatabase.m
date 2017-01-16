@@ -11,6 +11,7 @@
 #import "CHChatMessageFileVM.h"
 #import "CHRLMConversation.h"
 #import "CHRLMMessage.h"
+#import "CHChatMessageViewModel+Protocol.h"
 #import <Realm/Realm.h>
 #import <objc/runtime.h>
 @interface CHMessageDatabase()
@@ -241,7 +242,7 @@
         msg.senderId = (int)aViewModel.senderId;
         msg.groupId = (int)aViewModel.groupId;
         msg.body =  [self assemblyBodyWithVM:aViewModel];
-
+        msg.hasRead = aViewModel.hasRead;
     }else{
         NSLog(@"Database中未找到需要修改的Message");
     }
@@ -296,22 +297,21 @@
         NSLog(@"%s %d %@",__PRETTY_FUNCTION__,__LINE__,[e description]);
         return nil;
     }
+    CHChatMessageViewModel *viewModel;
     switch (message.category) {
         case CHMessageText:{
             NSString *content ;
             if ([json objectForKey:@"content"]) {
                 content = [json objectForKey:@"content"];
             }
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName content:content isOwner:message.owner];
-            return viewModel;
+             viewModel = [CHChatMessageVMFactory factoryTextOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName content:content isOwner:message.owner];
         }break;
         case CHMessageImage:{
             NSString *filePath ;
             if ([json objectForKey:@"url"]) {
                 filePath = [json objectForKey:@"url"];
             }
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName resource:filePath size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:message.owner];
-            return viewModel;
+            viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName resource:filePath size:CGSizeZero thumbnailImage:nil fullImage:nil isOwner:message.owner];
         }break;
         case CHMessageVoice:{
             NSString *filePath ;
@@ -322,8 +322,7 @@
             if([json objectForKey:@"length"]) {
                 length = [[json objectForKey:@"length"] integerValue];
             }
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName fileName:nil resource:filePath voiceLength:length isOwner:message.owner];
-            return viewModel;
+            viewModel = [CHChatMessageVMFactory factoryVoiceOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName fileName:nil resource:filePath voiceLength:length isOwner:message.owner];
         }break;
         case CHMessagePacket:{
             NSInteger identifer ;
@@ -335,14 +334,24 @@
             if([json objectForKey:@"blessing"]){
                 blessing = [json objectForKey:@"blessing"];
             }
-            CHChatMessageViewModel *viewModel = [CHChatMessageVMFactory factoryPacketOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName packetId:identifer blessing:blessing isOwner:message.owner];
-            return viewModel;
+            viewModel = [CHChatMessageVMFactory factoryPacketOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName packetId:identifer blessing:blessing isOwner:message.owner];
         }break;
             
         default:
             return nil;
             break;
+            
+            
     }
+    viewModel.createDate = message.createDate;
+    viewModel.hasRead = message.hasRead;
+    viewModel.receiveId = message.receiveId;
+    viewModel.senderId = message.senderId;
+    viewModel.groupId = message.groupId;
+    viewModel.visableTime = message.visableTime;
+    
+    return viewModel;
+
 
 }
 @end
