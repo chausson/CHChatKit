@@ -79,29 +79,28 @@
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
-
-        CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
-        if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath] ||
-            [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath]) {
-            if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath]) {
-                vm.fullImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath];
-            }else{
-                vm.fullImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath];
-            }
-        }
-        UIImage *thumbnailPhoto = vm.thumbnailImage;
-        if (self.imageContainer.image == thumbnailPhoto && self.imageContainer.image) {
+        if (self.imageContainer.image) {
             return;
         }
-        if (thumbnailPhoto) {
-            self.imageContainer.image = thumbnailPhoto;
+        CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
+  
+         if (self.imageContainer.image == vm.thumbnailImage && self.imageContainer.image) {
+            return;
+        }
+        if (vm.thumbnailImage) {
+            self.imageContainer.image = vm.thumbnailImage;
             [self cropMask:self.imageContainer.image.size];
             self.imageContainer.hidden = NO;
 
             return;
         }
+        if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath]){
+            vm.fullImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath];
+        }
+        if ([[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath]){
+            vm.fullImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath];
+        }
         if ([vm isLocalFile] && vm.fullImage) {
-            // TO DO 内存缓存和沙盒缓存
             self.imageContainer.image = nil;
             UIImage *fitImage =[vm.fullImage ch_aspectImageCell];
             vm.thumbnailImage = fitImage;

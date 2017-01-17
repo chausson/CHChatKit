@@ -31,6 +31,9 @@
         }
     }
 }
+- (void)setCreateDate:(NSDate *)createDate{
+    _createDate = createDate;
+}
 - (void)setNickName:(NSString *)nickName{
     _nickName = nickName;
 }
