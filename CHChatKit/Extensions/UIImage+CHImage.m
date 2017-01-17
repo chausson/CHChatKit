@@ -83,7 +83,7 @@
 }
 
 + (NSString *)customizedBundlePathForBundleName:(NSString *)bundleName {
-    NSString *customizedBundlePathComponent = [NSString stringWithFormat:@"CHatCustomized.%@.bundle", bundleName];
+    NSString *customizedBundlePathComponent = [NSString stringWithFormat:@"CHCHatCustomized.bundle"];
     NSString *customizedBundlePath =[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:customizedBundlePathComponent];
     return customizedBundlePath;
 }
