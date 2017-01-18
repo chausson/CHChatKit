@@ -21,7 +21,17 @@
 }
 + (UIImage *)imageNamed:(NSString *)name
                inBundle:(NSString *)bundleName{
-    return [self imageNamed:name inBundle:bundleName bundleClass:self];
+    UIImage *image =  [self imageNamed:name inBundle:bundleName bundleClass:self];
+    if (image) return image;
+    image = [self imageNamed:name inBundle:@"CHChatFaceboard" bundleClass:self];
+    if (image) return image;
+    image = [self imageNamed:name inBundle:@"CHChatImage" bundleClass:self];
+    if (image) return image;
+    image = [self imageNamed:name inBundle:@"CHChatVoice" bundleClass:self];
+    if (image) return image;
+
+
+    return image;
 }
 + (UIImage *)imageNamed:(NSString *)name
                inBundle:(NSString *)bundleName
