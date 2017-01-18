@@ -114,6 +114,9 @@ static NSString * changeDateToStr(long long timestamp){
             }else{
                 viewModel.sendingState = CHMessageSendFailure;
             }
+            EMImageMessageBody *body = (EMImageMessageBody *)message.body;
+
+            viewModel.filePath = body.remotePath;
             [strongSelf.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
 
         }];
@@ -172,7 +175,7 @@ static NSString * changeDateToStr(long long timestamp){
                                 UIImage *fullImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:body.localPath]];
                                 CHChatMessageImageVM *viewModel = [CHChatMessageVMFactory factoryImageOfUserIcon:nil timeDate:changeDateToStr(msg.timestamp) nickName:nil resource:body.remotePath size:body.size thumbnailImage:nil fullImage:fullImage isOwner:NO];
                                 viewModel.receiveId = [msg.from intValue];
-                                viewModel.filePath = body.localPath;
+                                viewModel.filePath = body.remotePath;
                                 [[CHMessageEventCenter shareInstance] receiveMessage:viewModel];
                             }
                             

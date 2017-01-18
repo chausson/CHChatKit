@@ -15,6 +15,6 @@
 - (void)thumbnailImageView:(UIImageView *)thumbnail
                  fullImage:(UIImage *)fullImage;
 
-- (void)thumbnailImage:(UIImage *)thumbnail
-             remoteUrl:(NSString *)url;
+- (void)thumbnailImageView:(UIImageView *)thumbnail
+                 remoteUrl:(NSString *)url;
 @end

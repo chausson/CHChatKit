@@ -245,14 +245,19 @@ static NSString *refreshName = nil;
         if (strongSelf) {
             CGSize containerSize = CGSizeMake(cellAvatarWidth, cellAvatarHeight);
             if (!CGSizeEqualToSize(image.size, containerSize) && [strongSelf.viewModel.avatar isEqualToString:imageURL.absoluteString]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    strongSelf.avatarImageView.image = [image ch_fitToSize:containerSize];
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+                    UIImage *fitImage = [image ch_fitToSize:containerSize];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        strongSelf.avatarImageView.image = fitImage;
+                        strongSelf.avatarImageView.layer.cornerRadius = strongSelf.avatarCornerRadius;
+                        strongSelf.avatarImageView.layer.shouldRasterize = TRUE;
+                        strongSelf.avatarImageView.layer.rasterizationScale = strongSelf.avatarImageView.layer.contentsScale;
+                        strongSelf.avatarImageView.layer.masksToBounds = YES;
+                    });
                 });
+           
             }
-            strongSelf.avatarImageView.layer.cornerRadius = strongSelf.avatarCornerRadius;
-            strongSelf.avatarImageView.layer.shouldRasterize = TRUE;
-            strongSelf.avatarImageView.layer.rasterizationScale = strongSelf.avatarImageView.layer.contentsScale;
-            strongSelf.avatarImageView.layer.masksToBounds = YES;
+
             
         }
         

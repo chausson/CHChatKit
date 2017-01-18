@@ -113,6 +113,9 @@
     if (originSize.width == 0 || originSize.height == 0) {
         return self;
     }
+    if (originSize.width == aSize.width && originSize.height == aSize.height) {
+        return self;
+    }
     CGFloat aspectRatio = originSize.width / originSize.height;
     CGFloat width;
     CGFloat height;

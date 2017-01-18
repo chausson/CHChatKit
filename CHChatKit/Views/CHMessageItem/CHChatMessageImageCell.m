@@ -35,7 +35,7 @@
     if ([self isOwner]) {
         [self.imageContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.lessThanOrEqualTo(@(200)).priorityHigh();
-            make.right.equalTo(self.messageContainer).offset(0);
+            make.right.equalTo(self.messageContainer).offset(-5);
             make.top.equalTo(self.messageContainer).offset(0);
             make.bottom.equalTo(self.messageContainer).offset(0);
             make.left.equalTo(self.messageContainer).offset(0);
@@ -79,100 +79,65 @@
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     [super loadViewModel:viewModel];
     if ([viewModel isKindOfClass:[CHChatMessageImageVM class]]) {
-        if (self.imageContainer.image) {
-            return;
-        }
+        
         CHChatMessageImageVM *vm = (CHChatMessageImageVM *)viewModel;
-  
-         if (self.imageContainer.image == vm.thumbnailImage && self.imageContainer.image) {
-            return;
-        }
-        if (vm.thumbnailImage) {
-            self.imageContainer.image = vm.thumbnailImage;
-            [self cropMask:self.imageContainer.image.size];
-            self.imageContainer.hidden = NO;
+        UIImage *thumbnailPhoto = vm.thumbnailImage;
 
+         if ((self.imageContainer.image == thumbnailPhoto )&& self.imageContainer.image) {
             return;
         }
-        if ([[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath]){
-            vm.fullImage = [[SDImageCache sharedImageCache] imageFromMemoryCacheForKey:vm.filePath];
-        }
-        if ([[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath]){
-            vm.fullImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:vm.filePath];
-        }
-        if ([vm isLocalFile] && vm.fullImage) {
-            self.imageContainer.image = nil;
-            UIImage *fitImage =[vm.fullImage ch_aspectImageCell];
-            vm.thumbnailImage = fitImage;
+        if (thumbnailPhoto) {
+            UIImage *fitImage = [thumbnailPhoto ch_aspectImageCell];
+
             self.imageContainer.image = fitImage;
             [self cropMask:self.imageContainer.image.size];
             self.imageContainer.hidden = NO;
 
             return;
         }
-        __weak typeof(self )weakSelf = self;
-        NSURL *url;
-        if ([vm isLocalFile]) {
-            url = [NSURL URLWithString:vm.filePath];
-            ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
-            [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) // substitute YOURURL with your url of video
-             {
-                 __strong typeof(weakSelf )strongSelf = weakSelf;
-
-                 ALAssetRepresentation *rep = [asset defaultRepresentation];
-                 Byte *buffer = (Byte*)malloc(rep.size);
-                 NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
-                 NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];//this is NSData may be what you want
-                 UIImage *image = [UIImage imageWithData:data];
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     //display the image
-                     if (image) {
-                         vm.fullImage = image;
-                         [[SDImageCache sharedImageCache] storeImage:image forKey:vm.filePath];
-                         UIImage *fitImage = [image ch_aspectImageCell];
-                         
-                         vm.thumbnailImage = fitImage;
-                         strongSelf.imageContainer.image = fitImage;
-                         [strongSelf cropMask:strongSelf.imageContainer.image.size];
-                         strongSelf.imageContainer.hidden = NO;
-
-                         [strongSelf reloadTableView];
-                         
-                     }
-                     
-                     
-                 });
-             }
-            failureBlock:^(NSError *err) {
-                             NSLog(@"Error: %@",[err localizedDescription]);
-            }];
-        }else{
-            url = [NSURL URLWithString:vm.filePath];
+ 
+        NSString *imageLocalPath = vm.filePath;
+        //note: this will ignore contentMode.
+        if ([vm isLocalFile] && imageLocalPath) {
+            UIImage *fitImage =[vm.fullImage ch_aspectImageCell];
+            vm.thumbnailImage = fitImage;
+            self.imageContainer.image = fitImage;
+            [self cropMask:self.imageContainer.image.size];
+            self.imageContainer.hidden = NO;
+            
+            return;
         }
-        [self.imageContainer sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                __strong typeof(weakSelf )strongSelf = weakSelf;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //display the image
+        if (vm.fullImage) {
+            self.imageContainer.image = nil;
+            UIImage *fitImage =[vm.fullImage ch_aspectImageCell];
+            vm.thumbnailImage = fitImage;
+            self.imageContainer.image = fitImage;
+            [self cropMask:self.imageContainer.image.size];
+            self.imageContainer.hidden = NO;
+         
+            return;
+        }
+        if (vm.filePath) {
+            [self.imageContainer sd_setImageWithURL:[NSURL URLWithString:vm.filePath] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 if (image) {
                     vm.fullImage = image;
                     UIImage *fitImage = [image ch_aspectImageCell];
-                    
                     vm.thumbnailImage = fitImage;
-                    strongSelf.imageContainer.image = fitImage;
-                    [strongSelf cropMask:strongSelf.imageContainer.image.size];
-                    strongSelf.imageContainer.hidden = NO;
-
-                    [strongSelf reloadTableView];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //display the image
+                        self.imageContainer.image = fitImage;
+                        [self cropMask:self.imageContainer.image.size];
+                        self.imageContainer.hidden = NO;
+                        [self reloadTableView];
+                        
+                    });
                 }
-    
-
-            });
-            
-        }];
-        return;
-        
+              
+            }];
+        }
     }else{
-        NSAssert(NO, @"[CHChatMessageImageVM class] loadViewModel的类型有问题");
+        NSString *errorInfo =  [NSString stringWithFormat:@" %@loadViewModel的类型有问题",NSStringFromClass([self class])];
+        NSAssert(NO, errorInfo);
     }
 }
 
@@ -185,7 +150,7 @@
 }
 - (void )imageTap:(UITapGestureRecognizer *)tap{
     CHChatMessageImageVM *imageVM = (CHChatMessageImageVM *)self.viewModel;
-    [[CHImageFullScreenHandler standardDefault] thumbnailImageView:self.imageContainer fullImage:imageVM.fullImage];
+    [[CHImageFullScreenHandler standardDefault] thumbnailImageView:self.imageContainer remoteUrl:imageVM.filePath];
 }
 - (void)uploadProgress:(NSProgress *)progress{
     if (self.viewModel.sendingState == CHMessageSending  && progress) {

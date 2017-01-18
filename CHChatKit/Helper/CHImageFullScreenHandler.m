@@ -7,6 +7,7 @@
 //
 
 #import "CHImageFullScreenHandler.h"
+#import <UIImageView+WebCache.h>
 @interface CHImageFullScreenHandler()
 @property (strong ,nonatomic) UIView *background;
 @property (strong ,nonatomic) UIImageView *imageView;
@@ -68,9 +69,22 @@
         self.imageView.image = fullImage;
     }];
 }
-- (void)thumbnailImage:(UIImage *)thumbnail
-             remoteUrl:(NSString *)url{
+- (void)thumbnailImageView:(UIImageView *)thumbnail
+                 remoteUrl:(NSString *)url{
+    UIWindow * window=[[[UIApplication sharedApplication] delegate] window];
+    [window addSubview:self.background];
     
+    CGRect rect=[thumbnail convertRect:thumbnail.bounds toView:window];
+    self.imageView.frame = rect;
+    self.originRect = rect;
+    self.imageView.image = thumbnail.image;
+    [UIView animateWithDuration:0.4 animations:^{
+        self.imageView.frame = CGRectMake(0, 0, self.background.frame.size.width, self.background.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+    }];
     
 }
 @end
