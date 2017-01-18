@@ -21,17 +21,8 @@
 }
 + (UIImage *)imageNamed:(NSString *)name
                inBundle:(NSString *)bundleName{
-    UIImage *image =  [self imageNamed:name inBundle:bundleName bundleClass:self];
-    if (image) return image;
-    image = [self imageNamed:name inBundle:@"CHChatFaceboard" bundleClass:self];
-    if (image) return image;
-    image = [self imageNamed:name inBundle:@"CHChatImage" bundleClass:self];
-    if (image) return image;
-    image = [self imageNamed:name inBundle:@"CHChatVoice" bundleClass:self];
-    if (image) return image;
 
-
-    return image;
+    return [self imageNamed:name inBundle:bundleName bundleClass:self];
 }
 + (UIImage *)imageNamed:(NSString *)name
                inBundle:(NSString *)bundleName
@@ -78,6 +69,20 @@
             if (path) break;
         }
         if (path) break;
+    }
+    if (path.length == 0 && [bundle.resourcePath hasSuffix:@"CHCHatCustomized"]){
+        UIImage *chatBundle = [self imageNamed:name inBundle:@"CHChatImage" bundleClass:self];
+        if (chatBundle) {
+            return chatBundle;
+        }
+        UIImage *voiceBundle = [self imageNamed:name inBundle:@"CHChatVoice" bundleClass:self];
+        if (voiceBundle) {
+            return voiceBundle;
+        }
+        UIImage *faceBundle = [self imageNamed:name inBundle:@"CHChatFaceboard" bundleClass:self];
+        if (faceBundle) {
+            return faceBundle;
+        }
     }
     if (path.length == 0) return nil;
     NSData *data = [NSData dataWithContentsOfFile:path];
