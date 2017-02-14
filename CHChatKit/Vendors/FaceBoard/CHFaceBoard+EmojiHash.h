@@ -1,14 +1,14 @@
 //
-//  FaceBoard+EmojiHash.h
-//  CSChatDemo
+//  CHFaceBoard+EmojiHash.h
+//  CHChatKit
 //
-//  Created by XiaoSong on 15/12/15.
+//  Created by Chausson on 15/12/15.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "FaceBoard.h"
+#import "CHFaceBoard.h"
 
-@interface FaceBoard ()
+@interface CHFaceBoard ()
 @property (strong ,nonatomic) NSArray <UIImage *>*emojiArray;
 @property (strong ,nonatomic) NSArray <NSString *>*symbolArray;
 /**
@@ -16,6 +16,6 @@
  */
 
 @end
-@interface FaceBoard (EmojiHash)
+@interface CHFaceBoard (EmojiHash)
 - (void)configurationEmoji;
 @end

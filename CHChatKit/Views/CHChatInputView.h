@@ -1,5 +1,5 @@
 //
-//  CHChatToolView.h
+//  CHChatInputView.h
 //  CHChatDemo
 //
 //  Created by Chasusson on 15/11/14.
@@ -8,7 +8,7 @@
 
 #import "CHChatViewModel.h"
 #import <UIKit/UIKit.h>
-@class CHChatToolView;
+@class CHChatInputView;
 @protocol CHKeyboardActivity <NSObject>
 @optional
 - (void)chatKeyboardWillShow;
@@ -27,7 +27,7 @@
                  photo:(UIImage *)image;
 @end
 
-@interface CHChatToolView : UIView
+@interface CHChatInputView : UIView
 
 @property (nonatomic , readonly) CHChatViewModel *viewModel;
 - (instancetype)init __unavailable;
@@ -43,14 +43,5 @@
  */
 - (void)setKeyboardHidden:(BOOL)hidden;
 
-/**
- * @brief 在视图添加到父视图之后调用 约束布局
- */
-- (void)autoLayoutView __attribute((deprecated("这个接口等实现约束以后再启用")));
 
-///**
-// * @brief 拓展事件调用
-// */
-//- (void)assistanceActionWithIndex:(NSInteger )index
-//                         andBlock:(void (^)())block;
 @end

@@ -22,8 +22,9 @@
         instance.allowRecordVoice = YES;
         instance.allowDeviceShock = YES;
         instance.allowDeviceTone = YES;
-        instance.toolInputViewBackground = [UIColor clearColor];
         instance.toolContentBackground = [UIColor colorWithRed:241.0/ 255.0 green:241.0/255.0 blue:244.0 / 255.0 alpha:1];
+        instance.inputViewTextFieldTextColor = [UIColor blackColor];
+        instance.inputViewTextFieldBackgroundColor = [UIColor whiteColor];
 //    });
     return instance;
 }

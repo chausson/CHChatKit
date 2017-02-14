@@ -58,15 +58,16 @@
     [self.chatTableView addGestureRecognizer:keyBoardTap];
     [self.view addSubview:self.chatTableView];
     [self.view addSubview:self.chatView];
-    if (self.viewModel.draft.length > 0) {
-        [_chatView setKeyboardHidden:NO];
-    }
-
-//    [_chatView autoLayoutView];
+//    if (self.viewModel.draft.length > 0) {
+//        [_chatView setKeyboardHidden:NO];
+//    }
+    [self.chatView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.bottom.equalTo(self.view);
+        make.height.mas_greaterThanOrEqualTo(@(50));
+    }];
     [self.chatTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(0);
-        make.left.and.right.offset(0);
-        make.bottom.equalTo(self.chatView.mas_top).with.offset(0);
+        make.top.and.left.and.width.equalTo(self.view);
+        make.bottom.equalTo(self.chatView.mas_top);
     }];
 
     [CHChatMessageHelper registerCellForTableView:self.chatTableView];
@@ -136,9 +137,9 @@
    
 }
 #pragma mark Lazy Init
-- (CHChatToolView *)chatView{
+- (CHChatInputView *)chatView{
     if (!_chatView) {
-        _chatView = [[CHChatToolView alloc]initWithObserver:self viewModel:self.viewModel];
+        _chatView = [[CHChatInputView alloc]initWithObserver:self viewModel:self.viewModel];
         
     }
     return _chatView;

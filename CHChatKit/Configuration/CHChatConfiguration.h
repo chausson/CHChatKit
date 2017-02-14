@@ -16,7 +16,8 @@
 
 @property (nonatomic ,strong) UIColor *mainBackground;
 @property (nonatomic ,strong) UIColor *toolContentBackground;
-@property (nonatomic ,strong) UIColor *toolInputViewBackground;
+@property (nonatomic ,strong) UIColor *inputViewTextFieldTextColor;
+@property (nonatomic ,strong) UIColor *inputViewTextFieldBackgroundColor;
 
 @property (nonatomic ,readonly) NSArray <Class>* assistances;
 @property (nonatomic ,assign) UIKeyboardAppearance keyboardAppearance;

@@ -1,22 +1,22 @@
 //
-//  FaceBoard.h
-//  CSChatDemo
+//  CHFaceBoard.h
+//  CHChatKit
 //
-//  Created by 李赐岩 on 15/11/18.
+//  Created by Chausson on 15/11/18.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@class FaceBoard;
-@protocol FaceBoardDelegate <NSObject>
-- (void)clickFaceBoard:(NSString *)string;
+@class CHFaceBoard;
+@protocol CHFaceBoardDelegate <NSObject>
+- (void)clickCHFaceBoard:(NSString *)string;
 - (void)sendFaceMessage;
 - (void)cancelFaceMessage;
 @optional
 @end
 
-@interface FaceBoard : UIView<UIScrollViewDelegate>
-@property (nonatomic ,weak ) id<FaceBoardDelegate>delegate;
+@interface CHFaceBoard : UIView<UIScrollViewDelegate>
+@property (nonatomic ,weak ) id<CHFaceBoardDelegate>delegate;
 @property (nonatomic ,strong )UIScrollView *faceView;
 @property (nonatomic ,strong )UIButton *sendBtn;
 @property (nonatomic ,strong )UIButton *deleteBtn;

@@ -50,6 +50,7 @@
         configuration.fileURL = [NSURL URLWithString:path];
         dataBase -> _realm  =[RLMRealm realmWithConfiguration:configuration error:nil];
         dataBase -> _realm.configuration.readOnly = NO;
+        dataBase -> _userId = identifier;
     }
     NSLog(@"realm =%@ ",dataBase -> _realm.configuration.fileURL.absoluteString);
 
@@ -349,7 +350,7 @@
     viewModel.senderId = message.senderId;
     viewModel.groupId = message.groupId;
     viewModel.visableTime = message.visableTime;
-    
+    viewModel.nickName = message.nickName;
     return viewModel;
 
 

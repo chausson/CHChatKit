@@ -1,13 +1,13 @@
 //
-//  FaceBoard.m
-//  CSChatDemo
+//  CHFaceBoard.m
+//  CHChatKit
 //
-//  Created by 李赐岩 on 15/11/18.
+//  Created by Chausson on 15/11/18.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "FaceBoard.h"
-#import "FaceBoard+EmojiHash.h"
+#import "CHFaceBoard.h"
+#import "CHFaceBoard+EmojiHash.h"
 #import "Masonry.h"
 
 #define FACE_NAME_HEAD @"/s"
@@ -23,40 +23,47 @@
 #define FACE_ICON_SIZE 42 * [UIScreen mainScreen].bounds.size.width / 375
 
 
-@implementation FaceBoard
-
--(instancetype)initWithFrame:(CGRect)frame
+@implementation CHFaceBoard
+- (instancetype)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        [self configurationEmoji];
-        for (int i = 1; i <= self.faceView.contentSize.width / [UIScreen mainScreen].bounds.size.width; i ++) {
-            UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((i - 1) * [UIScreen mainScreen].bounds.size.width, 0, [UIScreen mainScreen].bounds.size.width, self.faceView.frame.size.height)];
-            [self.faceView addSubview:backGroundView];
-            for (int i = 1; i <= self.emojiArray.count; i++) {
-                UIButton *faceButton = [UIButton buttonWithType:UIButtonTypeCustom];
-                [faceButton addTarget:self action:@selector(faceButton:) forControlEvents:UIControlEventTouchUpInside];
-                faceButton.tag = i;
-                CGFloat x = (((i - 1) % FACE_COUNT_PAGE) % FACE_COUNT_CLU) * FACE_ICON_SIZE + 6 + ((i - 1) / FACE_COUNT_PAGE * [UIScreen mainScreen].bounds.size.width);
-                CGFloat y = (((i - 1) % FACE_COUNT_PAGE) / FACE_COUNT_CLU) * FACE_ICON_SIZE + 8;
-                faceButton.frame = CGRectMake( x, y, FACE_ICON_SIZE, FACE_ICON_SIZE);
-                if (self.emojiArray.count > i-1) {
-                    [faceButton setImage:self.emojiArray[i-1]
-                                forState:UIControlStateNormal];
-                }
-               
-                [self.faceView addSubview:faceButton];
-            }
-        }
-
-        [self addSubview:self.faceView];
-        [self addSubview:self.facePageControl];
-        [self addSubview:self.sendBtn];
-        [self addSubview:self.deleteBtn];
-
+        self.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
+//-(instancetype)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        [self configurationEmoji];
+//        for (int i = 1; i <= self.faceView.contentSize.width / [UIScreen mainScreen].bounds.size.width; i ++) {
+//            UIView *backGroundView = [[UIView alloc] initWithFrame:CGRectMake((i - 1) * [UIScreen mainScreen].bounds.size.width, 0, [UIScreen mainScreen].bounds.size.width, self.faceView.frame.size.height)];
+//            [self.faceView addSubview:backGroundView];
+//            for (int i = 1; i <= self.emojiArray.count; i++) {
+//                UIButton *faceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//                [faceButton addTarget:self action:@selector(faceButton:) forControlEvents:UIControlEventTouchUpInside];
+//                faceButton.tag = i;
+//                CGFloat x = (((i - 1) % FACE_COUNT_PAGE) % FACE_COUNT_CLU) * FACE_ICON_SIZE + 6 + ((i - 1) / FACE_COUNT_PAGE * [UIScreen mainScreen].bounds.size.width);
+//                CGFloat y = (((i - 1) % FACE_COUNT_PAGE) / FACE_COUNT_CLU) * FACE_ICON_SIZE + 8;
+//                faceButton.frame = CGRectMake( x, y, FACE_ICON_SIZE, FACE_ICON_SIZE);
+//                if (self.emojiArray.count > i-1) {
+//                    [faceButton setImage:self.emojiArray[i-1]
+//                                forState:UIControlStateNormal];
+//                }
+//               
+//                [self.faceView addSubview:faceButton];
+//            }
+//        }
+//
+//        [self addSubview:self.faceView];
+//        [self addSubview:self.facePageControl];
+//        [self addSubview:self.sendBtn];
+//        [self addSubview:self.deleteBtn];
+//
+//    }
+//    return self;
+//}
 
 //停止滚动的时候
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -72,8 +79,8 @@
 
 - (void)faceButton:(id)sender {
     NSInteger i = ((UIButton *)sender).tag;
-    if ([self.delegate respondsToSelector:@selector(clickFaceBoard:)]) {
-           [self.delegate clickFaceBoard:_symbolArray[i-1] ];
+    if ([self.delegate respondsToSelector:@selector(clickCHFaceBoard:)]) {
+           [self.delegate clickCHFaceBoard:_symbolArray[i-1] ];
     }
 }
 

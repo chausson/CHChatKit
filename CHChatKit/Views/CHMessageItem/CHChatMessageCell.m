@@ -98,7 +98,7 @@ static NSString *refreshName = nil;
     }
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
     CGFloat widthMax = width - (cellAvatarWidth +cellContentGap*2)*2;
-    CGFloat nickNameHeight = self.viewModel.visableNickName?20:0;
+    CGFloat nickNameHeight = self.viewModel.nickName.length > 0?20:0;
     if ([self isOwner]){
         [self.avatarImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             if (self.viewModel.visableTime) {
@@ -194,7 +194,7 @@ static NSString *refreshName = nil;
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
     self.nickName.text = viewModel.nickName;
     self.date.text = viewModel.date;
-    self.nickName.hidden = !viewModel.visableNickName;
+    self.nickName.hidden = !(viewModel.nickName.length > 0);
     self.viewModel = viewModel;
     [self setAvatarImage:viewModel.avatar];
 

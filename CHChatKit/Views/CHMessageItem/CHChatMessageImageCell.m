@@ -69,11 +69,11 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-    [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.imageContainer.mas_centerX);
-        make.centerY.equalTo(self.messageContainer.mas_centerY);
-        //      make.width.equalTo(@(widthMax));
-    }];
+//    [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+////        make.centerX.equalTo(self.imageContainer.mas_centerX);
+//        make.centerY.equalTo(self.messageContainer.mas_centerY);
+////        make.width.equalTo(@(40));
+//    }];
     
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{

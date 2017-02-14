@@ -1,14 +1,14 @@
 //
-//  FaceBoard+EmojiHash.m
-//  CSChatDemo
+//  CHFaceBoard+EmojiHash.m
+//  CHChatKit
 //
-//  Created by XiaoSong on 15/12/15.
+//  Created by Chausson on 15/12/15.
 //  Copyright © 2015年 Chausson. All rights reserved.
 //
 
-#import "FaceBoard+EmojiHash.h"
+#import "CHFaceBoard+EmojiHash.h"
 #import "UIImage+CHImage.h"
-@implementation FaceBoard (EmojiHash)
+@implementation CHFaceBoard (EmojiHash)
 - (void)configurationEmoji{
 
      self.emojiArray = [NSArray arrayWithObjects:
@@ -197,7 +197,7 @@
 - (UIImage *)imageNamed:(NSString *)name{
 //    NSString *imageName = [name stringByAppendingString:@"@2x"];
 
-    UIImage *image = [UIImage imageNamed:name inBundle:@"CHChatFaceboard"];
+    UIImage *image = [UIImage imageNamed:name inBundle:@"CHChatCHFaceBoard"];
 
     return image;
 }

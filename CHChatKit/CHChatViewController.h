@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CHChatViewModel.h"
-#import "CHChatToolView.h"
+#import "CHChatInputView.h"
 #import "CHChatTableView.h"
 #import "CHChatConfiguration.h"
 @interface CHChatViewController : UIViewController<CHKeyboardActivity, UITableViewDelegate,UITableViewDataSource>
 - (instancetype)init __unavailable;
 - (instancetype)initWithViewModel:(CHChatViewModel *)viewModel;
-@property (strong ,nonatomic) CHChatToolView *chatView;
+@property (strong ,nonatomic) CHChatInputView *chatView;
 @property (strong ,nonatomic) CHChatTableView *chatTableView;
 @property (strong ,nonatomic) CHChatViewModel *viewModel;
 @end
