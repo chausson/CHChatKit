@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 #import <UIKit/UIKit.h>
+#import <CHImagePicker/CHImagePicker.h>
 #import "CHPictureAssistance.h"
 #import "CHMessagePictureEvent.h"
 @interface CHPictureAssistance ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -22,6 +23,18 @@
     return @"icon_picture";
 }
 - (void)executeEvent:(id )responder{
+    CHImagePicker *p = [CHImagePicker  new];
+    __weak typeof(self) weakSelf = self;
+    [p openCamera:responder completion:^(UIImage *image) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        CHMessagePictureEvent *event = [CHMessagePictureEvent new];
+        event.group = strongSelf.group;
+        event.receiverId = strongSelf.receiveId;
+        event.groupId = strongSelf.groupId;
+        event.userId = strongSelf.userId;
+        event.fullPicture = image;
+        [[XEBEventBus defaultEventBus] postEvent:event];
+    }];
     [self openPhotoLibrary:responder];
 
 }

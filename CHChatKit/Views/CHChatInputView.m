@@ -313,6 +313,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
             self.talkBtn.hidden = TRUE;
             self.emojiBtn.selected = FALSE;
             self.moreItemBtn.selected = FALSE;
+            return;
             break;
         default:
             break;
@@ -450,9 +451,9 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
 #pragma mark Public
 - (void)setKeyboardHidden:(BOOL)hidden{
     if(hidden){
-        self.emojiBtn.selected = FALSE;
-        self.messageBtn.selected =FALSE;
-        self.moreItemBtn.selected = FALSE;
+        self.emojiBtn.selected      =   FALSE;
+        self.messageBtn.selected    =   FALSE;
+        self.moreItemBtn.selected   =   FALSE;
         self.keyboardSize = CGSizeZero;
         if (self.currentState != CHChatSelectedNone || self.currentState != CHChatSelectedText) {
             self.currentState = CHChatSelectedNone;
@@ -508,6 +509,12 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
             CGFloat height = newTextViewHeight;
             make.height.mas_equalTo(height);
         }];
+        if (self.currentState == CHChatSelectedText) {
+            CGFloat height = [self.chatWindowView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(height);
+            }];
+        }
 
     }
     if (textView.scrollEnabled ) {
@@ -520,6 +527,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
     
 }
 - (void)sendText{
+
     if (self.contentTextView.text.length > 0) {
         CHMessageTextEvent *e = [CHMessageTextEvent new];
         e.groupId = _viewModel.groupId;
@@ -537,6 +545,8 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
         }
 
         self.contentTextView.text = nil;
+        [self textViewDidChangeFitInpuViewHegiht:self.contentTextView shouldCache:YES];
+
     }
 }
 - (void)sendFaceMessage
