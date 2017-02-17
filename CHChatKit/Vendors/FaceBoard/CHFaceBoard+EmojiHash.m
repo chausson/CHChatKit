@@ -197,7 +197,7 @@
 - (UIImage *)imageNamed:(NSString *)name{
 //    NSString *imageName = [name stringByAppendingString:@"@2x"];
 
-    UIImage *image = [UIImage imageNamed:name inBundle:@"CHChatCHFaceBoard"];
+    UIImage *image = [UIImage imageNamed:name inBundle:@"CHChatFaceBoard"];
 
     return image;
 }

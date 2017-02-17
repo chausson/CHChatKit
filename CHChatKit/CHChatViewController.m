@@ -37,10 +37,18 @@
     [super viewDidLoad];
     [self layout];
     [self registerNotificationCenter];
+
     [self autoScrolleTableView];
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (self.viewModel.draft.length > 0) {
+        [_chatView setKeyboardHidden:NO];
+    }
 }
 #pragma mark Notification
 - (void)registerNotificationCenter{
@@ -58,9 +66,7 @@
     [self.chatTableView addGestureRecognizer:keyBoardTap];
     [self.view addSubview:self.chatTableView];
     [self.view addSubview:self.chatView];
-//    if (self.viewModel.draft.length > 0) {
-//        [_chatView setKeyboardHidden:NO];
-//    }
+
     [self.chatView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.bottom.equalTo(self.view);
         make.height.mas_greaterThanOrEqualTo(@(50));
@@ -71,6 +77,8 @@
     }];
 
     [CHChatMessageHelper registerCellForTableView:self.chatTableView];
+    
+ 
 }
 #pragma mark TableView Delagate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

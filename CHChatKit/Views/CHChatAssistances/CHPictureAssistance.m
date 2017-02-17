@@ -59,7 +59,7 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
         event.group = strongSelf.group;
-        event.fullLocalPath = url.absoluteString;
+//        event.fullLocalPath = url.absoluteString;
         event.receiverId = strongSelf.receiveId;
         event.groupId = strongSelf.groupId;
         event.userId = strongSelf.userId;

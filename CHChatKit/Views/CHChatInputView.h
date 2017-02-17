@@ -28,6 +28,7 @@
 @end
 
 @interface CHChatInputView : UIView
+//@property (nonatomic , assign) BOOL editableState; // 默认为NO，YES显示正在输入的状态
 
 @property (nonatomic , readonly) CHChatViewModel *viewModel;
 - (instancetype)init __unavailable;
@@ -39,7 +40,7 @@
 - (instancetype)initWithObserver:(NSObject<CHKeyboardActivity>*)object
                        viewModel:(CHChatViewModel *)viewModel;
 /**
- * @brief 是否隐藏键盘
+ * @brief 是否隐藏键盘,如果不隐藏显示正在输入的状态
  */
 - (void)setKeyboardHidden:(BOOL)hidden;
 

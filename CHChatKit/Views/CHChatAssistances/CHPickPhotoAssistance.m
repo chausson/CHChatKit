@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 #import <UIKit/UIKit.h>
-
+#import <CHImagePicker/CHImagePicker.h>
 #import "CHPickPhotoAssistance.h"
 #import "CHMessagePictureEvent.h"
 @interface CHPickPhotoAssistance ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -23,12 +23,27 @@
     return @"icon_photography";
 }
 - (void)executeEvent:(id )responder{
+    CHImagePicker *p = [CHImagePicker  new];
+    __weak typeof(self) weakSelf = self;
+
+//    [p openCamera:responder completion:^(UIImage *image) {
+//        __strong typeof(weakSelf) strongSelf = weakSelf;
+//
+//        NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+//        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//        CHMessagePictureEvent *event = [CHMessagePictureEvent new];
+//        event.group = strongSelf.group;
+//        event.fullLocalPath = url.absoluteString;
+//        event.receiverId = strongSelf.receiveId;
+//        event.groupId = strongSelf.groupId;
+//        event.userId = strongSelf.userId;
+//        event.fullPicture = image;
+//        [[XEBEventBus defaultEventBus] postEvent:event];
+//    }];
     [self openCamera:responder];
 
 }
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    
-}
+
 #pragma mark 打开照相机
 - (void)openCamera:(UIViewController *)controller{
     if (controller && [controller isKindOfClass:[UIViewController class]]) {
@@ -58,7 +73,7 @@
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
         event.group = strongSelf.group;
-        event.fullLocalPath = url.absoluteString;
+//        event.fullLocalPath = url.absoluteString;
         event.receiverId = strongSelf.receiveId;
         event.groupId = strongSelf.groupId;
         event.userId = strongSelf.userId;

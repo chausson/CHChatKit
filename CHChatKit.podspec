@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CHChatKit"
-  s.version      = "0.9.5"
+  s.version      = "0.9.6"
   s.summary      = "IM SDK FOR Objective-C ,implention EMHandler for Servive"
   s.homepage     = "https://github.com/chausson/CHChatKit"
   s.license      = "MIT"
@@ -12,9 +12,11 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "UITableView+FDTemplateLayoutCell"
-  s.dependency "SDWebImage"
+  s.dependency "SDWebImage","~> 3.8.2"
   s.dependency "Masonry"
   s.dependency "Realm"
+  s.dependency "CHProgressHUD"
+  s.dependency "CHImagePicker"
   s.dependency "XEBEventBus"
   
 end

@@ -69,11 +69,13 @@
 }
 - (void)updateConstraints{
     [super updateConstraints];
-//    [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
-////        make.centerX.equalTo(self.imageContainer.mas_centerX);
-//        make.centerY.equalTo(self.messageContainer.mas_centerY);
-////        make.width.equalTo(@(40));
-//    }];
+#warning 约束报错
+    // Fix me Mansory 约束报错
+    [self.stateIndicatorView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.imageContainer.mas_centerX);
+        make.centerY.equalTo(self.messageContainer.mas_centerY);
+//        make.width.equalTo(@(40));
+    }];
     
 }
 - (void)loadViewModel:(CHChatMessageViewModel *)viewModel{
@@ -150,6 +152,7 @@
 }
 - (void )imageTap:(UITapGestureRecognizer *)tap{
     CHChatMessageImageVM *imageVM = (CHChatMessageImageVM *)self.viewModel;
+    
     [[CHImageFullScreenHandler standardDefault] thumbnailImageView:self.imageContainer remoteUrl:imageVM.filePath];
 }
 - (void)uploadProgress:(NSProgress *)progress{

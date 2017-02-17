@@ -69,7 +69,6 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
     self = [super init];
     if (self) {
 
-         self.currentScreenHeight = [UIScreen mainScreen].bounds.size.height;
     
         if (object) {
             _observer = object;
@@ -77,25 +76,25 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
         if (viewModel) {
             _viewModel = viewModel;
         }
-        if (!_viewModel.configuration.fitToNaviation) {
-            self.currentScreenHeight -= 64;
-        }
-
-        self.backgroundColor = _viewModel.configuration.toolContentBackground;
+        [self setupUI];
+    
         [self addSubviewsAndAutoLayout];
         [self maekConstaints];
         [self registerForKeyboardNotifications];
+
 
     }
     return self;
 }
 #pragma mark Layoutsubviews
-
-//- (void)didMoveToSuperview{
-//    [super didMoveToSuperview];
-//    
-//}
-
+- (void)setupUI{
+    if (!_viewModel.configuration.fitToNaviation) {
+        self.currentScreenHeight -= 64;
+    }
+    self.currentScreenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    self.backgroundColor = _viewModel.configuration.toolContentBackground;
+}
 - (void)addSubviewsAndAutoLayout{
     [self.chatWindowView addSubview:self.talkBtn];
     [self.chatWindowView addSubview:self.messageBtn];
@@ -134,7 +133,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
     }];
     
     UIEdgeInsets padding = UIEdgeInsetsMake(0, KGAP, 0, KGAP);
-
+    
     [self.contentTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.messageBtn.mas_right).with.offset(KGAP);
         make.right.equalTo(self.emojiBtn.mas_left).with.offset(-KGAP);
@@ -297,7 +296,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
             self.talkBtn.hidden = FALSE;
             self.emojiBtn.selected = FALSE;
             self.moreItemBtn.selected = FALSE;
-            [self setKeyboardHidden:TRUE];
+            [self.contentTextView resignFirstResponder];
             break;
         case CHChatSelectedEmoji:
             [self.contentTextView resignFirstResponder];
@@ -329,15 +328,24 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
     CGFloat outputHeight = KASSIGANTVIEW_HEIGHT;
     CGFloat keyboardHeight = self.keyboardSize.height;
     CGFloat inputViewHeight = self.chatWindowView.frame.size.height;
+    CGFloat allInputViewHeight = outputHeight+self.chatWindowView.frame.size.height;
     switch (self.currentState) {
-        case CHChatSelectedText:
+        case CHChatSelectedText:{
+            NSLog(@"input高度=%g",inputViewHeight);
+            if (self.currentState != CHChatSelectedNone) {
+                [self textViewDidChangeFitInpuViewHegiht:self.contentTextView shouldCache:NO];
+            }
+            CGFloat height = [self.chatWindowView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(-keyboardHeight);
+                make.height.mas_equalTo(height);
             }];
-            break;
+            return;
+        }break;
         case CHChatSelectedAssistance:{
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(-outputHeight);
+                make.height.mas_equalTo(allInputViewHeight);
+                make.bottom.mas_equalTo(0);
             }];
             [self.faceBoard mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(0);
@@ -348,19 +356,20 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
 
             }];
         }break;
-        case CHChatSelectedVoice:
-            
+        case CHChatSelectedVoice:{
             [self.contentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(CHTextViewMinHeight);
             }];
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.bottom.mas_equalTo(0);
+                make.height.mas_equalTo(50);
             }];
             return;
-            break;
+        }break;
         case CHChatSelectedEmoji:{
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(-outputHeight);
+                make.height.mas_equalTo(allInputViewHeight);
+                make.bottom.mas_equalTo(0);
             }];
             [self.assistanceView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(0);
@@ -371,17 +380,17 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
 
             }];
         }break;
-        case CHChatSelectedNone:
+        case CHChatSelectedNone:{
             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.bottom.mas_equalTo(-(keyboardHeight));
+                make.height.mas_equalTo(self.chatWindowView.frame.size.height);
+                make.bottom.mas_equalTo(0);
             }];
-            break;
+        }break;
         default:
             break;
     }
     if (self.currentState != CHChatSelectedNone) {
         [self textViewDidChangeFitInpuViewHegiht:self.contentTextView shouldCache:NO];
-
     }
 
     [UIView animateWithDuration:.3f animations:^{
@@ -445,12 +454,14 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
         self.messageBtn.selected =FALSE;
         self.moreItemBtn.selected = FALSE;
         self.keyboardSize = CGSizeZero;
-        [self.contentTextView resignFirstResponder];
+        if (self.currentState != CHChatSelectedNone || self.currentState != CHChatSelectedText) {
+            self.currentState = CHChatSelectedNone;
+        }
 
     }else{
         [self.contentTextView becomeFirstResponder];
+//        self.currentState = CHChatSelectedText;
     }
-    [self updateInputViewConstraints];
 }
 
 
@@ -497,7 +508,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
             CGFloat height = newTextViewHeight;
             make.height.mas_equalTo(height);
         }];
-        //        [self :YES];
+
     }
     if (textView.scrollEnabled ) {
         if (newTextViewHeight == CHTextViewMaxHeight) {
@@ -600,7 +611,7 @@ static CGFloat const CHTextViewMaxHeight = 102.f;
     if (!_faceBoard) {
         _faceBoard = [[CHFaceBoard alloc] init];
         _faceBoard.delegate = self;
-//        _faceBoard.backgroundColor = self.backgroundColor;
+        _faceBoard.backgroundColor = self.backgroundColor;
     }
     return _faceBoard;
 }

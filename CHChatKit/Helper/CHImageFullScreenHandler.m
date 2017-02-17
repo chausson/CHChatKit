@@ -7,12 +7,15 @@
 //
 
 #import "CHImageFullScreenHandler.h"
+#import <CHImagePicker/CHDownSheet.h>
+#import <CHProgressHUD/CHProgressHUD.h>
 #import <UIImageView+WebCache.h>
-@interface CHImageFullScreenHandler()
-@property (strong ,nonatomic) UIView *background;
+@interface CHImageFullScreenHandler()<CHDownSheetDelegate>
+@property (strong ,nonatomic) UIScrollView *background;
 @property (strong ,nonatomic) UIImageView *imageView;
 @property (assign ,nonatomic) CGRect originRect;
-
+@property (assign ,nonatomic) BOOL isOptioning;
+@property (strong ,nonatomic) CHDownSheet *sheet;
 @end
 @implementation CHImageFullScreenHandler
 + (instancetype)standardDefault {
@@ -27,10 +30,13 @@
 }
 - (UIView *)background{
     if (!_background) {
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss:)];
-        _background = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        UITapGestureRecognizer *cancelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss:)];
+        UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(menu)];
+        _background = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         _background.backgroundColor = [UIColor blackColor];
-        [_background addGestureRecognizer:tap];
+        [_background addGestureRecognizer:cancelTap];
+        [_background addGestureRecognizer:longTap];
+
     }
     return _background;
 }
@@ -50,8 +56,49 @@
         [self.imageView removeFromSuperview];
         self.imageView = nil;
         self.background = nil;
+        self.isOptioning = NO;
+
     }];
 
+}
+- (void)menu{
+    if (self.sheet.isDisplaying) {
+        return;
+    }
+    self.sheet = [[CHDownSheet alloc]initWithList:[self avaiablePickerSheetModel] height:330];
+    self.sheet.delegate = self;
+    [self.sheet showInView:nil];
+    self.isOptioning = YES;
+ 
+}
+- (void)ch_sheetDidSelectIndex:(NSInteger)index{
+    if (index == 0) {
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        NSLog(@"保存");
+    }else if (index == 2){
+        NSLog(@"cancel");
+    }
+}
+//回调方法
+- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo
+{
+    NSString *msg = nil ;
+    if(error != NULL){
+        msg = @"保存图片失败" ;
+    }else{
+        msg = @"保存图片成功" ;
+    }
+    [CHProgressHUD showPlainText:msg];
+    
+}
+- (NSArray *)avaiablePickerSheetModel{
+    CHDownSheetModel *save = [[CHDownSheetModel alloc]init];
+    save.title = @"保存到相册";
+
+    CHDownSheetModel *cancel = [[CHDownSheetModel alloc]init];
+    cancel.title = @"取消";
+    
+    return   @[save,cancel];
 }
 - (void)thumbnailImageView:(UIImageView *)thumbnail
                  fullImage:(UIImage *)fullImage{
@@ -81,7 +128,7 @@
     [UIView animateWithDuration:0.4 animations:^{
         self.imageView.frame = CGRectMake(0, 0, self.background.frame.size.width, self.background.frame.size.height);
     } completion:^(BOOL finished) {
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:thumbnail.image  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
     }];

@@ -52,7 +52,7 @@
 }
 
 - (void)onEvent:(CHMessageReceiveEvent *)event{
-    if(event.item.receiveId == self.receiveId || event.item.groupId != 0){
+    if((event.item.receiveId == self.receiveId && event.item.receiveId != 0 ) || (event.item.groupId != 0 && event.item.groupId == self.groupId )){
         NSMutableArray *cellTempArray = [NSMutableArray arrayWithArray:[_cellViewModels copy]];
         event.item.owner?(event.item.avatar = self.userIcon):(event.item.avatar = (event.item.groupId == 0?self.receiverIcon:event.item.avatar));
         [event.item sortOutWithTime:[_cellViewModels lastObject]?[_cellViewModels lastObject].date:nil];
