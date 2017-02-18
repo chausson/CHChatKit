@@ -19,20 +19,17 @@
     normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
     return normal;
 }
+
 + (UIImage *)imageNamed:(NSString *)name
                inBundle:(NSString *)bundleName{
 
     return [self imageNamed:name inBundle:bundleName bundleClass:self];
 }
 + (UIImage *)imageNamed:(NSString *)name
-               inBundle:(NSString *)bundleName
-            bundleClass:(Class )aClass{
-    if (name.length == 0) return nil;
-    if ([name hasSuffix:@"/"]) return nil;
+         specificBundle:(NSBundle *)aBundle{
     UIImage *image;
-    NSBundle *bundle = [self bundleForName:bundleName class:aClass];
     NSCache *cache = [[NSCache alloc]init];
-    NSString *cacheKey = [NSString stringWithFormat:@"%@_%@",bundle,name];
+    NSString *cacheKey = [NSString stringWithFormat:@"%@_%@",aBundle,name];
     image = [cache objectForKey:cacheKey];
     
     if(image && [image isKindOfClass:[UIImage class]]) {
@@ -59,30 +56,30 @@
         });
         return scales;
     }();
-
+    
     for (int s = 0; s < scales.count; s++) {
         scale = ((NSNumber *)scales[s]).floatValue;
         
         NSString *scaledName = [self stringByAppendingScale:scale str:res];
         for (NSString *e in exts) {
-            path = [bundle pathForResource:scaledName ofType:e];
+            path = [aBundle pathForResource:scaledName ofType:e];
             if (path) break;
         }
         if (path) break;
     }
-    if (path.length == 0 && [bundle.resourcePath hasSuffix:@"CHCHatCustomized"]){
-        UIImage *chatBundle = [self imageNamed:name inBundle:@"CHChatImage" bundleClass:self];
-        if (chatBundle) {
-            return chatBundle;
-        }
-        UIImage *voiceBundle = [self imageNamed:name inBundle:@"CHChatVoice" bundleClass:self];
-        if (voiceBundle) {
-            return voiceBundle;
-        }
-        UIImage *faceBundle = [self imageNamed:name inBundle:@"CHChatFaceboard" bundleClass:self];
-        if (faceBundle) {
-            return faceBundle;
-        }
+    if (path.length == 0 && [aBundle.resourcePath containsString:@"CHChatCustomized"]){
+        UIImage *bundleImage;
+        NSBundle *imageBundle = [self specificBundleForName:@"CHChatImage"];
+        NSBundle *voiceBundle = [self specificBundleForName:@"CHChatVoice"];
+        NSBundle *faceboardBundle = [self specificBundleForName:@"CHChatFaceboard"];
+
+        bundleImage = [self imageNamed:name specificBundle:imageBundle];
+        if (bundleImage)return bundleImage;
+        bundleImage = [self imageNamed:name specificBundle:voiceBundle];
+        if (bundleImage)return bundleImage;
+        bundleImage = [self imageNamed:name specificBundle:faceboardBundle];
+        if (bundleImage)return bundleImage;
+
     }
     if (path.length == 0) return nil;
     NSData *data = [NSData dataWithContentsOfFile:path];
@@ -91,14 +88,22 @@
     [cache setObject:image forKey:cacheKey];
     return image;
 }
-+ (NSString *)bundlePathForBundleName:(NSString *)bundleName class:(Class)aClass {
++ (UIImage *)imageNamed:(NSString *)name
+               inBundle:(NSString *)bundleName
+            bundleClass:(Class )aClass{
+    if (name.length == 0) return nil;
+    if ([name hasSuffix:@"/"]) return nil;
+    NSBundle *bundle = [self bundleForName:bundleName class:aClass];
+    return [self imageNamed:name specificBundle:bundle];
+}
++ (NSString *)bundlePathForBundleName:(NSString *)bundleName{
     NSString *pathComponent = [NSString stringWithFormat:@"%@.bundle", bundleName];
     NSString *bundlePath =[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:pathComponent];
     return bundlePath;
 }
 
 + (NSString *)customizedBundlePathForBundleName:(NSString *)bundleName {
-    NSString *customizedBundlePathComponent = [NSString stringWithFormat:@"CHCHatCustomized.bundle"];
+    NSString *customizedBundlePathComponent = [NSString stringWithFormat:@"CHChatCustomized.bundle"];
     NSString *customizedBundlePath =[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:customizedBundlePathComponent];
     return customizedBundlePath;
 }
@@ -109,7 +114,12 @@
     if (customizedBundle) {
         return customizedBundle;
     }
-    NSString *bundlePath = [self bundlePathForBundleName:bundleName class:aClass];
+    NSString *bundlePath = [self bundlePathForBundleName:bundleName];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    return bundle;
+}
++ (NSBundle *)specificBundleForName:(NSString *)bundleName{
+    NSString *bundlePath = [self bundlePathForBundleName:bundleName];
     NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     return bundle;
 }

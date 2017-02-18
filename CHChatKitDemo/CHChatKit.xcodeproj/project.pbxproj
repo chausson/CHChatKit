@@ -16,6 +16,7 @@
 		0692756F1D77DAE200CAB0A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 069275591D77DAE200CAB0A5 /* Main.storyboard */; };
 		069275711D77DAE200CAB0A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692755C1D77DAE200CAB0A5 /* main.m */; };
 		069275721D77DAE200CAB0A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692755E1D77DAE200CAB0A5 /* ViewController.m */; };
+		06979C381E57E6E2001DCAD7 /* CHChatCustomized.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 06979C371E57E6E2001DCAD7 /* CHChatCustomized.bundle */; };
 		06DD8ED61DC71DCA00A6F048 /* libHyphenateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DD8ED51DC71DCA00A6F048 /* libHyphenateSDK.a */; };
 		06E618071DAB414800E11B96 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618061DAB414800E11B96 /* CoreMedia.framework */; };
 		06E618091DAB414E00E11B96 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06E618081DAB414E00E11B96 /* AudioToolbox.framework */; };
@@ -62,6 +63,7 @@
 		0692755C1D77DAE200CAB0A5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0692755D1D77DAE200CAB0A5 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0692755E1D77DAE200CAB0A5 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		06979C371E57E6E2001DCAD7 /* CHChatCustomized.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CHChatCustomized.bundle; sourceTree = "<group>"; };
 		06DD8EB51DC71DCA00A6F048 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatManagerDelegate.h; sourceTree = "<group>"; };
 		06DD8EB61DC71DCA00A6F048 /* EMChatroom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroom.h; sourceTree = "<group>"; };
 		06DD8EB71DC71DCA00A6F048 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		068B4BCC1DAF88FE00AD4652 /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				06979C371E57E6E2001DCAD7 /* CHChatCustomized.bundle */,
 				0655C2A51DCA175800B8DA9F /* YYFPSLabel */,
 				06E72F151DC1B1040054A4B9 /* MessageTest.plist */,
 				06E72F161DC1B1040054A4B9 /* MessageTest2.plist */,
@@ -413,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0692756F1D77DAE200CAB0A5 /* Main.storyboard in Resources */,
+				06979C381E57E6E2001DCAD7 /* CHChatCustomized.bundle in Resources */,
 				06E72F181DC1B1040054A4B9 /* MessageTest2.plist in Resources */,
 				0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */,
 				06E72F171DC1B1040054A4B9 /* MessageTest.plist in Resources */,

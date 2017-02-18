@@ -11,6 +11,7 @@
 #import "CHMessagePictureEvent.h"
 
 @interface CHPickPhotoAssistance ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@property (nonatomic ,strong) CHImagePicker *p;
 @end;
 @implementation CHPickPhotoAssistance
 
@@ -24,9 +25,9 @@
     return @"icon_photography";
 }
 - (void)executeEvent:(id )responder{
-    CHImagePicker *p = [CHImagePicker  new];
+    self.p = [CHImagePicker  new];
     __weak typeof(self) weakSelf = self;
-    [p openCamera:responder completion:^(UIImage *image) {
+    [self.p openCamera:responder completion:^(UIImage *image) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         CHMessagePictureEvent *event = [CHMessagePictureEvent new];
         event.group = strongSelf.group;
