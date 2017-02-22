@@ -15,7 +15,7 @@
 #import "CHChatMessageVMFactory.h"
 #import "EMMessageHandler.h"
 #import "YYFPSLabel.h"
-
+#import "CHChatMessageViewModel.h"
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -45,6 +45,16 @@
     NSMutableArray *messages = [NSMutableArray array];
     NSArray *historyMs = [data fetchAllMessageWithReceive:receiveId];
     [messages addObjectsFromArray:historyMs];
+    
+    //添加分享的类型数据
+    CHChatMessageViewModel* htmlVM = [CHChatMessageVMFactory factoryHTMLOfUserIcon:@"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg" timeDate:@"20:02" nickName:@"黑眼圈1111" title:@"vnvienvinvnnnefewnvnvienvinv" content:@"vvbeergwrefwececwffgewvvbeergwrefwececwffgewvvb" thumbnail:@"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg" url:@"123"  isOwner:YES];
+    htmlVM.receiveId = receiveId;
+    htmlVM.senderId = userId;
+    [messages addObject:htmlVM];
+    
+    //保存
+    [[EMMessageHandler shareInstance] save:htmlVM];
+    
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:messages configuration:configuration];
    // vm.receiveId = 14128;
     vm.receiveId = receiveId;

@@ -111,6 +111,25 @@
     packet.owner = owner;
     return packet;
 }
++ (CHChatMessageHTMLVM *)factoryHTMLOfUserIcon:(NSString *)avatar
+                                      timeDate:(NSString *)date
+                                      nickName:(NSString *)name
+                                         title:(NSString *)title
+                                       content:(NSString *)content
+                                     thumbnail:(NSString *)thumbnail
+                                     url:(NSString *)url
+                                       isOwner:(BOOL)owner{
+    CHChatMessageHTMLVM *htmlVM = [CHChatMessageHTMLVM new];
+    htmlVM.title = title;
+    htmlVM.content = content;
+    htmlVM.thumbnail = thumbnail;
+    htmlVM.nickName = name;
+    htmlVM.date = date;
+    htmlVM.owner = owner;
+    htmlVM.avatar = avatar;
+    htmlVM.url = url;
+    return htmlVM;
+}
 + (NSArray <CHChatMessageViewModel *>*)testData{
     NSMutableArray <CHChatMessageViewModel *>*viewModels = [NSMutableArray array];
     NSString *userIcon = @"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg";

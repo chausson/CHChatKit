@@ -337,7 +337,25 @@
             }
             viewModel = [CHChatMessageVMFactory factoryPacketOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName packetId:identifer blessing:blessing isOwner:message.owner];
         }break;
-            
+        case CHMessageHTML:{
+            NSString *title ;
+            NSString *content ;
+            NSString *thumbnail ;
+            NSString *url ;
+            if ([json objectForKey:@"title"]) {
+                title = [json objectForKey:@"title"];
+            }
+            if([json objectForKey:@"content"]){
+                content = [json objectForKey:@"content"];
+            }
+            if ([json objectForKey:@"thumbnail"]) {
+                thumbnail = [json objectForKey:@"thumbnail"];
+            }
+            if([json objectForKey:@"url"]){
+                url = [json objectForKey:@"url"];
+            }
+            viewModel = [CHChatMessageVMFactory factoryHTMLOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName title:title content:content thumbnail:thumbnail url:url isOwner:NO];
+        }break;
         default:
             return nil;
             break;

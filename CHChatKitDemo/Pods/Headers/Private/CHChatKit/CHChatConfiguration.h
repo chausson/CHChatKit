@@ -1,0 +1,1 @@
+../../../../../CHChatKit/Configuration/CHChatConfiguration.h

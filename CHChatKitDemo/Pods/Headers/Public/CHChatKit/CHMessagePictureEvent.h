@@ -1,0 +1,1 @@
+../../../../../CHChatKit/Event/CHMessagePictureEvent.h

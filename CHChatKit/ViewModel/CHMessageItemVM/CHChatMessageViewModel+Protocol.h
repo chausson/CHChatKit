@@ -13,6 +13,7 @@
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatMessageImageVM.h"
 #import "CHChatMessagePacketVM.h"
+#import "CHChatMessageHTMLVM.h"
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 @interface CHChatMessageViewModel ()
@@ -62,5 +63,12 @@
 @property (nonatomic ,assign) NSInteger length;
 @property (nonatomic ,assign) BOOL hasRead;
 @property (nonatomic ,assign) CHVoicePlayState voiceState;
+
+@end
+@interface CHChatMessageHTMLVM ()
+@property (nonatomic ,copy) NSString *title;
+@property (nonatomic ,copy) NSString *content;
+@property (nonatomic ,copy) NSString *thumbnail;
+@property (nonatomic ,copy) NSString *url;
 
 @end
