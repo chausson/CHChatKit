@@ -6,7 +6,7 @@ pod 'UITableView+FDTemplateLayoutCell'
 pod 'SDWebImage', "~> 3.8.2"
 pod 'Masonry'
 pod 'XEBEventBus'
-pod 'Realm'
+pod 'Realm','2.1.2'
 pod 'CHImagePicker'
 pod 'CHProgressHUD'
 pod 'CHChatKit', :path => '../'

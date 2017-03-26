@@ -1,0 +1,1 @@
+../../../CHImagePicker/CHImagePicker/CustomCamera/UIImage+fixOrientation.h

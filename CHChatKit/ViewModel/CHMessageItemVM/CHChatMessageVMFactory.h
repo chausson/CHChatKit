@@ -14,6 +14,8 @@
 #import "CHChatMessageVoiceVM.h"
 #import "CHChatMessagePacketVM.h"
 #import "CHChatDefinition.h"
+#import "CHChatMessageHTMLVM.h"
+
 @interface CHChatMessageVMFactory : NSObject
 
 + (CHChatMessageTextVM *)factoryTextOfUserIcon:(NSString *)avatar
@@ -60,6 +62,15 @@
                                           packetId:(NSInteger )identifer
                                           blessing:(NSString *)blessing
                                            isOwner:(BOOL)owner;
+
++ (CHChatMessageHTMLVM *)factoryHTMLOfUserIcon:(NSString *)avatar
+                                      timeDate:(NSString *)date
+                                      nickName:(NSString *)name
+                                         title:(NSString *)title
+                                       content:(NSString *)content
+                                     thumbnail:(NSString *)thumbnail
+                                           url:(NSString *)url
+                                       isOwner:(BOOL)owner;
 
 + (NSArray <CHChatMessageViewModel *>*)testData;
 

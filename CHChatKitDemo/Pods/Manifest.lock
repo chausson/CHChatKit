@@ -1,0 +1,48 @@
+PODS:
+  - CHChatKit (0.9.8):
+    - CHImagePicker
+    - CHProgressHUD
+    - Masonry
+    - Realm
+    - SDWebImage (~> 3.8.2)
+    - UITableView+FDTemplateLayoutCell
+    - XEBEventBus
+  - CHImagePicker (1.4.2)
+  - CHProgressHUD (0.4)
+  - Masonry (1.0.2)
+  - Realm (2.1.2):
+    - Realm/Headers (= 2.1.2)
+  - Realm/Headers (2.1.2)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - UITableView+FDTemplateLayoutCell (1.4)
+  - XEBEventBus (1.1)
+
+DEPENDENCIES:
+  - CHChatKit (from `../`)
+  - CHImagePicker
+  - CHProgressHUD
+  - Masonry
+  - Realm (= 2.1.2)
+  - SDWebImage (~> 3.8.2)
+  - UITableView+FDTemplateLayoutCell
+  - XEBEventBus
+
+EXTERNAL SOURCES:
+  CHChatKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CHChatKit: 5acee38a82860d5583078d6e82ae200dcf3fe395
+  CHImagePicker: d120503109cc207485c3f62d6280265ae081ff4f
+  CHProgressHUD: 32780a715fd40989606f3a16b8a2f0ad633262cd
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
+  SDWebImage: '098e97e6176540799c27e804c96653ee0833d13c'
+  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+  XEBEventBus: b81d154ba6124a0ef9c93a2a6fb7496b84e6a21e
+
+PODFILE CHECKSUM: 9bec200e2b5ef2c6f971a30e989a82233c039c68
+
+COCOAPODS: 1.1.1

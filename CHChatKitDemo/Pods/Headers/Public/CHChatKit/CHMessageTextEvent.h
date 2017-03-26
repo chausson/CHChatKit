@@ -1,0 +1,1 @@
+../../../../../CHChatKit/Event/CHMessageTextEvent.h

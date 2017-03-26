@@ -1,0 +1,1 @@
+../../../../../CHChatKit/Helper/CHImageFullScreenHandler.h

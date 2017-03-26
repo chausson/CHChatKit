@@ -17,6 +17,7 @@
 @class CHChatMessageLocationVM;
 @class CHChatMessageVoiceVM;
 @class CHChatMessagePacketVM;
+@class CHChatMessageHTMLVM;
 @class CHChatAssistance;
 
 @protocol CHMessageInstallHandler <NSObject>
@@ -36,6 +37,7 @@
 - (void)executeGroupVoice:(CHChatMessageVoiceVM *)viewModel;
 
 - (void)executePacket:(CHChatMessagePacketVM *)viewModel;
+- (void)executeHTML:(CHChatMessageHTMLVM *)viewModel;
 
 // 接收插件事件
 - (CHChatMessageViewModel *)executeAssistance:(CHChatAssistance *)assistance;

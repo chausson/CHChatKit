@@ -1,0 +1,1 @@
+../../../../../CHChatKit/ViewModel/CHChatViewModel.h
