@@ -1,1 +1,0 @@
-../../../../../CHChatKit/Extensions/UIImage+CHImage.h

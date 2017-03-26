@@ -1,1 +1,0 @@
-../../../../../CHChatKit/ViewModel/CHMessageItemVM/CHChatMessageFileVM.h

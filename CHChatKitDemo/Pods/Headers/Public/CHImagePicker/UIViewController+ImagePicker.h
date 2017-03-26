@@ -1,1 +1,0 @@
-../../../CHImagePicker/CHImagePicker/UIViewController+ImagePicker.h

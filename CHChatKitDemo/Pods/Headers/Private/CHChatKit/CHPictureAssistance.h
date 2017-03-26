@@ -1,1 +1,0 @@
-../../../../../CHChatKit/Views/CHChatAssistances/CHPictureAssistance.h

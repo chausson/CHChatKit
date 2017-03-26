@@ -1,1 +1,0 @@
-../../../../../CHChatKit/Extensions/UIImageView+CHExtension.h

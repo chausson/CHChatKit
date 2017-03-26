@@ -1,1 +1,0 @@
-../../../../../CHChatKit/Extensions/NSString+Emoji.h

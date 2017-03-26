@@ -1,9 +1,0 @@
-ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CHChatKit" "${PODS_ROOT}/Headers/Public/CHImagePicker" "${PODS_ROOT}/Headers/Public/CHProgressHUD" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/UITableView+FDTemplateLayoutCell" "${PODS_ROOT}/Headers/Public/XEBEventBus"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/CHChatKit" "$PODS_CONFIGURATION_BUILD_DIR/CHImagePicker" "$PODS_CONFIGURATION_BUILD_DIR/CHProgressHUD" "$PODS_CONFIGURATION_BUILD_DIR/Masonry" "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/SDWebImage" "$PODS_CONFIGURATION_BUILD_DIR/UITableView+FDTemplateLayoutCell" "$PODS_CONFIGURATION_BUILD_DIR/XEBEventBus" $(inherited) "${PODS_ROOT}/Realm/core"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CHChatKit" -isystem "${PODS_ROOT}/Headers/Public/CHImagePicker" -isystem "${PODS_ROOT}/Headers/Public/CHProgressHUD" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/Realm" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/UITableView+FDTemplateLayoutCell" -isystem "${PODS_ROOT}/Headers/Public/XEBEventBus"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"CHChatKit" -l"CHImagePicker" -l"CHProgressHUD" -l"Masonry" -l"Realm" -l"SDWebImage" -l"UITableView+FDTemplateLayoutCell" -l"XEBEventBus" -l"c++" -l"realm-ios" -l"z" -framework "Foundation" -framework "ImageIO" -framework "UIKit"
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
-PODS_ROOT = ${SRCROOT}/Pods
