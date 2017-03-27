@@ -10,6 +10,8 @@
 		0635239C1DB0A51900A841EA /* CHChatKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0635239B1DB0A51900A841EA /* CHChatKitTests.m */; };
 		0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */; };
 		0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */; };
+		067F60891E88DD3800060092 /* MyChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067F60881E88DD3800060092 /* MyChatViewController.m */; };
+		067F608C1E88DEB400060092 /* ConversationTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067F608B1E88DEB400060092 /* ConversationTableController.m */; };
 		0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 069275551D77DAE200CAB0A5 /* AppDelegate.m */; };
 		0692756D1D77DAE200CAB0A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 069275561D77DAE200CAB0A5 /* Assets.xcassets */; };
 		0692756E1D77DAE200CAB0A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 069275571D77DAE200CAB0A5 /* LaunchScreen.storyboard */; };
@@ -52,6 +54,10 @@
 		0655C2A71DCA175800B8DA9F /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		0655C2A81DCA175800B8DA9F /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
 		0655C2A91DCA175800B8DA9F /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
+		067F60871E88DD3800060092 /* MyChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyChatViewController.h; sourceTree = "<group>"; };
+		067F60881E88DD3800060092 /* MyChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyChatViewController.m; sourceTree = "<group>"; };
+		067F608A1E88DEB400060092 /* ConversationTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationTableController.h; sourceTree = "<group>"; };
+		067F608B1E88DEB400060092 /* ConversationTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationTableController.m; sourceTree = "<group>"; };
 		069275391D77DA7900CAB0A5 /* CHChatKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHChatKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		069275541D77DAE200CAB0A5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		069275551D77DAE200CAB0A5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -226,6 +232,10 @@
 				0692755C1D77DAE200CAB0A5 /* main.m */,
 				0692755D1D77DAE200CAB0A5 /* ViewController.h */,
 				0692755E1D77DAE200CAB0A5 /* ViewController.m */,
+				067F60871E88DD3800060092 /* MyChatViewController.h */,
+				067F60881E88DD3800060092 /* MyChatViewController.m */,
+				067F608A1E88DEB400060092 /* ConversationTableController.h */,
+				067F608B1E88DEB400060092 /* ConversationTableController.m */,
 			);
 			path = Bootstrap;
 			sourceTree = "<group>";
@@ -528,12 +538,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				067F608C1E88DEB400060092 /* ConversationTableController.m in Sources */,
 				0655C2AB1DCA175800B8DA9F /* YYWeakProxy.m in Sources */,
 				069275721D77DAE200CAB0A5 /* ViewController.m in Sources */,
 				0655C2AA1DCA175800B8DA9F /* YYFPSLabel.m in Sources */,
 				069275711D77DAE200CAB0A5 /* main.m in Sources */,
 				0692756C1D77DAE200CAB0A5 /* AppDelegate.m in Sources */,
 				06E72F1B1DC1CF100054A4B9 /* EMMessageHandler.m in Sources */,
+				067F60891E88DD3800060092 /* MyChatViewController.m in Sources */,
 				06E72F1E1DC1E3110054A4B9 /* AppDelegate+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
