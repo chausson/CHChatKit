@@ -23,4 +23,6 @@
                   password:(NSString *)password;
 - (void)signOut;
 
+-(void)save:(CHChatMessageViewModel*)viewModel;
+
 @end

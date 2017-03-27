@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, CHChatMessageType) {
     CHMessageFile,
     CHMessagePacket, // 红包
     CHMessageLocation,
+    CHMessageHTML,
     CHMessageSystem,
 };
 /**

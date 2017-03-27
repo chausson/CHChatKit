@@ -58,6 +58,7 @@
         [self executePacket:(CHMessagePacketEvent *)event];
         return;
     }
+    
 }
 
 
@@ -111,10 +112,10 @@
 }
 - (void)executePacket:(CHMessagePacketEvent *)event{
     if ([self.delegate respondsToSelector:@selector(executePacket:)]) {
-
         [self.delegate executePacket:event.packetViewModel];
     }
 }
+
 - (void)executeAssistanceEvent:(CHMessageAssistanceEvent *)event{
     if ([self.delegate respondsToSelector:@selector(executeAssistance:)]) {
         CHChatMessageViewModel *viewModel;

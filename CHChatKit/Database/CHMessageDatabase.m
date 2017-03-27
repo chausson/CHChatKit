@@ -337,7 +337,6 @@
             }
             viewModel = [CHChatMessageVMFactory factoryPacketOfUserIcon:message.avatar timeDate:message.date nickName:message.nickName packetId:identifer blessing:blessing isOwner:message.owner];
         }break;
-            
         default:
             return nil;
             break;

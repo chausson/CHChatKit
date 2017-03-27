@@ -64,3 +64,4 @@
 @property (nonatomic ,assign) CHVoicePlayState voiceState;
 
 @end
+

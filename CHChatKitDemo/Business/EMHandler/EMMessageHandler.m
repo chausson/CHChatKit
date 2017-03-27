@@ -59,6 +59,10 @@ static NSString * changeDateToStr(long long timestamp){
     [[EMClient sharedClient] logout:YES];
 }
 
+-(void)save:(CHChatMessageViewModel*)viewModel{
+    [self.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
+}
+
 #pragma mark POST-TEXT
 - (void)executeText:(CHChatMessageViewModel *)viewModel{
     [self EMTextPOST:(CHChatMessageTextVM *)viewModel];
@@ -146,6 +150,10 @@ static NSString * changeDateToStr(long long timestamp){
         [strongSelf.dataBase saveMessage:(CHChatMessageViewModel *)viewModel];
 
     }];
+}
+-(void)executeHTML:(CHChatMessageHTMLVM *)viewModel{
+    
+    
 }
 #pragma mark POST-LOCATION
 

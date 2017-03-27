@@ -111,6 +111,7 @@
     packet.owner = owner;
     return packet;
 }
+
 + (NSArray <CHChatMessageViewModel *>*)testData{
     NSMutableArray <CHChatMessageViewModel *>*viewModels = [NSMutableArray array];
     NSString *userIcon = @"http://p3.music.126.net/36br0Mrxoa38WFBTfqiu3g==/7834020348630828.jpg";

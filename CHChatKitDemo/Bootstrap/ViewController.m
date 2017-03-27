@@ -15,7 +15,7 @@
 #import "CHChatMessageVMFactory.h"
 #import "EMMessageHandler.h"
 #import "YYFPSLabel.h"
-
+#import "CHChatMessageViewModel.h"
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -45,6 +45,7 @@
     NSMutableArray *messages = [NSMutableArray array];
     NSArray *historyMs = [data fetchAllMessageWithReceive:receiveId];
     [messages addObjectsFromArray:historyMs];
+        
     CHChatViewModel *vm = [[CHChatViewModel alloc]initWithMessageHistroy:messages configuration:configuration];
    // vm.receiveId = 14128;
     vm.receiveId = receiveId;
